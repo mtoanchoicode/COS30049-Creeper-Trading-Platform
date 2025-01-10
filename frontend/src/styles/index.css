@@ -1,4 +1,6 @@
 * {
+  font-family: "Manrope", serif;
+  font-optical-sizing: auto;
   font-size: 16px;
 }
 
@@ -42,11 +44,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Oxanium", serif;
+  font-optical-sizing: auto;
 }
 
 h1 {
-  font-size: 3.2rem;
+  font-size: 4rem;
+}
+
+p {
+  font-size: 1rem;
 }
 
 button {
