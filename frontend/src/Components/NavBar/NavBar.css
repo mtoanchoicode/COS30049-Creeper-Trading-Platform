@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-left p{
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.navbar-center ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    gap: 1.5rem;
+}
