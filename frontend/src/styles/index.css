@@ -5,11 +5,12 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  --primary-color: #00AF49;
+  --header-color: #00AF49;
 }
 
 :root {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(255, 255, 255);
   background: #000000;
 }
 
