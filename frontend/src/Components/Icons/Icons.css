@@ -1,4 +1,8 @@
-.navbar-icon img {
+.icon {
+  cursor: pointer;
+}
+
+.icon img {
   width: 100%;
   max-width: 100%;
   height: auto;

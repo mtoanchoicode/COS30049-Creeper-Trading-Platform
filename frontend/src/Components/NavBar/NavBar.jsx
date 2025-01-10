@@ -1,7 +1,7 @@
 import React from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
-import { NavIcon } from "../NavIcon/NavIcon";
+import { Icons } from "../Icons/Icons";
 
 import bellIcon from "../../assets/White Bell Icon.svg";
 import globeIcon from "../../assets/GLobe Icon.svg";
@@ -10,7 +10,7 @@ import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
 import chevronDownIcon from "../../assets/Chevron Down Icon.svg";
 
-export const NavBar = () => {
+const NavBar = () => {
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -33,9 +33,9 @@ export const NavBar = () => {
       </div>
 
       <div className="navbar-right">
-        <NavIcon src={walletIcon} alt="Wallet Icon" />
-        <NavIcon src={bellIcon} alt="Notification Icon" />
-        <NavIcon src={globeIcon} alt="Globe Icon" />
+        <Icons src={walletIcon} alt="Wallet Icon" />
+        <Icons src={bellIcon} alt="Notification Icon" />
+        <Icons src={globeIcon} alt="Globe Icon" />
         <div className="navbar-right-user navbar-icon">
           <img src={barsIcon} alt="Menu Icon" />
           <img src={userIcon} alt="User Icon" />
@@ -45,3 +45,4 @@ export const NavBar = () => {
   );
 };
 
+export default NavBar;
