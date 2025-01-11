@@ -25,30 +25,30 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-center">
-        <ul className="nav-center-menu">
-          <Link to="/buysell">
-            <li>Buy Crypto</li>
+        <div className="nav-center-menu">
+          <Link to="/buysell" className="nav-center-menu-link">
+            <div className="nav-center-menu-name">Buy Crypto</div>
           </Link>
-          <Link to="/market">
-            <li>Market</li>
+          <Link to="/market" className="nav-center-menu-link">
+            <div className="nav-center-menu-name">Market</div>
           </Link>
-          <Link
-            to="/trade"
+          <div
             onMouseEnter={() => setShowNavTrade(true)}
             onMouseLeave={() => setShowNavTrade(false)}
+            className="nav-center-menu-link"
           >
-            <li>
+            <div className="nav-center-menu-name">
               Trading <i className="fa-solid fa-chevron-down"></i>
               {showNavTrade && <NavTrade />}
-            </li>
+            </div>
+          </div>
+          <Link to="/explore" className="nav-center-menu-link">
+            <div className="nav-center-menu-name">Explore</div>
           </Link>
-          <Link to="/explore">
-            <li>Explore</li>
+          <Link to="/about" className="nav-center-menu-link">
+            <div className="nav-center-menu-name">About Us</div>
           </Link>
-          <Link to="/about">
-            <li>About Us</li>
-          </Link>
-        </ul>
+        </div>
       </div>
 
       <div className="navbar-right">

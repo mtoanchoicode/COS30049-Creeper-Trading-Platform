@@ -23,7 +23,7 @@
 }
 
 /* Center Section */
-.navbar-center ul {
+.navbar-center .nav-center-menu {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -31,7 +31,7 @@
   gap: 1.5rem;
 }
 
-.navbar-center ul a {
+.navbar-center .nav-center-menu .nav-center-menu-link {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -41,13 +41,13 @@
   height: 5rem;
 }
 
-.navbar-center ul a li {
+.navbar-center .nav-center-menu a .nav-center-menu-name {
   cursor: pointer;
   align-items: center;
   justify-content: center;
 }
 
-.navbar-center ul i {
+.navbar-center .nav-center-menu i {
   font-size: 0.7rem;
   cursor: pointer;
   display: inline-block;
