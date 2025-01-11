@@ -1,6 +1,5 @@
 import React from "react";
 import "./NavBar.css";
-import { Link } from "react-router-dom";
 import Icons from "../Icons/Icons";
 
 import bellIcon from "../../assets/White Bell Icon.svg";
