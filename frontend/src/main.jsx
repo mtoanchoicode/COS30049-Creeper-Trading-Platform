@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/index.css";
-import Dashboard from "./pages/Dashboard.jsx";
-import Market from "./pages/Market.jsx";
-import AboutUs from "./pages/Market.jsx";
+import DashboardPage from "./pages/Dashboard.jsx";
+import MarketPage from "./pages/Market.jsx";
+import AboutUsPage from "./pages/Market.jsx";
+import TradePage from "./pages/Trade.jsx";
+import RegisterPage from "./pages/Register.jsx";
 
 import App from "./App.jsx";
 
@@ -16,19 +18,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <DashboardPage />,
       },
       {
         path: "market",
-        element: <Market />,
-      },
-      {
-        path: "trading",
-        element: <Trading />,
+        element: <MarketPage />,
       },
       {
         path: "about",
-        element: <AboutUs />,
+        element: <AboutUsPage />,
+      },
+      {
+        path: "trade",
+        element: <TradePage />,
       },
     ],
   },

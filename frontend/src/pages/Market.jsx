@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export const Market = () => {
-  return (
-    <div>Market</div>
-  )
-}
+const MarketPage = () => {
+  return <div>Market</div>;
+};
+
+export default MarketPage;
