@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
 
@@ -7,27 +7,47 @@ import globeIcon from "../../assets/GLobe Icon.svg";
 import walletIcon from "../../assets/Wallet Icon.svg";
 import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
-import chevronDownIcon from "../../assets/Chevron Down Icon.svg";
+import { Link } from "react-router-dom";
+import NavTrade from "../NavTrade/NavTrade";
 
 const NavBar = () => {
+  const [showNavTrade, setShowNavTrade] = useState(false);
+
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <div className="navbar-left-logo">
-          <img src="" alt="Logo" />
-        </div>
-        <p className="navbar-title">CREEPER</p>
+        <Link to="/">
+          <div className="navbar-left-logo">
+            <img src="" alt="Logo" />
+          </div>
+          <p className="navbar-title">CREEPER</p>
+        </Link>
       </div>
 
       <div className="navbar-center">
         <ul className="nav-center-menu">
-          <li>Buy Crypto</li>
-          <li>Market</li>
-          <li>
-            Trading <img src={chevronDownIcon} alt="Dropdown Icon" />
-          </li>
-          <li>Explore</li>
-          <li>About Us</li>
+          <Link to="/buysell">
+            <li>Buy Crypto</li>
+          </Link>
+          <Link to="/market">
+            <li>Market</li>
+          </Link>
+          <Link
+            to="/trade"
+            onMouseEnter={() => setShowNavTrade(true)}
+            onMouseLeave={() => setShowNavTrade(false)}
+          >
+            <li>
+              Trading <i className="fa-solid fa-chevron-down"></i>
+              {showNavTrade && <NavTrade />}
+            </li>
+          </Link>
+          <Link to="/explore">
+            <li>Explore</li>
+          </Link>
+          <Link to="/about">
+            <li>About Us</li>
+          </Link>
         </ul>
       </div>
 
@@ -35,10 +55,12 @@ const NavBar = () => {
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
         <Icons src={globeIcon} alt="Globe Icon" />
-        <div className="navbar-right-user navbar-icon">
-          <img src={barsIcon} alt="Menu Icon" />
-          <img src={userIcon} alt="User Icon" />
-        </div>
+        <Link to="/register">
+          <div className="navbar-right-user navbar-icon">
+            <img src={barsIcon} alt="Menu Icon" />
+            <img src={userIcon} alt="User Icon" />
+          </div>
+        </Link>
       </div>
     </div>
   );
