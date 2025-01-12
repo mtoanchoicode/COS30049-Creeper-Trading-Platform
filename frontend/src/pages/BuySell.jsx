@@ -1,8 +1,10 @@
 import React from 'react'
-
+import BuyCryptoFlow from "../components/BuySellCryptoFlow/BuyCryptoFlow";
 const BuySellPage = () => {
   return (
-    <div>BuySell</div>
+    <>
+      <BuyCryptoFlow />
+    </>
   )
 }
 
