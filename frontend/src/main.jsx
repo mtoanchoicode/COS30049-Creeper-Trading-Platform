@@ -15,7 +15,7 @@ import SpotTrade from "./pages/Trade/SpotTrade.jsx";
 import MarginTrade from "./pages/Trade/MarginTrade.jsx";
 import ConvertTrade from "./pages/Trade/ConvertTrade.jsx";
 
-const router = createBrowserRouter([
+const routers = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -59,6 +59,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={routers} />
   </StrictMode>
 );

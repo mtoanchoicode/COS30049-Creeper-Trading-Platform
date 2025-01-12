@@ -7,6 +7,8 @@
   margin: 0;
   --primary-color: #00AF49;
   --header-color: #00AF49;
+  --white-color: #ffffff; 
+  --black-color: #191919; 
 }
 
 :root {
