@@ -5,13 +5,13 @@ import facebook_icon from "../../assets/Footer Facebook Icon.svg";
 import youtube_icon from "../../assets/Footer Youtube Icon.svg";
 import x_icon from "../../assets/Footer X Icon.svg";
 import google_icon from "../../assets/Footer Google Icon.svg";
-import { Icons } from "../Icons/Icons";
+import Icons from "../Icons/Icons";
 
 const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-logo">
-        <img src="" alt="Logo Icon" />
+        <img src="" alt="Logo" />
         <p>CREEPER</p>
       </div>
 
