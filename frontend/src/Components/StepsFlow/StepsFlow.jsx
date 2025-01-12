@@ -1,5 +1,8 @@
 import React from "react";
 import './StepsFlow.css';
+import { Icons } from "../Icons/Icons";
+import WhiteArrow from "../../assets/White-arrow.svg";
+
 
 
 const Steps= ({steps, title}) => {
@@ -13,10 +16,18 @@ const Steps= ({steps, title}) => {
                 {steps.map((step, index) => (
                     <div key = {index} className= "Steps_content_container">
                         <div className= "Steps_item">
-                            <img className = "Step-icon" src={step.src} alt={step.alt} />
+                            <div className = "Step-img_container">
+                                <img className = "Step-img" src={step.src} alt={step.alt} />
+                            </div>
                             <p className = "Step-desc">{step.desc}</p>
                         </div>
-                    </div>
+
+                        {index < steps.length -1 && 
+                            <div className= "Steps_arrow">
+                                  <Icons src={WhiteArrow} alt="white arrow" />
+                            </div>
+                        }
+                    </div> 
                 ))}
             </div>
         </div>

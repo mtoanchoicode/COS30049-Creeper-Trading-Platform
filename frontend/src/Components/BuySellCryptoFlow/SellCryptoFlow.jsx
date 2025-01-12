@@ -1,36 +1,36 @@
 import React from 'react';
-import Steps from '../StepsFlow/StepsFlow';
+import Steps from "../StepsFlow/StepsFlow";
 
-import bellIcon from "../../assets/White Bell Icon.svg";
-import globeIcon from "../../assets/GLobe Icon.svg";
-import walletIcon from "../../assets/Wallet Icon.svg";
-import userIcon from "../../assets/User Icon.svg";
+import CoinIcon from "../../assets/Coin-icon.svg";
+import Cardpos from "../../assets/Card-pos.svg";
+import ShopingCart from "../../assets/Shopping-cart.svg";
+import BuyCoin from "../../assets/Buy-crypto.svg";
 
 const BuyCryptoFlow = () => {
   const steps = [
     { 
-        src: bellIcon, 
+        src: CoinIcon, 
         alt: 'picture of step 1',
         desc: 'Enter Amount' 
     },
     { 
-        src: globeIcon, 
+        src: Cardpos, 
         alt: 'picture of step 2',
         desc: 'Select Payment' 
     },
     { 
-        src: walletIcon, 
+        src: ShopingCart, 
         alt: 'picture of step 3',
         desc: 'Confirm Order' 
     },
     { 
-        src: userIcon, 
+        src: BuyCoin, 
         alt: 'picture of step 4',
         desc: 'Receive Crypto' 
     },
   ];
 
-  return <Steps steps={steps} title="How to Buy Crypto" />;
+  return <Steps steps={steps} title="How to Sell Crypto" />;
 };
 
 export default BuyCryptoFlow;
