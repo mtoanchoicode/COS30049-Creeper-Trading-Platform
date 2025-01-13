@@ -5,8 +5,8 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  --primary-color: #00AF49;
-  --header-color: #00AF49;
+  --primary-color: #00da5b;
+  --header-color: #00da5b;
   --white-color: #ffffff; 
   --black-color: #191919; 
 }
@@ -33,7 +33,8 @@ h6 {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
+  font-weight: 500;
 }
 
 p {
