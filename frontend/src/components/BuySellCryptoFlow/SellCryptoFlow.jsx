@@ -6,7 +6,7 @@ import Cardpos from "../../assets/Card-pos.svg";
 import ShopingCart from "../../assets/Shopping-cart.svg";
 import BuyCoin from "../../assets/Buy-crypto.svg";
 
-const BuyCryptoFlow = () => {
+const SellCryptoFlow = () => {
   const steps = [
     {
       src: CoinIcon,
@@ -33,4 +33,4 @@ const BuyCryptoFlow = () => {
   return <Steps steps={steps} title="How to Sell Crypto" />;
 };
 
-export default BuyCryptoFlow;
+export default SellCryptoFlow;
