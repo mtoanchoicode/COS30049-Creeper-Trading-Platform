@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
 
-import bellIcon from "../../assets/White Bell Icon.svg";
-import globeIcon from "../../assets/GLobe Icon.svg";
+import bellIcon from "../../assets/Bell Icon.svg";
+import hoverBellIcon from "../../assets/Hover Bell Icon.svg";
+import moonIcon from "../../assets/Dark Mode Icon.svg";
+import hoverMoonIcon from "../../assets/Hover Dark Mode Icon.svg";
 import walletIcon from "../../assets/Wallet Icon.svg";
 import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
@@ -12,6 +14,7 @@ import NavTrade from "../NavTrade/NavTrade";
 
 const NavBar = () => {
   const [showNavTrade, setShowNavTrade] = useState(false);
+  const [hoverIcon, setHoverIcon] = useState(false);
 
   return (
     <div className="navbar">
@@ -54,7 +57,8 @@ const NavBar = () => {
       <div className="navbar-right">
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
-        <Icons src={globeIcon} alt="Globe Icon" />
+        <Icons src={moonIcon} alt="Moon Icon" />
+
         <Link to="/register">
           <div className="navbar-right-user navbar-icon">
             <img src={barsIcon} alt="Menu Icon" />
