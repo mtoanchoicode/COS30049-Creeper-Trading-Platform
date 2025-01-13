@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5rem;
+  padding: 0 2rem;
   width: 100%;
   height: 5rem;
 }
@@ -13,12 +13,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .5rem;
 }
 
 .navbar-left p {
   font-family: "Oxanium", sans-serif;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--header-color);
 }
 

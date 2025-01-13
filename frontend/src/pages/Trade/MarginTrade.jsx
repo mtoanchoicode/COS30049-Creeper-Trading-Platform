@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const MarginTrade = () => {
-  return (
-    <div>MarginTrade</div>
-  )
-}
+  return <div className="margin-trade"></div>;
+};
 
 export default MarginTrade;
