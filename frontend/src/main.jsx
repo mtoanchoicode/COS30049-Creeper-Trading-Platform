@@ -9,7 +9,8 @@ import MarketPage from "./pages/Market.jsx";
 import AboutUsPage from "./pages/AboutUs.jsx";
 import TradePage from "./pages/Trade.jsx";
 import RegisterPage from "./pages/Register.jsx";
-import BuySellPage from "./pages/BuySell.jsx";
+import SellPage from "./pages/SellPage.jsx";
+import BuyPage from "./pages/BuyPage.jsx";
 import ExplorePage from "./pages/Explore.jsx";
 import SpotTrade from "./pages/Trade/SpotTrade.jsx";
 import MarginTrade from "./pages/Trade/MarginTrade.jsx";
@@ -42,8 +43,12 @@ const routers = createBrowserRouter([
         ],
       },
       {
-        path: "buysell",
-        element: <BuySellPage />,
+        path: "buy",
+        element: <BuyPage />,
+      },
+      {
+        path: "sell",
+        element: <SellPage />,
       },
       {
         path: "explore",
