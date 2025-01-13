@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Steps from "../StepsFlow/StepsFlow";
 
 import CoinIcon from "../../assets/Coin-icon.svg";
@@ -8,25 +8,25 @@ import BuyCoin from "../../assets/Buy-crypto.svg";
 
 const BuyCryptoFlow = () => {
   const steps = [
-    { 
-        src: CoinIcon, 
-        alt: 'picture of step 1',
-        desc: 'Enter Amount' 
+    {
+      src: CoinIcon,
+      alt: "picture of step 1",
+      desc: "Enter Amount",
     },
-    { 
-        src: Cardpos, 
-        alt: 'picture of step 2',
-        desc: 'Select Payment' 
+    {
+      src: Cardpos,
+      alt: "picture of step 2",
+      desc: "Select Payment",
     },
-    { 
-        src: ShopingCart, 
-        alt: 'picture of step 3',
-        desc: 'Confirm Order' 
+    {
+      src: ShopingCart,
+      alt: "picture of step 3",
+      desc: "Confirm Order",
     },
-    { 
-        src: BuyCoin, 
-        alt: 'picture of step 4',
-        desc: 'Receive Crypto' 
+    {
+      src: BuyCoin,
+      alt: "picture of step 4",
+      desc: "Receive Crypto",
     },
   ];
 
