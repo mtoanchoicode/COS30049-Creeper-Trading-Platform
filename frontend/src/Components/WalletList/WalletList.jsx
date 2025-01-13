@@ -1,4 +1,5 @@
-{/* <section class="text-center mb-12">
+{
+  /* <section class="text-center mb-12">
     <h3 class="text-3xl font-bold mb-6">
         Wallets We Support
     </h3>
@@ -37,4 +38,5 @@
                 </p>
         </div>
     </div>
-</section> */}
+</section> */
+}
