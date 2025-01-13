@@ -1,18 +1,12 @@
-.convert-trade {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 10rem;
-}
-
-.convert-trade .convert-trade-heading {
+.convert-trade-heading {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.7rem;
+  margin-bottom: 2rem;
 }
 
-.convert-trade .convert-trade-heading h1 {
+.convert-trade-heading h1 {
   color: var(--header-color);
 }
 
@@ -20,6 +14,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.convert-trade-heading-bottom p span {
+  margin-right: 0.5rem;
 }
 
 .convert-trade-heading-bottom .convert-trade-history {

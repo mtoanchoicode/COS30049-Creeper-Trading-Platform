@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/index.css";
+
 import App from "./App.jsx";
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market.jsx";
@@ -12,9 +12,9 @@ import RegisterPage from "./pages/Register.jsx";
 import SellPage from "./pages/SellPage.jsx";
 import BuyPage from "./pages/BuyPage.jsx";
 import ExplorePage from "./pages/Explore.jsx";
-import SpotTrade from "./pages/Trade/SpotTrade.jsx";
-import MarginTrade from "./pages/Trade/MarginTrade.jsx";
-import ConvertTrade from "./pages/Trade/ConvertTrade.jsx";
+import SpotTrade from "./pages/Trade/SpotTrade/SpotTrade.jsx";
+import MarginTrade from "./pages/Trade/MarginTrade/MarginTrade.jsx";
+import ConvertTrade from "./pages/Trade/ConvertTrade/ConvertTrade.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -52,7 +52,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "explore",
-        elememt: <ExplorePage />,
+        element: <ExplorePage />,
       },
     ],
   },
