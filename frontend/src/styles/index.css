@@ -12,8 +12,8 @@
 }
 
 :root {
-  color: rgb(255, 255, 255);
-  background: #000000;
+  color: var(--white-color);
+  background: var(--black-color);
 }
 
 body {
