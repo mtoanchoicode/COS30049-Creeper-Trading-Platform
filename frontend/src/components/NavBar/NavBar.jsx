@@ -14,6 +14,7 @@ import NavTrade from "../NavTrade/NavTrade";
 import NavProfile from "../NavProfile/NavProfile";
 
 const NavBar = () => {
+  const [showNavTrade, setShowNavTrade] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
   const [hoverIcon, setHoverIcon] = useState(false);
 
@@ -58,11 +59,18 @@ const NavBar = () => {
       <div className="navbar-right">
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
-        <Icons src={globeIcon} alt="Globe Icon" />
-        <Link to="/register">
-          <div className="navbar-right-user navbar-icon">
-            <img src={barsIcon} alt="Menu Icon" />
-            <img src={userIcon} alt="User Icon" />
+        <Icons src={moonIcon} alt="Moon  Icon" />
+        <Link to="/profile">
+          <div
+            className="navbar-right-profile"
+            onMouseEnter={() => setshowNavProfile(true)}
+            onMouseLeave={() => setshowNavProfile(false)}
+          >
+            <div className="navbar-right-user navbar-icon">
+              <img src={barsIcon} alt="Menu Icon" />
+              <img src={userIcon} alt="User Icon" />
+              {showNavProfile && <NavProfile />}
+            </div>
           </div>
         </Link>
       </div>
