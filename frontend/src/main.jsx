@@ -8,13 +8,15 @@ import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market.jsx";
 import AboutUsPage from "./pages/AboutUs.jsx";
 import TradePage from "./pages/Trade.jsx";
-import RegisterPage from "./pages/Register.jsx";
+import RegisterPage from "./pages/Profile/Register.jsx";
 import SellPage from "./pages/SellPage.jsx";
 import BuyPage from "./pages/BuyPage.jsx";
 import ExplorePage from "./pages/Explore.jsx";
 import SpotTrade from "./pages/Trade/SpotTrade/SpotTrade.jsx";
 import MarginTrade from "./pages/Trade/MarginTrade/MarginTrade.jsx";
 import ConvertTrade from "./pages/Trade/ConvertTrade/ConvertTrade.jsx";
+import ProfilePage from "./pages/Profile.jsx";
+import LoginPage from "./pages/Profile/Login.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -54,11 +56,19 @@ const routers = createBrowserRouter([
         path: "explore",
         element: <ExplorePage />,
       },
+      {
+        path: "profile",
+        elememt: <ProfilePage />,
+      },
     ],
   },
   {
-    path: "register",
+    path: "/profile/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/profile/login",
+    element: <LoginPage />,
   },
 ]);
 

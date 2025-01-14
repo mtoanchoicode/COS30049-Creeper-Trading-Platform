@@ -6,9 +6,12 @@
   padding: 0;
   margin: 0;
   --primary-color: #00da5b;
+  --secondary-color: #3E7B27;
+  --third-color: #306844;
   --header-color: #00da5b;
   --white-color: #ffffff; 
   --black-color: #191919; 
+  --text-color: #D9D9D9;
 }
 
 :root {

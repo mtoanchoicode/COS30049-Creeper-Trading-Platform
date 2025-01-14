@@ -11,9 +11,10 @@ import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
 import { Link } from "react-router-dom";
 import NavTrade from "../NavTrade/NavTrade";
+import NavProfile from "../NavProfile/NavProfile";
 
 const NavBar = () => {
-  const [showNavTrade, setShowNavTrade] = useState(false);
+  const [showNavProfile, setshowNavProfile] = useState(false);
   const [hoverIcon, setHoverIcon] = useState(false);
 
   return (
@@ -57,8 +58,7 @@ const NavBar = () => {
       <div className="navbar-right">
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
-        <Icons src={moonIcon} alt="Moon Icon" />
-
+        <Icons src={globeIcon} alt="Globe Icon" />
         <Link to="/register">
           <div className="navbar-right-user navbar-icon">
             <img src={barsIcon} alt="Menu Icon" />
