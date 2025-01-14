@@ -66,13 +66,22 @@
 
 /* Right Section */
 .navbar-right {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
+  cursor: pointer;
+}
+.navbar-right-profile{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-right-user {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

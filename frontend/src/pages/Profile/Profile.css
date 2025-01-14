@@ -1,0 +1,12 @@
+.profilePage-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background-image:radial-gradient(circle at right, #182C25,rgb(9, 16, 14));
+}
+.profilePage-h1{
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
