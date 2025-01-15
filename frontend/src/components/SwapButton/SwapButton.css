@@ -1,0 +1,15 @@
+.convert-currencies-center {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 0.05rem solid #565656;
+  border-radius: 1rem;
+  background: var(--black-color);
+  cursor: pointer;
+}
+
+.convert-currencies-center:hover {
+  border: 0.05rem solid #868686;
+}

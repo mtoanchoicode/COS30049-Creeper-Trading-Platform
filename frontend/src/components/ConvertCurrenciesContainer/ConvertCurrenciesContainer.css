@@ -1,0 +1,95 @@
+.convert-currencies-container {
+  display: flex;
+  flex-direction: column;
+  border: 0.05rem solid #565656;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.convert-currencies-container:hover {
+  border: 0.05rem solid #868686;
+}
+
+.convert-currencies-container-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.convert-currencies-container-top .convert-currencies-container-balance {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.convert-currencies-container-top .convert-currencies-container-balance p {
+  font-size: 0.9rem;
+}
+
+.convert-coin-selection-container {
+  background: rgb(37, 37, 37);
+  height: 60%;
+  width: 35%;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  padding-right: 0.2rem;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.convert-coin-selection-container-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.convert-coin-selection-container-top p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.convert-coin-selection-container-top .convert-coin-selection-container-close {
+  cursor: pointer;
+}
+
+.convert-currencies-container-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.convert-currencies-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.convert-currencies-selection img {
+  aspect-ratio: 1/1;
+  width: 1.5rem;
+  min-height: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.convert-currencies-selection p {
+  font-weight: 600;
+}
+
+.convert-currencies-selection i {
+    font-size: 0.7rem;
+    color:#565656;
+}
+
+.convert-currencies-selection:hover i {
+    font-size: 0.7rem;
+    color: white;
+}
+

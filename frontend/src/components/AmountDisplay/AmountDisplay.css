@@ -1,0 +1,19 @@
+.amount-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .3rem;
+  margin-top: 10px;
+}
+
+.amount-display-main p {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.amount-display-usd p {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}

@@ -26,6 +26,13 @@
   cursor: pointer;
 }
 
+.convert-trade-heading-bottom .convert-trade-history img{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  z-index: -1;
+}
+
 .convert-trade-heading-bottom .convert-trade-history span {
   visibility: hidden;
   font-size: 0.7rem;
@@ -42,7 +49,7 @@
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1;
+  z-index: -1;
 }
 
 .convert-trade-heading-bottom .convert-trade-history:hover span {
