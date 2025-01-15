@@ -3,6 +3,7 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: 0 8rem;
+    padding-bottom: 2.5rem;
     margin-top: 2rem;
     gap: 2rem;
   }
