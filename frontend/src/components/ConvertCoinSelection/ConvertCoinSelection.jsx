@@ -12,7 +12,9 @@ export const ConvertCoinSelection = ({ handleOverlay, onCoinSelect }) => {
     )
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data)
         setCoins(data);
+        
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);

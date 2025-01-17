@@ -1,5 +1,5 @@
 import React from 'react'
-import SellCryptoFlow from "../components/BuySellCryptoFlow/SellCryptoFlow";
+import SellCryptoFlow from "../../components/BuySellCryptoFlow/SellCryptoFlow";
 
 const SellPage = () => {
   return (

@@ -1,0 +1,45 @@
+.Wallet-List-Container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Subtest-heading-walletlist {
+    color: var(--white-color);
+}
+
+.Heading-title_walletlist {
+    color: var(--white-color);
+}
+
+.WalletList-Item-Container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.Wallet-Item {
+    background-color: rgba(77, 77, 77, 0.3);
+    border-radius: 1.2rem;
+    padding: 1.2rem;
+    gap: 1rem;
+}
+
+.Wallet-Image-Container {
+    height: 100%;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 100%;
+    background-color: rgba(46, 46, 46, 0.3);
+}
+
+.Wallet-Image {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.Wallet-Name {
+    font-size: 1.2rem;
+}
+

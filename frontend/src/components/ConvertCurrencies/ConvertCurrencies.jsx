@@ -13,6 +13,7 @@ const ConvertCurrencies = () => {
     symbol: "USDT",
     image: "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
   });
+  // can update the currencies based on the state of event
   const [amount, setAmount] = useState(1);
   const [availableBalance, setAvailableBalance] = useState(100000);
   const [activeOverlay, setActiveOverlay] = useState(null);
