@@ -1,5 +1,5 @@
 import React from "react";
-import ConvertCoinSelection from "../ConvertCoinSelection/ConvertCoinSelection";
+import ConvertCoinSelection from "../CurrencySelectOverlay/CurrencySelectOverlay";
 
 const CurrencyOverlay = ({ type, activeOverlay, onClose, onCoinSelect }) => {
   return (

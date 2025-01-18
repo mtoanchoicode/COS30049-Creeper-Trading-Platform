@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import "./ConvertCoinSelection.css";
+import "./CurrencySelectOverlay.css";
+import { CoinContext } from "../../contexts/CoinContext";
 
 export const ConvertCoinSelection = ({ handleOverlay, onCoinSelect }) => {
-  const [coins, setCoins] = useState([]);
-
-  useEffect(() => {
-    // Fetch top coins by market cap from CoinGecko
-    fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCoins(data);
-      })
-      .catch((error) => console.error("Error fetching coin data:", error));
-  }, []);
+  const { coins } = useContext(CoinContext);
 
   return (
     <div className="convert-coin-selection">
@@ -30,7 +19,7 @@ export const ConvertCoinSelection = ({ handleOverlay, onCoinSelect }) => {
           </div>
         </div>
         <div className="convert-coin-selection-container-list">
-          {coins.map((coin) => (
+          {coins.slice(0,10).map((coin) => (
             <div
               key={coin.id}
               className="selection-coin-item"
