@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/index.css";
 
 import App from "./App.jsx";
+import CoinProvider from "./contexts/CoinContext";
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market.jsx";
 import AboutUsPage from "./pages/AboutUs.jsx";
@@ -74,6 +75,8 @@ const routers = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={routers} />
+    <CoinProvider>
+      <RouterProvider router={routers} />
+    </CoinProvider>
   </StrictMode>
 );

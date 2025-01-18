@@ -9,6 +9,7 @@
   position: fixed;
   top: 0;
   background: var(--black-color);
+  z-index: 100;
 }
 
 /* Left Section */
@@ -16,7 +17,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
 }
 
 .navbar-left p {
