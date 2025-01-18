@@ -9,6 +9,7 @@
   position: fixed;
   top: 0;
   background: var(--black-color);
+  z-index: 9999;
 }
 
 /* Left Section */
