@@ -19,9 +19,11 @@ const Wallets = ({wallets, title, subtitle}) => {
               <div className= "Wallet-Image-Container">
                 <img className= "Wallet-Image" alt={wallet.alt}  src={wallet.src}/>
               </div>
-              <p className = "Wallet-Name">
-                {wallet.name}
-              </p>            
+              <div className = "Wallet-Name-Container">
+                <p>
+                  {wallet.name}
+                </p> 
+              </div>                        
             </div>
           ))} 
       </div>

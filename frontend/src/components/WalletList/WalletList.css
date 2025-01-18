@@ -2,6 +2,9 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    height: 100%;
 }
 
 .Subtest-heading-walletlist {
@@ -10,6 +13,8 @@
 
 .Heading-title_walletlist {
     color: var(--white-color);
+    font-size: 3rem;
+    text-transform: capitalize;
 }
 
 .WalletList-Item-Container {
@@ -19,19 +24,26 @@
 }
 
 .Wallet-Item {
-    background-color: rgba(77, 77, 77, 0.3);
+    display: flex; 
+    align-items: center ;
+    flex-direction: column;
+    /* background-color: rgba(77, 77, 77, 0.3); */
+    background: linear-gradient(148deg, rgba(24, 214, 81, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
     border-radius: 1.2rem;
     padding: 1.2rem;
     gap: 1rem;
+    width: 100%;  
 }
 
 .Wallet-Image-Container {
-    height: 100%;
     padding: 1.5rem;
     display: flex;
     align-items: center;
     border-radius: 100%;
-    background-color: rgba(46, 46, 46, 0.3);
+    background-color: rgba(161, 226, 190, 0.3);
+    /* fill: linear-gradient(148deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.05) 100%); */
+    backdrop-filter: blur(10px);
 }
 
 .Wallet-Image {
@@ -39,7 +51,9 @@
     height: 1.5rem;
 }
 
-.Wallet-Name {
+.Wallet-Name-Container {
     font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
 }
 
