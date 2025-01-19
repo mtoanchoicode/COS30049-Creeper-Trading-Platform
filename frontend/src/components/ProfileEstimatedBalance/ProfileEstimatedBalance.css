@@ -3,9 +3,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: 0.1rem solid var(--white-color);
+    border: 0.05rem solid var(--white-color);
     padding: 1rem 2rem;
-    height: fit-content;
+    height: 12rem;
     width: 100%;
     border-radius: 1.5rem;
 }

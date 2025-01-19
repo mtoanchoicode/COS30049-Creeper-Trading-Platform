@@ -1,6 +1,10 @@
 .loginform-main-form{
     width: 30rem;
 }
+
+.loginform-main-form .ant-form-item{
+    margin-bottom: 1.5rem;
+}
 .loginform-google-button{
     display: "flex";
     align-items: "center";
@@ -15,7 +19,7 @@
     color: var(--text-color) !important;
 }
 .loginform-google-icon{
-    width: 20px;
+    width: 1rem;
     margin-right: .5rem;
 }
 .loginform-don-have-account{
@@ -34,5 +38,6 @@
     background: var(--secondary-color) !important;
 }
 .profileForm-input{
-    height: 2.5rem;
+    height: 3rem;
+    font-size: 1rem;
 }
