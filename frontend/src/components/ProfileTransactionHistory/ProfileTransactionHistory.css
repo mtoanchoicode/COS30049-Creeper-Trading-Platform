@@ -1,0 +1,49 @@
+.profileTH-card{
+    border: 0.05rem solid var(--white-color);
+    padding: 2rem 2rem;
+    width: 100%;
+    height: fit-content;
+    border-radius: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.profileTH-header{
+    display: flex;
+    justify-content: space-between;
+}
+.profileTH-card-shrink{
+    padding: 1rem 2rem;
+    width: fit-content;
+    min-height: 12rem;
+    height: fit-content;
+}
+.profileTH-card .profileTH-heading{
+    font-size: 2rem;
+}
+
+.profileTH-card .profileTH-table{
+
+    width: 100%;
+    border-collapse: collapse
+}
+
+.profileTH-card .profileTH-table th{
+    text-align: left;
+    padding: .5rem;
+    border-bottom: 0.05rem solid var(--white-color);
+    white-space: nowrap;
+}
+
+.profileTH-card .profileTH-table td{
+    text-align: left;
+    padding: .5rem;
+    white-space: nowrap;
+}
+
+.profileTH-buy {
+    color: var(--primary-color);
+  }
+  
+.profileTH-sell {
+    color: red;
+}

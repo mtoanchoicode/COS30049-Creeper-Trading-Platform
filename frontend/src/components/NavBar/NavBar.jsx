@@ -61,7 +61,7 @@ const NavBar = () => {
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
         <Icons src={moonIcon} alt="Moon  Icon" />
-        <Link to="/profile">
+        <Link to="/profile/dashboard">
           <div
             className="navbar-right-profile"
             onMouseEnter={() => setshowNavProfile(true)}

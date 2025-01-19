@@ -1,0 +1,14 @@
+.notFound-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.notFound-container img{
+    width: 10rem;
+}
+
+.notFound-container a:hover{
+    color: var(--primary-color);
+}
