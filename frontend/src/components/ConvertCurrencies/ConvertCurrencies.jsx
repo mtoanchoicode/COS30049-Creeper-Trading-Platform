@@ -1,26 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./ConvertCurrencies.css";
 import SwapButton from "../SwapButton/SwapButton";
 import ConvertCurrenciesContainer from "../ConvertCurrenciesContainer/ConvertCurrenciesContainer";
-import CurrencyOverlay from "../CurrencyOverlay/CurrencyOverlay";
+import CurrencySelectOverlay from "../CurrencySelectOverlay/CurrencySelectOverlay";
 import { CoinContext } from "../../contexts/CoinContext";
 
 const ConvertCurrencies = () => {
   const {
     fromCurrency,
     toCurrency,
-    handleFromCoinSelection,
-    handleToCoinSelection,
-    handleOverlay,
-    activeOverlay,
+    fromCurrencyValue,
+    toCurrencyValue,
     setActiveOverlay,
+    fromUsdValue,
+    toUsdValue,
+    handleFromCurrencyValueChange,
+    handleToCurrencyValueChange,
   } = useContext(CoinContext);
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(1); // Amount input for fromCurrency
   const [availableBalance, setAvailableBalance] = useState(100000);
-
-  const exchangeRate = 15.3;
-  const fromCurrencyValue = amount;
-  const toCurrencyValue = (amount * exchangeRate).toFixed(2);
 
   return (
     <div className="convert-currencies">
@@ -29,7 +27,9 @@ const ConvertCurrencies = () => {
         balance={availableBalance}
         currency={fromCurrency}
         amount={fromCurrencyValue}
-        usdValue={`$${(amount * 94422.72).toFixed(2)}`}
+        value={fromCurrencyValue}
+        handleChange={handleFromCurrencyValueChange}
+        usdValue={fromUsdValue}
         onClick={() => setActiveOverlay("from")}
       />
       <SwapButton />
@@ -38,19 +38,13 @@ const ConvertCurrencies = () => {
         balance={availableBalance}
         currency={toCurrency}
         amount={toCurrencyValue}
-        usdValue={`$${(toCurrencyValue * 94422.72).toFixed(2)}`}
+        value={toCurrencyValue}
+        handleChange={handleToCurrencyValueChange}
+        usdValue={toUsdValue}
         onClick={() => setActiveOverlay("to")}
       />
       {["from", "to"].map((type) => (
-        <CurrencyOverlay
-          key={type}
-          type={type}
-          activeOverlay={activeOverlay}
-          onClose={handleOverlay}
-          onCoinSelect={
-            type === "from" ? handleFromCoinSelection : handleToCoinSelection
-          }
-        />
+        <CurrencySelectOverlay key={type} type={type} />
       ))}
     </div>
   );

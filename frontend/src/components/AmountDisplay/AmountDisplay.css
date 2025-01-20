@@ -3,13 +3,45 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  gap: .3rem;
+  gap: 0.3rem;
   margin-top: 10px;
 }
 
 .amount-display-main p {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.amount-display-main input {
+  padding-left: 0;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.amount-display-main input::placeholder {
+  color: grey;
+}
+
+.amount-display-main input:hover {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.amount-display-main input:focus {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  outline: none;
+  box-shadow: none;
+}
+
+.amount-display-main input::-webkit-outer-spin-button,
+.amount-display-main input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .amount-display-usd p {
