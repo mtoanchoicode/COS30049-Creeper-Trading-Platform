@@ -1,5 +1,6 @@
 import React from "react";
 import "./ConvertHeading.css";
+import { Link } from "react-router-dom";
 
 import convert_history_icon from "../../assets/Convert History Icon.svg";
 import Icons from "../Icons/Icons";
@@ -20,7 +21,9 @@ const ConvertHeading = () => {
         </p>
         <div className="convert-trade-history">
           <span className="tooltip-text">Convert History</span>
-          <Icons src={convert_history_icon} alt="Convert history icon" />
+          <Link to="/profile/transactions">
+            <Icons src={convert_history_icon} alt="Convert history icon" />
+          </Link>
         </div>
       </div>
     </div>
