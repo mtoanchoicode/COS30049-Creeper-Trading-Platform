@@ -3,7 +3,7 @@ import "./ConvertListCoins.css";
 import { CoinContext } from "../../contexts/CoinContext";
 
 export const ConvertListCoins = () => {
-   const { coins } = useContext(CoinContext);
+   const { coins, handleCoinSelection } = useContext(CoinContext);
 
   return (
     <div className="convert-list-coins">
@@ -13,7 +13,7 @@ export const ConvertListCoins = () => {
       </div>
       <div className="convert-list">
         {coins.slice(0,20).map((coin) => (
-          <div key={coin.id} className="coin-item">
+          <div key={coin.id} className="coin-item" onClick={() => handleCoinSelection(coin, "to")}>
             <img src={coin.image} alt={coin.name} className="coin-icon" />
             <div className="coin-main">
               <div className="coin-header">

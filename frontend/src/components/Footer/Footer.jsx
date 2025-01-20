@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 
+import logo from "../../assets/Logo.png";
 import facebook_icon from "../../assets/Footer Facebook Icon.svg";
 import youtube_icon from "../../assets/Footer Youtube Icon.svg";
 import x_icon from "../../assets/Footer X Icon.svg";
@@ -11,7 +12,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-logo">
-        <img src="" alt="Logo" />
+        <img src={logo} alt="Logo" />
         <p>CREEPER</p>
       </div>
 

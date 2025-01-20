@@ -7,7 +7,9 @@ const ConvertCurrenciesContainer = ({
   balance,
   currency,
   amount,
+  handleChange,
   usdValue,
+  value,
   onClick,
 }) => {
   return (
@@ -20,7 +22,14 @@ const ConvertCurrenciesContainer = ({
         </div>
       </div>
       <div className="convert-currencies-container-bottom">
-        <AmountDisplay amount={amount} usdValue={usdValue} />
+        <AmountDisplay
+          currency={currency}
+          amount={amount}
+          handleChange = {handleChange}
+          usdValue={usdValue}
+          value={value}
+          inputValue={currency}
+        />
         <div className="convert-currencies-selection" onClick={onClick}>
           {currency.image && <img src={currency.image} alt={currency.symbol} />}
           <p>{currency.symbol}</p>
