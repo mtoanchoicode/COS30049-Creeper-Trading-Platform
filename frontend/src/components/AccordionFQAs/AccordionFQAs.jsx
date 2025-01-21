@@ -6,28 +6,54 @@ const FQAsections = () => {
   const items = [
     { 
         id: 1, 
-        title: "Question 1", 
+        label: "What is a cryptocurrency exchange?", 
         renderContent: () => (
-            <p>Hello</p>
+            <div>
+                <a href = "https://www.binance.com/en/price">Creeper</a>&nbsp;
+                is digital marketplaces that enable users to buy and sell cryptocurrencies like  Bitcoin, Ethereum, and Tether.
+            </div>
         ),
     },
     {
         id: 2, 
-        title: "Question 2", 
+        label: "What products does Creeper provide?", 
         renderContent: () => (
-            <p>
-            Lorem ipsum dolor sit amet, 
-            consectetuer adipiscing elit. 
-            Aenean commodo ligula eget dolor. 
-            Aenean massa. Cum sociis natoque penatibus et magnis 
-            dis parturient montes, nascetur ridiculus mus. 
-            Donec quam felis
-           </p> 
+           <div>
+                <p>
+                Creeper is the world's leading cryptocurrency exchange, 
+                catering to 235 million registered users in over 180 countries. 
+                With low fees and over 350 cryptocurrencies to trade, 
+                Creeper is the preferred exchange to trade Bitcoin, Altcoins, 
+                and other virtual assets.
+                </p> 
+                <br></br>
+                <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </li>
+                <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </li>
+                <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </li>
+                <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </li>
+                <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </li>
+           </div>
+          
         ),   
     },
     {
         id: 3, 
-        title: "Question 3", 
+        label: "How to track cryptocurrency prices", 
         renderContent: () => ( 
         <div>
             <a href = "https://www.binance.com/en/price">Creeper</a>&nbsp;
@@ -37,9 +63,22 @@ const FQAsections = () => {
     },
     {
         id: 4, 
-        title: "Question 4", 
+        label: "How to trade cryptocurrencies on Creeper", 
         renderContent: () => (
-            <button>Hello Veo</button>
+            <p>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        ), 
+    },
+    {
+        id: 5, 
+        label: "How to earn from crypto on Creeper", 
+        renderContent: () => (
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
         ), 
     },
   ];

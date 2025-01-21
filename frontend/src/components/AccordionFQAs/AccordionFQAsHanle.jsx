@@ -48,10 +48,12 @@ const AccordionsFQAs = ({ items, keepOthersOpen, title }) => {
                 {AccordionItems?.map((ListItem, index) => {
                     return (
                         <div className={`accorditon ${ListItem.toggled ? 'toggled' : ''}`} key={index}>
-                            <button className="accordionFQAs-toggle" onClick={() => HandleAccordionToggle(ListItem)}>
-                                <div className="accordionFQAs-questions-container">
-                                    <p className="accordionFQAs-toggle-ID">{ListItem.id}</p>
-                                    <p>{ListItem.title}</p>
+                            <button className= "accordionFQAs-toggle" onClick={() => HandleAccordionToggle(ListItem)}>
+                                <div className= "accordionFQAs-questions-container">
+                                    <div  className= "accordionFQAs-toggle-ID">
+                                        <p>{ListItem.id}</p>
+                                    </div>
+                                    <p className= "accordionFQAs-label">{ListItem.label}</p>
                                 </div>
                                 <img className="accordionFQAs-direction" src={ListItem.toggled ? MinusIcon : AddIcon} alt="Toggle Icon" />
                             </button>

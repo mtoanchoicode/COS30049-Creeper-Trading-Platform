@@ -40,15 +40,27 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    width: 100%;
 }
 
 .accordionFQAs-toggle-ID {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
     padding: 0.4rem 1rem; 
-    border: 1.5px solid;
-    border-radius: 15px;
+    border: 1.8px solid;
+    border-radius: 1rem;
+}
+
+.accordionFQAs-toggle-ID p{
     font-size: 1.7rem;
     font-weight: 700;
 }
+
+.accordionFQAs-label {
+    font-size: 1.2rem; 
+} 
 
 .accordionFQAs-direction {
     align-self: center;
@@ -65,12 +77,12 @@
     overflow: hidden;
     color: #ffff;
     padding: 0rem 2rem;  
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.15s ease-out;
 }
 
 .accorditon.toggled .accordionFQAs-content-container{
     max-height: 15rem;
-    transition: max-height 0.2s ease-in;
+    transition: max-height 0.15s ease-in;
 }
 
 .accordionFQAs-content-container .accordionFQAs-content a{
