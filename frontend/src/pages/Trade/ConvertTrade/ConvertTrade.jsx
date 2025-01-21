@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ConvertTrade.css";
 
 import ConvertHeading from "../../../components/ConvertHeading/ConvertHeading";
@@ -6,9 +6,11 @@ import ConvertCurrencies from "../../../components/ConvertCurrencies/ConvertCurr
 import { Button } from "antd";
 import { ConvertListCoins } from "../../../components/ConvertListCoins/ConvertListCoins";
 import RecurringSelection from "../../../components/RecurringSelection/RecurringSelection";
+import { CoinContext } from "../../../contexts/CoinContext";
 
 const ConvertTrade = () => {
   const [selectedOption, setSelectedOption] = useState("Instant");
+  const { fromCurrency } = useContext(CoinContext);
 
   return (
     <div className="convert-trade">
@@ -46,9 +48,13 @@ const ConvertTrade = () => {
         <div className="convert-trade-right">
           {selectedOption === "Instant" || selectedOption === "Recurring" ? (
             <>
-              <h2>Convert BTC (Bitcoin) to other currencies</h2>
+              <h2>
+                Convert {fromCurrency.symbol} ({fromCurrency.name}) to other
+                currencies
+              </h2>
               <p className="convert-trade-right-desc">
-                Swap your Bitcoin to other currencies easily in one go!
+                Swap your {fromCurrency.name} to other currencies easily in one
+                go!
               </p>
               <ConvertListCoins />
             </>

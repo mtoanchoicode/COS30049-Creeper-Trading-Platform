@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
 
+import logo from "../../assets/Logo.png";
 import bellIcon from "../../assets/Bell Icon.svg";
 import hoverBellIcon from "../../assets/Hover Bell Icon.svg";
 import moonIcon from "../../assets/Dark Mode Icon.svg";
@@ -23,7 +24,7 @@ const NavBar = () => {
       <div className="navbar-left">
         <Link to="/">
           <div className="navbar-left-logo">
-            <img src="" alt="Logo" />
+            <img src={logo} alt="Logo" />
           </div>
           <p className="navbar-title">CREEPER</p>
         </Link>
@@ -60,19 +61,17 @@ const NavBar = () => {
         <Icons src={walletIcon} alt="Wallet Icon" />
         <Icons src={bellIcon} alt="Notification Icon" />
         <Icons src={moonIcon} alt="Moon  Icon" />
-        <Link to="/profile">
-          <div
-            className="navbar-right-profile"
-            onMouseEnter={() => setshowNavProfile(true)}
-            onMouseLeave={() => setshowNavProfile(false)}
-          >
-            <div className="navbar-right-user navbar-icon">
-              <img src={barsIcon} alt="Menu Icon" />
-              <img src={userIcon} alt="User Icon" />
-              {showNavProfile && <NavProfile />}
-            </div>
+        <div
+          className="navbar-right-profile"
+          onMouseEnter={() => setshowNavProfile(true)}
+          onMouseLeave={() => setshowNavProfile(false)}
+        >
+          <div className="navbar-right-user navbar-icon">
+            <img src={barsIcon} alt="Menu Icon" />
+            <img src={userIcon} alt="User Icon" />
+            {showNavProfile && <NavProfile />}
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

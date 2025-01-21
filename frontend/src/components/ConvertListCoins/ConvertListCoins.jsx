@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./ConvertListCoins.css";
+import { CoinContext } from "../../contexts/CoinContext";
 
 export const ConvertListCoins = () => {
-  const [coins, setCoins] = useState([]);
-
-  useEffect(() => {
-    // Fetch top coins by market cap from CoinGecko
-    fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCoins(data);
-      })
-      .catch((error) => console.error("Error fetching coin data:", error));
-  }, []);
+   const { coins, handleCoinSelection } = useContext(CoinContext);
 
   return (
     <div className="convert-list-coins">
@@ -23,8 +12,8 @@ export const ConvertListCoins = () => {
         <p className="convert-list-coins-price">Price</p>
       </div>
       <div className="convert-list">
-        {coins.map((coin) => (
-          <div key={coin.id} className="coin-item">
+        {coins.slice(0,20).map((coin) => (
+          <div key={coin.id} className="coin-item" onClick={() => handleCoinSelection(coin, "to")}>
             <img src={coin.image} alt={coin.name} className="coin-icon" />
             <div className="coin-main">
               <div className="coin-header">
