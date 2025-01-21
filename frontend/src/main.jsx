@@ -6,7 +6,7 @@ import "./styles/index.css";
 import App from "./App.jsx";
 import CoinProvider from "./contexts/CoinContext";
 import DashboardPage from "./pages/Dashboard.jsx";
-import MarketPage from "./pages/Market.jsx";
+import MarketPage from "./pages/Market/Market.jsx";
 import AboutUsPage from "./pages/AboutUs.jsx";
 import TradePage from "./pages/Trade.jsx";
 import RegisterPage from "./pages/Profile/Register.jsx";
