@@ -1,7 +1,7 @@
 import React from 'react'
-import BuyCryptoFlow from "../../components/BuySellCryptoFlow/BuyCryptoFlow";
-import WalletList from "../../components/WalletList/WalletList";
-import PopularConversions from "../../components/PopularConversions/PopularConversions";
+import BuyCryptoFlow from "../../components/Buy&Sell-Page-Components/BuySellCryptoFlow/BuyCryptoFlow";
+import WalletList from "../../components/Buy&Sell-Page-Components/WalletList/WalletList";
+import PopularConversions from "../../components/Buy&Sell-Page-Components/PopularConversions/PopularConversions";
 
 const BuyPage = () => {
   return (

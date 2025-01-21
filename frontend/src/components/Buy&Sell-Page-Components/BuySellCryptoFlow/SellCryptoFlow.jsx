@@ -1,10 +1,10 @@
 import React from "react";
 import Steps from "../StepsFlow/StepsFlow";
 
-import CoinIcon from "../../assets/Coin-icon.svg";
-import Cardpos from "../../assets/Card-pos.svg";
-import ShopingCart from "../../assets/Shopping-cart.svg";
-import BuyCoin from "../../assets/dollar-cash.svg";
+import CoinIcon from "../../../assets/Coin-icon.svg";
+import Cardpos from "../../../assets/Card-pos.svg";
+import ShopingCart from "../../../assets/Shopping-cart.svg";
+import BuyCoin from "../../../assets/Buy-crypto.svg";
 
 const SellCryptoFlow = () => {
   const steps = [
