@@ -1,0 +1,96 @@
+.accordionFQAs-parent-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.5rem;
+    height: fit-content;
+}
+
+.accordionFQAs-wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.acordionFQAs-heading {
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 1rem;
+}
+
+/* .accorditon {
+    display: flex;
+    flex-direction: column;
+} */
+
+.accordionFQAs-toggle {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 1.5rem; 
+    color: var(--white-color);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.accordionFQAs-questions-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.accordionFQAs-toggle-ID {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    padding: 0.4rem 1rem; 
+    border: 1.8px solid;
+    border-radius: 1rem;
+}
+
+.accordionFQAs-toggle-ID p{
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.accordionFQAs-label {
+    font-size: 1.2rem; 
+} 
+
+.accordionFQAs-direction {
+    align-self: center;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* .toggled .accordionFQAs-direction {
+
+} */
+
+.accorditon .accordionFQAs-content-container {
+    max-height: 0;
+    overflow: hidden;
+    color: #ffff;
+    padding: 0rem 2rem;  
+    transition: max-height 0.15s ease-out;
+}
+
+.accorditon.toggled .accordionFQAs-content-container{
+    max-height: 15rem;
+    transition: max-height 0.15s ease-in;
+}
+
+.accordionFQAs-content-container .accordionFQAs-content a{
+    color: var(--primary-color);
+}
+
+/* .accordionFQAs-content-container .accordionFQAs-content div {
+    display: flex;
+    flex-direction: row;
+
+} */

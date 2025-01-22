@@ -4,7 +4,7 @@ import Steps from "../StepsFlow/StepsFlow";
 import CoinIcon from "../../assets/Coin-icon.svg";
 import Cardpos from "../../assets/Card-pos.svg";
 import ShopingCart from "../../assets/Shopping-cart.svg";
-import BuyCoin from "../../assets/Buy-crypto.svg";
+import BuyCoin from "../../assets/dollar-cash.svg";
 
 const SellCryptoFlow = () => {
   const steps = [
@@ -26,7 +26,7 @@ const SellCryptoFlow = () => {
     {
       src: BuyCoin,
       alt: "picture of step 4",
-      desc: "Receive Crypto",
+      desc: "Receive Cash",
     },
   ];
 

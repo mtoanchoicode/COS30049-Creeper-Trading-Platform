@@ -32,8 +32,8 @@ const NavBar = () => {
 
       <div className="navbar-center">
         <div className="nav-center-menu">
-          <Link to="/sell" className="nav-center-menu-link">
-            <div className="nav-center-menu-name">Buy Crypto</div>
+          <Link to="/buy" className="nav-center-menu-link">
+            <div className="nav-center-menu-name">Buy & Sell Crypto</div>
           </Link>
           <Link to="/market" className="nav-center-menu-link">
             <div className="nav-center-menu-name">Market</div>
