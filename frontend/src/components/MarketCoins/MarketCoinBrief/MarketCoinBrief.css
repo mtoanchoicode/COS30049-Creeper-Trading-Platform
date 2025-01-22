@@ -1,0 +1,53 @@
+.market-coin-brief{
+    display: flex;
+    align-items: center;
+    width: 22rem;
+    justify-content: space-between;
+    padding: 4px 7px;
+}
+
+.market-coin-brief:hover{
+    background-color: #353535;
+    cursor: pointer;
+}
+
+.market-coin-logo{
+    display: flex;
+    align-items: center;
+}
+
+.market-coin-symbol{
+    font-size: 1.2rem;
+}
+
+.market-coin-img{
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-right: 7px;
+}
+
+.market-coin-prices{
+    display: flex;
+    align-items: center;
+}
+
+.market-coin-current{
+    font-size: 1.2rem;
+    font-family: Oxanium;
+}
+
+.market-coin-fluctuation{
+    width: 5rem;
+    text-align: right;
+    margin-left: 1.5rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.upward-fluctuation{
+    color: #00C853;
+}
+
+.downward-fluctuation{
+    color: #D32F2F;
+}
