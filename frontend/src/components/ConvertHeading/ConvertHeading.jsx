@@ -9,7 +9,7 @@ const ConvertHeading = () => {
   return (
     <div className="convert-trade-heading">
       <div className="convert-trade-heading-top">
-        <h1>Crepper Convert</h1>
+        <h1>Creeper Convert</h1>
       </div>
       <div className="convert-trade-heading-bottom">
         <p>
