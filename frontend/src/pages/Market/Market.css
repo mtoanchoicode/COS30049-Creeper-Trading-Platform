@@ -1,3 +1,54 @@
-.market-page{
-    margin-top: 5rem;
+/* Wraps Market-overview under its title */
+@media (max-width: 650px) {
+    .market-page {
+        flex-wrap: wrap;
+    }
 }
+
+.market-page{
+    display: flex;
+    width: fit-content;
+    padding: 5rem;
+    margin: 5rem auto;
+    gap: 5rem;
+}
+
+.market-overview-title{
+    width: 100%;
+    text-align: center;
+    font-size: 3.5rem;
+    margin: 5px 0;
+}
+
+.market-overview-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 1rem;
+    min-width: 23rem;
+}
+
+.market-hot-coins{
+    flex: 1 1 20rem;
+}
+
+.hot-coins-listing{
+    width: 100%;
+}
+.top-gains-new-listing{
+    flex: 1 1 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.market-hot-coins, .market-top-gains, .market-top-losses{
+    padding: 15px;
+    padding-bottom: 0;
+    border: 1px solid rgb(85, 85, 85);
+    border-radius: 0.6rem;
+}
+
+
+
