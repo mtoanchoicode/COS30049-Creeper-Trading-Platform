@@ -3,6 +3,7 @@ import React from "react";
 import HeaderInfo from "../../components/ProfileHeaderInfo/ProfileHeaderInfo";
 import TransactionHistory from "../../components/ProfileTransactionHistory/ProfileTransactionHistory";
 import EstimatedBalance from "../../components/ProfileEstimatedBalance/ProfileEstimatedBalance";
+import ProfileBalanceChart from "../../components/ProfileBalanceChart/ProfileBalanceChart";
 
 const ProfileAssetsPage = () => {
   return (
@@ -18,6 +19,7 @@ const ProfileAssetsPage = () => {
         }}
       >
         <EstimatedBalance shortVersion={false} />
+        <ProfileBalanceChart />
       </div>
       {/* <Market /> */}
     </Layout>
