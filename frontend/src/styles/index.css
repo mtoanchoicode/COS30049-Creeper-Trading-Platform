@@ -12,6 +12,8 @@
   --white-color: #ffffff; 
   --black-color: #191919; 
   --text-color: #D9D9D9;
+  --price-rising: #00C853;
+  --price-falling: #D32F2F;
 }
 
 :root {
