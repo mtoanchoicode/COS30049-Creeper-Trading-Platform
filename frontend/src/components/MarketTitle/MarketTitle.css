@@ -1,9 +1,28 @@
+@media (max-width: 650px){
+    .market-page .market-title{
+        margin:0 auto;
+        max-width: 80%;
+        justify-content: center;
+    }
+
+    .market-page .market-heading{
+        font-size: 5rem;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .market-page .market-description{
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}
+
 .market-title{
     max-width: 22rem;
 }
 
 .market-heading{
-
     font-size: 4rem;
     font-weight: 700;
 }

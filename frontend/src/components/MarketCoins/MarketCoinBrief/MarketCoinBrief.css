@@ -1,9 +1,10 @@
 .market-coin-brief{
     display: flex;
     align-items: center;
-    width: 22rem;
+    width: 100%;
+    min-width: 22rem;
     justify-content: space-between;
-    padding: 4px 7px;
+    padding: 7px;
 }
 
 .market-coin-brief:hover{
@@ -29,6 +30,7 @@
 .market-coin-prices{
     display: flex;
     align-items: center;
+    gap: 10%;
 }
 
 .market-coin-current{
@@ -39,7 +41,7 @@
 .market-coin-fluctuation{
     width: 5rem;
     text-align: right;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
     font-weight: 800;
     font-size: 1.2rem;
 }
