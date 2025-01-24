@@ -10,6 +10,7 @@
 .profileTH-header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .profileTH-card-shrink{
     padding: 1rem 2rem;
@@ -46,4 +47,29 @@
   
 .profileTH-sell {
     color: red;
+}
+
+.profileTH-ExportBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+    gap: 0.5rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.profileTH-ExportBtn:hover{
+    background-color: var(--secondary-color);
+}
+
+.profileTH-ExportBtn img{
+    width: 2rem !important;
+}
+
+.profileTH-ExportBtn p{
+    font-weight: 800;
 }

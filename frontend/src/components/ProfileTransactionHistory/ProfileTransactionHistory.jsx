@@ -1,5 +1,7 @@
 import React from "react";
 import "./ProfileTransactionHistory.css";
+import exportIcon from "../../assets/Export Icon.svg";
+import Icons from "../Icons/Icons";
 
 const TransactionsHistory = ({ shortVersion = true }) => {
   const transactions = [
@@ -129,8 +131,15 @@ const TransactionsHistory = ({ shortVersion = true }) => {
       }`}
     >
       <div className="profileTH-header">
-        <h2 className="profileTH-heading">Transactions History</h2>
-        {shortVersion ? "" : <button>Export</button>}
+        <h2 className="profileTH-heading">Transactions </h2>
+        {shortVersion ? (
+          ""
+        ) : (
+          <div className="profileTH-ExportBtn">
+            <Icons src={exportIcon} className="profileTH-ExportBtn-Icon" />
+            <p>Export</p>
+          </div>
+        )}
       </div>
 
       <table className="profileTH-table table-wrapper">
