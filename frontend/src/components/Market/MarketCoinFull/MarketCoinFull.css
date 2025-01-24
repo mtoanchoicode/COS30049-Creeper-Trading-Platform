@@ -17,6 +17,15 @@
     align-items: center;
 }
 
+@media (max-width: 650px) {
+    .full-coin-name{
+        display:none;
+    }
+    .full-coin-current, .full-coin-fluctuation, .full-coin-max-trans, .full-coin-market-cap{
+        max-width: 6.5rem;
+    }
+}
+
 .full-coin-symbol{
     font-size: 1.5rem;
     margin-right: 0.6rem;
@@ -38,7 +47,7 @@
 
 .full-coin-prices{
     display: flex;
-    gap: 5vw;
+    gap: 4vw;
     text-align: right;
 }
 

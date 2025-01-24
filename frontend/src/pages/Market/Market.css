@@ -3,6 +3,9 @@
     .market-landing {
         flex-wrap: wrap;
     }
+    .pool-headers-prices h2{
+        max-width: 6.5rem;
+    }
 }
 /* ----------Market landing---------- */
 .market-landing{
@@ -71,7 +74,7 @@
 
 .pool-headers-prices{
     display: flex;
-    gap: 5vw;
+    gap: 4vw;
     text-align: right;
     align-items: center;
 }
