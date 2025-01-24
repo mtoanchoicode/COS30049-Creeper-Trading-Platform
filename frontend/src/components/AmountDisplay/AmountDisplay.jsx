@@ -8,7 +8,7 @@ const AmountDisplay = ({ currency, usdValue, value, handleChange }) => {
     <div className="amount-display">
       <div className="amount-display-main">
         <Input
-          placeholder={`${currency.min_transaction_amount} - ${currency.max_transaction_amount}`}
+          placeholder="0"
           onChange={handleChange}
           type="number"
           inputMode="decimal"
