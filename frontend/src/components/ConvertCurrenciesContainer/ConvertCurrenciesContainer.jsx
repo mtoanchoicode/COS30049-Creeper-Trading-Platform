@@ -16,16 +16,12 @@ const ConvertCurrenciesContainer = ({
     <div className="convert-currencies-container">
       <div className="convert-currencies-container-top">
         <p>{title}</p>
-        <div className="convert-currencies-container-balance">
-          <p>Available Balance</p>
-          <p>{`${balance} ${currency.symbol}`}</p>
-        </div>
       </div>
       <div className="convert-currencies-container-bottom">
         <AmountDisplay
           currency={currency}
           amount={amount}
-          handleChange = {handleChange}
+          handleChange={handleChange}
           usdValue={usdValue}
           value={value}
           inputValue={currency}

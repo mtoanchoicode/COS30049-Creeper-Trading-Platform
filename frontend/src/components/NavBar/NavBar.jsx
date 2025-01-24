@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
 
@@ -19,41 +20,54 @@ const NavBar = () => {
   const [showNavProfile, setshowNavProfile] = useState(false);
   const [hoverIcon, setHoverIcon] = useState(false);
 
+  const location = useLocation();
+  const isFixed = location.pathname === "/trade/convert";
+
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      style={{
+        position: isFixed ? "fixed" : "",
+      }}
+    >
       <div className="navbar-left">
-        <Link to="/">
-          <div className="navbar-left-logo">
-            <img src={logo} alt="Logo" />
-          </div>
-          <p className="navbar-title">CREEPER</p>
-        </Link>
+        <div className="navbar-left-logo">
+          <Link to="/">
+            <div className="navbar-left-logo-img">
+              <img src={logo} alt="Logo" />
+            </div>
+            <p className="navbar-title">CREEPER</p>
+          </Link>
+        </div>
+
+        <div className="navbar-left-menu">
+          <Link to="/explore" className="navbar-left-menu-link">
+            <div className="navbar-left-menu-name">Explore</div>
+          </Link>
+          <Link
+            to="/trade/swap"
+            onMouseEnter={() => setShowNavTrade(true)}
+            onMouseLeave={() => setShowNavTrade(false)}
+            className="navbar-left-menu-link"
+          >
+            <div className="navbar-left-menu-name navbar-left-menu-trade">
+              Trade <i className="fa-solid fa-chevron-down"></i>
+              {showNavTrade && <NavTrade />}
+            </div>
+          </Link>
+        </div>
       </div>
 
       <div className="navbar-center">
-        <div className="nav-center-menu">
-          <Link to="/buy" className="nav-center-menu-link">
-            <div className="nav-center-menu-name">Buy & Sell Crypto</div>
-          </Link>
-          <Link to="/market" className="nav-center-menu-link">
-            <div className="nav-center-menu-name">Market</div>
-          </Link>
-          <div
-            onMouseEnter={() => setShowNavTrade(true)}
-            onMouseLeave={() => setShowNavTrade(false)}
-            className="nav-center-menu-link"
-          >
-            <div className="nav-center-menu-name">
-              Trading <i className="fa-solid fa-chevron-down"></i>
-              {showNavTrade && <NavTrade />}
+        <div className="navbar-center-searchbar">
+          <div className="navbar-searchbar-container">
+            <div className="navbar-searchbar-icon">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div className="navbar-searchbar-text">
+              <p>Search tokens</p>
             </div>
           </div>
-          <Link to="/explore" className="nav-center-menu-link">
-            <div className="nav-center-menu-name">Explore</div>
-          </Link>
-          <Link to="/about" className="nav-center-menu-link">
-            <div className="nav-center-menu-name">About Us</div>
-          </Link>
         </div>
       </div>
 
