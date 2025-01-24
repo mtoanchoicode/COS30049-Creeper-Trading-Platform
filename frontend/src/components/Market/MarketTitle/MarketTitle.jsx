@@ -1,6 +1,6 @@
 import React from 'react';
 import './MarketTitle.css'
-import searchIcon from "../../assets/Market Search Icon.svg"
+import searchIcon from "../../../assets/Market Search Icon.svg"
 
 const MarketTitle = () =>{
     return(
