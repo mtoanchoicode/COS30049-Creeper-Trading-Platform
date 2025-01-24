@@ -1,15 +1,15 @@
 /* Wraps Market-overview under its title */
 @media (max-width: 650px) {
-    .market-page {
+    .market-landing {
         flex-wrap: wrap;
     }
 }
-
-.market-page{
+/* ----------Market landing---------- */
+.market-landing{
     display: flex;
     width: fit-content;
     padding: 5rem;
-    margin: 5rem auto;
+    margin: 7rem auto;
     gap: 5rem;
 }
 
@@ -49,6 +49,40 @@
     border: 1px solid rgb(85, 85, 85);
     border-radius: 0.6rem;
 }
+/* ----------Market coin pool---------- */
+.market-coin-pool{
+    margin: 2.5%;
+}
+
+.market-coin-pool-headers{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 0.5px solid rgb(95, 95, 95);
+    padding-bottom: 20px;
+}
+
+.market-coin-pool-headers h2{
+    font-weight: 500;
+    color: rgb(201, 201, 201);
+}
+
+.pool-headers-prices{
+    display: flex;
+    gap: 5vw;
+    text-align: right;
+    align-items: center;
+}
+
+.pool-headers-prices h2{
+    width: 8rem;
+    text-align: right;
+}
+
+
+
 
 
 
