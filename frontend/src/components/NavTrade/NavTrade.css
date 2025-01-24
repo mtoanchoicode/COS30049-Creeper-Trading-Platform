@@ -3,15 +3,19 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
-  width: 19rem;
-  padding: 1.2rem 1.5rem;
-  background: #242424;
-  border-radius: 0 0 0.5rem 0.5rem;
+  gap: 1.5rem;
+  width: 22rem;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
   position: absolute;
   top: 0;
-  margin-top: 5rem;
+  margin-top: 4.5rem;
   cursor: auto;
+  z-index: 100;
+  background: #2e2e2e1a;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .navtrade-item {
@@ -38,6 +42,7 @@
 }
 
 .navtrade-item .navtrade-content .navtrade-heading p {
+  font-family: "Manrope";
   font-size: 0.9rem;
   font-weight: 600;
   color: white;
@@ -60,6 +65,7 @@
 }
 
 .navtrade-item .navtrade-content .navtrade-desc {
+  font-family: "Manrope";
   font-size: 0.8rem;
   color: #bdbdbd;
 }
