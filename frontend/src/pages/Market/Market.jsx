@@ -1,6 +1,6 @@
 import React from "react";
-import MarketTitle from "../../components/MarketTitle/MarketTitle";
-import MarketCoinBrief from "../../components/MarketCoins/MarketCoinBrief/MarketCoinBrief";
+import MarketTitle from "../../components/Market/MarketTitle/MarketTitle";
+import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinBrief";
 import coinData from '../../data/coins.json';
 import './Market.css';
 
