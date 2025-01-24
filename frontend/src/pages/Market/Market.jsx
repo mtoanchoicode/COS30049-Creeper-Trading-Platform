@@ -74,7 +74,7 @@ const MarketPage = () => {
           </div>
         </div>
 
-        {fullCoins2.map(coin =>(
+        {coinData.map(coin =>(
           <MarketCoinFull
             id={coin.id}
             name={coin.name}
