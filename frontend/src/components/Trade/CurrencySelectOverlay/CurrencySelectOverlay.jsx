@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import "./CurrencySelectOverlay.css";
-import { CoinContext } from "../../contexts/CoinContext";
+import { CoinContext } from "../../../contexts/CoinContext";
 
 export const ConvertCoinSelection = ({ type }) => {
   const { coins, activeOverlay, setActiveOverlay, handleCoinSelection } =

@@ -4,29 +4,39 @@ import coinData from "../data/coins.json";
 export const CoinContext = createContext();
 
 const CoinProvider = ({ children }) => {
-  const [coins, setCoins] = useState(coinData);
+  const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
 
   const [fromCurrency, setFromCurrency] = useState({
-    id: "bitcoin",
-    symbol: "BTC",
-    name: "Bitcoin",
-    image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
-    current_price: 100000,
-    market_cap: 814230000000,
-    min_transaction_amount: 0.0001,
-    max_transaction_amount: 10,
+    id: "ethereum",
   });
   const [toCurrency, setToCurrency] = useState({
     id: "tether",
-    symbol: "USDT",
-    name: "Tether",
-    image: "https://assets.coingecko.com/coins/images/325/large/Tether.png",
-    current_price: 1.0,
-    market_cap: 69000000000,
-    min_transaction_amount: 1,
-    max_transaction_amount: 100000,
   });
+
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCoins(data);
+
+        // Set default currencies to ETH and USDT
+        const ethCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "eth"
+        );
+        const usdtCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "usdt"
+        );
+
+        if (ethCoin) setFromCurrency(ethCoin);
+        if (usdtCoin) setToCurrency(usdtCoin);
+      })
+      .catch((error) => console.error("Error fetching coin data:", error));
+  }, []);
+
+  console.log(coins);
 
   const [fromCurrencyValue, setFromCurrencyValue] = useState("");
   const [toCurrencyValue, setToCurrencyValue] = useState("");

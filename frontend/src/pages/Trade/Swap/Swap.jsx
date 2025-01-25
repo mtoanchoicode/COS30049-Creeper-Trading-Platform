@@ -1,47 +1,18 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import "./Swap.css";
 
-import ConvertCurrencies from "../../../components/ConvertCurrencies/ConvertCurrencies";
+import ConvertCurrencies from "../../../components/Trade/ConvertCurrencies/ConvertCurrencies";
 import { Button } from "antd";
-import RecurringSelection from "../../../components/RecurringSelection/RecurringSelection";
+import TradeSelection from "../../../components/Trade/TradeSelection/TradeSelection";
 
 const ConvertTrade = () => {
-  const [selectedOption, setSelectedOption] = useState("Swap");
-
   return (
-    <div className="convert-trade">
-      <div className="convert-trade-content">
-        <div className="convert-trade-left">
-          <div className="convert-trade-selection">
-            <button
-              onClick={() => setSelectedOption("Swap")}
-              className={selectedOption === "Swap" ? "active" : ""}
-            >
-              Swap
-            </button>
-            <button
-              onClick={() => setSelectedOption("Limit")}
-              className={selectedOption === "Limit" ? "active" : ""}
-            >
-              Limit
-            </button>
-            <button
-              onClick={() => setSelectedOption("Send")}
-              className={selectedOption === "Send" ? "active" : ""}
-            >
-              Send
-            </button>
-            <button
-              onClick={() => setSelectedOption("Buy")}
-              className={selectedOption === "Buy" ? "active" : ""}
-            >
-              Buy
-            </button>
-          </div>
-          <div className="convert-trade-container">
+    <div className="swap">
+      <div className="swap-content">
+        <div className="swap-left">
+          <div className="swap-container">
             <ConvertCurrencies />
-            {selectedOption === "Recurring" ? <RecurringSelection /> : ""}
-            <Button type="primary" block className="convert-trade-btn">
+            <Button type="primary" block className="swap-btn">
               Connect wallet
             </Button>
           </div>
