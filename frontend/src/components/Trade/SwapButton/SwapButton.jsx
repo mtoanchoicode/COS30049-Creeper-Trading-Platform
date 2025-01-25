@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import swapIcon from "../../assets/Swap Icon.svg";
+import swapIcon from "../../../assets/Swap Icon.svg";
 import "./SwapButton.css";
-import { CoinContext } from "../../contexts/CoinContext";
+import { CoinContext } from "../../../contexts/CoinContext";
 
 const SwapButton = () => {
   const { swapCurrency } = useContext(CoinContext);

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./ConvertListCoins.css";
-import { CoinContext } from "../../contexts/CoinContext";
+import { CoinContext } from "../../../contexts/CoinContext";
 
 export const ConvertListCoins = () => {
    const { coins, handleCoinSelection } = useContext(CoinContext);

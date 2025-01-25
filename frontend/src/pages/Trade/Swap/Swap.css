@@ -4,17 +4,16 @@
   justify-content: center;
 }
 
-.convert-trade-content {
+.swap-content {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 4rem;
   width: 30rem;
-  padding: 4.25rem 0 4.25rem;
   margin: auto;
 }
 
-.convert-trade-left {
+.swap-left {
   flex: 1.5;
   display: flex;
   flex-direction: column;
@@ -22,53 +21,24 @@
   height: 100%;
 }
 
-.convert-trade-left .convert-trade-selection {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.convert-trade-left .convert-trade-selection button {
-  outline: none;
-  border: none;
-  padding-bottom: 0.5rem;
-  background: transparent;
-  color: #707070;
-  font-weight: 700;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.1s ease;
-  cursor: pointer;
-}
-
-.convert-trade-left .convert-trade-selection button.active {
-  color: var(--white-color);
-  border-bottom: 0.15rem solid #00da5b;
-}
-
-.convert-trade-left .convert-trade-selection button:hover {
-  color: var(--white-color);
-}
-
-.convert-trade-container {
+.swap-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.convert-trade-container .convert-trade-btn {
+.swap-container .swap-btn {
   background: var(--primary-color);
   height: 2.5rem;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
-.convert-trade-container .convert-trade-btn:hover {
+.swap-container .swap-btn:hover {
   background: #00943e !important;
 }
 
-.convert-trade-right {
+.swap-right {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -77,12 +47,12 @@
   gap: 0.5rem;
 }
 
-.convert-trade-right h2 {
+.swap-right h2 {
   font-family: "Manrope";
   font-size: 1.5rem;
 }
 
-.convert-trade-right .convert-trade-right-desc {
+.swap-right .swap-right-desc {
   font-size: 0.8rem;
   color: #adadad;
   align-self: flex-start;

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import MarketTitle from "../../components/Market/MarketTitle/MarketTitle";
 import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinBrief";
 import MarketCoinFull from "../../components/Market/MarketCoinFull/MarketCoinFull";
 import coinData from '../../data/coins.json';
 import './Market.css';
+import { CoinContext } from "../../contexts/CoinContext";
 
 const MarketPage = () => {
-  const hotCoins = coinData.slice(0,7);
-  const topGains = coinData.slice(0,3);
-  const topLosses = coinData.slice(0,3);
-  const fullCoins2 = coinData.slice(20,35);
+  const {coins} = useContext(CoinContext);
+
+  const hotCoins = coins.slice(0,7);
+  const topGains = coins.slice(0,3);
+  const topLosses = coins.slice(0,3);
+  const fullCoins2 = coins.slice(20,35);
 
   return (
     <div className="market-page">
@@ -25,7 +28,7 @@ const MarketPage = () => {
                 <MarketCoinBrief className="hot-coins-listing"
                   id={coin.id}
                   name={coin.name}
-                  symbol={coin.symbol}
+                  symbol={coin.symbol.toUpperCase()}
                   current_price={coin.current_price}
                   image={coin.image}
                 />
@@ -39,7 +42,7 @@ const MarketPage = () => {
                   <MarketCoinBrief 
                     id={coin.id}
                     name={coin.name}
-                    symbol={coin.symbol}
+                    symbol={coin.symbol.toUpperCase()}
                     current_price={coin.current_price}
                     image={coin.image}
                   />
@@ -52,7 +55,7 @@ const MarketPage = () => {
                   <MarketCoinBrief 
                     id={coin.id}
                     name={coin.name}
-                    symbol={coin.symbol}
+                    symbol={coin.symbol.toUpperCase()}
                     current_price={coin.current_price}
                     image={coin.image}
                   />
@@ -74,11 +77,11 @@ const MarketPage = () => {
           </div>
         </div>
 
-        {coinData.map(coin =>(
+        {coins.map(coin =>(
           <MarketCoinFull
             id={coin.id}
             name={coin.name}
-            symbol={coin.symbol}
+            symbol={coin.symbol.toUpperCase()}
             current_price={coin.current_price}
             image={coin.image}
             max_trans={coin.max_transaction_amount}
