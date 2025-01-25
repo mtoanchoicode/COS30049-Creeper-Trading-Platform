@@ -4,7 +4,6 @@ import "./ConvertCurrenciesContainer.css";
 
 const ConvertCurrenciesContainer = ({
   title,
-  balance,
   currency,
   amount,
   handleChange,

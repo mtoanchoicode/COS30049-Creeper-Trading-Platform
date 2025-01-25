@@ -1,0 +1,30 @@
+.trade-selection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  width: 30rem;
+  margin: auto;
+  margin-bottom: 1.5rem;
+}
+
+.trade-selection button {
+  outline: none;
+  border: none;
+  padding-bottom: 0.5rem;
+  background: transparent;
+  color: #707070;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.1s ease;
+  cursor: pointer;
+}
+
+.trade-selection button.active {
+  color: var(--white-color);
+  border-bottom: 0.15rem solid #00da5b;
+}
+
+.trade-selection button:hover {
+  color: var(--white-color);
+}
