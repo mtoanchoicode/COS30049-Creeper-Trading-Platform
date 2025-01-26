@@ -55,6 +55,7 @@
 /* ----------Market coin pool---------- */
 .market-coin-pool{
     margin: 2.5%;
+    padding: 0 10px;
 }
 
 .market-coin-pool-headers{
@@ -64,7 +65,7 @@
     justify-content: space-between;
     padding: 10px;
     border-bottom: 0.5px solid rgb(95, 95, 95);
-    padding-bottom: 20px;
+    padding-bottom: 1rem;
 }
 
 .market-coin-pool-headers h2{
@@ -82,7 +83,12 @@
 .pool-headers-prices h2{
     width: 8rem;
     text-align: right;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: right;
 }
+
 
 
 

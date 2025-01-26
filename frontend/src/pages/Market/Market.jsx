@@ -5,6 +5,7 @@ import MarketCoinFull from "../../components/Market/MarketCoinFull/MarketCoinFul
 import coinData from '../../data/coins.json';
 import './Market.css';
 import { CoinContext } from "../../contexts/CoinContext";
+import MarketSortButton from "../../components/Market/MarketSortButton/MarketSortButton";
 
 const MarketPage = () => {
   const {coins} = useContext(CoinContext);
@@ -68,15 +69,29 @@ const MarketPage = () => {
       </div>
       <div className="market-coin-pool">
         <div className="market-coin-pool-headers">
-          <h2 className="pool-headers-name">Name</h2>
+          <h2 className="pool-header">Name</h2>
+          {/* Table headers */}
           <div className="pool-headers-prices">
-            <h2>Price</h2>
-            <h2>Change</h2>
-            <h2>Max Transaction</h2>
-            <h2>Market Cap</h2>
+            <h2 className="pool-header">
+              Price 
+              <MarketSortButton></MarketSortButton>
+            </h2> 
+            <h2 className="pool-header">
+              Change 
+              <MarketSortButton></MarketSortButton>
+            </h2> 
+            <h2 className="pool-header">
+              Max Transaction 
+              <MarketSortButton></MarketSortButton>
+            </h2> 
+            <h2 className="pool-header">
+              Market Cap 
+              <MarketSortButton></MarketSortButton>
+            </h2> 
           </div>
         </div>
-
+        
+        {/* Table rows */}
         {coins.map(coin =>(
           <MarketCoinFull
             id={coin.id}
