@@ -1,0 +1,119 @@
+.CenterComponent-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 100vh;
+    width: 100%;
+}
+
+/* leftside css style */
+
+.Leftside-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 50%; 
+}
+
+.Leftside_heading-Container p{
+    font-size: 3rem;
+    color: var(--white-color);
+    width: 100%;
+}
+
+.Leftside_Subheading-Container p {
+    font-size: 1.2rem;
+    color: var(--text-color); 
+    width: 100%;
+} 
+
+/* .Center_LoginForm-Containern {
+    display: flex;
+    align-items: center;
+} */
+
+
+.Center_LoginForm {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+}   
+
+.Center_LoginForm .ant-form-item {
+    margin: 0 0 1rem 0 ;
+    width: 50%;
+}
+
+/* .Center_LoginForm .Center-SignUp-Input_Container{
+    width: 100%;
+}
+
+.Center_LoginForm .Center-SignUp-Button_Container {
+    width: 30%;
+} */
+
+.Center-SignUp_Input {
+    border: 2px solid; 
+    border-color: var(--text-color);
+    border-radius: 12px;
+    /* padding: 1rem; */
+    background-color: transparent;
+    color: var(--white-color);   
+    padding: 0.8rem;
+}
+
+.Center-SignUp_Input::placeholder {
+    color: var(--white-color) !important;
+}
+
+/* .Center-SignUp_Input:hover::placeholder {
+    color: var(--text-color);
+} */
+
+.Center-SignUp_Input:hover {
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+
+.Center-SignUp_Input:focus {
+    border-color: var(--primary-color);
+    background-color: transparent;
+}
+
+.Center-SignUp_Button { 
+    border-radius: 12px;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    width: 50% !important;  
+    padding: 1.5rem;
+}
+
+.Center-SignUp_Button:hover { 
+    background-color: var(--third-color) !important;
+}
+
+.OtherSignup-Follow_Container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.OtherSignup-Follow_Container .Item-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; 
+    padding: 1rem; 
+}
+
+.Item-Container a img {
+    width: 2.5rem;
+    height: 2.5rem;
+}

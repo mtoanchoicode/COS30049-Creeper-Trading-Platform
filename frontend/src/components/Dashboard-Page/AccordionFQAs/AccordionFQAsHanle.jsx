@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import "./AccordionFQAs.css"
-import MinusIcon from "../../assets/Minus-Icon.svg";
-import AddIcon from "../../assets/Add-Icon.svg";
+import MinusIcon from "../../../assets/Minus-Icon.svg";
+import AddIcon from "../../../assets/Add-Icon.svg";
 
 const AccordionsFQAs = ({ items, keepOthersOpen, title }) => {
 
