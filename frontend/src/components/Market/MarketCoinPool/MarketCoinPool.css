@@ -1,0 +1,58 @@
+/* ----------Market coin pool---------- */
+.market-coin-pool{
+    margin: 1vw;
+    padding: 0 10px;
+}
+
+.market-coin-pool-headers{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 0.5px solid rgb(95, 95, 95);
+    padding-bottom: 1rem;
+}
+
+.market-coin-pool-headers h2{
+    font-weight: 500;
+    color: rgb(201, 201, 201);
+}
+
+.pool-headers-prices{
+    display: flex;
+    gap: 4vw;
+    text-align: right;
+    align-items: center;
+}
+
+.pool-header{
+    width: 8rem;
+    text-align: right;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: right;
+    overflow: visible;
+}
+
+.market-sort-button{
+    flex-shrink: 0;
+}
+
+.pool-header{
+    cursor: pointer;
+}
+
+.pool-header:hover .market-sort-button{
+    filter: brightness(150%);
+    transition: 0.2s;
+}
+
+.pool-header:hover .isSelected{
+    filter: brightness(60%);
+}
+
+.pool-header-name{
+    width: auto;
+}

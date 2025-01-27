@@ -2,13 +2,12 @@ import React from "react";
 import './MarketCoinFull.css';
 
 function MarketCoinFull(props){
-    // Coin's price change will be updated with real-time data in a later stage of the project
-    const fluctuation = (Math.random() * 20 - 10).toFixed(2);
-    const handleFluctuation = () => {
-        return fluctuation >= 0?
-        <div className="full-coin-fluctuation full-upward-fluctuation">{"+"+fluctuation+"%"}</div>:
-        <div className="full-coin-fluctuation full-downward-fluctuation">{"-"+fluctuation+"%"}</div>;
+    const handleFluctuation = (change) => {
+        return Number(change) >= 0?
+        <div className="full-coin-fluctuation full-upward-fluctuation">{"+"+Number(change).toFixed(2)+"%"}</div>:
+        <div className="full-coin-fluctuation full-downward-fluctuation">{Number(change).toFixed(2)+"%"}</div>;
     }
+    
     const handleMoney = (money) => {
         money = Number(money);
         if (money >= 1_000_000_000){
@@ -35,10 +34,11 @@ function MarketCoinFull(props){
                     {handleMoney(props.current_price)}
                 </div>
                 
-                {handleFluctuation()} 
 
-                <div className="full-coin-max-trans">
-                    {handleMoney(props.max_trans)}
+                {handleFluctuation(props.change)} 
+
+                <div className="full-coin-volume">
+                    {handleMoney(props.volume)}
                 </div>
 
                 <div className="full-coin-market-cap">
