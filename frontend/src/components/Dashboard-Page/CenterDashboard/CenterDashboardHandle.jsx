@@ -1,8 +1,9 @@
 import React from "react";
 import "./CenterDashboard.css";
+import NewsComponent from "../NewsComponent/NewsComponent"
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg"; 
-import Google from "../../../assets/Google Icon.svg";
+import Google from "../../../assets/Google.svg";
 
 
 const onFinish = async (values) => {
@@ -96,7 +97,7 @@ const Centers = ({title, subtitle}) => {
 
 
         <div className= "Rightside-Container" >
-            
+            <NewsComponent/>
         </div>
     </section>
   )
