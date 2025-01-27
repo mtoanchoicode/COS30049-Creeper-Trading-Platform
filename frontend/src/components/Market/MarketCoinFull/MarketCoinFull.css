@@ -62,6 +62,7 @@
     text-align: right;
     font-weight: 800;
     font-size: 1.3rem;
+    text-wrap: nowrap;
 }
 
 .full-upward-fluctuation{
@@ -72,14 +73,16 @@
     color: #D32F2F;
 }
 
-.full-coin-max-trans{
+.full-coin-volume{
     font-size: 1.3rem;
     font-family: Oxanium;
     width: 8rem;
+    text-wrap: nowrap;
 }
 
 .full-coin-market-cap{
     font-size: 1.3rem;
     font-family: Oxanium;
     width: 8rem;
+    text-wrap: nowrap;
 }

@@ -1,13 +1,11 @@
 import React from "react";
 import sortButton from "../../../assets/Market Sort Button.svg"
-import selectedsortButton from "../../../assets/Market Sort Button Selected.svg"
 import './MarketSortButton.css';
 
 
-function MarketSortButton() {
-
+function MarketSortButton(props) { 
     return(
-        <img className = "market-sort-button" src={sortButton} alt="Sort button"/>
+        <span className = {`market-sort-button ${props.direction} ${props.isSelected}`}  src={sortButton} alt="Sort button"></span>
     );
 }
 

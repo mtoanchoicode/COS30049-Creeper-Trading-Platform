@@ -1,19 +1,25 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import MarketTitle from "../../components/Market/MarketTitle/MarketTitle";
 import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinBrief";
-import MarketCoinFull from "../../components/Market/MarketCoinFull/MarketCoinFull";
-import coinData from '../../data/coins.json';
-import './Market.css';
+import MarketCoinPool from "../../components/Market/MarketCoinPool/MarketCoinPool";
 import { CoinContext } from "../../contexts/CoinContext";
-import MarketSortButton from "../../components/Market/MarketSortButton/MarketSortButton";
+import './Market.css';
+
 
 const MarketPage = () => {
   const {coins} = useContext(CoinContext);
 
+  function sortArray(arrayToSort, keyToSort, direction){
+    if (direction === "asc"){
+      return arrayToSort.sort((a, b) => (a[keyToSort] > b[keyToSort] ? 1 : -1)); 
+    }
+    return arrayToSort.sort((a, b) => (a[keyToSort] > b[keyToSort] ?-1 : 1));
+  }
+
   const hotCoins = coins.slice(0,7);
-  const topGains = coins.slice(0,3);
-  const topLosses = coins.slice(0,3);
-  const fullCoins2 = coins.slice(20,35);
+  const topGains = sortArray(coins, "price_change_percentage_24h", "desc").slice(0, 3);
+  const topLosses = sortArray(coins, "price_change_percentage_24h", "asc").slice(0, 3);
+
 
   return (
     <div className="market-page">
@@ -32,6 +38,7 @@ const MarketPage = () => {
                   symbol={coin.symbol.toUpperCase()}
                   current_price={coin.current_price}
                   image={coin.image}
+                  change={coin.price_change_percentage_24h}
                 />
               ))}
             </div>
@@ -40,14 +47,15 @@ const MarketPage = () => {
               <div className="market-top-gains">
                 <h3>Top Gains</h3>
                 {topGains.map(coin =>(
-                  <MarketCoinBrief 
-                    id={coin.id}
-                    name={coin.name}
-                    symbol={coin.symbol.toUpperCase()}
-                    current_price={coin.current_price}
-                    image={coin.image}
-                  />
-                ))}
+                <MarketCoinBrief
+                  id={coin.id}
+                  name={coin.name}
+                  symbol={coin.symbol.toUpperCase()}
+                  current_price={coin.current_price}
+                  image={coin.image}
+                  change={coin.price_change_percentage_24h}
+                />
+              ))}
               </div>
 
               <div className = "market-top-losses">
@@ -59,6 +67,7 @@ const MarketPage = () => {
                     symbol={coin.symbol.toUpperCase()}
                     current_price={coin.current_price}
                     image={coin.image}
+                    change={coin.price_change_percentage_24h}
                   />
                 ))}
               </div>
@@ -67,44 +76,7 @@ const MarketPage = () => {
           </div>
         </div>
       </div>
-      <div className="market-coin-pool">
-        <div className="market-coin-pool-headers">
-          <h2 className="pool-header">Name</h2>
-          {/* Table headers */}
-          <div className="pool-headers-prices">
-            <h2 className="pool-header">
-              Price 
-              <MarketSortButton></MarketSortButton>
-            </h2> 
-            <h2 className="pool-header">
-              Change 
-              <MarketSortButton></MarketSortButton>
-            </h2> 
-            <h2 className="pool-header">
-              Max Transaction 
-              <MarketSortButton></MarketSortButton>
-            </h2> 
-            <h2 className="pool-header">
-              Market Cap 
-              <MarketSortButton></MarketSortButton>
-            </h2> 
-          </div>
-        </div>
-        
-        {/* Table rows */}
-        {coins.map(coin =>(
-          <MarketCoinFull
-            id={coin.id}
-            name={coin.name}
-            symbol={coin.symbol.toUpperCase()}
-            current_price={coin.current_price}
-            image={coin.image}
-            max_trans={coin.max_transaction_amount}
-            market_cap={coin.market_cap}
-          />
-      ))}
-      </div>
-      
+      <MarketCoinPool/>
     </div>
     
     

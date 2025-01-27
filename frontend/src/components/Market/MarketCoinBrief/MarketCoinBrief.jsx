@@ -2,14 +2,25 @@ import React from "react";
 import './MarketCoinBrief.css';
 
 function MarketCoinBrief(props){
-    // Coin's price change will be updated with real-time data in a later stage of the project
-    const fluctuation = (Math.random() * 20 - 10).toFixed(2);
-    const handleFluctuation = () => {
-        return fluctuation >= 0?
-        <div className="market-coin-fluctuation upward-fluctuation">{"+"+fluctuation+"%"}</div>:
-        <div className="market-coin-fluctuation downward-fluctuation">{"-"+fluctuation+"%"}</div>;
+    const handleFluctuation = (change) => {
+        return Number(change) >= 0?
+        <div className="full-coin-fluctuation full-upward-fluctuation">{"+"+Number(change).toFixed(2)+"%"}</div>:
+        <div className="full-coin-fluctuation full-downward-fluctuation">{Number(change).toFixed(2)+"%"}</div>;
     }
     
+    const handleMoney = (money) => {
+        money = Number(money);
+        if (money >= 1_000_000_000){
+            return "$" + (money/1_000_000_000).toFixed(2) + "B";
+        }
+        if (money >= 1_000_000){
+            return "$" + (money/1_000_000).toFixed(2) + "M";
+        }
+        else if(money >= 1_000){
+            return "$" + (money/1_000).toFixed(2) + "K";
+        }
+        return "$" + money.toFixed(2);
+    }
 
     return(
         <div className="market-coin-brief">
@@ -19,11 +30,9 @@ function MarketCoinBrief(props){
             </div>
             <div className="market-coin-prices">
                 <div className="market-coin-current">
-                    {props.current_price >= 1000.00?
-                    "$" + (props.current_price/1000).toFixed(2) + "K":
-                    "$" + (props.current_price).toFixed(2)}
+                    {handleMoney(props.current_price)}
                 </div>
-                {handleFluctuation()}
+                {handleFluctuation(props.change)}
             </div>
             
         </div>
