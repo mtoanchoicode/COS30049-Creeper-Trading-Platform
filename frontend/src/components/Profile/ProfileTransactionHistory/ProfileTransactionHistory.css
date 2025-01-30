@@ -1,0 +1,170 @@
+.profileTH-card {
+  border: 0.05rem solid var(--white-color);
+  padding: 2rem 2rem;
+  width: 100%;
+  height: fit-content;
+  border-radius: 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.profileTH-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.profileTH-card .profileTH-heading {
+  font-size: 2rem;
+}
+
+.profileTH-card .profileTH-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.profileTH-card .profileTH-table th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 0.05rem solid var(--white-color);
+  white-space: nowrap;
+}
+
+.profileTH-card .profileTH-table td {
+  text-align: left;
+  padding: 1rem 0.5rem;
+  white-space: nowrap;
+}
+
+.profileTH-buy {
+  color: var(--primary-color);
+}
+
+.profileTH-sell {
+  color: red;
+}
+
+.profileTH-ExportBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  text-align: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.profileTH-ExportBtn:hover {
+  background-color: var(--secondary-color);
+}
+
+.profileTH-ExportBtn img {
+  width: 2rem !important;
+}
+
+.profileTH-ExportBtn p {
+  font-weight: 800;
+}
+
+/* **** */
+
+.profileTH-TooltipContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.profileTH-Tooltip {
+  visibility: hidden;
+  background-color: var(--grey-color);
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  bottom: 150%; /* Position above the text */
+  left: 0;
+  transform: translateX(0);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profileTH-Tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Arrow at the bottom of the tooltip */
+  left: 0;
+  transform: translateX(50%);
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: var(--grey-color) transparent transparent transparent;
+}
+
+.profileTH-TooltipContainer:hover .profileTH-Tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.profileTH-AddressContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileTH-AddressText {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.profileTH-AddressText:hover {
+  text-decoration: none;
+}
+
+.profileTH-CopyButton {
+  background: none;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.profileTH-CopyButton:hover {
+  color: var(--grey-color);
+}
+
+.profileTH-CopyButton:active {
+  color: var(--secondary-color);
+}
+
+.profileTH-switchView {
+  margin-bottom: 20px;
+}
+
+.profileTH-button {
+  background-color: transparent;
+  border: 0.05rem solid var(--white-color);
+  color: var(--white-color);
+  padding: 0.4rem 1rem;
+  margin-right: 0.7rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1rem;
+}
+
+.profileTH-button.active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: 0.05rem solid var(--primary-color);
+  font-weight: 800;
+}
+
+.profileTH-button:hover {
+  background-color: var(--secondary-color);
+  border: 0.05rem solid var(--secondary-color);
+}

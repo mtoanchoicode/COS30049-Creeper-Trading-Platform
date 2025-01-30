@@ -1,0 +1,97 @@
+.watchList-tableContainer {
+  width: 100%;
+}
+.watchList-tableContainer .watchList-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.watchList-tableContainer .watchList-table th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 0.05rem solid var(--white-color);
+  white-space: nowrap;
+}
+
+.watchList-tableContainer .watchList-table td {
+  text-align: left;
+  padding: 1rem 0.5rem;
+  white-space: nowrap;
+}
+
+.watchList-tableContainer .watchList-table tr:hover {
+  background-color: var(--grey-color);
+}
+
+.watchList-card {
+  border: 0.05rem solid var(--white-color);
+  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 60rem;
+  height: fit-content;
+  border-radius: 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.watchList-card h2 {
+  font-size: 2rem;
+}
+
+.watchList-Percent span {
+  padding: 0.2rem;
+  margin-left: 0.1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+.watchList-PercentNegative {
+  color: var(--price-falling);
+}
+.watchList-PercentPositive {
+  color: var(--price-rising);
+}
+.watchList-Delete {
+  color: var(--primary-color);
+}
+.watchList-Delete:hover {
+  color: var(--secondary-color);
+}
+
+.watchList-CoinNameContainer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.watchList-CoinNameContainer img {
+  width: 2rem;
+  height: 2rem;
+}
+.watchList-CoinName div {
+  font-size: 1rem;
+}
+.watchList-CoinName:hover {
+  color: var(--primary-color);
+}
+.watchList-pagination {
+  margin-top: 1rem;
+  padding-block: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+.watchList-pagination button {
+  background: none;
+  outline: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0.4rem;
+  border: 0.05rem solid var(--white-color);
+  border-radius: 0.5rem;
+}
+
+.watchList-pagination button:disabled {
+  opacity: 0.1;
+}
+.watchList-page {
+  padding: 0.4rem;
+  border: 0.05rem solid var(--white-color);
+  text-align: center;
+  border-radius: 0.5rem;
+}

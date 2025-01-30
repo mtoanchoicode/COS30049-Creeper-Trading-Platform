@@ -1,0 +1,35 @@
+.forgotForm-heading {
+  font-weight: bold;
+  font-size: 3rem;
+}
+.forgotForm-header {
+  margin-bottom: 2rem;
+}
+
+.forgotForm-header p {
+  margin-top: 0.5rem;
+}
+
+.forgotForm-input {
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.forgotForm-backBtn {
+  background-color: transparent;
+  cursor: pointer;
+  width: 100%;
+  border: 0.1rem solid var(--primary-color);
+  color: var(--white-color);
+}
+
+.forgotForm-backBtn:hover {
+  background: var(--secondary-color) !important;
+  border: 0.1rem solid var(--secondary-color) !important;
+  color: var(--white-color) !important;
+}
+
+.forgotForm-BtnContainer {
+  display: flex;
+  gap: 1rem;
+}
