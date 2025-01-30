@@ -1,0 +1,39 @@
+.profileSearch-container{
+    position: relative;
+    width: 25rem;
+    max-width: 400px;
+    margin-top: .5rem;
+}
+
+.profileSearch-input{
+    width: 100%;
+    height: fit-content;
+    font-size: 1rem;
+    padding: .7rem;
+    border-radius: .5rem;
+}
+.profileSearch-input:focus{
+    outline: none;
+}
+
+.profileSearch-submitButton{
+    position: absolute;
+    top: 50%;
+    right: .7rem;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 20%;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+.profileSearch-submitButton:hover{
+    background-color: var(--secondary-color);
+}

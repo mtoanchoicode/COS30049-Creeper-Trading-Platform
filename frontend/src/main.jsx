@@ -15,7 +15,10 @@ import LoginPage from "./pages/Profile/Login.jsx";
 import ProfileDashboardPage from "./pages/Profile/ProfileDashboard.jsx";
 import ProfileAssetsPage from "./pages/Profile/ProfileAsset.jsx";
 import NotFoundPage from "./pages/NotFound.jsx";
-import ProfileTransactionHistoryPage from "./pages/Profile/ProfileTransactions.jsx";
+import { UserProvider } from "./contexts/UserContext.jsx";
+import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
+import LoginMain from "./pages/Profile/LoginMain.jsx";
+import ForgotPage from "./pages/Profile/Forgot.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -54,7 +57,7 @@ const routers = createBrowserRouter([
           },
           {
             path: "transactions",
-            element: <ProfileTransactionHistoryPage />,
+            element: <ProfileSearchPage />,
           },
         ],
       },
@@ -67,6 +70,16 @@ const routers = createBrowserRouter([
   {
     path: "/profile/login",
     element: <LoginPage />,
+    children: [
+      {
+        index: true,
+        element: <LoginMain />,
+      },
+      {
+        path: "forgot",
+        element: <ForgotPage />,
+      },
+    ],
   },
   {
     path: "*",
@@ -76,8 +89,10 @@ const routers = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CoinProvider>
-      <RouterProvider router={routers} />
-    </CoinProvider>
+    <UserProvider>
+      <CoinProvider>
+        <RouterProvider router={routers} />
+      </CoinProvider>
+    </UserProvider>
   </StrictMode>
 );

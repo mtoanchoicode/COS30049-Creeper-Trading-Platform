@@ -1,17 +1,14 @@
 import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React from "react";
-import MenuBar from "../../components/ProfileMenuBar/ProfileMenuBar";
+import MenuBar from "../../components/Profile/ProfileMenuBar/ProfileMenuBar";
 import { Outlet } from "react-router-dom";
-
-const { Content } = Layout;
 
 const ProfilePage = () => {
   return (
     <Layout
       style={{
-        minHeight: "calc(100vh - 5rem)",
-        marginTop: "5rem",
+        height: "fit-content",
         backgroundColor: "var(--black-color)",
       }}
     >

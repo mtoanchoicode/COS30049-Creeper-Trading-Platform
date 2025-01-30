@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Checkbox, Row, Col } from "antd";
 import "./Profile.css";
-import LoginLogo from "../../components/LoginLogo/LoginLogo";
+import LoginLogo from "../../components/Login/LoginLogo/LoginLogo";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
 const RegisterPage = () => {

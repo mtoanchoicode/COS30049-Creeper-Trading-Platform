@@ -1,0 +1,43 @@
+.loginform-main-form{
+    width: 30rem;
+}
+
+.loginform-main-form .ant-form-item{
+    margin-bottom: 1.5rem;
+}
+.loginform-google-button{
+    display: "flex";
+    align-items: "center";
+    justify-content: "center";
+    margin-top: 1rem;
+    background-color: var(--third-color);
+    color: var(--text-color);
+    border: none;
+}
+.loginform-google-button:hover{
+    background: var(--secondary-color) !important;
+    color: var(--text-color) !important;
+}
+.loginform-google-icon{
+    width: 1rem;
+    margin-right: .5rem;
+}
+.loginform-don-have-account{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    text-align: "center";
+    margin-top: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+.loginform-login-button{
+    background-color: var(--primary-color)
+}
+.loginform-login-button:hover {
+    background: var(--secondary-color) !important;
+}
+.profileForm-input{
+    height: 3rem;
+    font-size: 1rem;
+}

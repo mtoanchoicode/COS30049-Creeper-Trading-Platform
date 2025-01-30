@@ -1,7 +1,7 @@
-.loginform-login-button{
-    background-color: var(--primary-color);
-
+.loginform-login-button {
+  background-color: var(--primary-color);
+  cursor: pointer;
 }
 .loginform-login-button:hover {
-    background: var(--secondary-color) !important;
+  background: var(--secondary-color) !important;
 }
