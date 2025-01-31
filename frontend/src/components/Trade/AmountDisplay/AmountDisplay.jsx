@@ -2,8 +2,9 @@ import React from "react";
 import "./AmountDisplay.css";
 
 import { Input } from "antd";
+import CurrencySelection from "../CurrencySelection/CurrencySelection";
 
-const AmountDisplay = ({ currency, usdValue, value, handleChange }) => {
+const AmountDisplay = ({ usdValue, value, handleChange, onClick, currency }) => {
   return (
     <div className="amount-display">
       <div className="amount-display-main">
@@ -14,12 +15,11 @@ const AmountDisplay = ({ currency, usdValue, value, handleChange }) => {
           inputMode="decimal"
           value={value}
         />
+        <CurrencySelection onClick={onClick} currency={currency}/>
       </div>
-      {value && (
-        <div className="amount-display-usd">
-          <p>${usdValue}</p>
-        </div>
-      )}
+      <div className="amount-display-usd">
+        <p>${usdValue}</p>
+      </div>
     </div>
   );
 };

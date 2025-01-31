@@ -7,16 +7,16 @@ const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
 
-  const [fromCurrency, setFromCurrency] = useState({
-    id: "ethereum",
-  });
-  const [toCurrency, setToCurrency] = useState({
-    id: "tether",
-  });
+  const defaultCurrency = {
+    symbol: "USD", // Default symbol
+    name: "US Dollar", // Default name
+  };
 
+  const [fromCurrency, setFromCurrency] = useState(defaultCurrency);
+  const [toCurrency, setToCurrency] = useState(defaultCurrency);
   useEffect(() => {
     fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=25&page=1&sparkline=false"
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -36,12 +36,10 @@ const CoinProvider = ({ children }) => {
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
 
-  console.log(coins);
-
   const [fromCurrencyValue, setFromCurrencyValue] = useState("");
   const [toCurrencyValue, setToCurrencyValue] = useState("");
-  const [fromUsdValue, setFromUsdValue] = useState("");
-  const [toUsdValue, setToUsdValue] = useState("");
+  const [fromUsdValue, setFromUsdValue] = useState(0);
+  const [toUsdValue, setToUsdValue] = useState(0);
 
   const resetValues = () => {
     setFromCurrencyValue("");

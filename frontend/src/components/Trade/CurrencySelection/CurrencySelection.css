@@ -1,0 +1,32 @@
+.currency-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 0.7rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid grey;
+  border-radius: 5rem;
+}
+
+.currency-selection img {
+  aspect-ratio: 1/1;
+  width: 1.5rem;
+  min-height: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.currency-selection p {
+  font-weight: 600;
+}
+
+.currency-selection i {
+  font-size: 0.7rem;
+  color: #565656;
+}
+
+.currency-selection:hover i {
+  font-size: 0.7rem;
+  color: white;
+}

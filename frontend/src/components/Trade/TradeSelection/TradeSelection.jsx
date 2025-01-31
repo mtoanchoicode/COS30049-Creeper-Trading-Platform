@@ -1,42 +1,39 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./TradeSelection.css";
 
 const TradeSelection = () => {
-  const [selectedOption, setSelectedOption] = useState("Swap");
+  const location = useLocation();
+
+  // Determine the active option based on the current pathname
+  const activePath = location.pathname;
+
   return (
     <div className="trade-selection">
       <Link to="/trade/swap">
-        {" "}
         <button
-          onClick={() => setSelectedOption("Swap")}
-          className={selectedOption === "Swap" ? "active" : ""}
+          className={activePath === "/trade/swap" ? "active" : ""}
         >
           Swap
         </button>
       </Link>
       <Link to="/trade/limit">
-        {" "}
         <button
-          onClick={() => setSelectedOption("Limit")}
-          className={selectedOption === "Limit" ? "active" : ""}
+          className={activePath === "/trade/limit" ? "active" : ""}
         >
           Limit
         </button>
       </Link>
       <Link to="/trade/send">
-        {" "}
         <button
-          onClick={() => setSelectedOption("Send")}
-          className={selectedOption === "Send" ? "active" : ""}
+          className={activePath === "/trade/send" ? "active" : ""}
         >
           Send
         </button>
       </Link>
       <Link to="/trade/buy">
         <button
-          onClick={() => setSelectedOption("Buy")}
-          className={selectedOption === "Buy" ? "active" : ""}
+          className={activePath === "/trade/buy" ? "active" : ""}
         >
           Buy
         </button>
