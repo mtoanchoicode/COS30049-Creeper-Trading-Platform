@@ -24,12 +24,8 @@ const ConvertCurrenciesContainer = ({
           usdValue={usdValue}
           value={value}
           inputValue={currency}
+          onClick={onClick}
         />
-        <div className="convert-currencies-selection" onClick={onClick}>
-          {currency.image && <img src={currency.image} alt={currency.symbol} />}
-          <p>{currency.symbol}</p>
-          <i className="fa-solid fa-chevron-down"></i>
-        </div>
       </div>
     </div>
   );

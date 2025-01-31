@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import "./CurrencySelectOverlay.css";
+import "./TokensSelection.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 
 export const ConvertCoinSelection = ({ type }) => {
@@ -12,12 +12,24 @@ export const ConvertCoinSelection = ({ type }) => {
       <div className="convert-coin-selection">
         <div className="convert-coin-selection-container">
           <div className="convert-coin-selection-container-top">
-            <p>Select Currency</p>
+            <p>Select a token</p>
             <div
               className="convert-coin-selection-container-close"
               onClick={() => setActiveOverlay(null)}
             >
               <CloseOutlined />
+            </div>
+          </div>
+          <div className="convert-selection-container-center">
+            <div className="convert-selection-searchbar">
+              <div className="convert-selection-searchbar-container">
+                <div className="convert-selection-searchbar-icon">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div className="convert-selection-searchbar-text">
+                  <p>Search tokens</p>
+                </div>
+              </div>
             </div>
           </div>
           <div className="convert-coin-selection-container-list">
@@ -38,9 +50,6 @@ export const ConvertCoinSelection = ({ type }) => {
                     <p className="selection-coin-symbol">
                       {coin.symbol.toUpperCase()}
                     </p>
-                  </div>
-                  <div className="selection-coin-price">
-                    <p>${coin.current_price.toFixed(2)}</p>
                   </div>
                 </div>
               </div>

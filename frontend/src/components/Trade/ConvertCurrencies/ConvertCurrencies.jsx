@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./ConvertCurrencies.css";
-import SwapButton from "../../Trade/SwapButton/SwapButton";
+import SwapButton from "../TradeButton/TradeButton";
 import ConvertCurrenciesContainer from "../ConvertCurrenciesContainer/ConvertCurrenciesContainer";
-import CurrencySelectOverlay from "../CurrencySelectOverlay/CurrencySelectOverlay";
+import CurrencySelectOverlay from "../TokensSelection/TokensSelection";
 import { CoinContext } from "../../../contexts/CoinContext";
 
 const ConvertCurrencies = () => {
@@ -14,7 +14,7 @@ const ConvertCurrencies = () => {
     setActiveOverlay,
     fromUsdValue,
     toUsdValue,
-    handleFromCurrencyValueChange,
+    handleFromCurrencyValueChange,y
     handleToCurrencyValueChange,
   } = useContext(CoinContext);
 
