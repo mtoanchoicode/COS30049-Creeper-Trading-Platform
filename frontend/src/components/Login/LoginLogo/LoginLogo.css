@@ -1,0 +1,20 @@
+.login-logo-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.login-logo p {
+    font-family: "Oxanium", sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    width: fit-content;
+    color: var(--header-color);
+}
+
+.login-logo{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}

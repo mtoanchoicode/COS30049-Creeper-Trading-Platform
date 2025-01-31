@@ -1,0 +1,21 @@
+.market-sort-button{
+    margin-left: 0.4rem;
+    width: 17px;
+    height: 15px;
+    background-image: url("../../../assets/Market Sort Button.svg");
+}
+
+.isSelected{
+    background-image: url("../../../assets/Market Sort Button Selected.svg");
+}
+
+.asc{
+    transform: scaleY(-1);
+}
+
+
+
+
+
+
+

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
-
 import logo from "../../assets/Logo.png";
 import bellIcon from "../../assets/Bell Icon.svg";
 import hoverBellIcon from "../../assets/Hover Bell Icon.svg";
@@ -14,8 +13,13 @@ import barsIcon from "../../assets/Bars Icon.svg";
 import { Link } from "react-router-dom";
 import NavTrade from "../NavTrade/NavTrade";
 import NavProfile from "../NavProfile/NavProfile";
+import { Button } from "antd";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import shortenAddress from "../../utils/utils";
 
 const NavBar = () => {
+  const { open } = useAppKit();
+  const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
   const [hoverIcon, setHoverIcon] = useState(false);
@@ -72,7 +76,9 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-right">
-        <Icons src={walletIcon} alt="Wallet Icon" />
+        <Button className="navbar-connectWallet" onClick={() => open()}>
+          {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
+        </Button>
         <Icons src={bellIcon} alt="Notification Icon" />
         <Icons src={moonIcon} alt="Moon  Icon" />
         <div

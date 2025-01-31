@@ -1,14 +1,20 @@
 import { Layout } from "antd";
 import React from "react";
-import HeaderInfo from "../../components/ProfileHeaderInfo/ProfileHeaderInfo";
-import TransactionHistory from "../../components/ProfileTransactionHistory/ProfileTransactionHistory";
-import EstimatedBalance from "../../components/ProfileEstimatedBalance/ProfileEstimatedBalance";
+import HeaderInfo from "../../components/Profile/ProfileHeaderInfo/ProfileHeaderInfo";
+import EstimatedBalance from "../../components/Profile/ProfileEstimatedBalance/ProfileEstimatedBalance";
+import ProfileWatchList from "../../components/Profile/ProfileWatchList/ProfileWatchList";
+import TransactionsHistory from "../../components/Profile/ProfileTransactionHistory/ProfileTransactionHistory";
 
 const ProfileDashboardPage = () => {
   return (
-    <Layout style={{ padding: "20px", backgroundColor: "var(--black-color)" }}>
+    <Layout
+      style={{
+        padding: "1rem",
+        backgroundColor: "var(--black-color)",
+      }}
+    >
       <HeaderInfo />
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "flex-start",
@@ -16,11 +22,8 @@ const ProfileDashboardPage = () => {
           gap: "3rem",
           marginBottom: 20,
         }}
-      >
-        <EstimatedBalance shortVersion={true} />
-        <TransactionHistory />
-      </div>
-      {/* <Market /> */}
+      ></div> */}
+      <ProfileWatchList />
     </Layout>
   );
 };
