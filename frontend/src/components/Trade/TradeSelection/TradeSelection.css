@@ -2,27 +2,28 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 2.5rem;
-  width: 30rem;
+  gap: 1rem;
+  width: 28rem;
   margin: auto;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.7rem;
 }
 
 .trade-selection button {
   outline: none;
   border: none;
-  padding-bottom: 0.5rem;
   background: transparent;
+  padding: 0.3rem 0.8rem;
   color: #707070;
-  font-weight: 700;
-  border-bottom: 2px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 1rem;
   transition: border-bottom 0.1s ease;
   cursor: pointer;
 }
 
 .trade-selection button.active {
   color: var(--white-color);
-  border-bottom: 0.15rem solid #00da5b;
+  background: var(--primary-color);
 }
 
 .trade-selection button:hover {

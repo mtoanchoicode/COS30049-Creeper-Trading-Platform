@@ -10,6 +10,9 @@ import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
 import RegisterPage from "./pages/Profile/Register.jsx";
 import Swap from "./pages/Trade/Swap/Swap.jsx";
+import Limit from "./pages/Trade/Limit/Limit.jsx";
+import Send from "./pages/Trade/Send/Send.jsx";
+import Buy from "./pages/Trade/Buy/Buy.jsx";
 import ProfilePage from "./pages/Profile/Profile.jsx";
 import LoginPage from "./pages/Profile/Login.jsx";
 import ProfileDashboardPage from "./pages/Profile/ProfileDashboard.jsx";
@@ -38,9 +41,9 @@ const routers = createBrowserRouter([
         element: <TradePage />,
         children: [
           { path: "swap", element: <Swap /> },
-          { path: "limit", element: <Swap /> },
-          { path: "send", element: <Swap /> },
-          { path: "buy", element: <Swap /> },
+          { path: "limit", element: <Limit /> },
+          { path: "send", element: <Send /> },
+          { path: "buy", element: <Buy /> },
         ],
       },
       {
