@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./CenterDashboard.css";
 import NewsComponent from "../NewsComponent/NewsComponent"
+import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
+import { CoinContext } from "../../../contexts/CoinContext";
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg"; 
 import Google from "../../../assets/Google.svg";
@@ -14,7 +16,16 @@ const onFinish = async (values) => {
     console.log("Failed:", errorInfo);
 };
 
+
+
+
 const Centers = ({title, subtitle}) => {
+    const {coins} = useContext(CoinContext);
+
+    const HotCoins = coins.slice(0,5);
+
+
+
   return (
     <section className = "CenterComponent-Container" >
         <div className="Leftside-Container">
@@ -97,6 +108,20 @@ const Centers = ({title, subtitle}) => {
 
 
         <div className= "Rightside-Container" >
+            <div className= "List-HotCoin-Container"> 
+                <h2>Hot Coins</h2>
+                {HotCoins.map(coin =>(
+                <MarketCoinBrief className="Hot-Coins-listing"
+                  id={coin.id}
+                  name={coin.name}
+                  symbol={coin.symbol.toUpperCase()}
+                  current_price={coin.current_price}
+                  image={coin.image}
+                  change={coin.price_change_percentage_24h}
+                />
+              ))}
+            </div>
+
             <NewsComponent/>
         </div>
     </section>

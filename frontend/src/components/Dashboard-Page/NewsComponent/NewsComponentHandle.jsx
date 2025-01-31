@@ -7,9 +7,9 @@ const News = ({ News, title }) => {
     return (
         <section className="News-container">
             <div className= "News-heading-container">
-                <h1 className="News-heading-title">
+                <h2 className="News-heading-title">
                     {title}
-                </h1>
+                </h2>
 
                 <Link to="/">
                     <p className="News-Link">View all news</p>
