@@ -1,54 +1,52 @@
 .limit {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .limit-content {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 4rem;
-    width: 28rem;
-    margin: auto;
-  }
-  
-  .limit-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .limit-container .limit-btn {
-    background: var(--primary-color);
-    height: 3rem;
-    font-size: 10rem !important;
-    font-weight: 600;
-    border-radius: 1rem;
-  }
-  
-  .limit-container .limit-btn:hover {
-    background: #00943e !important;
-  }
-  
-  .limit-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .limit-right h2 {
-    font-family: "Manrope";
-    font-size: 1.5rem;
-  }
-  
-  .limit-right .limit-right-desc {
-    font-size: 0.8rem;
-    color: #adadad;
-    align-self: flex-start;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.limit-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4rem;
+  margin: auto;
+}
+
+.limit-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.limit-container .limit-btn {
+  background: var(--primary-color);
+  height: 3rem;
+  font-size: 10rem !important;
+  font-weight: 600;
+  border-radius: 1rem;
+}
+
+.limit-container .limit-btn:hover {
+  background: #00943e !important;
+}
+
+.limit-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.limit-right h2 {
+  font-family: "Manrope";
+  font-size: 1.5rem;
+}
+
+.limit-right .limit-right-desc {
+  font-size: 0.8rem;
+  color: #adadad;
+  align-self: flex-start;
+}

@@ -10,7 +10,7 @@ const ConvertTrade = () => {
       <div className="swap-content">
         <div className="swap-container">
           <ConvertCurrencies />
-          <Button type="primary" block className="swap-btn">
+          <Button type="primary" block className="swap-btn  trade-btn">
             Connect wallet
           </Button>
         </div>

@@ -12,7 +12,7 @@ const Limit = () => {
         <div className="limit-container">
           <LimitPrice />
           <ConvertCurrencies />
-          <Button type="primary" block className="limit-btn">
+          <Button type="primary" block className="limit-btn trade-btn">
             Connect wallet
           </Button>
         </div>

@@ -1,3 +1,22 @@
 .trade {
-  padding: 4.25rem 0;
+  padding: 4.25rem 31rem;
+}
+
+.trade-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.trade-btn {
+  background: var(--primary-color);
+  height: 3rem;
+  font-size: 10rem !important;
+  font-weight: 600;
+  border-radius: 1rem;
+}
+
+.trade-btn:hover {
+  background: #00943e !important;
 }
