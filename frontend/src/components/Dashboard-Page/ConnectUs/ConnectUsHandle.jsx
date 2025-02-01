@@ -1,31 +1,30 @@
 import React from "react";
-import "./ConnectUs.css"
+import "./SmartContract.css"
 import { Link } from "react-router-dom";
 
-const ConnectUs = ({ items, title }) => {
+const SmartContractHandle = ({ items, title }) => {
     return (
-        <section className="ConnectUs-container">
-            <div className= "ConnectUs-title">
-                <h1 className="ConnectUs-heading">
+        <section className="SmartContract-container">
+            <div className= "SmartContract-title">
+                <h1 className="SmartContract-heading">
                     {title}
                 </h1>
             </div>
 
-            <div className = "ConnectUs-Block-Container">
-                {items?.map((Item, index) => {
+            <div className = "SmartContract-Block-Container">
+                {items?.map((item, index) => {
                     return (
-                    <a href={Item.href} key = {index} className = {`ConnectUs-Block-Item ${Item.bgColor}`}>
-                        <div className="ConnectUs-Label-Container"> 
-                            <div className="ConnectUs-Label">
+                    <div key = {index} className = "SmartContract-Block-Item" >
+                        <div className="SmartContract-Label-Container"> 
+                            <div className="SmartContract-Label">
                                 <span>{Item.label}</span>
-                                <i className="fa-solid fa-arrow-right"></i>
                             </div>
                         </div>
 
-                        <div className="ConnectUs-Content-Container">
+                        <div className="SmartContract-Content-Container">
                             {Item.renderContent()}
                         </div>
-                    </a>
+                    </div>
                     )
                 })}
             </div>
@@ -33,4 +32,4 @@ const ConnectUs = ({ items, title }) => {
     )
 }
 
-export default ConnectUs
+export default SmartContractHandle
