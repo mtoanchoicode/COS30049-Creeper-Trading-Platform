@@ -14,7 +14,7 @@ const ConvertCurrencies = () => {
     setActiveOverlay,
     fromUsdValue,
     toUsdValue,
-    handleFromCurrencyValueChange,y
+    handleFromCurrencyValueChange,
     handleToCurrencyValueChange,
   } = useContext(CoinContext);
 
