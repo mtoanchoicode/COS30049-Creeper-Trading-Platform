@@ -1,7 +1,7 @@
 import React from "react";
 import "./StepsFlow.css";
-import Icons from "../Icons/Icons";
-import WhiteArrow from "../../assets/White-arrow.svg";
+import Icons from "../../Icons/Icons";
+import WhiteArrow from "../../../assets/White-arrow.svg";
 
 const Steps = ({ steps, title }) => {
   return (

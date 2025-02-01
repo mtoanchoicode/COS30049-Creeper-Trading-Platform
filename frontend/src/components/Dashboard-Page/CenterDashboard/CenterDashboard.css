@@ -1,0 +1,174 @@
+.CenterComponent-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3.5rem;
+    height: fit-content;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* leftside css style */
+
+.Leftside-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 45%; 
+}
+
+.Leftside_heading-Container p{
+    font-size: 3rem;
+    color: var(--white-color);
+    width: 100%;
+}
+
+.Leftside_Subheading-Container p {
+    font-size: 1.2rem;
+    color: var(--text-color); 
+    width: 100%;
+} 
+
+/* .Center_LoginForm-Containern {
+    display: flex;
+    align-items: center;
+} */
+
+
+.Center_LoginForm {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+}   
+
+.Center_LoginForm .ant-form-item {
+    margin: 0 0 1rem 0 ;
+    width: 50%;
+}
+
+/* .Center_LoginForm .Center-SignUp-Input_Container{
+    width: 100%;
+}
+
+.Center_LoginForm .Center-SignUp-Button_Container {
+    width: 30%;
+} */
+
+.Center-SignUp_Input {
+    border: 2px solid; 
+    border-color: var(--text-color);
+    border-radius: 12px;
+    /* padding: 1rem; */
+    background-color: transparent;
+    color: var(--white-color);   
+    padding: 0.8rem;
+}
+
+.Center-SignUp_Input::placeholder {
+    color: var(--white-color) !important;
+}
+
+/* .Center-SignUp_Input:hover::placeholder {
+    color: var(--text-color);
+} */
+
+.Center-SignUp_Input:hover {
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+
+.Center-SignUp_Input:focus {
+    border-color: var(--primary-color);
+    background-color: transparent;
+}
+
+.Center-SignUp_Button { 
+    border-radius: 12px;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    width: 50% !important;  
+    padding: 1.5rem;
+}
+
+.Center-SignUp_Button:hover { 
+    background-color: var(--third-color) !important;
+}
+
+.OtherSignup-Follow_Container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.OtherSignup-Follow_Container .Item-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; 
+    padding: 1rem; 
+}
+
+.Item-Container a img {
+    width: 3rem; 
+    height: 3rem;
+}
+
+.Rightside-Container {
+    width: 45%;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.List-HotCoin-Container{
+    padding: 1rem 2rem;
+    border: 1.8px solid;
+    border-color: var(--white-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.List-HotCoin-Container h2{
+   margin-bottom: 0.4rem;
+}
+
+.Hot-Coins-listing{
+    width: 100%;
+}
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* Mobile (481px - 767px) */
+  @media (min-width: 481px) and (max-width: 767px) {
+    .CenterComponent-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    height: fit-content;
+    flex-wrap: wrap;
+    }
+
+    .Leftside-Container {
+        width: 100%; 
+    }
+
+    .Rightside-Container {
+        width: 100%;
+    }
+  } 
+  
+  /* Tablets (768px - 1280px) */
+  @media (min-width: 768px) and (max-width: 1280px) {
+   
+  }
