@@ -71,13 +71,13 @@
   font-weight: 600;
 }
 
-.navbar-left .navbar-left-menu i {
+.navbar-left .navbar-left-menu .fa-chevron-down {
   font-size: 0.7rem;
   cursor: pointer;
   display: inline-block;
 }
 
-.navbar-left .navbar-left-menu-trade:hover i {
+.navbar-left .navbar-left-menu-link:hover .navbar-left-menu-name .fa-chevron-down {
   font-size: 0.7rem;
   cursor: pointer;
   display: inline-block;
@@ -127,14 +127,14 @@
 }
 
 /* Right Section */
-.navbar-right .navbar-connectWallet{
+.navbar-right .navbar-connectWallet {
   color: var(--white-color);
   background-color: var(--header-color);
   border: none;
   font-weight: 500;
 }
 
-.navbar-right .navbar-connectWallet:hover{
+.navbar-right .navbar-connectWallet:hover {
   color: var(--white-color) !important;
   background-color: var(--secondary-color) !important;
 }
