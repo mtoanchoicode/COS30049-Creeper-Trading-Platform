@@ -4,6 +4,7 @@ import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinB
 import MarketCoinPool from "../../components/Market/MarketCoinPool/MarketCoinPool";
 import { CoinContext } from "../../contexts/CoinContext";
 import './Market.css';
+import { Link, Links } from "react-router-dom";
 
 
 const MarketPage = () => {
@@ -32,14 +33,17 @@ const MarketPage = () => {
             <div className = "market-hot-coins">
               <h3>Hot Coins</h3>
               {hotCoins.map(coin =>(
-                <MarketCoinBrief className="hot-coins-listing"
-                  id={coin.id}
-                  name={coin.name}
-                  symbol={coin.symbol.toUpperCase()}
-                  current_price={coin.current_price}
-                  image={coin.image}
-                  change={coin.price_change_percentage_24h}
-                />
+                 
+                  <MarketCoinBrief className="hot-coins-listing"
+                    key={coin.id}
+                    id={coin.id}
+                    name={coin.name}
+                    symbol={coin.symbol.toUpperCase()}
+                    current_price={coin.current_price}
+                    image={coin.image}
+                    change={coin.price_change_percentage_24h}
+                  />
+                
               ))}
             </div>
 
@@ -48,6 +52,7 @@ const MarketPage = () => {
                 <h3>Top Gains</h3>
                 {topGains.map(coin =>(
                 <MarketCoinBrief
+                  key={coin.id}
                   id={coin.id}
                   name={coin.name}
                   symbol={coin.symbol.toUpperCase()}
@@ -62,6 +67,7 @@ const MarketPage = () => {
                 <h3>Top Losses</h3>
                 {topLosses.map(coin =>(
                   <MarketCoinBrief 
+                    key={coin.id}
                     id={coin.id}
                     name={coin.name}
                     symbol={coin.symbol.toUpperCase()}
