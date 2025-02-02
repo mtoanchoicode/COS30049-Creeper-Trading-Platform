@@ -1,0 +1,99 @@
+.send-tokens-exchange {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.1rem;
+  background: #222222;
+  border-radius: 1rem 1rem 0 0;
+  padding: 0.5rem 1rem;
+  height: 14rem;
+}
+
+.send-top span {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.send-bottom {
+  margin: auto;
+}
+
+.send-bottom input {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 4rem;
+  font-weight: 600;
+  color: white;
+  width: 25rem;
+  text-align: center;
+}
+
+.send-bottom input::placeholder {
+  color: grey;
+}
+
+.send-bottom input:hover {
+  background: transparent;
+  border: none;
+}
+
+.send-bottom input:focus {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.send-currency-change {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.send-currency-change i {
+  font-size: 0.7rem;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+.send-tokens-selection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222222;
+  border-radius: 0 0 1rem 1rem;
+  padding: 0.7rem 1rem;
+  border-top: 0.1rem solid var(--black-color);
+  cursor: pointer;
+}
+
+.send-tokens-selection:hover {
+  background: #1e1e1e;
+}
+
+.send-tokens-selection-coin {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.send-tokens-selection-coin p {
+  font-weight: 600;
+}
+
+.send-tokens-selection-coin img {
+  width: 2.5rem;
+  height: 2.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.send-tokens-selection-icon i {
+  font-size: 0.9rem;
+  color: #565656;
+}

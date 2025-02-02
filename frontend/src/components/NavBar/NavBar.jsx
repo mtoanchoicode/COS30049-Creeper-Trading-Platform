@@ -54,7 +54,7 @@ const NavBar = () => {
             onMouseLeave={() => setShowNavTrade(false)}
             className="navbar-left-menu-link"
           >
-            <div className="navbar-left-menu-name navbar-left-menu-trade">
+            <div className="navbar-left-menu-name">
               Trade <i className="fa-solid fa-chevron-down"></i>
               {showNavTrade && <NavTrade />}
             </div>
