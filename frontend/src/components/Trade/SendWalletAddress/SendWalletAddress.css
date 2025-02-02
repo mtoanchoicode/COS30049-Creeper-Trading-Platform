@@ -1,0 +1,40 @@
+.send-wallet-address {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.1rem;
+  background: #222222;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.send-wallet-title span {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.send-wallet-input input {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  width: 25rem;
+}
+
+.send-wallet-input input::placeholder {
+  color: grey;
+}
+
+.send-wallet-input input:hover {
+  background: transparent;
+  border: none;
+}
+
+.send-wallet-input input:focus {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}

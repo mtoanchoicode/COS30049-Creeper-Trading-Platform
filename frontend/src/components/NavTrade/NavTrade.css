@@ -54,7 +54,6 @@
   color: var(--primary-color);
   display: inline-block;
   transform: translateX(-100%);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
