@@ -8,6 +8,7 @@ import CoinProvider from "./contexts/CoinContext";
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
+import CoinDetails from "./pages/Market/CoinDetails.jsx";
 import RegisterPage from "./pages/Profile/Register.jsx";
 import Swap from "./pages/Trade/Swap/Swap.jsx";
 import BuyPage from "./pages/Buy&Sell/BuyPage.jsx";
@@ -36,6 +37,10 @@ const routers = createBrowserRouter([
       {
         path: "explore",
         element: <MarketPage />,
+      },
+      {
+        path: "explore/:coinId",
+        element: <CoinDetails/>
       },
       {
         path: "trade",

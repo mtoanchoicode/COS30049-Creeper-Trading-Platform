@@ -6,24 +6,24 @@ const SmartContract = () => {
   const items = [
     {  
         label: "Stay Connected", 
-        href: "https://x.com/?lang=en",
-        bgColor: "bg-Orange",
         renderContent: () => (  
             <span>Follow @Creeper on X for the latest updates</span>
         ),
     },
     {
         label: "Help center", 
-        href: "https://x.com/?lang=en",
-        bgColor: "bg-Blue",
         renderContent: () => (
-           <span>Get Support</span>
+           <span>Hello</span>
         ),   
     },
     {
         label: "Blog", 
-        href: "https://x.com/?lang=en",
-        bgColor: "bg-Pink",
+        renderContent: () => ( 
+            <span>News from the dev team</span>
+        ),
+    },
+    {
+        label: "test", 
         renderContent: () => ( 
             <span>News from the dev team</span>
         ),
@@ -32,7 +32,8 @@ const SmartContract = () => {
 
   return <SmartContractHandle 
     items={items} 
-    title = "Connect with us"
+    title = "Smart Contract"
+    subtitle = "Lorem ispum ibesstd fadiya" 
   />;
 };
 

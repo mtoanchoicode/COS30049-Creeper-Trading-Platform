@@ -1,36 +1,57 @@
 import React from "react";
-import "./ConnectUs.css"
-import { Link } from "react-router-dom";
+import "./SmartContract.css"
+import LogoIcon from "../../../assets/logo.png"
 
-const ConnectUs = ({ items, title }) => {
+
+const SmartContractHandle = ({ items, title, subtitle }) => {
     return (
-        <section className="ConnectUs-container">
-            <div className= "ConnectUs-title">
-                <h1 className="ConnectUs-heading">
-                    {title}
-                </h1>
-            </div>
+        <section className="SmartContract-container">
+            <div className="SmartContract-leftside">
+                <div className="SmartContract-Icon-Container layer1">
+                    <div className="SmartContract-Icon-Container layer2">
+                        <img src = {LogoIcon} alt = "Creeper icon"></img>
+                    </div>
+                </div>
+            </div>            
 
-            <div className = "ConnectUs-Block-Container">
-                {items?.map((Item, index) => {
-                    return (
-                    <a href={Item.href} key = {index} className = {`ConnectUs-Block-Item ${Item.bgColor}`}>
-                        <div className="ConnectUs-Label-Container"> 
-                            <div className="ConnectUs-Label">
-                                <span>{Item.label}</span>
-                                <i className="fa-solid fa-arrow-right"></i>
+            <div className= "SmartContract-rightside">
+                <div className= "SmartContract-title">
+                    <h1 className="SmartContract-heading">
+                        {title}
+                    </h1>
+
+                    <h2 className="SmartContract-Subheading">
+                        {subtitle}
+                    </h2>
+                </div>
+
+                <div className = "SmartContract-Block-Container">
+                    {items?.map((item, index) => {
+                        return (
+                        <div key = {index} className = "SmartContract-Block" >
+                            <div className = "SmartContract-Block-Item">
+                                <div className= "SmartContract-Block-Heading">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                    <span>Smart Contract</span>
+                                </div>
+
+                                <div className="SmartContract-Content-Container">
+                                    <div className="SmartContract-Label-Container"> 
+                                        <span>{item.label}</span>
+                                    </div>
+
+                                    <div className= "SmartContract-Content">
+                                        {item.renderContent()}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div className="ConnectUs-Content-Container">
-                            {Item.renderContent()}
-                        </div>
-                    </a>
-                    )
-                })}
-            </div>
+                        )
+                    })}
+                </div>
+            </div>  
         </section>
     )
 }
 
-export default ConnectUs
+export default SmartContractHandle

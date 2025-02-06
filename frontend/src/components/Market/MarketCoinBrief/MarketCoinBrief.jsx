@@ -1,5 +1,6 @@
 import React from "react";
 import './MarketCoinBrief.css';
+import {Link} from "react-router-dom";
 
 function MarketCoinBrief(props){
     const handleFluctuation = (change) => {
@@ -23,19 +24,20 @@ function MarketCoinBrief(props){
     }
 
     return(
-        <div className="market-coin-brief">
-            <div className="market-coin-logo">
-                <img className="market-coin-img" src={props.image} alt={"logo of" + props.name} />
-                <h2 className="market-coin-symbol">{props.symbol}</h2>
-            </div>
-            <div className="market-coin-prices">
-                <div className="market-coin-current">
-                    {handleMoney(props.current_price)}
+        <Link to={`/explore/${props.id}`} key={props.id}>
+            <div className="market-coin-brief">
+                <div className="market-coin-logo">
+                    <img className="market-coin-img" src={props.image} alt={"logo of" + props.name} />
+                    <h2 className="market-coin-symbol">{props.symbol}</h2>
                 </div>
-                {handleFluctuation(props.change)}
+                <div className="market-coin-prices">
+                    <div className="market-coin-current">
+                        {handleMoney(props.current_price)}
+                    </div>
+                    {handleFluctuation(props.change)}
+                </div>
             </div>
-            
-        </div>
+        </Link>
     );
 }
 

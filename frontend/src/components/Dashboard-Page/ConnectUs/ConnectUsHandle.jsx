@@ -1,30 +1,31 @@
 import React from "react";
-import "./SmartContract.css"
+import "./ConnectUs.css"
 import { Link } from "react-router-dom";
 
-const SmartContractHandle = ({ items, title }) => {
+const ConnectUs = ({ items, title }) => {
     return (
-        <section className="SmartContract-container">
-            <div className= "SmartContract-title">
-                <h1 className="SmartContract-heading">
+        <section className="ConnectUs-container">
+            <div className= "ConnectUs-title">
+                <h1 className="ConnectUs-heading">
                     {title}
                 </h1>
             </div>
 
-            <div className = "SmartContract-Block-Container">
-                {items?.map((item, index) => {
+            <div className = "ConnectUs-Block-Container">
+                {items?.map((Item, index) => {
                     return (
-                    <div key = {index} className = "SmartContract-Block-Item" >
-                        <div className="SmartContract-Label-Container"> 
-                            <div className="SmartContract-Label">
+                    <a href={Item.href} key = {index} className = {`ConnectUs-Block-Item ${Item.bgColor}`}>
+                        <div className="ConnectUs-Label-Container"> 
+                            <div className="ConnectUs-Label">
                                 <span>{Item.label}</span>
+                                <i className="fa-solid fa-arrow-right"></i>
                             </div>
                         </div>
 
-                        <div className="SmartContract-Content-Container">
+                        <div className="ConnectUs-Content-Container">
                             {Item.renderContent()}
                         </div>
-                    </div>
+                    </a>
                     )
                 })}
             </div>
@@ -32,4 +33,4 @@ const SmartContractHandle = ({ items, title }) => {
     )
 }
 
-export default SmartContractHandle
+export default ConnectUs
