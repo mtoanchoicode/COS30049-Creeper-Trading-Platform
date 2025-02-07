@@ -10,11 +10,10 @@ import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
 import CoinDetails from "./pages/Market/CoinDetails.jsx";
 import RegisterPage from "./pages/Profile/Register.jsx";
-import Swap from "./pages/Trade/Swap/Swap.jsx";
-import BuyPage from "./pages/Buy&Sell/BuyPage.jsx";
-import Limit from "./pages/Trade/Limit/Limit.jsx";
-import Send from "./pages/Trade/Send/Send.jsx";
-import Buy from "./pages/Trade/Buy/Buy.jsx";
+import Swap from "./pages/Trade/Swap.jsx";
+import Limit from "./pages/Trade/Limit.jsx";
+import Send from "./pages/Trade/Send.jsx";
+import Buy from "./pages/Trade/Buy.jsx";
 import ProfilePage from "./pages/Profile/Profile.jsx";
 import LoginPage from "./pages/Profile/Login.jsx";
 import ProfileDashboardPage from "./pages/Profile/ProfileDashboard.jsx";
@@ -40,7 +39,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "explore/:coinId",
-        element: <CoinDetails/>
+        element: <CoinDetails />,
       },
       {
         path: "trade",

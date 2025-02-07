@@ -4,16 +4,15 @@
   align-items: flex-start;
   justify-content: center;
   gap: 0.1rem;
-  background: #222222;
+  background: var(--trade-background-color);
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  width: 40%;
-  align-self: center;
 }
 
 .send-wallet-title span {
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--trade-secondary-text-color);
 }
 
 .send-wallet-input input {
@@ -21,12 +20,12 @@
   background: none;
   border: none;
   font-size: 1rem;
-  color: white;
+  color: var(--white-color);
   width: 25rem;
 }
 
 .send-wallet-input input::placeholder {
-  color: grey;
+  color: var(--trade-input-placeholder-color);
 }
 
 .send-wallet-input input:hover {

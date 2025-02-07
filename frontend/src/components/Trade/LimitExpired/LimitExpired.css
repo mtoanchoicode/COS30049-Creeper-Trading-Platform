@@ -1,0 +1,35 @@
+.limit-expiry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin: 0.5rem 0;
+}
+
+.limit-expiry-title {
+  font-size: 0.8rem;
+  font-size: 500;
+}
+
+.limit-expiry-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.limit-expiry-btns button {
+  border: 0.05rem solid var(--trade-border-color);
+  border-radius: 5rem;
+  background: var(--black-color);
+  color: var(--trade-secondary-text-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.limit-expiry-btns button.active {
+  border: 0.05rem solid var(--trade-border-active-color);
+  border-radius: 5rem;
+  background: var(--trade-background-active-color);
+  color: var(--white-color);
+}

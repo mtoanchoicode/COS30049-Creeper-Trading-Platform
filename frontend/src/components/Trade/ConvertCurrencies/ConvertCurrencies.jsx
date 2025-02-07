@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext} from "react";
 import "./ConvertCurrencies.css";
 import SwapButton from "../TradeButton/TradeButton";
 import ConvertCurrenciesContainer from "../ConvertCurrenciesContainer/ConvertCurrenciesContainer";

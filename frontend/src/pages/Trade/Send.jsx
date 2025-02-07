@@ -1,7 +1,7 @@
 import React from "react";
 
-import SendContainer from "../../../components/Trade/SendContainer/SendContainer";
-import { SendWalletAddress } from "../../../components/Trade/SendWalletAddress/SendWalletAddress";
+import SendContainer from "../../components/Trade/SendContainer/SendContainer";
+import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWalletAddress";
 import { Button } from "antd";
 
 const Send = () => {

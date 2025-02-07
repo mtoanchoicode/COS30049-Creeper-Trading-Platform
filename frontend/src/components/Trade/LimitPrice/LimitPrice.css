@@ -1,0 +1,67 @@
+.limit-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1rem;
+  border-radius: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--trade-background-color);
+}
+
+.limit-price-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.limit-price-top .limit-price-heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--trade-secondary-text-color);
+}
+
+.limit-price-top .limit-price-heading span {
+  color: var(--white-color);
+  font-weight: 500;
+  margin: 0 0.3rem;
+}
+
+.limit-price-top i {
+  transform: rotate(90deg);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.limit-price-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.limit-price-center .limit-price-price-display {
+  font-size: 2.5rem;
+}
+
+.limit-price-bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.limit-price-bottom button {
+  border: 0.05rem solid var(--trade-border-color);
+  border-radius: 5rem;
+  background: transparent;
+  color: var(--trade-secondary-text-color);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.limit-price-bottom button.active {
+  border: 0.05rem solid var(--trade-border-active-color);
+  border-radius: 5rem;
+  background: var(--trade-background-active-color);
+  color: var(--white-color);
+}

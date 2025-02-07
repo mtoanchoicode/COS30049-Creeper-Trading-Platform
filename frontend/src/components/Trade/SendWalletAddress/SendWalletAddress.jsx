@@ -1,9 +1,8 @@
 import { Input } from "antd";
 import React from "react";
 import "./SendWalletAddress.css";
-import CurrencySelection from "../CurrencySelection/CurrencySelection";
 
-export const SendWalletAddress = () => {
+const SendWalletAddress = () => {
   return (
     <div className="send-wallet-address">
       <div className="send-wallet-title">
@@ -15,3 +14,5 @@ export const SendWalletAddress = () => {
     </div>
   );
 };
+
+export default SendWalletAddress;
