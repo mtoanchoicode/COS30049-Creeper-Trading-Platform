@@ -15,8 +15,8 @@
   background: var(--primary-color);
   height: 3.5rem;
   font-weight: 600;
-  font-size: 6rem !important;
   border-radius: 1rem;
+  align-self: center;
 }
 
 .trade-btn:hover {

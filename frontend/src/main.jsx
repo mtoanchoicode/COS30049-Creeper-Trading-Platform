@@ -39,7 +39,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "explore/:coinId",
-        element: <CoinDetails/>
+        element: <CoinDetails />,
       },
       {
         path: "trade",

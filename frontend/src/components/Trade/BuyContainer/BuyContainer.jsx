@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./BuyContainer.css";
 import { Input } from "antd";
 
-export const BuyContainer = () => {
+const BuyContainer = () => {
   const [value, setValue] = useState("");
 
-  // Function to handle input change
+  // Function to handle input changes
   const handleChange = (e) => {
     let inputValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
     setValue(inputValue ? `$${inputValue}` : ""); // If empty, reset to ""
@@ -38,3 +38,5 @@ export const BuyContainer = () => {
     </div>
   );
 };
+
+export default BuyContainer;
