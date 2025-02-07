@@ -91,8 +91,8 @@
 
 /**************************** Responsive part */
 
-/* Mobile (481px - 767px) */
-@media (min-width: 481px) and (max-width: 767px) {
+/* Mobile (767px) */
+@media (max-width: 767px) {
     .ConnectUs-Block-Container {
         display: flex;
         flex-direction: column;
@@ -103,8 +103,3 @@
         width: 100%;
     }
   } 
-  
-  /* Tablets (768px - 1280px) */
-  @media (min-width: 768px) and (max-width: 1280px) {
-   
-  }

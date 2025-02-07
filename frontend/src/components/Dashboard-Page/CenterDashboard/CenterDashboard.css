@@ -7,6 +7,7 @@
     height: fit-content;
     width: 100%;
     flex-wrap: wrap;
+    margin-top: 3rem;
 }
 
 /* leftside css style */
@@ -146,8 +147,8 @@
 /* Responsive design css 
 ------------------------------------------- */
 
-/* Mobile (481px - 767px) */
-  @media (min-width: 481px) and (max-width: 767px) {
+/* Mobile (767px) */
+  @media (max-width: 767px) {
     .CenterComponent-Container {
     display: flex;
     flex-direction: column;
@@ -168,7 +169,3 @@
     }
   } 
   
-  /* Tablets (768px - 1280px) */
-  @media (min-width: 768px) and (max-width: 1280px) {
-   
-  }

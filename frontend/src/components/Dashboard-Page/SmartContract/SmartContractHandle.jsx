@@ -6,15 +6,7 @@ import LogoIcon from "../../../assets/logo.png"
 const SmartContractHandle = ({ items, title, subtitle }) => {
     return (
         <section className="SmartContract-container">
-            <div className="SmartContract-leftside">
-                <div className="SmartContract-Icon-Container layer1">
-                    <div className="SmartContract-Icon-Container layer2">
-                        <img src = {LogoIcon} alt = "Creeper icon"></img>
-                    </div>
-                </div>
-            </div>            
-
-            <div className= "SmartContract-rightside">
+            <div className= "SmartContract-side_2">
                 <div className= "SmartContract-title">
                     <h1 className="SmartContract-heading">
                         {title}
@@ -49,7 +41,17 @@ const SmartContractHandle = ({ items, title, subtitle }) => {
                         )
                     })}
                 </div>
-            </div>  
+            </div> 
+
+            <div className="SmartContract-side_1">
+                <div className="SmartContract-Icon-Container layer1">
+                    <div className="SmartContract-Icon-Container layer2">
+                        <img src = {LogoIcon} alt = "Creeper icon"></img>
+                    </div>
+                </div>
+            </div>            
+
+             
         </section>
     )
 }

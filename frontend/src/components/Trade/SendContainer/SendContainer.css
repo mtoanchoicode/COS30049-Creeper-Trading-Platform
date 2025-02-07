@@ -1,3 +1,8 @@
+.send-container{
+  width: 40%;
+  align-self: center;
+}
+
 .send-tokens-exchange {
   display: flex;
   flex-direction: column;
@@ -8,6 +13,7 @@
   border-radius: 1rem 1rem 0 0;
   padding: 0.5rem 1rem;
   height: 14rem;
+
 }
 
 .send-top span {

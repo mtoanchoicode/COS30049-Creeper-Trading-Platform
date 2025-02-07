@@ -7,6 +7,8 @@
   background: #222222;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
+  width: 40%;
+  align-self: center;
 }
 
 .send-wallet-title span {

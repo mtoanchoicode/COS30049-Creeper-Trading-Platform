@@ -5,27 +5,30 @@ import SmartContractHandle from "./SmartContractHandle.jsx";
 const SmartContract = () => {
   const items = [
     {  
-        label: "Stay Connected", 
+        label: "Decentralization and Transparency", 
         renderContent: () => (  
-            <span>Follow @Creeper on X for the latest updates</span>
+            <span>No single party controls the contract, 
+                and all details of transactions are publicly visible on the blockchain.</span>
         ),
     },
     {
-        label: "Help center", 
+        label: "High Security", 
         renderContent: () => (
-           <span>Hello</span>
+           <span>Blockchain security mechanisms prevent fraud and unauthorized changes</span>
         ),   
     },
     {
-        label: "Blog", 
+        label: "Automation", 
         renderContent: () => ( 
-            <span>News from the dev team</span>
+            <span>Smart contracts execute agreed terms automatically 
+                when conditions are met, reducing human involvement and errors.</span>
         ),
     },
     {
-        label: "test", 
+        label: "Programmability", 
         renderContent: () => ( 
-            <span>News from the dev team</span>
+            <span>Smart contracts can be programmed for complex functions, 
+                enabling various applications in multiple fields.</span>
         ),
     },
   ];
