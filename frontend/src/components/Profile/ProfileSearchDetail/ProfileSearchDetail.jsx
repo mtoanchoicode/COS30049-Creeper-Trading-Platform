@@ -1,18 +1,19 @@
 import React from "react";
 import ProfileWalletBalance from "../ProfileWalletBalance/ProfileWalletBalance";
 import TransactionsHistory from "../ProfileTransactionHistory/ProfileTransactionHistory";
+import Loader from "../../Loader/Loader";
 
 const ProfileSearchDetail = ({ walletData, isLoading, error }) => {
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>;
   }
 
   if (!walletData) {
-    return <p>No wallet data available.</p>;
+    return;
   }
   return (
     <div>

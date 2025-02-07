@@ -1,0 +1,11 @@
+.loader-container {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align left */
+}
+
+.loader-spinner {
+  font-size: 24px;
+  color: white; /* Set the spinner color to white */
+}

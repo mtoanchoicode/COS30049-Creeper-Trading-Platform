@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "./ProfileWalletBalance.css";
 
 const ProfileWalletBalance = ({ walletBalance }) => {
+  // Check if there are tokens available
+  const hasTokens = walletBalance.tokenHoldings.length > 0;
+
+  // Set initial selected token if available, otherwise null
   const [selectedToken, setSelectedToken] = useState(
-    walletBalance.tokenHoldings[0]
+    hasTokens ? walletBalance.tokenHoldings[0] : null
   );
 
   return (
@@ -23,9 +27,16 @@ const ProfileWalletBalance = ({ walletBalance }) => {
         <div className="profileWalletBalance-card">
           <h3>Token Holdings</h3>
           <div className="profileWalletBalance-tokenBalance">
-            <p>{parseFloat(selectedToken.balance).toFixed(2)} ETH</p>
+            {/* Display "--" if no tokens exist */}
+            <p>
+              {hasTokens
+                ? `${parseFloat(selectedToken.balance).toFixed(2)}`
+                : "--"}
+            </p>
+
+            {/* Show dropdown only if tokens exist */}
             <select
-              value={selectedToken.symbol}
+              value={selectedToken ? selectedToken.symbol : ""}
               onChange={(e) =>
                 setSelectedToken(
                   walletBalance.tokenHoldings.find(
@@ -33,12 +44,17 @@ const ProfileWalletBalance = ({ walletBalance }) => {
                   )
                 )
               }
+              disabled={!hasTokens} // Disable if no tokens
             >
-              {walletBalance.tokenHoldings.map((token) => (
-                <option key={token.symbol} value={token.symbol}>
-                  {token.symbol}
-                </option>
-              ))}
+              {hasTokens ? (
+                walletBalance.tokenHoldings.map((token) => (
+                  <option key={token.symbol} value={token.symbol}>
+                    {token.symbol}
+                  </option>
+                ))
+              ) : (
+                <option value="">No Tokens</option>
+              )}
             </select>
           </div>
         </div>
