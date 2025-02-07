@@ -1,5 +1,5 @@
 .trade {
-  padding: 4.25rem 31rem;
+  padding: 4.25rem 0;
 }
 
 .trade-child {
@@ -7,13 +7,15 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
+  width: 450px;
+  margin: auto;
 }
 
 .trade-btn {
   background: var(--primary-color);
-  height: 3rem;
-  font-size: 10rem !important;
+  height: 3.5rem;
   font-weight: 600;
+  font-size: 6rem !important;
   border-radius: 1rem;
 }
 

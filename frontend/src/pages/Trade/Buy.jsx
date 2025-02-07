@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BuyContainer } from "../../../components/Trade/BuyContainer/BuyContainer";
+import { BuyContainer } from "../../components/Trade/BuyContainer/BuyContainer";
 import { Button } from "antd";
 
 const Buy = () => {

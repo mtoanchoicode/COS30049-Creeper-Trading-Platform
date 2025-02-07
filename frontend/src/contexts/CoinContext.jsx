@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from "react";
-import coinData from "../data/coins.json";
 
 export const CoinContext = createContext();
 
@@ -12,6 +11,7 @@ const CoinProvider = ({ children }) => {
     name: "US Dollar", // Default name
   };
 
+  const [sendCurrency, setSendCurrency] = useState(defaultCurrency);
   const [fromCurrency, setFromCurrency] = useState(defaultCurrency);
   const [toCurrency, setToCurrency] = useState(defaultCurrency);
   useEffect(() => {
@@ -142,6 +142,7 @@ const CoinProvider = ({ children }) => {
 
   const contextValue = {
     coins,
+    sendCurrency,
     fromCurrency,
     toCurrency,
     fromCurrencyValue,

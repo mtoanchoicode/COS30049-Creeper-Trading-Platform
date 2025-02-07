@@ -4,15 +4,16 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: 0.1rem;
-  background: #222222;
+  background: var(--trade-background-color);
   border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  height: 20rem;
+  padding: 0.9rem 1rem;
+  height: 350px;
 }
 
 .buy-top span {
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--trade-secondary-text-color);
 }
 
 .buy-bottom {
@@ -28,15 +29,15 @@
   padding: 0;
   background: none;
   border: none;
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 600;
-  color: white;
   width: 25rem;
   text-align: center;
+  color: var(--white-color);
 }
 
 .buy-bottom input::placeholder {
-  color: grey;
+  color: var(--trade-input-placeholder-color);
 }
 
 .buy-bottom input:hover {
@@ -57,12 +58,12 @@
   justify-content: center;
   gap: 0.5rem;
   cursor: pointer;
-  color: grey;
+  color: var(--trade-secondary-text-color);
 }
 
 .buy-currency-selection i {
   font-size: 0.7rem;
-  color: grey;
+  color: var(--trade-secondary-text-color);
 }
 
 .buy-price-quick-selection {
@@ -72,10 +73,10 @@
 }
 
 .buy-price-quick-selection button {
-  border: 0.05rem solid #373737;
+  border: 0.05rem solid var(--trade-border-color);
   border-radius: 2rem;
   background: var(--black-color);
-  color: grey;
+  color: var(--trade-secondary-text-color);
   padding: 0.4rem 0.9rem;
   cursor: pointer;
 }
