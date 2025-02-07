@@ -7,13 +7,13 @@
     margin-top: 4.5rem;;
 }
 
-.SmartContract-leftside {
+.SmartContract-side_1 {
     width: 45%;
     display: flex;
     justify-content: center;
 }
 
-.SmartContract-leftside img{
+.SmartContract-side_1 img{
     width: 10rem;
     height: 10rem;
     transition: transform 0.8s ease;
@@ -39,7 +39,7 @@
 }
 
 
-.SmartContract-rightside {
+.SmartContract-side_2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,6 +97,20 @@
     color: var(--primary-color);
 }
 
+/* Responsive design css 
+------------------------------------------- */
+
+/* Mobile (481px - 767px) */
+@media (max-width: 767px) {
+   .SmartContract-side_1{
+    display: none;
+   }
+
+   .SmartContract-side_2 {
+    width: 100%;
+   }
+  } 
+  
 
 
 

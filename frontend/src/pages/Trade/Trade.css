@@ -1,5 +1,5 @@
 .trade {
-  padding: 4.25rem 31rem;
+  padding: 4.25rem 5rem;
 }
 
 .trade-child {
@@ -15,6 +15,8 @@
   font-size: 10rem !important;
   font-weight: 600;
   border-radius: 1rem;
+  width: 40% !important;
+  align-self: center;
 }
 
 .trade-btn:hover {

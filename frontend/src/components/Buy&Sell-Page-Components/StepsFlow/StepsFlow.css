@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 0.7rem;
   align-items: center;
+  margin-top: 3rem;
 }
 
 .Steps_heading_container {
