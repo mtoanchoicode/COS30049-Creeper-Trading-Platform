@@ -36,10 +36,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .limit-price-center .limit-price-price-display {
   font-size: 2.5rem;
+}
+
+.limit-price-center input {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: var(--white-color);
+}
+
+.limit-price-center input::placeholder {
+  color: var(--trade-input-placeholder-color);
+}
+
+.limit-price-center input:hover {
+  background: transparent;
+  border: none;
+}
+
+.limit-price-center input:focus {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.limit-price-center .limit-price-tokens-selection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.limit-price-center .limit-price-tokens-selection img {
+  width: 1.5rem;
+  border-radius: 50%;
+}
+.limit-price-center .limit-price-tokens-selection p {
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .limit-price-bottom {

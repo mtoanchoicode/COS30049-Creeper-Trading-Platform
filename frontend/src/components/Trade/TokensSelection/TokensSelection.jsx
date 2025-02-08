@@ -3,7 +3,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import "./TokensSelection.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 
-export const ConvertCoinSelection = ({ type }) => {
+export const TokensSelection = ({ type, tradeType }) => {
   const { coins, activeOverlay, setActiveOverlay, handleCoinSelection } =
     useContext(CoinContext);
 
@@ -37,7 +37,7 @@ export const ConvertCoinSelection = ({ type }) => {
               <div
                 key={coin.id}
                 className="selection-coin-item"
-                onClick={() => handleCoinSelection(coin, type)}
+                onClick={() => handleCoinSelection(coin, type, tradeType)}
               >
                 <img
                   src={coin.image}
@@ -61,4 +61,4 @@ export const ConvertCoinSelection = ({ type }) => {
   );
 };
 
-export default ConvertCoinSelection;
+export default TokensSelection;

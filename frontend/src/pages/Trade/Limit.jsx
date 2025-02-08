@@ -1,15 +1,15 @@
 import React from "react";
 
-import ConvertCurrencies from "../../components/Trade/ConvertCurrencies/ConvertCurrencies";
 import { Button } from "antd";
 import LimitPrice from "../../components/Trade/LimitPrice/LimitPrice";
 import LimitExpired from "../../components/Trade/LimitExpired/LimitExpired";
+import LimitContainer from "../../components/Trade/LimitContainer/LimitContainer";
 
 const Limit = () => {
   return (
     <div className="limit trade-child">
       <LimitPrice />
-      <ConvertCurrencies />
+      <LimitContainer />
       <LimitExpired />
       <Button type="primary" block className="limit-btn trade-btn">
         Connect wallet
