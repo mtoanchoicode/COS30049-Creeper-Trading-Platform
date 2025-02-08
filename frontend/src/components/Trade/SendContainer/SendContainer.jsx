@@ -4,7 +4,7 @@ import { Input } from "antd";
 import { CoinContext } from "../../../contexts/CoinContext";
 
 const SendContainer = () => {
-  const { fromCurrency } = useContext(CoinContext);
+  const { sendCurrency } = useContext(CoinContext);
   const [value, setValue] = useState("");
 
   // Function to handle input change
@@ -33,8 +33,8 @@ const SendContainer = () => {
       <div className="send-tokens-selection">
         <div className="send-tokens-selection-coin">
           <img
-            src={fromCurrency.image}
-            alt={fromCurrency.symbol.toUpperCase()}
+            src={sendCurrency.image}
+            alt={sendCurrency.symbol.toUpperCase()}
           />
           <p>ETH</p>
         </div>

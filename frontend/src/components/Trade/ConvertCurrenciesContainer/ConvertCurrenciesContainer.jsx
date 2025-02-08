@@ -2,30 +2,14 @@ import React from "react";
 import AmountDisplay from "../AmountDisplay/AmountDisplay";
 import "./ConvertCurrenciesContainer.css";
 
-const ConvertCurrenciesContainer = ({
-  title,
-  currency,
-  amount,
-  handleChange,
-  usdValue,
-  value,
-  onClick,
-}) => {
+const ConvertCurrenciesContainer = ({ title, type, currency, value, usdValue, handleChange, onClick}) => {
   return (
     <div className="convert-currencies-container">
       <div className="convert-currencies-container-top">
         <p>{title}</p>
       </div>
       <div className="convert-currencies-container-bottom">
-        <AmountDisplay
-          currency={currency}
-          amount={amount}
-          handleChange={handleChange}
-          usdValue={usdValue}
-          value={value}
-          inputValue={currency}
-          onClick={onClick}
-        />
+        <AmountDisplay type={type} currency={currency} onClick={onClick} value={value} usdValue={usdValue} handleChange={handleChange}/>
       </div>
     </div>
   );

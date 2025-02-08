@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  border: 0.05rem solid #565656;
+  border: 0.2rem solid var(--black-color);
   border-radius: 1rem;
-  background: var(--black-color);
+  background: var(--trade-background-color);
   cursor: pointer;
 }
 
