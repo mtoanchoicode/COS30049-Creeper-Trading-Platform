@@ -5,7 +5,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  --primary-color: #00da5b;
+  --primary-color: #00da5b; 
   --secondary-color: #3e7b27;
   --third-color: #306844;
   --header-color: #00da5b;
@@ -76,7 +76,12 @@ p {
 
 a {
   text-decoration: none;
-  color: white;
+}
+.app.dark a{
+  color: var(--white-color);
+}
+.app.light a{
+  color: var(--black-color);
 }
 
 @media (max-width: 319px) {

@@ -48,11 +48,15 @@
     filter: brightness(150%);
     transition: 0.2s;
 }
+.app.light .pool-header:hover .market-sort-button{
+    filter:brightness(40%);
+}
 .app.light .market-sort-button{
     filter: invert(0.8);
 }
 .pool-header:hover .isSelected{
     filter: brightness(60%);
+    transition: 0.2s;
 }
 
 .pool-header-name{
