@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import MarketTitle from "../../components/Market/MarketTitle/MarketTitle";
 import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinBrief";
 import MarketCoinPool from "../../components/Market/MarketCoinPool/MarketCoinPool";
@@ -17,7 +17,7 @@ const MarketPage = () => {
     return arrayToSort.sort((a, b) => (a[keyToSort] > b[keyToSort] ?-1 : 1));
   }
 
-  const hotCoins = coins.slice(0,7);
+  const hotCoins = sortArray(coins, "total_volume", "desc").slice(0,7);
   const topGains = sortArray(coins, "price_change_percentage_24h", "desc").slice(0, 3);
   const topLosses = sortArray(coins, "price_change_percentage_24h", "asc").slice(0, 3);
 
