@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./BuyContainer.css";
 import { Input } from "antd";
+import { CoinContext } from "../../../contexts/CoinContext";
+import TokensSelection from "../TokensSelection/TokensSelection";
 
 const BuyContainer = () => {
+  const {setActiveOverlay} = useContext(CoinContext);
   const [value, setValue] = useState("");
 
   // Function to handle input changes
@@ -25,7 +28,7 @@ const BuyContainer = () => {
         <div className="buy-currency-input">
           <Input placeholder="$0" value={value} onChange={handleChange} />
         </div>
-        <div className="buy-currency-selection">
+        <div className="buy-currency-selection"  onClick={() => setActiveOverlay("buy")}>
           <div>Select a token</div>
           <i className="fa-solid fa-chevron-down"></i>
         </div>
@@ -35,6 +38,7 @@ const BuyContainer = () => {
           <button onClick={() => handlePresetValue(500)}>$500</button>
         </div>
       </div>
+      <TokensSelection type="buy" tradeType="buy"/>
     </div>
   );
 };
