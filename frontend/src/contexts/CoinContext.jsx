@@ -12,6 +12,7 @@ const CoinProvider = ({ children }) => {
   };
 
   const [sendCurrency, setSendCurrency] = useState(defaultCurrency);
+  const [buyCurrency, setBuyCurrency] = useState(defaultCurrency);
 
   const [limitFromCurrency, setLimitFromCurrency] = useState(defaultCurrency);
   const [limitToCurrency, setLimitToCurrency] = useState(defaultCurrency);
@@ -41,6 +42,7 @@ const CoinProvider = ({ children }) => {
         if (usdtCoin) setLimitToCurrency(usdtCoin);
 
         if (ethCoin) setSendCurrency(ethCoin);
+        if (ethCoin) setBuyCurrency(ethCoin);
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
@@ -124,16 +126,6 @@ const CoinProvider = ({ children }) => {
   const handleCoinSelection = (selectedCoin, type, tradeType) => {
     const isFromType = type === "from";
 
-    // Determine the correct state variables based on trade type
-    const otherType =
-      tradeType === "swap"
-        ? isFromType
-          ? swapToCurrency
-          : swapFromCurrency
-        : isFromType
-        ? limitToCurrency
-        : limitFromCurrency;
-
     const updatedCurrency = {
       ...selectedCoin,
       name: selectedCoin.name,
@@ -144,26 +136,34 @@ const CoinProvider = ({ children }) => {
       min_transaction_amount: selectedCoin.min_transaction_amount,
       max_transaction_amount: selectedCoin.max_transaction_amount,
     };
-
-    // If selecting the same coin, swap them
-    if (selectedCoin.id === otherType.id) {
-      swapCurrency();
-    } else {
-      if (tradeType === "swap") {
-        isFromType
-          ? setSwapFromCurrency(updatedCurrency)
-          : setSwapToCurrency(updatedCurrency);
+  
+    if (tradeType === "swap") {
+      let otherType = isFromType ? swapToCurrency : swapFromCurrency;
+      if (selectedCoin.id === otherType.id) {
+        swapCurrency();
       } else {
-        isFromType
-          ? setLimitFromCurrency(updatedCurrency)
-          : setLimitToCurrency(updatedCurrency);
+        if (isFromType) {
+          setSwapFromCurrency(updatedCurrency);
+        } else {
+          setSwapToCurrency(updatedCurrency);
+        }
       }
+    } else if (tradeType === "limit") {
+      if (isFromType) {
+        setLimitFromCurrency(updatedCurrency);
+      } else {
+        setLimitToCurrency(updatedCurrency);
+      }
+    } else if (tradeType === "send") {
+      setSendCurrency(updatedCurrency);
+    } else if (tradeType === "buy") {
+      setBuyCurrency(updatedCurrency);
     }
-
+  
     setActiveOverlay(null);
     resetValues();
   };
-
+  
   const handleOverlay = (type, value) => {
     setActiveOverlay(value ? type : null);
   };
