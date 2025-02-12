@@ -28,7 +28,7 @@ const SwapContainer = () => {
         value={fromCurrencyValue}
         handleChange={handleFromCurrencyValueChange}
         usdValue={fromUsdValue}
-        onClick={() => setActiveOverlay("from")}
+        onClick={() => setActiveOverlay("swapFrom")}
       />
       <SwapButton type="swap" />
       <ConvertCurrenciesContainer
@@ -38,9 +38,9 @@ const SwapContainer = () => {
         value={toCurrencyValue}
         handleChange={handleToCurrencyValueChange}
         usdValue={toUsdValue}
-        onClick={() => setActiveOverlay("to")}
+        onClick={() => setActiveOverlay("swapTo")}
       />
-      {["from", "to"].map((type) => (
+      {["swapFrom", "swapTo"].map((type) => (
         <TokensSelection key={type} type={type} tradeType="swap" />
       ))}
     </div>

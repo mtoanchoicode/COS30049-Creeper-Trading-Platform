@@ -17,7 +17,7 @@ import { Button } from "antd";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import shortenAddress from "../../utils/utils";
 
-const NavBar = () => {
+const NavBar = ({theme, setTheme}) => {
   const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
@@ -80,7 +80,7 @@ const NavBar = () => {
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
         </Button>
         <Icons src={bellIcon} alt="Notification Icon" />
-        <Icons src={moonIcon} alt="Moon  Icon" />
+        <img src={moonIcon} alt="Moon  Icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}/>
         <div
           className="navbar-right-profile"
           onMouseEnter={() => setshowNavProfile(true)}

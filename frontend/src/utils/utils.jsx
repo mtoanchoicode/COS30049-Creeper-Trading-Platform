@@ -6,3 +6,4 @@ export default function shortenAddress(address) {
   }
   return undefined;
 }
+
