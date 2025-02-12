@@ -99,7 +99,7 @@ const Centers = ({title, subtitle}) => {
                     <a 
                         className= "FollowUs-Link"
                         href = "https://github.com/mtoanchoicode/COS30049-Creeper-Trading-Platform">
-                        <img src = {Github} alt = "Github icon"></img>
+                        <img src= {Github} alt = "Github icon"></img>
                     </a>
                 </div>
            </div>

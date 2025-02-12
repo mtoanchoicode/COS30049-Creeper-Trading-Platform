@@ -115,12 +115,6 @@
     padding: 1rem; 
 }
 
-.Item-Container a {
-    padding: 0.5rem;
-    border-radius: 100%;
-    /* background: var(--white-color);  */
-}
-
 
 .Item-Container a img {
     width: 3rem; 
@@ -149,6 +143,10 @@
 
 .Hot-Coins-listing{
     width: 100%;
+}
+
+.app.light .FollowUs-Link img {
+    filter: invert(1);
 }
 
 /* Responsive design css 

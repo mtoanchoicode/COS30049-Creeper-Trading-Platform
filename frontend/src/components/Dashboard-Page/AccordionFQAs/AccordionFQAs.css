@@ -89,6 +89,10 @@
     color: var(--primary-color);
 }
 
+.accordionFQAs-content-container .accordionFQAs-content{
+    color: var(--white-color);
+}
+
 /* .accordionFQAs-content-container .accordionFQAs-content div {
     display: flex;
     flex-direction: row;
