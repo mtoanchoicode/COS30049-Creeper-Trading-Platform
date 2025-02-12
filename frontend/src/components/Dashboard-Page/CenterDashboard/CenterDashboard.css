@@ -115,6 +115,7 @@
     padding: 1rem; 
 }
 
+
 .Item-Container a img {
     width: 3rem; 
     height: 3rem;
@@ -142,6 +143,10 @@
 
 .Hot-Coins-listing{
     width: 100%;
+}
+
+.app.light .FollowUs-Link img {
+    filter: invert(1);
 }
 
 /* Responsive design css 

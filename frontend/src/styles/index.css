@@ -9,15 +9,11 @@
   --secondary-color: #3e7b27;
   --third-color: #306844;
   --header-color: #00da5b;
-  /* --white-color: #ffffff;
-  --black-color: #131313; */
-  --black-background-color: #1e2329;
   --text-color: #d9d9d9;
   --price-rising: #00c853;
   --price-falling: #d32f2f;
-  --grey-color: #343434;
-  
-  
+  --grey-color: #343434;  
+  --black-background-color: #1e2329;
 }
 
 .app.dark {
@@ -27,7 +23,7 @@
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
-  --white-color: #ffffff;
+  --white-color: #f5f5f5;
   --black-color: #131313;
   background: var(--black-color);
   color: var(--white-color);
@@ -40,8 +36,10 @@
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
-  background: var(--white-color);
-  color: var(--black-color);
+  --white-color: #131313;
+  --black-color: #f5f5f5;
+  background: var(--black-color);
+  color: var(--white-color);
 }
 
 body {

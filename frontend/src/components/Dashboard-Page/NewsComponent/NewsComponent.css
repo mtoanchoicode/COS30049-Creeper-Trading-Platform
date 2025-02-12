@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    color: var(--white-color);
+    color: #ffffff;
 }
 
 /* .News-heading-container .News-heading-title {
@@ -45,7 +45,7 @@
 
 .News-Content .News-details-heading{
     font-size: 1rem;
-    color: var(--white-color);
+    color: #ffffff;
     transition: color 0.2s ease-in;
 }   
 

@@ -3,10 +3,8 @@ import { useLocation } from "react-router-dom";
 import "./NavBar.css";
 import Icons from "../Icons/Icons";
 import logo from "../../assets/Logo.png";
-import hoverBellIcon from "../../assets/Hover Bell Icon.svg";
 import moonIcon from "../../assets/Dark Mode Icon.svg";
 import hoverMoonIcon from "../../assets/Hover Dark Mode Icon.svg";
-import walletIcon from "../../assets/Wallet Icon.svg";
 import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
 import { Link } from "react-router-dom";
@@ -78,7 +76,9 @@ const NavBar = ({theme, setTheme}) => {
         <Button className="navbar-connectWallet" onClick={() => open()}>
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
         </Button>
-        <img src={moonIcon} alt="Moon Icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}/>
+
+        <img className = "DarkMode_Icon" src={moonIcon} alt="Moon Icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}/>
+       
         <div
           className="navbar-right-profile"
           onMouseEnter={() => setshowNavProfile(true)}
