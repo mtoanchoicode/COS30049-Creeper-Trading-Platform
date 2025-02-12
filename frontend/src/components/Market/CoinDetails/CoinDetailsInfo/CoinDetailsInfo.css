@@ -1,0 +1,31 @@
+.coin-details-info-container{
+    padding: 0 20px;
+}
+
+.coin-details-info-heading{
+    font-size: 2.25rem;
+    font-weight: 500;
+    margin-bottom: 1.7rem;
+}
+
+.coin-details-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    gap: 4rem 8rem;
+}
+
+.coin-details-info h3{
+    font-size: 1rem;
+    color: #8e8e8e;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.coin-details-info p{
+    font-weight: 600;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+

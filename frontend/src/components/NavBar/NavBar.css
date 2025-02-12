@@ -57,6 +57,7 @@
   height: 5rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  color: var(--white-color);
 }
 
 .navbar-left .navbar-left-menu .navbar-left-menu-link:hover {
@@ -159,7 +160,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  padding: 0.1rem 0 0.1rem 0.4rem;
+  padding: 0.15rem 0 0.15rem 0.4rem;
   border: 0.5px solid var(--white-color);
   border-radius: 5rem;
+}
+
+.app.light .navbar-right-user img{
+  filter: invert(1);
+}
+
+.app.light .DarkMode_Icon {
+  filter: invert(1);
 }
