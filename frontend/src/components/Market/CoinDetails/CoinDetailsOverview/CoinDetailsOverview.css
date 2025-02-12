@@ -76,7 +76,7 @@
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--trade-input-placeholder-color);
-    width: 50px;
+    width: 40px;
     padding: 1px 0;
     border-radius: 10px;
     transition: 0.2s;
@@ -91,7 +91,7 @@
 .app.light .price-period-selection:hover{
     cursor: pointer;
     transition: color 0.2s;
-    color: var(--white-color);
+    color: rgb(167, 167, 167);
 }
 
 .price-period-selected{
