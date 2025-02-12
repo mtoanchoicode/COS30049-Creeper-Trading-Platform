@@ -16,11 +16,22 @@
   --price-rising: #00c853;
   --price-falling: #d32f2f;
   --grey-color: #343434;
-  
-  
+}
+
+.app.light {
+  --app-background: #ffffff;
+  --trade-background-color: #f3f3f3;
+  --trade-secondary-text-color: #9b9b9b;
+  --trade-input-placeholder-color: #5e5e5e;
+  --trade-border-color: #333333;
+  --trade-border-active-color: #505050;
+  --trade-background-active-color: #2b2b2b;
+  background: var(--app-background);
+  color: var(--black-color);
 }
 
 .app.dark {
+  --app-background: #131313;
   --trade-background-color: #1b1b1b;
   --trade-secondary-text-color: #9b9b9b;
   --trade-input-placeholder-color: #5e5e5e;
@@ -29,19 +40,8 @@
   --trade-background-active-color: #2b2b2b;
   --white-color: #ffffff;
   --black-color: #131313;
-  background: var(--black-color);
+  background: var(--app-background);
   color: var(--white-color);
-}
-
-.app.light {
-  --trade-background-color: #f3f3f3;
-  --trade-secondary-text-color: #9b9b9b;
-  --trade-input-placeholder-color: #5e5e5e;
-  --trade-border-color: #333333;
-  --trade-border-active-color: #505050;
-  --trade-background-active-color: #2b2b2b;
-  background: var(--white-color);
-  color: var(--black-color);
 }
 
 body {

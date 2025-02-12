@@ -16,7 +16,7 @@ const LimitPrice = () => {
           When 1 <span>{limitFromCurrency.symbol.toUpperCase()}</span> is worth
         </div>
         <div className="limit-price-icon">
-          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          <i className="fa-solid fa-arrow-right-arrow-left"></i>
         </div>
       </div>
       <div className="limit-price-center">
