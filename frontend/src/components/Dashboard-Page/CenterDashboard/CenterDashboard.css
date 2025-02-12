@@ -115,6 +115,13 @@
     padding: 1rem; 
 }
 
+.Item-Container a {
+    padding: 0.5rem;
+    border-radius: 100%;
+    /* background: var(--white-color);  */
+}
+
+
 .Item-Container a img {
     width: 3rem; 
     height: 3rem;

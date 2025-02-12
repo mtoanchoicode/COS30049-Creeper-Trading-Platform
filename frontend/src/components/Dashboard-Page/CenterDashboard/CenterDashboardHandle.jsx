@@ -87,7 +87,6 @@ const Centers = ({title, subtitle}) => {
 
                     <a 
                         className= "OtherSignUp-Link"
-                        //Testing the link 
                         href = "https://www.google.com/">
                         <img src = {Google} alt = "Google icon"></img>
                     </a>
