@@ -27,10 +27,21 @@ const Footer = () => {
         <div className="footer-social">
           <h4>Community</h4>
           <div className="footer-social-container">
-            <Icons src={facebook_icon} alt="Facebook Icon" />
-            <Icons src={youtube_icon} alt="Youtube Icon" />
-            <Icons src={x_icon} alt="X Icon" />
-            <Icons src={google_icon} alt="Google Icon" />
+            <a href = ""> 
+              <Icons src={facebook_icon} alt="Facebook Icon" /> 
+            </a>
+
+            <a href = ""> 
+              <Icons src={youtube_icon} alt="Youtube Icon" />
+            </a>
+
+            <a href = ""> 
+              <Icons src={x_icon} alt="X Icon" />
+            </a>
+
+            <a href = ""> 
+              <Icons src={google_icon} alt="Google Icon" /> 
+            </a>
           </div>
         </div>
       </div>

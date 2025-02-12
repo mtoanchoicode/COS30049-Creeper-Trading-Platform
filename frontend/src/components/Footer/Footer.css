@@ -54,7 +54,41 @@
     justify-content: space-between;
     gap: 1.5rem;
   }
+
+  .footer-center .footer-social-container a {
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 100%; 
+    border: 1px solid;
+    border-color: var(--black-color);
+    background-color: var(--black-color);
+    box-shadow: 0 0 2.5rem 1rem rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-center .footer-social-container a .icon{
+    position: relative;
+    z-index: 10;
+  }
+
   
+  .footer-center .footer-social-container a:after {
+    content: ""; 
+    width: 100%;
+    height: 100%;
+    top: -60px;
+    left: 0;
+    background-color: var(--white-color);
+    position: absolute;
+    transition: all 0.5s ease;
+  }
+
+  .footer-center .footer-social-container a:hover:after {
+    top: 0;
+  }
+
+
   .footer-menu {
     flex: 0.5;
     display: flex;
