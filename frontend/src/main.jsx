@@ -23,6 +23,8 @@ import { UserProvider } from "./contexts/UserContext.jsx";
 import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
 import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
+import NewsPage from "./pages/News-Page/NewsPage.jsx";
+import NewsDetails from "./pages/News-Page/NewsDetails.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -66,6 +68,16 @@ const routers = createBrowserRouter([
           {
             path: "transactions",
             element: <ProfileSearchPage />,
+          },
+        ],
+      },
+      {
+        path: "news",
+        element: <NewsPage />,
+        children: [
+          {
+            path: "/news/:id",
+            element: <NewsDetails />
           },
         ],
       },
