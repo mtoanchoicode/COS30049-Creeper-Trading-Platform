@@ -49,7 +49,7 @@
 .market-hot-coins, .market-top-gains, .market-top-losses{
     padding: 15px;
     padding-bottom: 0;
-    border: 1px solid rgb(85, 85, 85);
+    border: 1px solid var(--market-border-color);
     border-radius: 0.6rem;
 }
 

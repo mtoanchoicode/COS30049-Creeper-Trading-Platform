@@ -91,10 +91,19 @@
     justify-content: center;
 }
 
+.SmartContract-Block-Heading {
+    color: #ffffff;
+}
+
 .SmartContract-Label-Container span {
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--primary-color);
+
+}
+
+.SmartContract-Content {
+    color: #ffffff;
 }
 
 /* Responsive design css 
