@@ -1,0 +1,109 @@
+.coin-search-input-container{
+    width: 100%;
+    height: 100%
+}
+
+.coin-search-input{
+    display:flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-icon-container{
+    background-color: var(--primary-color);
+    height: 3rem;
+    width: calc(3rem + 3px);
+    position: relative;
+    transform: translateX(-3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.search-icon-container:hover{
+    cursor: pointer;
+    filter:brightness(105%);
+    box-shadow: 1px 0px rgba(85, 85, 85, 0.363);
+}
+
+.search-icon-container img{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.coin-search-input input{
+    flex: 1;
+    border: none;
+    mix-blend-mode: darken;
+    padding-left: 0.2rem;
+    font-size: 1.1rem;
+}
+
+.coin-search-input input:focus{
+    outline: none;
+    caret-color: #939393;
+    font-weight: 600;
+}
+
+.coin-search-input  input::placeholder{
+    font-size: 1.3rem;
+    color: #4d4d4d;
+}
+
+.coin-search-input-icon{
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.coin-search-input-icon img{
+    width: 100%;
+    height: 100%;
+    filter:invert(1)
+}
+
+.coin-search-input-icon:hover{
+    cursor: pointer;
+}
+
+.coin-search-input-result{
+    position:absolute;
+    left: -3px;
+    margin-top: 5px;
+}
+
+.search-result-line{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 22rem;
+    justify-content: space-between;
+    padding: 7px;
+}
+
+.search-result-line.active{
+    background-color: var(--grey-color);
+}
+
+.search-result-line:hover{
+    background-color: var(--grey-color);
+}
+
+.search-result-line-logo{
+    display: flex;
+    align-items: center;
+}
+
+.search-result-line-symbol{
+    font-size:1.2rem;
+}
+
+.search-result-line-logo img{
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-right: 7px;
+}
