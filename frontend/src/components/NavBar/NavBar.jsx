@@ -45,6 +45,10 @@ const NavBar = ({theme, setTheme}) => {
           <Link to="/explore" className="navbar-left-menu-link">
             <div className="navbar-left-menu-name">Explore</div>
           </Link>
+
+          <Link to="/news" className="navbar-left-menu-link">
+            <div className="navbar-left-menu-name">News</div>
+          </Link>
           <Link
             to="/trade/swap"
             onMouseEnter={() => setShowNavTrade(true)}

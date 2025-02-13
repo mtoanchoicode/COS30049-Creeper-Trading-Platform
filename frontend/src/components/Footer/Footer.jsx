@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-
+import { Link } from "react-router-dom";
 import logo from "../../assets/Logo.png";
 import facebook_icon from "../../assets/Footer Facebook Icon.svg";
 import youtube_icon from "../../assets/Footer Youtube Icon.svg";
@@ -49,22 +49,42 @@ const Footer = () => {
       <div className="footer-menu">
         <div className="footer-menu-left footer-menu-container">
           <h4>Products</h4>
-          <ul>
-            <li>Trade</li>
-            <li>Buy Crypto</li>
-            <li>Market</li>
-            <li>NFT</li>
-          </ul>
+
+          <Link className = "Link" to = "/trade/swap">
+            <span>Swap coin</span>
+          </Link>
+
+          <Link className = "Link"  to = "/trade/buy">
+            <span>Buy Crypto</span>
+          </Link>
+
+          <Link className = "Link"  to = "/profile">
+            <span>Dashboard</span>
+          </Link>
+
+          <Link className = "Link"  to = "/explore">
+            <span>Explore</span>
+          </Link>
         </div>
 
         <div className="footer-menu-right footer-menu-container">
           <h4>About Us</h4>
-          <ul>
-            <li>About</li>
-            <li>Explore</li>
-            <li>Privacy</li>
-            <li>Feedback & Suggestion</li>
-          </ul>
+
+          <Link className = "Link" to = "/">
+            <span>About</span>
+          </Link>
+
+          <Link className = "Link" to = "/">
+            <span>Privacy</span>
+          </Link>
+
+          <Link className = "Link" to = "/">
+            <span>News</span>
+          </Link>
+
+          <Link className = "Link" to = "/">
+            <span>Feedback & Suggestion</span>
+          </Link>   
         </div>
       </div>
     </div>

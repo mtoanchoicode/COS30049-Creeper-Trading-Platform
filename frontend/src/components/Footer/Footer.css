@@ -37,7 +37,7 @@
   
   .footer-center p {
     line-height: 2rem;
-    color: #BDBDBD;
+    color: var(--text-color);
   }
   
   .footer-center .footer-social {
@@ -105,12 +105,13 @@
     gap: 1rem;
   }
   
-  .footer-menu ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.8rem;
-    color: #BDBDBD;
+
+  .footer-menu-container .Link * {
+    color: var(--text-color);
+    transition: all 0.3s ease;
   }
+
+  .footer-menu-container .Link:hover *{
+    color: var(--primary-color);
+  }
+
