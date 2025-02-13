@@ -61,7 +61,9 @@ const ProfileAssetsPage = () => {
   }, [isConnected, address]);
 
   return (
-    <Layout style={{ padding: "20px", backgroundColor: "var(--black-color)" }}>
+    <Layout
+      style={{ padding: "20px", backgroundColor: "var(--app-background)" }}
+    >
       <h2 className="profileAssetPage-heading">My Wallet</h2>
       <div
         style={{

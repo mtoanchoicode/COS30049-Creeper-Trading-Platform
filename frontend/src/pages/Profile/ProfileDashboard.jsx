@@ -10,7 +10,7 @@ const ProfileDashboardPage = () => {
     <Layout
       style={{
         padding: "1rem",
-        backgroundColor: "var(--black-color)",
+        backgroundColor: "var(--app-background)",
       }}
     >
       <HeaderInfo />

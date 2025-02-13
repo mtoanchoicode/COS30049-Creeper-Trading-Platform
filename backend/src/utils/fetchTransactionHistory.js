@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const fetchTransactionHistory = async (walletAddress, limit = 50) => {
   const apiKey = process.env.ETHERSCAN_API_KEY;
-  const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
+  const url = `https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
 
   try {
     const response = await axios.get(url);

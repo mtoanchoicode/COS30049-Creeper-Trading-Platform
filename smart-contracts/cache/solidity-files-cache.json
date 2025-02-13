@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\FinalFixProject\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SendETH.sol": {
+      "lastModificationDate": 1739417086426,
+      "contentHash": "55c65c9b4cd9989ee5b9dca94e5d138e",
+      "sourceName": "contracts/SendETH.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "SendETH"
+      ]
+    }
+  }
+}
