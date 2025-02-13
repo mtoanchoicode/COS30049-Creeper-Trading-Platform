@@ -25,6 +25,15 @@
 }
 
 
+.trade-btn.enabled {
+  background: var(--primary-color);
+  color: var(--white-color);
+  height: 3.5rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  align-self: center;
+}
+
 .trade-btn.disabled {
   cursor:auto;
   background: var(--trade-background-color);

@@ -36,7 +36,7 @@ const Buy = () => {
         type="primary"
         block
         className={`buy-btn trade-btn ${
-          !amount || !buyCurrency ? "disabled" : "enabled"
+          isConnected && (!amount || !buyCurrency) ? "disabled" : "enabled"
         }`}
         onClick={handleButtonClick}
       >
