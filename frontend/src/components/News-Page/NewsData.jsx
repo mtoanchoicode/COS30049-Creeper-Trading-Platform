@@ -22,7 +22,6 @@ const NewsComponent = [
                     filing on behalf of asset manager 21Shares to incorporate staking into its spot Ether exchange-traded fund (ETF).
                     Initially, Ether (ETH) surged to $2,776 before retracting to $2,729, as reported by CoinMarketCap.
                 </p>
-
                 <p>
                     21Shares aims to become the first to offer Ether staking within a spot Ether ETF product, pending approval.
                     The company plans to stake a portion of the Trust’s Ether periodically through reliable staking providers,

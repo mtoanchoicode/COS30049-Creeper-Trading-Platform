@@ -24,7 +24,7 @@ import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
 import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
 import NewsPage from "./pages/News-Page/NewsPage.jsx";
-import NewsDetails from "./pages/News-Page/NewsDetails.jsx";
+import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -74,12 +74,10 @@ const routers = createBrowserRouter([
       {
         path: "news",
         element: <NewsPage />,
-        children: [
-          {
-            path: "/news/:id",
-            element: <NewsDetails />
-          },
-        ],
+      },
+      {
+        path: "news/:id",
+        element: <NewsDetailsPage />,
       },
     ],
   },

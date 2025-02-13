@@ -48,7 +48,7 @@ const NewsBlock = () => {
                                 <p className="news_Date">{news.Date}</p>
                             </div>
 
-                            <div className="Tite_Container">
+                            <div className="Title_Container">
                                 <h2 className="news-title">{news.Title}</h2>
                             </div>
 
