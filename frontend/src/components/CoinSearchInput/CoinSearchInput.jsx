@@ -1,6 +1,5 @@
-import React, {useState, useContext, useMemo} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { CoinContext } from "../../contexts/CoinContext";
-import MarketCoinBrief from "../Market/MarketCoinBrief/MarketCoinBrief";
 import CloseIcon from "../../assets/X Close Icon.svg";
 import searchIcon from "../../assets/Market Search Icon.svg";
 import "./CoinSearchInput.css";
@@ -12,6 +11,11 @@ const CoinSearchInput = () => {
     const [selectedCoin, setSelectedCoin] = useState(-1)
     const navigate = useNavigate()
 
+
+    useEffect(() => {
+        setSelectedCoin(-1); // Reset selected coin when search changes
+      }, [search]);
+
     const handleChange = (e) =>{
         setSearch(e.target.value)
     }
@@ -21,14 +25,16 @@ const CoinSearchInput = () => {
     }
 
     const handleKeyDown = (e) =>{
-        if (e.key === "ArrowUp" && selectedCoin > 0){
-            setSelectedCoin(prev => prev - 1)
-        }
-        else if (e.key === "ArrowDown" && selectedCoin < filteredCoins.length - 1){
-            setSelectedCoin(prev => prev + 1)
-        }
-        else if (e.key === "Enter" && selectedCoin >= 0){
-            navigate(`/explore/${filteredCoins[selectedCoin].id}`)
+        if (selectedCoin < filteredCoins.length){
+            if (e.key === "ArrowUp" && selectedCoin > 0){
+                setSelectedCoin(prev => prev - 1)
+            }
+            else if (e.key === "ArrowDown" && selectedCoin < filteredCoins.length - 1){
+                setSelectedCoin(prev => prev + 1)
+            }
+            else if (e.key === "Enter" && selectedCoin >= 0){
+                navigate(`/explore/${filteredCoins[selectedCoin].id}`)
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import barsIcon from "../../assets/Bars Icon.svg";
 import { Link } from "react-router-dom";
 import NavTrade from "../NavTrade/NavTrade";
 import NavProfile from "../NavProfile/NavProfile";
+import CoinSearchInput from "../CoinSearchInput/CoinSearchInput";
 import { Button } from "antd";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import shortenAddress from "../../utils/utils";
@@ -62,8 +63,14 @@ const NavBar = ({theme, setTheme}) => {
           </Link>
         </div>
       </div>
-
-      <div className="navbar-center">
+      {
+        window.location.pathname !== "/explore"
+        && <div className="navbar-center">
+          <CoinSearchInput/>
+        </div>
+      }
+      
+      {/* <div className="navbar-center">
         <div className="navbar-center-searchbar">
           <div className="navbar-searchbar-container">
             <div className="navbar-searchbar-icon">
@@ -74,7 +81,7 @@ const NavBar = ({theme, setTheme}) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="navbar-right">
         <Button className="navbar-connectWallet" onClick={() => open()}>

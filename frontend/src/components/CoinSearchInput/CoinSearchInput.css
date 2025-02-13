@@ -13,8 +13,8 @@
 
 .search-icon-container{
     background-color: var(--primary-color);
-    height: 3rem;
-    width: calc(3rem + 3px);
+    height: 2.5rem;
+    width: calc(2.5rem + 3px);
     position: relative;
     transform: translateX(-3px);
     display: flex;
@@ -41,6 +41,7 @@
     mix-blend-mode: darken;
     padding-left: 0.2rem;
     font-size: 1.1rem;
+    background-color: transparent;
 }
 
 .coin-search-input input:focus{
@@ -71,6 +72,7 @@
 }
 
 .coin-search-input-result{
+    width: 100%;
     position:absolute;
     left: -3px;
     margin-top: 5px;
