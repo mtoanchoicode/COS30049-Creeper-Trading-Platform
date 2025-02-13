@@ -12,20 +12,20 @@ const News = () => {
                     News
                 </h2>
 
-                <Link to="/">
+                <Link to="/news">
                     <p className="News-Link">View all news</p>
                 </Link>
             </div>
 
             <div className="News-Content-Container">
-                {news?.slice(0, 4).map((New) => {
+                {news?.slice(-4).map((New) => {
                     return (
                         <div className="News-Content">
-                            <a
-                                href=""
+                            <Link
+                                to={`/news/${New.id}`}
                                 className="News-details-heading">
                                 {New.Title}
-                            </a>
+                            </Link>
                         </div>
                     )
                 })}
