@@ -1,10 +1,10 @@
 import React from "react";
 import "./AmountDisplay.css";
-
 import { Input } from "antd";
 import CurrencySelection from "../CurrencySelection/CurrencySelection";
 
 const AmountDisplay = ({
+  title,
   type,
   currency,
   value,
@@ -20,12 +20,16 @@ const AmountDisplay = ({
           type="number"
           inputMode="decimal"
           value={value}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, title, type)}
         />
         <CurrencySelection onClick={onClick} currency={currency} />
       </div>
       <div className="amount-display-usd">
-        {type === "swap" ? <p>${(usdValue ?? 0).toFixed(2)}</p> : ""}
+        {type === "swap" && usdValue ? (
+          <p>${usdValue.toFixed(2)}</p>
+        ) : type === "swap" ? (
+          <p>$0</p>
+        ) : null}
       </div>
     </div>
   );

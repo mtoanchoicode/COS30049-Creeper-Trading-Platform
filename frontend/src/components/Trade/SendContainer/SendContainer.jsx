@@ -4,14 +4,19 @@ import { Input } from "antd";
 import { CoinContext } from "../../../contexts/CoinContext";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
-const SendContainer = () => {
-  const { sendCurrency, setActiveOverlay } = useContext(CoinContext);
+const SendContainer = ({ setAmount }) => {
+  const { sendCurrency, sendCurrencyValue, handleSendCurrencyValueChange, setActiveOverlay } = useContext(CoinContext);
   const [value, setValue] = useState("");
 
   // Function to handle input change
-  const handleChange = (e) => {
+  const handleAmountChange = (e) => {
     let inputValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    setValue(inputValue ? `$${inputValue}` : ""); // If empty, reset to ""
+    let numericValue = inputValue
+      ? Math.max(0, Math.min(9999, Number(inputValue)))
+      : "";
+    setValue(numericValue ? `$${numericValue}` : ""); // If empty, reset to ""
+    setAmount(numericValue);
+    handleSendCurrencyValueChange(numericValue);
   };
 
   return (
@@ -22,16 +27,22 @@ const SendContainer = () => {
         </div>
         <div className="send-bottom">
           <div className="send-currency-input">
-            <Input placeholder="$0" value={value} onChange={handleChange}/>
+            <Input
+              placeholder="$0"
+              value={value}
+              onChange={handleAmountChange}
+            />
           </div>
           <div className="send-currency-change">
-            <div>0 {sendCurrency.symbol.toUpperCase()}</div>
-            <i className="fa-solid fa-arrow-right-arrow-left"></i>
+            <div>{sendCurrencyValue ? sendCurrencyValue.toFixed(5) : "0"} {sendCurrency.symbol.toUpperCase()}</div>
           </div>
         </div>
       </div>
 
-      <div className="send-tokens-selection" onClick={() => setActiveOverlay("send")}>
+      <div
+        className="send-tokens-selection"
+        onClick={() => setActiveOverlay("send")}
+      >
         <div className="send-tokens-selection-coin">
           <img
             src={sendCurrency.image}

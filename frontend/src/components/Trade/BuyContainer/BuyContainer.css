@@ -53,18 +53,31 @@
   box-shadow: none;
 }
 
-.buy-currency-selection {
+.buy-token-selection {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--white-color);
+  font-weight: 600;
   cursor: pointer;
-  color: var(--trade-secondary-text-color);
 }
 
-.buy-currency-selection i {
+.buy-token-selection.inactive {
+  background: var(--primary-color);
+}
+
+.buy-token-selection.active {
+  background: var(--app-background);
+  border: 0.01rem solid var(--trade-border-color);
+}
+
+.buy-token-selection i {
   font-size: 0.7rem;
-  color: var(--trade-secondary-text-color);
+  color: var(--white-color);
 }
 
 .buy-price-quick-selection {
@@ -80,4 +93,8 @@
   color: var(--trade-secondary-text-color);
   padding: 0.4rem 0.9rem;
   cursor: pointer;
+}
+
+.buy-price-quick-selection button:hover {
+  background: rgb(31, 31, 31);
 }

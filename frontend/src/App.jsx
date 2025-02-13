@@ -11,7 +11,8 @@ function App() {
 
   useEffect(() => {
     // Set the background color based on the theme
-    document.documentElement.style.backgroundColor = theme === "dark" ? "black" : "white";
+    document.documentElement.style.backgroundColor = theme === "dark" ? "#131313" : "white";
+    document.documentElement.style.color = theme === "dark" ? "white" : "black";
   }, [theme]);
 
 

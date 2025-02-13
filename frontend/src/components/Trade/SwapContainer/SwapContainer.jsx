@@ -10,13 +10,12 @@ const SwapContainer = () => {
   const {
     swapFromCurrency,
     swapToCurrency,
-    fromCurrencyValue,
-    toCurrencyValue,
+    swapFromCurrencyValue,
+    swapToCurrencyValue,
     setActiveOverlay,
-    fromUsdValue,
-    toUsdValue,
-    handleFromCurrencyValueChange,
-    handleToCurrencyValueChange,
+    swapFromUsdValue,
+    swapToUsdValue,
+    handleCurrencyValueChange
   } = useContext(CoinContext);
 
   return (
@@ -25,9 +24,9 @@ const SwapContainer = () => {
         type="swap"
         title="From"
         currency={swapFromCurrency}
-        value={fromCurrencyValue}
-        handleChange={handleFromCurrencyValueChange}
-        usdValue={fromUsdValue}
+        value={swapFromCurrencyValue}
+        handleChange={handleCurrencyValueChange}
+        usdValue={swapFromUsdValue}
         onClick={() => setActiveOverlay("swapFrom")}
       />
       <SwapButton type="swap" />
@@ -35,9 +34,9 @@ const SwapContainer = () => {
         type="swap"
         title="To"
         currency={swapToCurrency}
-        value={toCurrencyValue}
-        handleChange={handleToCurrencyValueChange}
-        usdValue={toUsdValue}
+        value={swapToCurrencyValue}
+        handleChange={handleCurrencyValueChange}
+        usdValue={swapToUsdValue}
         onClick={() => setActiveOverlay("swapTo")}
       />
       {["swapFrom", "swapTo"].map((type) => (
