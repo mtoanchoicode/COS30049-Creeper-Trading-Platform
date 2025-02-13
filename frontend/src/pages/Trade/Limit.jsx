@@ -28,6 +28,10 @@ const Limit = () => {
     return "Continue";
   };
 
+  console.log(
+    !limitFromCurrencyValue && !limitToCurrencyValue ? "disabled" : "enabled"
+  );
+
   return (
     <div className="limit trade-child">
       <LimitPrice />
@@ -37,9 +41,10 @@ const Limit = () => {
         type="primary"
         block
         className={`limit-btn trade-btn ${
-          !limitFromCurrencyValue && !limitToCurrencyValue ? "disabled" : "enabled"
+          isConnected && !limitFromCurrencyValue && !limitToCurrencyValue
+            ? "disabled"
+            : "enabled"
         }`}
-        onClick={() => handleButtonClick()}
       >
         {getButtonText()}
       </Button>
