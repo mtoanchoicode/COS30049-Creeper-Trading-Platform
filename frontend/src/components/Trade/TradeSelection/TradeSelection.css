@@ -22,9 +22,15 @@
 }
 
 .trade-selection button.active {
-  color: var(--white-color);
+  color: white;
   background: var(--primary-color);
 }
+
+.trade-selection button.active:hover {
+  color: white;
+  background: var(--primary-color);
+}
+
 
 .trade-selection button:hover {
   color: var(--white-color);
