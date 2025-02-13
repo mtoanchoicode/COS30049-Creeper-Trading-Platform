@@ -75,18 +75,18 @@
 }
 
 .bg-Orange {
-    background-color: rgba(241, 105, 14, 0.08);
-    color: rgb(241, 105, 14);  
+    background-color: rgba(241, 105, 14, 0.08) !important;
+    color: rgb(241, 105, 14) !important;  
 }
 
 .bg-Blue {
-    background-color: rgba(20, 116, 242, 0.08);
-    color: rgb(20, 116, 242);  
+    background-color: rgba(20, 116, 242, 0.08) !important;
+    color: rgb(20, 116, 242) !important;  
 }
 
 .bg-Pink {
-    background-color: rgba(199, 14, 241, 0.08);
-    color: rgb(199, 14, 241);  
+    background-color: rgba(199, 14, 241, 0.08) !important;
+    color: rgb(199, 14, 241) !important;  
 }
 
 /**************************** Responsive part */
