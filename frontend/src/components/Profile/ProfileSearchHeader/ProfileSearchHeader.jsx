@@ -1,18 +1,20 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import "./ProfileSearchHeader.css";
 
 const ProfileSearchHeader = ({ onSearch }) => {
   const [walletAddress, setWalletAddress] = useState("");
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!walletAddress) {
       alert("Please enter a wallet address!");
       return;
     }
-
-    onSearch(walletAddress); // Send wallet address to parent
+    navigate(`/profile/transactions/${walletAddress}`);
+    onSearch(walletAddress);
   };
 
   return (

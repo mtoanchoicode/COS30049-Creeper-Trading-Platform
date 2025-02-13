@@ -1,5 +1,9 @@
 const express = require("express");
-const { searchWallet } = require("../controllers/wallet.controller");
+const {
+  searchWallet,
+  postWalletTransactions,
+  getWalletGraph,
+} = require("../controllers/wallet.controller");
 const walletRouter = express.Router();
 
 walletRouter.get("/", (req, res) => {
@@ -7,5 +11,7 @@ walletRouter.get("/", (req, res) => {
 });
 
 walletRouter.get("/:walletAddress", searchWallet);
+walletRouter.post("/store-transactions/:walletAddress", postWalletTransactions); // Store transactions in DB
+walletRouter.get("/wallet-graph/:walletAddress", getWalletGraph); // Retrieve and explore graph data
 
 module.exports = walletRouter; //export default

@@ -8,6 +8,7 @@ const ProfilePage = () => {
   return (
     <Layout
       style={{
+        marginTop: "5rem",
         height: "fit-content",
         backgroundColor: "var(--black-color)",
       }}

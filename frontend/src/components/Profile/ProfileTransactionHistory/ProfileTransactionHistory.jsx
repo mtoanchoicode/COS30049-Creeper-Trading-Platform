@@ -3,13 +3,35 @@ import "./ProfileTransactionHistory.css";
 import exportIcon from "../../../assets/Export Icon.svg";
 import Icons from "../../Icons/Icons";
 import shortenAddress from "../../../utils/utils";
-import { CopyOutlined } from "@ant-design/icons";
+import { CopyOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import WalletGraph from "../ProfileTransactionGraph/ProfileTransactionGraph";
 
 const TransactionsHistory = ({ walletDetail }) => {
   const [view, setView] = useState("transactions");
   const transactionHistory = walletDetail.transactionHistory;
 
-  const columns = ["Hash", "Method", "Block", "From", "To", "Amount", "Fee"];
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  // Calculate total pages
+  const totalPages = Math.ceil(transactionHistory.length / itemsPerPage);
+
+  // Get the coins for the current page
+  const paginatedTransactions = transactionHistory.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const columns = [
+    "Hash",
+    "Timestamp",
+    "Block",
+    "From",
+    "To",
+    "Amount",
+    "Fee",
+    "Method",
+  ];
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -67,27 +89,50 @@ const TransactionsHistory = ({ walletDetail }) => {
         </div>
 
         {view === "transactions" ? (
-          <table className="profileTH-table table-wrapper">
-            <thead>
-              <tr>
-                {columns.map((column, index) => (
-                  <th key={index}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {transactionHistory.map((transaction, index) => (
-                <tr key={index}>
-                  {columns.map((column, colIndex) => (
-                    <td key={colIndex}>{renderCell(transaction, column)}</td>
+          <div>
+            <table className="profileTH-table table-wrapper">
+              <thead>
+                <tr>
+                  {columns.map((column, index) => (
+                    <th key={index}>{column}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {paginatedTransactions.map((transaction, index) => (
+                  <tr key={index}>
+                    {columns.map((column, colIndex) => (
+                      <td key={colIndex}>{renderCell(transaction, column)}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="watchList-pagination">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                <LeftOutlined />
+              </button>
+              <span className="watchList-page">{currentPage}</span>
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+              >
+                <RightOutlined />
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="profileTH-visualizeComingSoon">
-            <h3>Coming Soon</h3>
+            {walletDetail?.transactionHistory?.length > 0 ? (
+              <WalletGraph initialWallet={walletDetail.walletAddress} />
+            ) : (
+              <p>Don't have any transactions to show!</p>
+            )}
           </div>
         )}
       </div>

@@ -54,7 +54,7 @@ const ProfileWatchList = () => {
                     <img src={coin.image} alt={coin.name} />
 
                     <Link
-                      to={`../${coin.symbol}`}
+                      to={`../explore/${coin.name.toLowerCase()}`}
                       className="watchList-CoinName"
                     >
                       <b>{coin.name}</b>

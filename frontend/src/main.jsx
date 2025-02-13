@@ -64,7 +64,7 @@ const routers = createBrowserRouter([
             element: <ProfileAssetsPage />,
           },
           {
-            path: "transactions",
+            path: "transactions/:walletAddress?",
             element: <ProfileSearchPage />,
           },
         ],
