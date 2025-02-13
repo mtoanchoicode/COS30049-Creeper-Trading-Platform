@@ -23,7 +23,7 @@
 }
 
 .watchList-card {
-  border: 0.05rem solid var(--white-color);
+  border: 0.05rem solid var(--white-color) !important;
   padding: 1.5rem 2rem;
   width: 100%;
   max-width: 60rem;
