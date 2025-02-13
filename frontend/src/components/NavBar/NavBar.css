@@ -97,6 +97,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 25rem;
+  border-radius: 8px;
+  background-color: rgb(223, 223, 223);
 }
 
 .navbar-center .navbar-center-searchbar {
@@ -121,7 +124,7 @@
 .navbar-center .navbar-searchbar-container i {
   font-size: 1rem;
   font-weight: 600;
-  color: #7a7a7a;
+  color: #6b6b6bed;
 }
 
 .navbar-center .navbar-searchbar-container p {
