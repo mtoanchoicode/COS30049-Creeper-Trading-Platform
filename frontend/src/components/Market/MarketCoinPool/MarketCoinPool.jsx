@@ -74,6 +74,7 @@ function MarketCoinPool(){
         {/* Table rows */}
         {sortArray(coins).map(coin =>(
           <MarketCoinFull
+            key={coin.id}
             id={coin.id}
             name={coin.name}
             symbol={coin.symbol.toUpperCase()}

@@ -6,11 +6,11 @@ const FQAsections = () => {
   const items = [
     { 
         id: 1, 
-        label: "What is a cryptocurrency exchange?", 
+        label: "What is the purpose of the Decentralized Trading System?", 
         renderContent: () => (
             <div>
-                <a href = "https://www.binance.com/en/price">Creeper</a>&nbsp;
-                is digital marketplaces that enable users to buy and sell cryptocurrencies like  Bitcoin, Ethereum, and Tether.
+                The system is designed to enable peer-to-peer trading of digital assets without intermediaries, 
+                ensuring trustless, transparent, and secure transactions through blockchain technology and smart contracts.
             </div>
         ),
     },
@@ -19,34 +19,24 @@ const FQAsections = () => {
         label: "What products does Creeper provide?", 
         renderContent: () => (
            <div>
-                <p>
-                Creeper is the world's leading cryptocurrency exchange, 
-                catering to 235 million registered users in over 180 countries. 
-                With low fees and over 350 cryptocurrencies to trade, 
-                Creeper is the preferred exchange to trade Bitcoin, Altcoins, 
-                and other virtual assets.
-                </p> 
+                <a href = "/">The Creeper</a>&nbsp;
+                offers the following features:
                 <br></br>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </li>
+                <ul>
+                    <li>
+                        Trade with Smart Contract: Users can swap, limit ,send, and buy the digital assets
+                    </li>
+                    <li>
+                        Search & Filter: Users can search and apply filters to find specific assets of interest.
+                    </li>
+                    <li>
+                        Transaction History: Users can access their past trades for reference
+                    </li>
+                    <li>
+                        Secure Trading with Smart Contracts: Smart contracts act as escrow, 
+                        ensuring safe and transparent transactions.
+                    </li>
+                </ul>
            </div>
           
         ),   
@@ -57,27 +47,28 @@ const FQAsections = () => {
         renderContent: () => ( 
         <div>
             <a href = "https://www.binance.com/en/price">Creeper</a>&nbsp;
-            is digital marketplaces that enable users to buy and sell cryptocurrencies like  Bitcoin, Ethereum, and Tether.
+            provides the explore pages, , designed for users to effortlessly check coin prices and explore a wealth of exciting features. Dive in and unlock the potential of your crypto journey!
         </div>
         ),
     },
     {
         id: 4, 
-        label: "How to trade cryptocurrencies on Creeper", 
+        label: "How does the system ensure the security of trades?", 
         renderContent: () => (
             <p>
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 The system uses smart contracts as escrow, holding assets securely until both parties fulfill the trade conditions. 
+                 This prevents fraud and ensures that transactions are completed fairly.
             </p>
         ), 
     },
     {
         id: 5, 
-        label: "How to earn from crypto on Creeper", 
+        label: "What is a network cost?", 
         renderContent: () => (
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Every blockchain transaction has a non-refundable network cost, even if it fails. Validators use their resources 
+            to determine a transaction's outcome, relying on their own computers to verify and process transactions without a 
+            central authority. 
         </p>
         ), 
     },

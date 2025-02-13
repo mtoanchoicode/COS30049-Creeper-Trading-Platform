@@ -1,0 +1,118 @@
+
+.Category_Filter_Heading {
+    text-align: center;
+    margin: 3.5rem 0 0 0;
+    padding: 2rem 0;
+}
+
+.Category_Filter_Container {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-evenly;
+    justify-self: center;
+    cursor: pointer;
+    padding: 1.5rem;
+    border: 2px solid var(--text-color);
+    border-radius: 20px;
+}
+
+.Category_Filter_Item {
+    padding: 0.5rem 2rem;
+    border-radius: 20px;
+    color: var(--text-color);
+}
+
+.Category_Filter_Item.active {
+    border: 2px solid var(--black-background-color);
+    font-weight: bolder;
+    font-size: large;
+    color: var(--white-color);
+}
+
+
+
+.NewsBlock_Container {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  column-gap: 2rem;
+  width: 90%;
+  justify-self: center;
+  gap: 2rem;
+  padding: 2.5rem 3.5rem;
+  margin: 2.5rem 0;
+}
+
+.News_Item_Container .News_Item {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 15px;
+  transition: all 0.4s ease;
+  height: 100%;
+}
+
+.News_Item_Container .News_Item:hover {
+    background-color: var(--black-background-color);
+}
+  
+
+.News_Item_Container .News_Item:hover .Date_Conatainer *{
+  color: #ffffff;
+}
+
+.News_Item_Container .News_Item:hover .Title_Container *{
+  color: #ffffff;
+}
+
+
+.Image_Container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  justify-self: center;
+}
+
+.Date_Conatainer .news_Date{
+    font-size: 1rem;
+    color: var(--white-color);
+}
+
+.Title_Container .news-title{
+    color: var(--white-color);
+    font-size: 1.25rem;
+}
+
+.Sumary_Container .news-sumary{
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* tablet  */
+@media (max-width: 1280px) 
+{
+    .NewsBlock_Container {
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 2rem;
+      }
+      
+} 
+
+
+/* Mobile  */
+@media (max-width: 767px) 
+{
+    .NewsBlock_Container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+
+
+

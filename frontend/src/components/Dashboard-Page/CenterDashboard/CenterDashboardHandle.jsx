@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import "./CenterDashboard.css";
-import NewsComponent from "../NewsComponent/NewsComponent"
+import NewsComponent from "../NewsComponent/NewsComponentHandle"
 import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
 import { CoinContext } from "../../../contexts/CoinContext";
 import { Button, Form, Input } from "antd";
@@ -87,7 +87,6 @@ const Centers = ({title, subtitle}) => {
 
                     <a 
                         className= "OtherSignUp-Link"
-                        //Testing the link 
                         href = "https://www.google.com/">
                         <img src = {Google} alt = "Google icon"></img>
                     </a>
@@ -100,7 +99,7 @@ const Centers = ({title, subtitle}) => {
                     <a 
                         className= "FollowUs-Link"
                         href = "https://github.com/mtoanchoicode/COS30049-Creeper-Trading-Platform">
-                        <img src = {Github} alt = "Github icon"></img>
+                        <img src= {Github} alt = "Github icon"></img>
                     </a>
                 </div>
            </div>

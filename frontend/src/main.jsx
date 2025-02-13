@@ -23,6 +23,8 @@ import { UserProvider } from "./contexts/UserContext.jsx";
 import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
 import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
+import NewsPage from "./pages/News-Page/NewsPage.jsx";
+import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -64,10 +66,18 @@ const routers = createBrowserRouter([
             element: <ProfileAssetsPage />,
           },
           {
-            path: "transactions",
+            path: "transactions/:walletAddress?",
             element: <ProfileSearchPage />,
           },
         ],
+      },
+      {
+        path: "news",
+        element: <NewsPage />,
+      },
+      {
+        path: "news/:id",
+        element: <NewsDetailsPage />,
       },
     ],
   },
