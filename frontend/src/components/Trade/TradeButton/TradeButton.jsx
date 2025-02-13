@@ -4,11 +4,11 @@ import "./TradeButton.css";
 import swapIcon from "../../../assets/Swap Icon.svg";
 import { CoinContext } from "../../../contexts/CoinContext";
 
-const SwapButton = () => {
+const SwapButton = ({type}) => {
   const { swapCurrency } = useContext(CoinContext);
 
   return (
-    <div className="convert-currencies-center" onClick={swapCurrency}>
+    <div className="trade-button" onClick={() => swapCurrency(type)}>
       <img src={swapIcon} alt="Swap icon" title="Swap currencies" />
     </div>
   );

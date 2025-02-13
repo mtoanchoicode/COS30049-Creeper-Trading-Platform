@@ -26,12 +26,6 @@
   margin: 0 0.3rem;
 }
 
-.limit-price-top i {
-  transform: rotate(90deg);
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
 .limit-price-center {
   display: flex;
   justify-content: space-between;
@@ -71,7 +65,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  cursor: pointer;
 }
 
 .limit-price-center .limit-price-tokens-selection img {

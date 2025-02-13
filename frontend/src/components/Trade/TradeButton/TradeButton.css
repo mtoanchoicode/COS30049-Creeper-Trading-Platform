@@ -1,4 +1,4 @@
-.convert-currencies-center {
+.trade-button {
   position: absolute;
   display: flex;
   align-items: center;
@@ -10,6 +10,6 @@
   cursor: pointer;
 }
 
-.convert-currencies-center:hover {
-  border: 0.05rem solid #868686;
+.trade-button:hover {
+
 }
