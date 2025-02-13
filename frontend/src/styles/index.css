@@ -9,7 +9,7 @@
   --secondary-color: #3e7b27;
   --third-color: #306844;
   --header-color: #00da5b;
-  --text-color: #d9d9d9;
+  --text-color: #707070;
   --price-rising: #00c853;
   --price-falling: #d32f2f;
   --black-background-color: #1e2329;
@@ -26,7 +26,7 @@
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
-  --white-color: #f5f5f5;
+  --white-color: #fdfdfd;
   --black-color: #131313;
   --grey-color: #343434;
   --text-color: var(--white-color);
@@ -44,12 +44,14 @@
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
-  --white-color: #ffffff;
-  --black-color: #131313;
+  /* --white-color: #ffffff; */
+  /* --black-color: #131313; */
+  --white-color: #131313;
+  --black-color: #fdfdfd;
   --grey-color: #e8e8e8;
   --text-color: var(--black-color);
   background: var(--app-background);
-  color: var(--black-color);
+  color: var(--white-color);
 }
 
 body {

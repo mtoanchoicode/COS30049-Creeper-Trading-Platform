@@ -9,7 +9,7 @@ const ConvertCurrenciesContainer = ({ title, type, currency, value, usdValue, ha
         <p>{title}</p>
       </div>
       <div className="convert-currencies-container-bottom">
-        <AmountDisplay type={type} currency={currency} onClick={onClick} value={value} usdValue={usdValue} handleChange={handleChange}/>
+        <AmountDisplay title={title} type={type} currency={currency} onClick={onClick} value={value} usdValue={usdValue} handleChange={handleChange}/>
       </div>
     </div>
   );

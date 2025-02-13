@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import "./CenterDashboard.css";
-import NewsComponent from "../NewsComponent/NewsComponent"
+import NewsComponent from "../NewsComponent/NewsComponentHandle"
 import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
 import { CoinContext } from "../../../contexts/CoinContext";
 import { Button, Form, Input } from "antd";

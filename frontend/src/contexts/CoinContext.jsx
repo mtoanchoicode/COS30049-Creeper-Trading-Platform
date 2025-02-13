@@ -11,14 +11,22 @@ const CoinProvider = ({ children }) => {
     name: "US Dollar", // Default name
   };
 
+  const [buyCurrency, setBuyCurrency] = useState(null);
+
   const [sendCurrency, setSendCurrency] = useState(defaultCurrency);
-  const [buyCurrency, setBuyCurrency] = useState(defaultCurrency);
+  const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
 
   const [limitFromCurrency, setLimitFromCurrency] = useState(defaultCurrency);
   const [limitToCurrency, setLimitToCurrency] = useState(defaultCurrency);
+  const [limitFromCurrencyValue, setLimitFromCurrencyValue] = useState("");
+  const [limitToCurrencyValue, setLimitToCurrencyValue] = useState("");
 
   const [swapFromCurrency, setSwapFromCurrency] = useState(defaultCurrency);
   const [swapToCurrency, setSwapToCurrency] = useState(defaultCurrency);
+  const [swapFromCurrencyValue, setSwapFromCurrencyValue] = useState("");
+  const [swapToCurrencyValue, setSwapToCurrencyValue] = useState("");
+  const [swapFromUsdValue, setSwapFromUsdValue] = useState(0);
+  const [swapToUsdValue, setSwapToUsdValue] = useState(0);
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
@@ -34,93 +42,113 @@ const CoinProvider = ({ children }) => {
         const usdtCoin = data.find(
           (coin) => coin.symbol.toLowerCase() === "usdt"
         );
+        const usdcCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "usdc"
+        );
 
         if (ethCoin) setSwapFromCurrency(ethCoin);
         if (usdtCoin) setSwapToCurrency(usdtCoin);
 
         if (ethCoin) setLimitFromCurrency(ethCoin);
-        if (usdtCoin) setLimitToCurrency(usdtCoin);
+        if (usdcCoin) setLimitToCurrency(usdcCoin);
 
         if (ethCoin) setSendCurrency(ethCoin);
-        if (ethCoin) setBuyCurrency(ethCoin);
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
 
-  const [fromCurrencyValue, setFromCurrencyValue] = useState("");
-  const [toCurrencyValue, setToCurrencyValue] = useState("");
-  const [fromUsdValue, setFromUsdValue] = useState(0);
-  const [toUsdValue, setToUsdValue] = useState(0);
-
   const resetValues = () => {
-    setFromCurrencyValue("");
-    setToCurrencyValue("");
-    setFromUsdValue("");
-    setToUsdValue("");
+    setSwapFromCurrencyValue("");
+    setSwapToCurrencyValue("");
+    setSwapFromUsdValue("");
+    setSwapToUsdValue("");
+
+    setLimitFromCurrencyValue(""); 
+  setLimitToCurrencyValue(""); 
   };
 
-  const handleFromCurrencyValueChange = (e) => {
+  const handleCurrencyValueChange = (e, type, tradeType) => {
     const value = e.target.value;
 
-    // If the input is empty, clear related states
     if (value === "") {
       resetValues();
       return;
     }
 
-    const numericValue = parseFloat(value);
-    setFromCurrencyValue(numericValue);
+    const minmaxValue = Math.max(0, Math.min(10000, Number(value)));
+    const numericValue = parseFloat(minmaxValue);
 
-    // Convert the swapFromCurrency value to USD
-    const usdFromValue = numericValue * swapFromCurrency.current_price;
-    setFromUsdValue(usdFromValue);
+    const fromCurrency =
+      tradeType === "swap" ? swapFromCurrency : limitFromCurrency;
+    const toCurrency = tradeType === "swap" ? swapToCurrency : limitToCurrency;
+    const setFromCurrencyValue =
+      tradeType === "swap"
+        ? setSwapFromCurrencyValue
+        : setLimitFromCurrencyValue;
+    const setToCurrencyValue =
+      tradeType === "swap" ? setSwapToCurrencyValue : setLimitToCurrencyValue;
+    const setFromUsdValue =
+      tradeType === "swap" ? setSwapFromUsdValue : () => {};
+    const setToUsdValue = tradeType === "swap" ? setSwapToUsdValue : () => {};
 
-    // Convert that USD value into swapToCurrency
-    const toValue = usdFromValue / swapToCurrency.current_price;
-    setToCurrencyValue(toValue);
+    if (type === "From") {
+      setFromCurrencyValue(numericValue);
 
-    //Convert the swapToCurrency value to USD
-    const usdToValue = toValue * swapToCurrency.current_price;
-    setToUsdValue(usdToValue);
+      const usdFromValue = numericValue * fromCurrency.current_price;
+      setFromUsdValue(usdFromValue);
+
+      const toValue = usdFromValue / toCurrency.current_price;
+      setToCurrencyValue(toValue);
+
+      const usdToValue = toValue * toCurrency.current_price;
+      setToUsdValue(usdToValue);
+    } else if (type === "To") {
+      setToCurrencyValue(numericValue);
+
+      const usdToValue = numericValue * toCurrency.current_price;
+      setToUsdValue(usdToValue);
+
+      const fromValue = usdToValue / fromCurrency.current_price;
+      setFromCurrencyValue(fromValue);
+
+      const usdFromValue = fromValue * fromCurrency.current_price;
+      setFromUsdValue(usdFromValue);
+    }
   };
 
-  const handleToCurrencyValueChange = (e) => {
-    const value = e.target.value;
+  const handleSendCurrencyValueChange = (input) => {
+    let numericValue = typeof input === "number" ? input : parseFloat(input);
 
-    // If the input is empty, clear related states
-    if (value === "") {
-      resetValues();
+    if (isNaN(numericValue) || numericValue < 0) {
+      setSendCurrencyValue(0);
       return;
     }
 
-    const numericValue = parseFloat(value);
-    setToCurrencyValue(numericValue);
+    if (!sendCurrency || !sendCurrency.current_price) {
+      console.error("sendCurrency or its price is undefined");
+      setSendCurrencyValue(0);
+      return;
+    }
 
-    // Convert the swapToCurrency value to USD
-    const usdToValue = numericValue * swapToCurrency.current_price;
-    setToUsdValue(usdToValue);
-
-    // Convert that USD value into swapFromCurrency
-    const fromValue = usdToValue / swapFromCurrency.current_price;
-    setFromCurrencyValue(fromValue);
-
-    //Convert the swapFromCurrency value to USD
-    const usdFromValue = fromValue * swapFromCurrency.current_price;
-    setFromUsdValue(usdFromValue);
+    const amount = numericValue / sendCurrency.current_price;
+    setSendCurrencyValue(amount);
   };
 
-  const swapCurrency = () => {
-    setSwapFromCurrency(swapToCurrency);
-    setSwapToCurrency(swapFromCurrency);
+  const swapCurrency = (type) => {
+    if (type === "swap") {
+      setSwapFromCurrency(swapToCurrency);
+      setSwapToCurrency(swapFromCurrency);
 
-    setFromCurrencyValue(toCurrencyValue);
-    setToCurrencyValue(fromCurrencyValue);
+      setSwapFromCurrencyValue(swapToCurrencyValue);
+      setSwapToCurrencyValue(swapFromCurrencyValue);
 
-    setFromUsdValue(toUsdValue);
-    setToUsdValue(fromUsdValue);
-
-    setLimitFromCurrency(limitToCurrency);
-    setLimitToCurrency(limitFromCurrency);
+      setSwapFromUsdValue(swapToUsdValue);
+      setSwapToUsdValue(swapFromUsdValue);
+    }
+    if (type === "limit") {
+      setLimitFromCurrency(limitToCurrency);
+      setLimitToCurrency(limitFromCurrency);
+    }
   };
 
   const handleCoinSelection = (selectedCoin, type, tradeType) => {
@@ -136,7 +164,7 @@ const CoinProvider = ({ children }) => {
       min_transaction_amount: selectedCoin.min_transaction_amount,
       max_transaction_amount: selectedCoin.max_transaction_amount,
     };
-  
+
     if (tradeType === "swap") {
       let otherType = isFromType ? swapToCurrency : swapFromCurrency;
       if (selectedCoin.id === otherType.id) {
@@ -159,11 +187,11 @@ const CoinProvider = ({ children }) => {
     } else if (tradeType === "buy") {
       setBuyCurrency(updatedCurrency);
     }
-  
+
     setActiveOverlay(null);
     resetValues();
   };
-  
+
   const handleOverlay = (type, value) => {
     setActiveOverlay(value ? type : null);
   };
@@ -171,21 +199,25 @@ const CoinProvider = ({ children }) => {
   const contextValue = {
     coins,
     sendCurrency,
+    sendCurrencyValue,
+    buyCurrency,
     swapFromCurrency,
     swapToCurrency,
     limitFromCurrency,
     limitToCurrency,
-    fromCurrencyValue,
-    toCurrencyValue,
-    fromUsdValue,
-    toUsdValue,
+    limitFromCurrencyValue,
+    limitToCurrencyValue,
+    swapFromCurrencyValue,
+    swapToCurrencyValue,
+    swapFromUsdValue,
+    swapToUsdValue,
     activeOverlay,
     swapCurrency,
     handleCoinSelection,
     handleOverlay,
     setActiveOverlay,
-    handleFromCurrencyValueChange,
-    handleToCurrencyValueChange,
+    handleCurrencyValueChange,
+    handleSendCurrencyValueChange,
   };
 
   return (

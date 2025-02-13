@@ -1,6 +1,5 @@
 .trade {
-  padding: 4.25rem 0;
-  height: 100vh;
+  padding-top: 8rem;
 }
 
 .trade-child {
@@ -14,6 +13,7 @@
 
 .trade-btn {
   background: var(--primary-color);
+  color: var(--white-color);
   height: 3.5rem;
   font-weight: 600;
   border-radius: 1rem;
@@ -22,4 +22,20 @@
 
 .trade-btn:hover {
   background: #00943e !important;
+}
+
+
+.trade-btn.disabled {
+  cursor:auto;
+  background: var(--trade-background-color);
+  height: 3.5rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  align-self: center;
+  box-shadow: none;
+}
+
+.trade-btn.disabled:hover {
+  background: var(--trade-background-color) !important;
+  color: var(--white-color) !important;
 }

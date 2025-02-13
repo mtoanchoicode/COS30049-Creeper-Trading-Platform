@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./NewsComponent.css"
+import news from "../../News-Page/NewsData"
 
 
-const News = ({ News, title }) => {
+const News = () => {
     return (
         <section className="News-container">
-            <div className= "News-heading-container">
+            <div className="News-heading-container">
                 <h2 className="News-heading-title">
-                    {title}
+                    News
                 </h2>
 
                 <Link to="/">
@@ -17,17 +18,17 @@ const News = ({ News, title }) => {
             </div>
 
             <div className="News-Content-Container">
-                {News?.map((New) => {
+                {news?.slice(0, 4).map((New) => {
                     return (
                         <div className="News-Content">
-                            <a 
-                            href = ""
-                            className="News-details-heading">
-                                {New.NewTitle}
+                            <a
+                                href=""
+                                className="News-details-heading">
+                                {New.Title}
                             </a>
                         </div>
                     )
-                })}          
+                })}
             </div>
         </section>
     )
