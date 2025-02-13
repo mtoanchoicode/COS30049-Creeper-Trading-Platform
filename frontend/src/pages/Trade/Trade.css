@@ -18,16 +18,16 @@
   font-weight: 600;
   border-radius: 1rem;
   align-self: center;
+  transition: none;
 }
 
 .trade-btn:hover {
   background: #00943e !important;
 }
 
-
 .trade-btn.enabled {
   background: var(--primary-color);
-  color: var(--white-color);
+  color: white;
   height: 3.5rem;
   font-weight: 600;
   border-radius: 1rem;
@@ -35,8 +35,9 @@
 }
 
 .trade-btn.disabled {
-  cursor:auto;
+  cursor: auto;
   background: var(--trade-background-color);
+  color: var(--trade-secondary-text-color);
   height: 3.5rem;
   font-weight: 600;
   border-radius: 1rem;
@@ -46,5 +47,5 @@
 
 .trade-btn.disabled:hover {
   background: var(--trade-background-color) !important;
-  color: var(--white-color) !important;
+  color: var(--trade-secondary-text-color) !important;
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./BuyContainer.css";
 import { Input } from "antd";
-import { CoinContext } from "../../../contexts/CoinContext";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
 const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
