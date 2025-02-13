@@ -11,8 +11,9 @@ const LimitContainer = () => {
     limitFromCurrency,
     limitToCurrency,
     setActiveOverlay,
-    handleFromCurrencyValueChange,
-    handleToCurrencyValueChange,
+    handleCurrencyValueChange,
+    limitFromCurrencyValue,
+    limitToCurrencyValue,
   } = useContext(CoinContext);
 
   return (
@@ -21,6 +22,8 @@ const LimitContainer = () => {
         type="limit"
         title="From"
         currency={limitFromCurrency}
+        value={limitFromCurrencyValue}
+        handleChange={handleCurrencyValueChange}
         onClick={() => setActiveOverlay("from")}
       />
       <SwapButton type="limit" />
@@ -28,6 +31,8 @@ const LimitContainer = () => {
         type="limit"
         title="To"
         currency={limitToCurrency}
+        value={limitToCurrencyValue}
+        handleChange={handleCurrencyValueChange}
         onClick={() => setActiveOverlay("to")}
       />
       {["from", "to"].map((type) => (

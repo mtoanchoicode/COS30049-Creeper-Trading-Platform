@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 
 import { Button } from "antd";
 import LimitPrice from "../../components/Trade/LimitPrice/LimitPrice";
 import LimitExpired from "../../components/Trade/LimitExpired/LimitExpired";
 import LimitContainer from "../../components/Trade/LimitContainer/LimitContainer";
+import { CoinContext } from "../../contexts/CoinContext";
 
 const Limit = () => {
+  const { limitFromCurrencyValue, limitToCurrencyValue } =
+    useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
+
   const handleButtonClick = () => {
     if (!isConnected) {
       open();
-    } else {
+    } else if (amount) {
       console.log("Button clicked!");
     }
   };
+
+  const getButtonText = () => {
+    if (!isConnected) return "Connect wallet";
+    if (!limitFromCurrencyValue && !limitToCurrencyValue)
+      return "Enter an amount";
+    return "Continue";
+  };
+
+  console.log(
+    !limitFromCurrencyValue && !limitToCurrencyValue ? "disabled" : "enabled"
+  );
 
   return (
     <div className="limit trade-child">
@@ -25,10 +40,13 @@ const Limit = () => {
       <Button
         type="primary"
         block
-        className="limit-btn trade-btn"
-        onClick={() => handleButtonClick()}
+        className={`limit-btn trade-btn ${
+          isConnected && !limitFromCurrencyValue && !limitToCurrencyValue
+            ? "disabled"
+            : "enabled"
+        }`}
       >
-        {isConnected ? "Enter amount" : "Connect wallet"}
+        {getButtonText()}
       </Button>
     </div>
   );

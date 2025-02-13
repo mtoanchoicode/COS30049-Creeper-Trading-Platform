@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
 import "./BuyContainer.css";
 import { Input } from "antd";
-import { CoinContext } from "../../../contexts/CoinContext";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
-const BuyContainer = () => {
-  const {setActiveOverlay} = useContext(CoinContext);
+const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
   const [value, setValue] = useState("");
 
-  // Function to handle input changes
   const handleChange = (e) => {
-    let inputValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    setValue(inputValue ? `$${inputValue}` : ""); // If empty, reset to ""
+    let inputValue = e.target.value.replace(/[^0-9]/g, "");
+    let numericValue = inputValue
+      ? Math.max(0, Math.min(9999, Number(inputValue)))
+      : "";
+    setValue(numericValue ? `$${numericValue}` : "");
+    setAmount(numericValue);
   };
 
-  // Function to set predefined values
   const handlePresetValue = (amount) => {
     setValue(`$${amount}`);
+    setAmount(amount);
   };
 
   return (
@@ -28,8 +29,13 @@ const BuyContainer = () => {
         <div className="buy-currency-input">
           <Input placeholder="$0" value={value} onChange={handleChange} />
         </div>
-        <div className="buy-currency-selection"  onClick={() => setActiveOverlay("buy")}>
-          <div>Select a token</div>
+        <div
+          className={`buy-token-selection ${currency ? "active" : "inactive"}`}
+          onClick={() => setActiveOverlay("buy")}
+        >
+          <div>
+            {currency ? currency.symbol.toUpperCase() : "Select a token"}
+          </div>
           <i className="fa-solid fa-chevron-down"></i>
         </div>
         <div className="buy-price-quick-selection">
@@ -38,7 +44,7 @@ const BuyContainer = () => {
           <button onClick={() => handlePresetValue(500)}>$500</button>
         </div>
       </div>
-      <TokensSelection type="buy" tradeType="buy"/>
+      <TokensSelection type="buy" tradeType="buy" />
     </div>
   );
 };

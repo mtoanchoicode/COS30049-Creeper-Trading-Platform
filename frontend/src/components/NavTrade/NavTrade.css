@@ -45,7 +45,7 @@
   font-family: "Manrope";
   font-size: 0.9rem;
   font-weight: 600;
-  color: white;
+  color: var(--white-color);
 }
 
 .navtrade-item .navtrade-content .navtrade-heading i {
@@ -66,5 +66,5 @@
 .navtrade-item .navtrade-content .navtrade-desc {
   font-family: "Manrope";
   font-size: 0.8rem;
-  color: #bdbdbd;
+  color: var(--trade-secondary-text-color);
 }

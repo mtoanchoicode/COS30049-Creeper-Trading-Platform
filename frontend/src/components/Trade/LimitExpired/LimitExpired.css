@@ -27,6 +27,12 @@
   cursor: pointer;
 }
 
+.limit-expiry-btns button:hover {
+  border: 0.05rem solid var(--trade-border-active-color);
+  background: var(--trade-background-active-color);
+  color: var(--white-color);
+}
+
 .limit-expiry-btns button.active {
   border: 0.05rem solid var(--trade-border-active-color);
   border-radius: 5rem;

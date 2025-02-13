@@ -75,7 +75,7 @@
 }
 
 .send-tokens-selection:hover {
-  background: #1e1e1e;
+  background: var(--trade-btn-hover);
 }
 
 .send-tokens-selection-coin {

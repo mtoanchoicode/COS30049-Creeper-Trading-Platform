@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./NavBar.css";
-import Icons from "../Icons/Icons";
+
 import logo from "../../assets/Logo.png";
 import moonIcon from "../../assets/Dark Mode Icon.svg";
-import hoverMoonIcon from "../../assets/Hover Dark Mode Icon.svg";
 import userIcon from "../../assets/User Icon.svg";
 import barsIcon from "../../assets/Bars Icon.svg";
 import { Link } from "react-router-dom";

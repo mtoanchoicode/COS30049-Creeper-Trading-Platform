@@ -4,7 +4,6 @@ import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinB
 import MarketCoinPool from "../../components/Market/MarketCoinPool/MarketCoinPool";
 import { CoinContext } from "../../contexts/CoinContext";
 import './Market.css';
-import { Link, Links } from "react-router-dom";
 
 
 const MarketPage = () => {
