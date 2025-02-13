@@ -1,5 +1,5 @@
 .trade {
-  padding: 4.25rem 0;
+  padding-top: 8rem;
 }
 
 .trade-child {
@@ -37,4 +37,5 @@
 
 .trade-btn.disabled:hover {
   background: var(--trade-background-color) !important;
+  color: var(--white-color) !important;
 }
