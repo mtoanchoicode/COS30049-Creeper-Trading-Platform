@@ -18,12 +18,10 @@ const onFinish = async (values) => {
 
 
 
-
 const Centers = ({title, subtitle}) => {
     const {coins} = useContext(CoinContext);
 
     const HotCoins = coins.slice(0,5);
-
 
 
   return (
@@ -76,10 +74,6 @@ const Centers = ({title, subtitle}) => {
             </Form>
            </div>
           
-
-           {/* <div>
-
-           </div> */}
 
            <div className= "OtherSignup-Follow_Container">
                 <div className = "Item-Container">
