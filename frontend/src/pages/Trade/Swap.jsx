@@ -31,7 +31,7 @@ const Swap = () => {
         type="primary"
         block
         className={`swap-btn trade-btn ${
-          !swapFromCurrencyValue && !swapToCurrencyValue ? "disabled" : "enabled"
+          isConnected && (!swapFromCurrencyValue && !swapToCurrencyValue) ? "disabled" : "enabled"
         }`}
         onClick={() => handleButtonClick()}
       >

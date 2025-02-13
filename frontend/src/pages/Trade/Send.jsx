@@ -34,7 +34,7 @@ const Send = () => {
         type="primary"
         block
         className={`send-btn trade-btn ${
-          !amount || !recipient ? "disabled" : "enabled"
+          isConnected && (!amount || !recipient) ? "disabled" : "enabled"
         }`}
         onClick={() => handleButtonClick()}
       >
