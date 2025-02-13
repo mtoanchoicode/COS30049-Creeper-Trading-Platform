@@ -1,10 +1,11 @@
 import { Layout } from "antd";
 import React, { useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ProfileSearchHeader from "../../components/Profile/ProfileSearchHeader/ProfileSearchHeader";
 import ProfileSearchDetail from "../../components/Profile/ProfileSearchDetail/ProfileSearchDetail";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-// Utility function to debounce API calls
+
 const debounce = (func, delay) => {
   let timeout;
   return (...args) => {
@@ -14,55 +15,48 @@ const debounce = (func, delay) => {
 };
 
 const ProfileSearchPage = () => {
-  const [walletAddress, setWalletAddress] = useState("");
+  const { walletAddress: urlWalletAddress } = useParams();
+  const navigate = useNavigate();
+  const [walletAddress, setWalletAddress] = useState(urlWalletAddress || "");
   const [walletData, setWalletData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Debounced function to update wallet address
-  const debouncedSetWalletAddress = useCallback(
-    debounce(setWalletAddress, 500),
-    []
-  );
+  useEffect(() => {
+    if (urlWalletAddress) {
+      setWalletAddress(urlWalletAddress);
+    }
+  }, [urlWalletAddress]);
+
+  const fetchWalletData = async (address) => {
+    if (!address) return;
+    setIsLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`${API_BASE_URL}/v1/api/wallet/${address}`);
+      if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+      const data = await response.json();
+      setWalletData(data);
+    } catch (err) {
+      setError(err.message || "Something went wrong!");
+      setWalletData(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchWalletData = async () => {
-      if (!walletAddress) return; // Don't fetch if address is empty
-
-      setIsLoading(true);
-      setError("");
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/v1/api/wallet/${walletAddress}`,
-          { method: "GET" }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        if (!data || Object.keys(data).length === 0) {
-          throw new Error("No wallet data found.");
-        }
-
-        setWalletData(data);
-      } catch (err) {
-        setError(err.message || "Something went wrong!");
-        console.log(err);
-        setWalletData(null); // Clear previous data on error
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchWalletData();
+    fetchWalletData(walletAddress);
   }, [walletAddress]);
 
   return (
     <Layout style={{ padding: "20px", backgroundColor: "var(--black-color)" }}>
-      <ProfileSearchHeader onSearch={debouncedSetWalletAddress} />
+      <ProfileSearchHeader
+        onSearch={(newAddress) => {
+          setWalletAddress(newAddress);
+          navigate(`/profile/transactions/${newAddress}`);
+        }}
+      />
       <ProfileSearchDetail
         walletData={walletData}
         isLoading={isLoading}

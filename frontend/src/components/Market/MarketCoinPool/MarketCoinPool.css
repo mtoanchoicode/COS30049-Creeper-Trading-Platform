@@ -10,13 +10,13 @@
     width: 100%;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 0.5px solid rgb(95, 95, 95);
+    border-bottom: 0.5px solid var(--market-border-color);
     padding-bottom: 1rem;
 }
 
 .market-coin-pool-headers h2{
     font-weight: 500;
-    color: rgb(201, 201, 201);
+    color: var(--market-sort-color);
 }
 
 .pool-headers-prices{
@@ -48,9 +48,15 @@
     filter: brightness(150%);
     transition: 0.2s;
 }
-
+.app.light .pool-header:hover .market-sort-button{
+    filter:brightness(40%);
+}
+.app.light .market-sort-button{
+    filter: invert(0.8);
+}
 .pool-header:hover .isSelected{
     filter: brightness(60%);
+    transition: 0.2s;
 }
 
 .pool-header-name{

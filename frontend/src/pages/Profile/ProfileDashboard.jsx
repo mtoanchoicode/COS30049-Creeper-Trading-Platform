@@ -14,15 +14,6 @@ const ProfileDashboardPage = () => {
       }}
     >
       <HeaderInfo />
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          flexWrap: "wrap",
-          gap: "3rem",
-          marginBottom: 20,
-        }}
-      ></div> */}
       <ProfileWatchList />
     </Layout>
   );

@@ -6,6 +6,5 @@
 }
 
 .loader-spinner {
-  font-size: 24px;
-  color: white; /* Set the spinner color to white */
+  font-size: 24px; /* Set the spinner color to white */
 }

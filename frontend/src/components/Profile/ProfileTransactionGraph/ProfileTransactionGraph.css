@@ -1,0 +1,39 @@
+#profileTransactionGraph {
+  width: 100%;
+  max-width: 60rem;
+  height: 100%;
+  position: relative;
+}
+.profileTransactionGraph-zoomBtn {
+  display: flex;
+  gap: 1rem;
+}
+
+.profileTransactionGraph-zoomBtn button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.profileTransactionGraph-zoomBtn button:hover {
+  background-color: var(--secondary-color);
+}
+
+.profileTransactionGraph-tooltipNode {
+  background: var(--trade-background-color);
+  border: 1px solid var(--trade-border-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.profileTransactionGraph-tooltipNode li:hover {
+  color: var(--primary-color);
+}
+
+.profileTransactionGraph-tooltipNode button:hover {
+  color: var(--primary-color);
+}
