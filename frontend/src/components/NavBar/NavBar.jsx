@@ -63,25 +63,14 @@ const NavBar = ({ theme, setTheme }) => {
           </Link>
         </div>
       </div>
-      {
-        window.location.pathname !== "/explore"
-        && <div className="navbar-center">
-          <CoinSearchInput/>
-        </div>
-      }
-      
-      {/* <div className="navbar-center">
-        <div className="navbar-center-searchbar">
-          <div className="navbar-searchbar-container">
-            <div className="navbar-searchbar-icon">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <div className="navbar-searchbar-text">
-              <p>Search tokens</p>
-            </div>
+
+      <div className="navbar-center">
+        {window.location.pathname !== "/explore" && (
+          <div className="navbar-center">
+            <CoinSearchInput />
           </div>
-        </div>
-      </div> */}
+        )}
+      </div>
 
       <div className="navbar-right">
         <Button className="navbar-connectWallet" onClick={() => open()}>
