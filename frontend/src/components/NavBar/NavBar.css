@@ -103,14 +103,10 @@
 }
 
 .navbar-center .coin-search-input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
   border-radius: 2rem;
   padding: 0 0.5rem;
-  background: rgb(0, 0, 0);
 }
 
 .navbar-center .coin-search-input {
@@ -119,6 +115,10 @@
   height: 100%;
   justify-content: center;
   align-items: center;
+  border: 0.02rem solid var(--searchbar-border);
+  border-radius: 2rem;
+  background: var(--searchbar-background);
+  padding: 0 0.2rem;
 }
 
 .navbar-center .search-icon-container {
@@ -131,24 +131,31 @@
   justify-content: center;
   align-items: center;
   border-radius: 2rem;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 .navbar-center .search-icon-container:hover {
-  cursor: pointer;
-  filter: brightness(105%);
+  box-shadow: none;
+  filter: brightness(100%);
 }
 
 .navbar-center .search-icon-container img {
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.app.light .navbar-center .search-icon-container img {
+  width: 1.1rem;
+  height: 1.1rem;
+  filter: invert(1);
 }
 
 .navbar-center .coin-search-input input {
   font-size: 1rem;
   font-weight: 500;
   font-family: "Manrope";
-  color: white;
-  background: black;
+  color: var(--white-color);
 }
 
 .navbar-center .coin-search-input input:focus {
@@ -159,16 +166,22 @@
 
 .navbar-center .coin-search-input input::placeholder {
   font-size: 1rem;
-  color: white;
+  color: var(--searchbar-text);
 }
 
 .navbar-center .coin-search-input-icon {
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 1rem;
+  width: 1rem;
   margin-right: 0.5rem;
 }
 
 .navbar-center .coin-search-input-icon img {
+  width: 100%;
+  height: 100%;
+  filter: invert(0);
+}
+
+.app.light .navbar-center .coin-search-input-icon img {
   width: 100%;
   height: 100%;
   filter: invert(1);
@@ -178,13 +191,18 @@
   cursor: pointer;
 }
 
-
 /* Result */
 .navbar-center .coin-search-input-result {
   width: 100%;
   position: absolute;
   left: -3px;
   margin-top: 5px;
+  border-radius: 0.5rem;
+  z-index: 100;
+  background: #2e2e2e1a;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-center .search-result-line {
@@ -257,7 +275,7 @@
   border-radius: 5rem;
 }
 
-.app.light .navbar-right-user img {
+.app.light .navbar-right-user .navbar-icon {
   filter: invert(1);
 }
 

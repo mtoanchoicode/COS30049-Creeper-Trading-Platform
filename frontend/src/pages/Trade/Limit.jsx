@@ -28,10 +28,6 @@ const Limit = () => {
     return "Continue";
   };
 
-  console.log(
-    !limitFromCurrencyValue && !limitToCurrencyValue ? "disabled" : "enabled"
-  );
-
   return (
     <div className="limit trade-child">
       <LimitPrice />

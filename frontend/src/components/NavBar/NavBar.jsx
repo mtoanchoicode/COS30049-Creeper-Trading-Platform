@@ -51,17 +51,16 @@ const NavBar = ({ theme, setTheme }) => {
           <Link to="/news" className="navbar-left-menu-link">
             <div className="navbar-left-menu-name">News</div>
           </Link>
-          <Link
-            to="/trade/swap"
+          <div
             onMouseEnter={() => setShowNavTrade(true)}
             onMouseLeave={() => setShowNavTrade(false)}
             className="navbar-left-menu-link"
           >
             <div className="navbar-left-menu-name">
               Trade <i className="fa-solid fa-chevron-down"></i>
-              {showNavTrade && <NavTrade />}
             </div>
-          </Link>
+            {showNavTrade && <NavTrade />}
+          </div>
         </div>
       </div>
 
@@ -107,9 +106,9 @@ const NavBar = ({ theme, setTheme }) => {
           onMouseEnter={() => setshowNavProfile(true)}
           onMouseLeave={() => setshowNavProfile(false)}
         >
-          <div className="navbar-right-user navbar-icon">
-            <img src={barsIcon} alt="Menu Icon" />
-            <img src={userIcon} alt="User Icon" />
+          <div className="navbar-right-user navbar-icons">
+            <img className="navbar-icon" src={barsIcon} alt="Menu Icon" />
+            <img className="navbar-icon" src={userIcon} alt="User Icon" />
             {showNavProfile && <NavProfile />}
           </div>
         </div>
