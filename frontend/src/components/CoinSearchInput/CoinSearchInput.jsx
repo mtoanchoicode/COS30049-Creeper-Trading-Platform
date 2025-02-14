@@ -8,11 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 const CoinSearchInput = () => {
   const [search, setSearch] = useState("");
   const { coins } = useContext(CoinContext);
-  const [selectedCoin, setSelectedCoin] = useState(-1);
+  const [selectedCoin, setSelectedCoin] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSelectedCoin(-1); // Reset selected coin when search changes
+    setSelectedCoin(0); // Reset selected coin when search changes
   }, [search]);
 
   const handleChange = (e) => {
@@ -95,21 +95,6 @@ const CoinSearchInput = () => {
               <h3 className="search-result-line-name">{coin.name}</h3>
             </div>
           </Link>
-
-          // <MarketCoinBrief
-          //     key={coin.index}
-          //     id={coin.id}
-          //     name={coin.name}
-          //     symbol={coin.symbol.toUpperCase()}
-          //     current_price={coin.current_price}
-          //     image={coin.image}
-          //     change={coin.price_change_percentage_24h}
-          //     className={
-          //         selectedItem === index
-          //             ? "search-suggestion-line active"
-          //             : "search-suggestion-line"
-          //     }
-          // />
         ))}
       </div>
     </div>
