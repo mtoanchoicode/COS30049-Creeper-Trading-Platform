@@ -35,7 +35,12 @@
 .watchList-card h2 {
   font-size: 2rem;
 }
-
+.watchList-CoinName b {
+  color: var(--white-color);
+}
+.watchList-CoinName div {
+  color: var(--white-color);
+}
 .watchList-Percent span {
   padding: 0.2rem;
   margin-left: 0.1rem;
@@ -67,7 +72,7 @@
 .watchList-CoinName div {
   font-size: 1rem;
 }
-.watchList-CoinName:hover {
+.watchList-CoinName b:hover {
   color: var(--primary-color);
 }
 .watchList-pagination {
