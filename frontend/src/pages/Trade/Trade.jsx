@@ -7,8 +7,10 @@ import TradeSelection from "../../components/Trade/TradeSelection/TradeSelection
 const Trade = () => {
   return (
     <div className="trade">
-      <TradeSelection />
-      <Outlet />
+      <div className="trade-container">
+        <TradeSelection />
+        <Outlet />
+      </div>
     </div>
   );
 };
