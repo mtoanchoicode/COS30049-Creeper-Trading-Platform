@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./CoinDetailsOverview.css"
+import TradeChart from "../../../../assets/Trade-Chart.jpg";
 
 
 function CoinDetailsOverview(props){
@@ -60,7 +61,9 @@ function CoinDetailsOverview(props){
             </div>
             <div className="coin-details-overview-chart-container">
                 {handleFluctuation(coin.price_change_percentage_24h)}
-                <div className="coin-details-overview-chart"></div>
+                <div className="coin-details-overview-chart">
+                    <img src={TradeChart} alt="Trade chart"/>
+                </div>
             </div>
         </div>
     );

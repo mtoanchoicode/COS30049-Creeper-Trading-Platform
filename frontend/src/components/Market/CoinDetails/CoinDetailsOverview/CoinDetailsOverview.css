@@ -103,7 +103,11 @@
 .coin-details-overview-chart{
     width: 100%;
     height: 370px;
-    padding: 20px;
     background: rgb(0, 0, 0);
+}
+
+.coin-details-overview-chart img{
+    width: 100%;
+    height: 100%;
 }
 

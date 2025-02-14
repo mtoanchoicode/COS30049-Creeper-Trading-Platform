@@ -8,9 +8,9 @@ const ProfilePage = () => {
   return (
     <Layout
       style={{
-        marginTop: "5rem",
+        marginTop: "4rem",
         height: "fit-content",
-        backgroundColor: "var(--black-color)",
+        backgroundColor: "var(--app-background)",
       }}
     >
       <Sider

@@ -50,7 +50,9 @@ const ProfileSearchPage = () => {
   }, [walletAddress]);
 
   return (
-    <Layout style={{ padding: "20px", backgroundColor: "var(--black-color)" }}>
+    <Layout
+      style={{ padding: "20px", backgroundColor: "var(--app-background)" }}
+    >
       <ProfileSearchHeader
         onSearch={(newAddress) => {
           setWalletAddress(newAddress);

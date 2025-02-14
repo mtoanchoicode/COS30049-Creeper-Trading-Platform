@@ -36,9 +36,11 @@
 }
 
 .coin-details-swap{
-    background-color: rgb(140, 188, 128);
     width: 100%;
     height: 370px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* Lower section */
