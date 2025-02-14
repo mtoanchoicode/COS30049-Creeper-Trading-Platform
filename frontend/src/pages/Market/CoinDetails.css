@@ -38,6 +38,9 @@
 .coin-details-swap{
     width: 100%;
     height: 370px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* Lower section */

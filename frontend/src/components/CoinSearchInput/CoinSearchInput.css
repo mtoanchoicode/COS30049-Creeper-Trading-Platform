@@ -1,6 +1,6 @@
 .coin-search-input-container{
     width: 100%;
-    height: 100%;
+    height: 100%
 }
 
 .coin-search-input{
@@ -8,7 +8,6 @@
     width: 100%;
     height: 100%;
     justify-content: center;
-    align-items: center;
 }
 
 .search-icon-container{
@@ -38,7 +37,6 @@
 .coin-search-input input{
     flex: 1;
     border: none;
-    mix-blend-mode: darken;
     padding-left: 0.2rem;
     font-size: 1.1rem;
     background-color: transparent;
