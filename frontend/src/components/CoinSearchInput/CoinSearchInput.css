@@ -38,7 +38,6 @@
 .coin-search-input input{
     flex: 1;
     border: none;
-    mix-blend-mode: darken;
     padding-left: 0.2rem;
     font-size: 1.1rem;
     background-color: transparent;
