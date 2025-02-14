@@ -4,12 +4,16 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  border: 0.2rem solid var(--black-color);
+  border: 0.3rem solid var(--black-color);
   border-radius: 1rem;
   background: var(--trade-background-color);
   cursor: pointer;
 }
 
 .trade-button:hover {
-
+  filter: opacity(60%);
 }
+
+.app.light .trade-button img {
+  filter: invert(1);
+} 

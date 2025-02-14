@@ -11,7 +11,7 @@
 }
 
 .convert-currencies-container:hover {
-  border: 0.05rem solid #868686;
+  border: 0.05rem solid var(--trade-border-color);
 }
 
 .convert-currencies-container-top {
@@ -23,7 +23,7 @@
 .convert-currencies-container-top p {
   font-size: .95rem;
   font-weight: 600;
-  color: grey;
+  color: var(--trade-secondary-text-color);
 }
 
 .convert-currencies-container-bottom {

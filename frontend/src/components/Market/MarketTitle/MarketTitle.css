@@ -35,9 +35,7 @@
 
 .market-search-container{
     min-width: 22rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
+    height: 2.5rem;
     border-radius: 8px;
     border: 3px solid #D9D9D9;
     background: #FFF;
@@ -45,51 +43,4 @@
     margin-top: 2rem;
 }
 
-.search-icon-container{
-    background-color: var(--primary-color);
-    mix-blend-mode: darken;
-    height: 3rem;
-    width: calc(3rem + 3px);
-    position: relative;
-    transform: translateX(-3px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.search-icon-container:hover{
-    cursor: pointer;
-    background-color: #37bb6e;
-    box-shadow: 1px 0px rgba(85, 85, 85, 0.363);
-}
-
-.search-icon-container img{
-    width: 1.3rem;
-    height: 1.3rem;
-}
-
-.search-input{
-    border: none;
-    height: 100%;
-    width: 100%;
-    mix-blend-mode: darken;
-    padding-left: 0.2rem;
-    position: relative;
-    transform: translateY(1px);
-    font-size: 1.3rem;
-}
-
-.search-input:focus{
-    outline: none;
-    caret-color: #939393;
-    font-weight: 500;
-}
-
-.search-input::placeholder{
-    font-size: 1.3rem;
-    color: #939393;
-}
-
-.search-input:focus::placeholder{
-    opacity: 0;
-}

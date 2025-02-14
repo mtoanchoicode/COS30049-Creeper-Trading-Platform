@@ -1,6 +1,6 @@
 import React from 'react';
-import './MarketTitle.css'
-import searchIcon from "../../../assets/Market Search Icon.svg"
+import CoinSearchInput from '../../CoinSearchInput/CoinSearchInput';
+import './MarketTitle.css';
 
 const MarketTitle = () =>{
     return(
@@ -8,10 +8,7 @@ const MarketTitle = () =>{
             <h1 className='market-heading'>Explore<br></br> The Market</h1>
             <p className='market-description'>Stay updated with live data on trending coins, track your favorite crypto currencies, discover new opportunities and make your decsions.</p>
             <div className='market-search-container'>
-                <div className='search-icon-container'>
-                    <img src={searchIcon} alt="Search icon"/>
-                </div>
-                <input className='search-input' type="text" placeholder='Search your coin' />
+                <CoinSearchInput/>
             </div>
         </div>
     )

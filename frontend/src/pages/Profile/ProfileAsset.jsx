@@ -62,14 +62,19 @@ const ProfileAssetsPage = () => {
 
   return (
     <Layout
-      style={{ padding: "20px", backgroundColor: "var(--app-background)" }}
+      style={{
+        padding: "20px",
+        backgroundColor: "var(--app-background)",
+        width: "100%",
+      }}
     >
       <h2 className="profileAssetPage-heading">My Wallet</h2>
       <div
         style={{
+          width: "100%",
           display: "flex",
           justifyContent: "flex-start",
-          flexWrap: "wrap",
+
           gap: "3rem",
           marginBottom: 20,
         }}

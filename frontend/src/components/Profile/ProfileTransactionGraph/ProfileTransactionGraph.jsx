@@ -123,7 +123,7 @@ const WalletGraph = ({ initialWallet }) => {
           .distance(150)
       )
       .force("charge", d3.forceManyBody().strength(-500))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("center", d3.forceCenter(width / 2, width / 2));
 
     const link = g
       .selectAll("line")
@@ -219,6 +219,26 @@ const WalletGraph = ({ initialWallet }) => {
     });
   };
 
+  // Updated Zoom Functions (use zoomRef)
+  const zoomHandler = (scaleFactor) => {
+    if (zoomRef.current) {
+      d3.select("#profileTransactionGraph svg")
+        .transition()
+        .duration(500)
+        .call(zoomRef.current.scaleBy, scaleFactor);
+    }
+  };
+
+  const resetZoom = () => {
+    if (zoomRef.current) {
+      d3.select("#profileTransactionGraph svg")
+        .transition()
+        .duration(500)
+        .call(zoomRef.current.transform, d3.zoomIdentity);
+    }
+  };
+
+  // Menu click
   const handleMenuClick = (action) => {
     if (action === "expand") {
       fetchTransactions(selectedNode.id);
@@ -288,6 +308,11 @@ const WalletGraph = ({ initialWallet }) => {
           </button>
         </div>
       )}
+      <div className="profileTransactionGraph-zoomBtn">
+        <button onClick={() => zoomHandler(1.2)}>Zoom In</button>
+        <button onClick={() => zoomHandler(0.8)}>Zoom Out</button>
+        <button onClick={() => resetZoom()}>Reset</button>
+      </div>
     </div>
   );
 };

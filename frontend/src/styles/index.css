@@ -13,9 +13,12 @@
   --price-rising: #00c853;
   --price-falling: #d32f2f;
   --black-background-color: #1e2329;
+
+  --trade-secondary-text-color: #9b9b9b;
 }
 
 .app.dark {
+  --app-background: #131313;
   --market-sort-color: rgb(201, 201, 201);
   --market-border-color: rgb(85, 85, 85);
   --trade-background-color: #1b1b1b;
@@ -26,6 +29,8 @@
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
+  --trade-input-placeholder-color: #5e5e5e;
+  --trade-btn-hover: #1f1f1f;
   --white-color: #fdfdfd;
   --black-color: #131313;
   --grey-color: #343434;
@@ -35,17 +40,15 @@
 }
 
 .app.light {
+  --app-background: #ffffff;
   --market-sort-color: rgb(63, 63, 63);
   --market-border-color: rgb(142, 142, 142);
-  --trade-background-color: #f3f3f3;
-  --app-background: #ffffff;
-  --trade-secondary-text-color: #9b9b9b;
-  --trade-input-placeholder-color: #5e5e5e;
-  --trade-border-color: #333333;
-  --trade-border-active-color: #505050;
-  --trade-background-active-color: #2b2b2b;
-  /* --white-color: #ffffff; */
-  /* --black-color: #131313; */
+  --trade-background-color: #f9f9f9;
+  --trade-border-color: #d8d8d8;
+  --trade-border-active-color: #bebebe;
+  --trade-background-active-color: #f6f6f6;
+  --trade-input-placeholder-color: #cecece;
+  --trade-btn-hover: #f0f0f0;
   --white-color: #131313;
   --black-color: #fdfdfd;
   --grey-color: #e8e8e8;
