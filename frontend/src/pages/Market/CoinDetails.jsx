@@ -5,8 +5,8 @@ import notFoundImg from "../../assets/404 Image.svg";
 import CoinDetailsOverview from "../../components/Market/CoinDetails/CoinDetailsOverview/CoinDetailsOverview";
 import CoinDetailsInfo from "../../components/Market/CoinDetails/CoinDetailsInfo/CoinDetailsInfo"
 import MarketCoinBrief from "../../components/Market/MarketCoinBrief/MarketCoinBrief";
-
-import "./CoinDetails.css"
+import Swap from "../../pages/Trade/Swap";
+import "./CoinDetails.css";
 
 const CoinDetails = () =>{
     const {coinId} = useParams();
@@ -38,7 +38,9 @@ const CoinDetails = () =>{
               <div className="coin-details-upper">
                 <CoinDetailsOverview coin={coin}/>
                 <div className="coin-details-upper-right">
-                  <div className="coin-details-swap"></div>
+                  <div className="coin-details-swap">
+                    <Swap/>
+                  </div>
                   <div className="coin-details-intro">
                     <h2 className="coin-details-intro-heading">Info</h2>
                     <p className="coin-details-intro-description">{showFullText?fullText:shortText}</p>
