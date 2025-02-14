@@ -105,8 +105,8 @@ const WalletGraph = ({ initialWallet }) => {
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("background", "rgba(0,0,0,0.8)")
-      .style("color", "#fff")
+      .style("background", "var(--white-color)")
+      .style("color", "var(--text-color)")
       .style("padding", "5px 10px")
       .style("border-radius", "5px")
       .style("font-size", "12px")
@@ -123,7 +123,7 @@ const WalletGraph = ({ initialWallet }) => {
           .distance(150)
       )
       .force("charge", d3.forceManyBody().strength(-500))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("center", d3.forceCenter(width / 2, width / 2));
 
     const link = g
       .selectAll("line")
@@ -145,7 +145,7 @@ const WalletGraph = ({ initialWallet }) => {
       .attr("orient", "auto")
       .append("path")
       .attr("d", "M0,-5L10,0L0,5")
-      .style("fill", "#999");
+      .style("fill", "var(--secondary-color)");
 
     const node = g
       .selectAll("circle")
@@ -204,7 +204,7 @@ const WalletGraph = ({ initialWallet }) => {
       .attr("x", 12)
       .attr("y", 3)
       .style("font-size", "10px")
-      .style("fill", "var(--white-color)");
+      .style("fill", "var(--text-color)");
 
     simulation.on("tick", () => {
       link
@@ -219,6 +219,26 @@ const WalletGraph = ({ initialWallet }) => {
     });
   };
 
+  // Updated Zoom Functions (use zoomRef)
+  const zoomHandler = (scaleFactor) => {
+    if (zoomRef.current) {
+      d3.select("#profileTransactionGraph svg")
+        .transition()
+        .duration(500)
+        .call(zoomRef.current.scaleBy, scaleFactor);
+    }
+  };
+
+  const resetZoom = () => {
+    if (zoomRef.current) {
+      d3.select("#profileTransactionGraph svg")
+        .transition()
+        .duration(500)
+        .call(zoomRef.current.transform, d3.zoomIdentity);
+    }
+  };
+
+  // Menu click
   const handleMenuClick = (action) => {
     if (action === "expand") {
       fetchTransactions(selectedNode.id);
@@ -288,6 +308,11 @@ const WalletGraph = ({ initialWallet }) => {
           </button>
         </div>
       )}
+      <div className="profileTransactionGraph-zoomBtn">
+        <button onClick={() => zoomHandler(1.2)}>Zoom In</button>
+        <button onClick={() => zoomHandler(0.8)}>Zoom Out</button>
+        <button onClick={() => resetZoom()}>Reset</button>
+      </div>
     </div>
   );
 };
