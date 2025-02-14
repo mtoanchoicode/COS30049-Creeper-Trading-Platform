@@ -24,7 +24,7 @@
   flex-wrap: wrap;
 }
 .profileWalletBalance-card {
-  border: 0.05rem solid var(--trade-border-color);
+  border: 0.05rem solid var(--market-border-color);
   padding: 1rem;
   border-radius: 0.5rem;
   flex: 1;
@@ -33,7 +33,6 @@
 }
 .profileWalletBalance-card h3 {
   font-size: 1.5rem;
-  color: var(--white-color);
   margin-bottom: 0.8rem;
 }
 .profileWalletBalance-card p {

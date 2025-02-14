@@ -2,13 +2,17 @@
   padding-top: 8rem;
 }
 
+.trade-container {
+  width: 450px;
+  margin: auto;
+}
+
 .trade-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  width: 450px;
-  margin: auto;
+  width: 100%;
 }
 
 .trade-btn {

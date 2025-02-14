@@ -5,7 +5,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  --primary-color: #00da5b; 
+  --primary-color: #00da5b;
   --secondary-color: #3e7b27;
   --third-color: #306844;
   --header-color: #00da5b;
@@ -22,7 +22,10 @@
   --market-sort-color: rgb(201, 201, 201);
   --market-border-color: rgb(85, 85, 85);
   --trade-background-color: #1b1b1b;
-  --black-background-color: #1e2329;  
+  --black-background-color: #1e2329;
+  --app-background: #131313;
+  --trade-secondary-text-color: #9b9b9b;
+  --trade-input-placeholder-color: #5e5e5e;
   --trade-border-color: #333333;
   --trade-border-active-color: #505050;
   --trade-background-active-color: #2b2b2b;
@@ -31,6 +34,7 @@
   --white-color: #fdfdfd;
   --black-color: #131313;
   --grey-color: #343434;
+  --text-color: var(--white-color);
   background: var(--app-background);
   color: var(--white-color);
 }
@@ -48,6 +52,7 @@
   --white-color: #131313;
   --black-color: #fdfdfd;
   --grey-color: #e8e8e8;
+  --text-color: var(--black-color);
   background: var(--app-background);
   color: var(--white-color);
 }
@@ -78,7 +83,12 @@ p {
 
 a {
   text-decoration: none;
+}
+.app.dark a {
   color: var(--white-color);
+}
+.app.light a {
+  color: var(--black-color);
 }
 
 @media (max-width: 319px) {

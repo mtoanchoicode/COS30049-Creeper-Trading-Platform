@@ -98,39 +98,120 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 25rem;
-  border-radius: 8px;
-  background-color: rgb(223, 223, 223);
 }
 
-.navbar-center .navbar-center-searchbar {
-  height: 2.5rem;
-  width: 25rem;
-  padding: 0 1.2rem;
+.navbar-center .coin-search-input-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  padding: 0 0.5rem;
+  background: rgb(0, 0, 0);
+}
+
+.navbar-center .coin-search-input {
   display: flex;
-  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
   align-items: center;
-  background: rgb(29, 29, 29);
-  border: 0.05rem solid #3a3a3a;
-  border-radius: 5rem;
 }
 
-.navbar-center .navbar-searchbar-container {
+.navbar-center .search-icon-container {
+  background: none;
+  height: 2.5rem;
+  width: calc(2.5rem + 3px);
+  position: relative;
+  transform: translateX(-3px);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  border-radius: 2rem;
 }
 
-.navbar-center .navbar-searchbar-container i {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6b6b6bed;
+.navbar-center .search-icon-container:hover {
+  cursor: pointer;
+  filter: brightness(105%);
 }
 
-.navbar-center .navbar-searchbar-container p {
+.navbar-center .search-icon-container img {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.navbar-center .coin-search-input input {
   font-size: 1rem;
+  font-weight: 500;
+  font-family: "Manrope";
+  color: white;
+  background: black;
+}
+
+.navbar-center .coin-search-input input:focus {
+  outline: none;
+  caret-color: white;
   font-weight: 600;
-  color: #7a7a7a;
+}
+
+.navbar-center .coin-search-input input::placeholder {
+  font-size: 1rem;
+  color: white;
+}
+
+.navbar-center .coin-search-input-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.navbar-center .coin-search-input-icon img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+}
+
+.navbar-center .coin-search-input-icon:hover {
+  cursor: pointer;
+}
+
+
+/* Result */
+.navbar-center .coin-search-input-result {
+  width: 100%;
+  position: absolute;
+  left: -3px;
+  margin-top: 5px;
+}
+
+.navbar-center .search-result-line {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 22rem;
+  justify-content: space-between;
+  padding: 7px;
+}
+
+.navbar-center .search-result-line.active {
+  background-color: var(--grey-color);
+}
+
+.navbar-center .search-result-line:hover {
+  background-color: var(--grey-color);
+}
+
+.navbar-center .search-result-line-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-center .search-result-line-symbol {
+  font-size: 1.2rem;
+}
+
+.navbar-center .search-result-line-logo img {
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-right: 7px;
 }
 
 /* Right Section */
@@ -171,14 +252,9 @@
   border-radius: 5rem;
 }
 
-.app.light .navbar-right-user img{
+.app.light .navbar-right-user img {
   filter: invert(1);
 }
-
-.app.light .DarkMode_Icon {
-  filter: invert(1);
-}
-
 
 /* Responsive design css 
 ------------------------------------------- */
