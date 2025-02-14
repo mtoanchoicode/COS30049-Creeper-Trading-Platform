@@ -57,4 +57,8 @@
     background-color: var(--third-color) !important;
 }
 
+:where(.css-dev-only-do-not-override-nqoqt9).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled) {
+    background: none;
+}
+
 

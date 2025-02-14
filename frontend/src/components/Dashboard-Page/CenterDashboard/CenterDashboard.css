@@ -73,6 +73,10 @@
     color: var(--white-color) !important;
 }
 
+:where(.css-dev-only-do-not-override-nqoqt9).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled) {
+    background: none;
+}
+
 /* .Center-SignUp_Input:hover::placeholder {
     color: var(--text-color);
 } */

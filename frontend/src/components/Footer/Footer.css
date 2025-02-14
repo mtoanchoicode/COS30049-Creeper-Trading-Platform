@@ -82,6 +82,7 @@
     box-shadow: 0 0 2.5rem 1rem rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .footer-center .footer-social-container a .icon{

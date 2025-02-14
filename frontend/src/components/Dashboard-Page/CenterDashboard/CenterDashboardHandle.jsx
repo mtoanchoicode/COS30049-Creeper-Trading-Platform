@@ -104,7 +104,9 @@ const Centers = ({title, subtitle}) => {
             <div className= "List-HotCoin-Container"> 
                 <h2>Hot Coins</h2>
                 {HotCoins.map(coin =>(
-                <MarketCoinBrief className="Hot-Coins-listing"
+                <MarketCoinBrief 
+                key = {coin.id}
+                className="Hot-Coins-listing"
                   id={coin.id}
                   name={coin.name}
                   symbol={coin.symbol.toUpperCase()}

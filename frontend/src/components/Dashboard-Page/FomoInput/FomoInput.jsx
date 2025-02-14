@@ -21,7 +21,7 @@ const FomoInput = () => {
         <div className="Fomo_SignUpForm-Container">
             <Form 
                 layout = "horizontal"
-                name = "login"
+                name = "Sign Up Email"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}

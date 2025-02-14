@@ -20,7 +20,9 @@ const News = () => {
             <div className="News-Content-Container">
                 {news?.slice(-4).map((New) => {
                     return (
-                        <div className="News-Content">
+                        <div
+                        key = {New.id} 
+                        className="News-Content">
                             <Link
                                 to={`/news/${New.id}`}
                                 className="News-details-heading">
