@@ -97,7 +97,7 @@
     height: 100%;
     top: -60px;
     left: 0;
-    background-color: var(--white-color);
+    background: linear-gradient(135deg, rgba(132, 250, 176, 0.7), rgba(143, 211, 244, 0.51));
     position: absolute;
     transition: all 0.5s ease;
   }

@@ -31,17 +31,18 @@ const NavBar = ({ theme, setTheme }) => {
       style={{
         position: isFixed ? "fixed" : "",
       }}
-    >
+  >
+     
+
       <div className="navbar-left">
         <div className="navbar-left-logo">
-          <Link to="/">
+          <Link to="/" className="Link_Home">
             <div className="navbar-left-logo-img">
               <img src={logo} alt="Logo" />
             </div>
             <p className="navbar-title">CREEPER</p>
           </Link>
         </div>
-
         <div className="navbar-left-menu">
           <Link to="/explore" className="navbar-left-menu-link">
             <div className="navbar-left-menu-name">Explore</div>
@@ -64,18 +65,27 @@ const NavBar = ({ theme, setTheme }) => {
         </div>
       </div>
 
-      <div className="navbar-center">
+      {/* <div className="navbar-center">
         {window.location.pathname !== "/explore" && (
           <div className="navbar-center">
             <CoinSearchInput />
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="navbar-right">
         <Button className="navbar-connectWallet" onClick={() => open()}>
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
         </Button>
+
+        <div className="navbar-center">
+          {window.location.pathname !== "/explore" && (
+            <div className="navbar-center">
+              <CoinSearchInput />
+            </div>
+          )}
+        </div>
+
         {theme === "dark" ? (
           <img
             className="DarkMode_Icon"
@@ -103,6 +113,10 @@ const NavBar = ({ theme, setTheme }) => {
             {showNavProfile && <NavProfile />}
           </div>
         </div>
+      </div>
+
+      <div className="Btn_Menu_Responsive">
+        <i class="fa-solid fa-bars"></i>
       </div>
     </div>
   );
