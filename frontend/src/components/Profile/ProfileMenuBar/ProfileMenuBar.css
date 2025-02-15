@@ -2,25 +2,34 @@
 
 /* Change the background color of the entire menu */
 .ant-menu-dark {
-  background-color: var(--app-background); /* Example background color */
+  background-color: var(--app-background);
 }
 
 /* Change the text color of the menu items */
 .ant-menu-dark .ant-menu-item {
-  color: var(--text-color); /* Example text color */
+  color: var(--text-color);
 }
 
 /* Hover effect for menu items */
 .ant-menu-dark .ant-menu-item:hover {
-  background-color: var(--third-color); /* Example hover background color */
-  color: var(--text-color); /* Example hover text color */
+  background-color: var(--secondary-color) !important;
 }
 
 /* Active/Selected menu item */
 .ant-menu-dark .ant-menu-item-selected {
-  background-color: var(
-    --primary-color
-  ); /* Example selected background color */
-  color: var(--white-color); /* Example selected text color */
+  background-color: var(--primary-color);
+  color: var(--white-color);
   font-weight: 800;
+}
+
+.ant-menu-title-content a {
+  color: var(--white-color) !important;
+}
+
+.ant-menu-title-content span {
+  color: var(--white-color) !important;
+}
+
+.ant-menu-item-icon {
+  color: var(--white-color) !important;
 }

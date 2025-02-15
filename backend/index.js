@@ -1,11 +1,11 @@
 const express = require("express");
-const walletRouter = require("./routes/wallet.route");
+const walletRouter = require("./src/routes/wallet.route");
 require("dotenv").config();
 const cors = require("cors");
-const { connectGraphDB } = require("./config/neo4jDatabase");
+const { connectGraphDB } = require("./src/config/neo4jDatabase");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 connectGraphDB();
 

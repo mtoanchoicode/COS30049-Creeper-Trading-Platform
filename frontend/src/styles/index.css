@@ -88,12 +88,7 @@ p {
 
 a {
   text-decoration: none;
-}
-.app.dark a {
   color: var(--white-color);
-}
-.app.light a {
-  color: var(--black-color);
 }
 
 @media (max-width: 319px) {
