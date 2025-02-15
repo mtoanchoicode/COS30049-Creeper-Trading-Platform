@@ -44,7 +44,7 @@
 
 .coin-search-input input:focus{
     outline: none;
-    caret-color: #939393;
+    caret-color: var(--white-color);
     font-weight: 600;
 }
 
@@ -83,7 +83,6 @@
     min-width: 22rem;
     justify-content: space-between;
     padding: 7px;
-    background: rgb(165, 165, 165);
 }
 
 .search-result-line.active{
