@@ -21,37 +21,31 @@ const NavBar = ({ theme, setTheme, onEvent }) => {
   const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
+  const [showMenu, setshowMenu] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
   const [showNavSearch, setshowNavSearch] = useState(false);
 
   const { coins } = useContext(CoinContext);
   const HotCoins = coins.slice(0, 5);
 
-  const onCloseSearch = () => {
-    console.log("Closing search overlay...");
-    setshowNavSearch(false);
-  };
+  
 
 
   const handleCloseSearch = (isFalse) => {
     setshowNavSearch(isFalse);
   };
 
-  // const handleClickTest = () => {
-  //   setshowNavSearch(true)
-  // }
-
   return (
     <div
-      className="navbar"
+      className="navbar mobile"
     >
       <div className="navbar-left">
         <div className="navbar-left-logo">
           <Link to="/" className="Link_Home">
-            <div className="navbar-left-logo-img">
+            <div className="navbar-left-logo-img mobile">
               <img src={logo} alt="Logo" />
             </div>
-            <p className="navbar-title">CREEPER</p>
+            <p className="navbar-title mobile">CREEPER</p>
           </Link>
         </div>
         <div className="navbar-left-menu">
@@ -63,20 +57,16 @@ const NavBar = ({ theme, setTheme, onEvent }) => {
             <div className="navbar-left-menu-name">News</div>
           </Link>
           <div
-            onMouseEnter={() => setShowNavTrade(true)}
-            onMouseLeave={() => setShowNavTrade(false)}
+        
+            onClick={() => setShowNavTrade(!showNavTrade)}
             className="navbar-left-menu-link"
           >
-            <div className="navbar-left-menu-name">
+            <div className="navbar-left-menu-name mobile">
               Trade <i className="fa-solid fa-chevron-down"></i>
             </div>
-            {showNavTrade && <NavTrade />}
+            {showNavTrade && <NavTrade />}      
           </div>
         </div>
-        
-        {/* <div className="Btn_Menu_Responsive">
-          <i class="fa-solid fa-bars"></i>
-        </div> */}
       </div>
 
       <div className="navbar-right">
@@ -132,7 +122,7 @@ const NavBar = ({ theme, setTheme, onEvent }) => {
         </div>
 
 
-        <Button className="navbar-connectWallet" onClick={() => open()}>
+        <Button className="navbar-connectWallet mobile" onClick={() => open()}>
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
         </Button>
 
@@ -153,11 +143,10 @@ const NavBar = ({ theme, setTheme, onEvent }) => {
         )}
 
         <div
-          className="navbar-right-profile"
-          onMouseEnter={() => setshowNavProfile(true)}
-          onMouseLeave={() => setshowNavProfile(false)}
+          className="navbar-right-profile mobile"
+          onClick={() => setshowNavProfile(!showNavProfile)}
         >
-          <div className="navbar-right-user navbar-icons">
+          <div className="navbar-right-user navbar-icons mobile">
             <img className="navbar-icon" src={barsIcon} alt="Menu Icon" />
             <img className="navbar-icon" src={userIcon} alt="User Icon" />
             {showNavProfile && <NavProfile />}

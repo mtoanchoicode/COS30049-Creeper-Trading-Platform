@@ -1,3 +1,17 @@
+.navbar.mobile {
+  height: fit-content;
+  padding: 1rem 0.5rem;
+  width: 100%;
+}
+.navbar-left-logo-img.mobile img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navbar-title.mobile {
+  font-size: 1.3rem;
+}
+
 .navbar-Search_Bar_Conatainer {
     cursor: pointer;
     display: flex;
@@ -9,8 +23,12 @@
 .Search_Icon_Nav_Bar {
     cursor: pointer;
     justify-self: center;
-    font-size: 1rem;
-    font-weight: 600;
+}
+
+.Search_Icon_Nav_Bar img{
+  width: 1.5rem;
+  height: 1.5rem;
+  
 }
 
 .Search_Overlay_Container {
@@ -178,4 +196,18 @@
     width: 2.6rem;
     height: 2.6rem;
     margin-right: 7px;
+  }
+
+  .navbar-connectWallet.mobile {
+    padding: 0 0.2rem;
+  }
+
+  .DarkMode_Icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .navbar-right-user.mobile img{
+    width: 1rem;
+    height: 1.5rem;
   }
