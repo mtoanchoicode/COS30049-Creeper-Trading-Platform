@@ -99,7 +99,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25rem;
+  width: 20rem;
 }
 
 .navbar-center .coin-search-input-container {
@@ -279,12 +279,12 @@
   filter: invert(1);
 }
 
-.Btn_Menu_Responsive {
+/* .Btn_Menu_Responsive {
   font-size: 1.2rem;
   cursor: pointer;
   display: none;
   width: 100%;
-}
+} */
 
 /* Responsive design css 
 ------------------------------------------- */
@@ -338,10 +338,5 @@
   }
   .navbar-right {
     gap: 0.5rem;
-  }
-  
-  /* Hamburger Icon */
-  .Btn_Menu_Responsive {
-    display: block;
   }
 }

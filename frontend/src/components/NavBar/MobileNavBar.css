@@ -1,0 +1,181 @@
+.navbar-Search_Bar_Conatainer {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    height: 5rem;
+}
+
+.Search_Icon_Nav_Bar {
+    cursor: pointer;
+    justify-self: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.Search_Overlay_Container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: none;
+    z-index: 1060;
+    background-color: var(--app-background);
+    padding: 5rem 3rem;
+}
+
+.Close_Icon_Nav_Bar {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; 
+    justify-self: end;
+    align-items: center;
+    padding: 3rem;
+}
+
+.Close_Icon_Nav_Bar i {
+    font-size: 3rem;
+}
+
+.navbar-Sreach_Bar {
+    padding: 1rem; 
+    margin: 1.5rem 0; 
+    width: 100%;
+    
+}
+
+.navbar-Sreach_Bar .coin-search-input-container {
+    width: 80%;
+    height: 100%;
+    border-radius: 2rem;
+    justify-self: center;
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 0.02rem solid var(--searchbar-border);
+    border-radius: 2rem;
+    background: var(--searchbar-background);
+    padding: 1rem 0.2rem;
+  }
+  
+  .navbar-Sreach_Bar .search-icon-container {
+    background: none;
+    height: 2.5rem;
+    width: calc(2.5rem + 3px);
+    position: relative;
+    transform: translateX(-3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    box-shadow: none;
+    cursor: pointer;
+  }
+  
+  .navbar-Sreach_Bar .search-icon-container:hover {
+    box-shadow: none;
+    filter: brightness(100%);
+  }
+  
+  .navbar-Sreach_Bar .search-icon-container img {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  
+  .app.light .navbar-Sreach_Bar .search-icon-container img {
+    width: 1.1rem;
+    height: 1.1rem;
+    filter: invert(1);
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input input {
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: "Manrope";
+    color: var(--white-color);
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input input:focus {
+    outline: none;
+    caret-color: white;
+    font-weight: 600;
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input input::placeholder {
+    font-size: 1rem;
+    color: var(--searchbar-text);
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input-icon {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input-icon img {
+    width: 100%;
+    height: 100%;
+    filter: invert(0);
+  }
+  
+  .app.light .navbar-Sreach_Bar .coin-search-input-icon img {
+    width: 100%;
+    height: 100%;
+    filter: invert(1);
+  }
+  
+  .navbar-Sreach_Bar .coin-search-input-icon:hover {
+    cursor: pointer;
+  }
+  
+  /* Result */
+  .navbar-Sreach_Bar .coin-search-input-result {
+    width: 100%;
+    position: absolute;
+    left: -3px;
+    margin-top: 5px;
+    border-radius: 0.5rem;
+    z-index: 100;
+    background: #2e2e2e1a;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .navbar-Sreach_Bar .search-result-line {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 22rem;
+    justify-content: space-between;
+    padding: 7px;
+  }
+  
+  .navbar-Sreach_Bar .search-result-line.active {
+    background-color: var(--grey-color);
+  }
+  
+  .navbar-Sreach_Bar .search-result-line:hover {
+    background-color: var(--grey-color);
+  }
+  
+  .navbar-Sreach_Bar .search-result-line-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-Sreach_Bar .search-result-line-symbol {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-Sreach_Bar .search-result-line-logo img {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-right: 7px;
+  }
