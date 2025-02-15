@@ -6,6 +6,7 @@ import SendContainer from "../../components/Trade/SendContainer/SendContainer";
 import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWalletAddress";
 import { Button } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
+import { LoaderCircle } from "lucide-react";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b";
@@ -51,30 +52,29 @@ const Send = () => {
   const { open } = useAppKit();
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
 
   const getButtonText = () => {
-    if (!isConnected) return "Connect wallet";
+    if (isLoading) return "Processing...";
+    if (!isConnected) return "Connect Wallet";
     if (!amount) return "Enter an amount";
     if (!recipient) return "Select recipient";
-    return "Continue";
+    return "Send";
   };
 
   const sendETH = async () => {
-    setisLoading(true)
     if (!window.ethereum) {
       alert("MetaMask or a compatible wallet is required!");
       return;
     }
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
+    setIsLoading(true); // Set loading to true when the transaction starts
 
     try {
-      // Connect to the deployed smart contract
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
-      // Call sendETH function from your smart contract
       const tx = await contract.sendETH(recipient, {
         value: ethers.parseEther(sendCurrencyValue.toString()),
       });
@@ -86,7 +86,7 @@ const Send = () => {
       console.error(error);
       alert("Transaction failed: " + error.message);
     } finally {
-      setisLoading(false);
+      setIsLoading(false); // Ensure loading is turned off after the transaction completes
     }
   };
 
@@ -99,7 +99,7 @@ const Send = () => {
   };
 
   return (
-    <div className="send trade-child ">
+    <div className="send trade-child">
       <SendContainer setAmount={setAmount} />
       <SendWalletAddress setRecipient={setRecipient} />
       <Button
@@ -108,9 +108,17 @@ const Send = () => {
         className={`send-btn trade-btn ${
           isConnected && (!amount || !recipient) ? "disabled" : "enabled"
         }`}
-        onClick={() => handleButtonClick()}
+        onClick={handleButtonClick}
+        disabled={isLoading} // Disable button while loading
       >
-        {getButtonText()}
+        {isLoading ? (
+          <div className="send-btn-content">
+            <LoaderCircle className="animate-spin" />
+            <span>Sending...</span>
+          </div>
+        ) : (
+          getButtonText()
+        )}
       </Button>
     </div>
   );
