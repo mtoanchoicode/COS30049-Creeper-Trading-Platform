@@ -1,0 +1,65 @@
+.FomoInput-Container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+} 
+
+/* .FomoInput_heading-Container * {
+    
+} */
+
+.Fomo_SignUpForm-Container {
+    padding: 1rem 2rem; 
+    border: 1.8px solid var(--black-background-color);
+    border-radius: 20px;
+}
+
+.Fomo_SignUpForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.Fomo_SignUpForm .ant-form-item {
+    margin: 0 0 0 0 ;
+}
+
+.Fomo-SignUp_Input {
+    padding: 1rem; 
+    background-color: transparent; 
+    border: none ;
+    color: var(--white-color);   
+
+}
+.Fomo-SignUp_Input::placeholder {
+    color: var(--text-color) !important;
+}
+
+.Fomo-SignUp_Input:hover {
+    background-color: transparent !important;
+}
+
+.Fomo-SignUp_Input:focus { 
+    background-color: transparent !important;
+    border: none;
+}
+
+.Fomo-SignUp_Button {
+    background-color: var(--primary-color);
+    transition: all 0.2s ease;
+}
+
+.Fomo-SignUp_Button:hover {
+    background-color: var(--third-color) !important;
+}
+
+:where(.css-dev-only-do-not-override-nqoqt9).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled) {
+    background: none;
+}
+
+

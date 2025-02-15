@@ -12,6 +12,14 @@
   z-index: 1000;
 }
 
+/* Logo Section */
+.navbar-left-logo .Link_Home img {
+  max-width: 100%;
+  width: 100%;
+  max-height: auto;
+  height: 100%;
+}
+
 /* Left Section */
 .navbar-left {
   display: flex;
@@ -27,26 +35,20 @@
   gap: 0.1rem;
 }
 
-.navbar-left .navbar-left-logo img {
-  max-width: 100%;
-  width: 80%;
-  max-height: auto;
-  height: 100%;
-}
-
-.navbar-left p {
-  font-family: "Oxanium", sans-serif;
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--header-color);
-}
-
 .navbar-left .navbar-left-menu {
   display: flex;
   align-items: center;
   justify-content: space-around;
   list-style: none;
   gap: 1.5rem;
+}
+
+
+.navbar-left p {
+  font-family: "Oxanium", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--header-color);
 }
 
 .navbar-left .navbar-left-menu .navbar-left-menu-link {
@@ -97,7 +99,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25rem;
+  width: 20rem;
 }
 
 .navbar-center .coin-search-input-container {
@@ -274,4 +276,66 @@
 
 .app.light .navbar-right-user .navbar-icon {
   filter: invert(1);
+}
+
+/* .Btn_Menu_Responsive {
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+  width: 100%;
+} */
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* Tablet View (Medium Screens) */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 0.8rem;
+  }
+  .navbar-left {
+    gap: 1rem;
+  }
+  .navbar-center {
+    width: 20rem;
+  }
+  .navbar-right {
+    gap: 0.6rem;
+  }
+  .navbar-left-menu {
+    gap: 1rem;
+  }
+  .navbar-left-menu-link {
+    font-size: 0.9rem;
+  }
+
+  .navbar-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25rem;
+  }
+}
+
+/* Mobile View (Small Screens) */
+@media (max-width: 767px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    height: 4rem;
+  }
+  .navbar-left-menu {
+    display: none;
+  }
+  .navbar-center {
+    display: none;
+  }
+  .navbar-right {
+    gap: 0.5rem;
+  }
 }
