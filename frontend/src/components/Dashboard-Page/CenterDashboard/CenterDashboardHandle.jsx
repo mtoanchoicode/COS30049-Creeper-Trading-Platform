@@ -18,12 +18,10 @@ const onFinish = async (values) => {
 
 
 
-
 const Centers = ({title, subtitle}) => {
     const {coins} = useContext(CoinContext);
 
     const HotCoins = coins.slice(0,5);
-
 
 
   return (
@@ -77,10 +75,6 @@ const Centers = ({title, subtitle}) => {
            </div>
           
 
-           {/* <div>
-
-           </div> */}
-
            <div className= "OtherSignup-Follow_Container">
                 <div className = "Item-Container">
                     <p className="OtherSignUp-title">Or Continue With</p>
@@ -110,7 +104,9 @@ const Centers = ({title, subtitle}) => {
             <div className= "List-HotCoin-Container"> 
                 <h2>Hot Coins</h2>
                 {HotCoins.map(coin =>(
-                <MarketCoinBrief className="Hot-Coins-listing"
+                <MarketCoinBrief 
+                key = {coin.id}
+                className="Hot-Coins-listing"
                   id={coin.id}
                   name={coin.name}
                   symbol={coin.symbol.toUpperCase()}

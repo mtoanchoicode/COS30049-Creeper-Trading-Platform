@@ -25,6 +25,7 @@
 .News-heading-container .News-Link {
     cursor: pointer;
     transition: 0.2s ease-in;
+    color: #ffffff;
 }
 
 .News-heading-container .News-Link:hover {
