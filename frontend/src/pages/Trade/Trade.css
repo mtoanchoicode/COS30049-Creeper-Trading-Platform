@@ -53,3 +53,10 @@
   background: var(--trade-background-color) !important;
   color: var(--trade-secondary-text-color) !important;
 }
+
+.send-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

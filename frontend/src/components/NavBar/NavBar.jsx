@@ -53,13 +53,11 @@ const NavBar = ({ theme, setTheme }) => {
         </div>
       </div>
 
-      
       {window.location.pathname !== "/explore" && (
         <div className="navbar-center">
           <CoinSearchInput />
         </div>
       )}
-      
 
       <div className="navbar-right">
         <Button className="navbar-connectWallet" onClick={() => open()}>
