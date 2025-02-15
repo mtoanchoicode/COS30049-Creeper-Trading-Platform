@@ -8,7 +8,7 @@ import { Button } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
 
 const Send = () => {
-  const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b"; // Your deployed contract address
+  const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b";
   const ABI = [
     {
       anonymous: false,
@@ -44,13 +44,14 @@ const Send = () => {
       stateMutability: "payable",
       type: "function",
     },
-  ]; // ✅ Correct structure
+  ];
 
   const { sendCurrencyValue } = useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [isLoading, setisLoading] = useState(true);
 
   const getButtonText = () => {
     if (!isConnected) return "Connect wallet";
@@ -60,6 +61,7 @@ const Send = () => {
   };
 
   const sendETH = async () => {
+    setisLoading(true)
     if (!window.ethereum) {
       alert("MetaMask or a compatible wallet is required!");
       return;
@@ -83,6 +85,8 @@ const Send = () => {
     } catch (error) {
       console.error(error);
       alert("Transaction failed: " + error.message);
+    } finally {
+      setisLoading(false);
     }
   };
 
