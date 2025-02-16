@@ -1,13 +1,35 @@
+/* Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .chatbot-widget {
+    width: 20rem;
+  }
+}
+
+/* Tablets (768px - 1280px) */
+@media (min-width: 768px) and (max-width: 1280px) {
+  .chatbot-widget {
+    width: 30rem;
+  }
+}
+
+/* Desktops (1441px - 1920px) */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .chatbot-widget {
+    width: 35rem;
+  }
+}
+
 /* Chatbot widget styling */
 .chatbot-widget {
   position: fixed;
-  width: 20rem;
+  width: 40rem;
   background-color: var(--searchbar-border);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 /* Header section of the chatbot */
@@ -31,7 +53,7 @@
 
 /* Chat messages container */
 .chatbot-messages {
-  height: 16rem;
+  height: 25rem;
   overflow-y: auto;
   padding: 0.75rem;
 }
@@ -50,14 +72,14 @@
   background-color: var(--third-color);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  color: var(--white-color);
+  color: #fff;
 }
 
 .chatbot-message.bot span {
   background-color: var(--text-color);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  color: var(--white-color);
+  color: #fff;
 }
 
 /* Footer section with input and buttons */
