@@ -3,8 +3,9 @@ import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
 import "./config/appKitConfig";
 import NavBar from "./components/NavBar/NavBar";
-import MobileNavBar from "./components/NavBar/MobileNavBar"
+import MobileNavBar from "./components/NavBar/MobileNavBar";
 import Footer from "./components/Footer/Footer";
+import ChatbotWidget from "./components/ChatbotWidget/ChatbotWidget";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -13,10 +14,10 @@ function App() {
 
   useEffect(() => {
     // Set the background color based on the theme
-    document.documentElement.style.backgroundColor = theme === "dark" ? "#131313" : "white";
+    document.documentElement.style.backgroundColor =
+      theme === "dark" ? "#131313" : "white";
     document.documentElement.style.color = theme === "dark" ? "white" : "black";
   }, [theme]);
-
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -24,19 +25,24 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   const locationCheck = () => {
     return !location.pathname.startsWith("/trade");
   };
 
   return (
-    <div className={`app ${theme}`}> {/* Use template literal for className */}
+    <div className={`app ${theme}`}>
+      {" "}
+      {/* Use template literal for className */}
       <div>
-        {isMobile ? <MobileNavBar theme={theme} setTheme={setTheme}/> : <NavBar theme={theme} setTheme={setTheme} />}
+        {isMobile ? (
+          <MobileNavBar theme={theme} setTheme={setTheme} />
+        ) : (
+          <NavBar theme={theme} setTheme={setTheme} />
+        )}
       </div>
-
       <Outlet />
       {locationCheck() && <Footer />}
+      <ChatbotWidget />
     </div>
   );
 }
