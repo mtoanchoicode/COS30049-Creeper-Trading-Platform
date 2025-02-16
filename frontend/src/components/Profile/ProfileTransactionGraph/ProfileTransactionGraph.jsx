@@ -105,8 +105,8 @@ const WalletGraph = ({ initialWallet }) => {
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("background", "var(--white-color)")
-      .style("color", "var(--text-color)")
+      .style("background", "var(--grey-color)")
+      .style("color", "var(--white-color)")
       .style("padding", "5px 10px")
       .style("border-radius", "5px")
       .style("font-size", "12px")
@@ -204,7 +204,7 @@ const WalletGraph = ({ initialWallet }) => {
       .attr("x", 12)
       .attr("y", 3)
       .style("font-size", "10px")
-      .style("fill", "var(--text-color)");
+      .style("fill", "var(--white-color)");
 
     simulation.on("tick", () => {
       link
