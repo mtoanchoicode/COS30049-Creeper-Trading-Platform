@@ -4,6 +4,8 @@ import { MessageOutlined, CloseOutlined } from "@ant-design/icons";
 import "./ChatbotWidget.css";
 
 const ChatbotWidget = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -13,7 +15,7 @@ const ChatbotWidget = () => {
     y: window.innerHeight - 80, // Adjust based on button size
   }));
 
-  // 🟢 Update position when window resizes
+  // Update position when window resizes
   useEffect(() => {
     const handleResize = () => {
       setPosition({
@@ -37,7 +39,7 @@ const ChatbotWidget = () => {
     }
   }, [messages, isOpen]);
 
-  // 🟢 Drag Start
+  // Drag Start
   const handleDragStart = (e) => {
     setIsDragging(true);
     dragStart.current = {
@@ -46,7 +48,7 @@ const ChatbotWidget = () => {
     };
   };
 
-  // 🟢 Drag Move
+  // Drag Move
   const handleDragMove = (e) => {
     if (!isDragging) return;
     setPosition({
@@ -62,7 +64,7 @@ const ChatbotWidget = () => {
     }
   };
 
-  // 🟢 Drag End
+  // Drag End
   const handleDragEnd = (e) => {
     setIsDragging(false);
 
@@ -91,30 +93,41 @@ const ChatbotWidget = () => {
     setMessages(newMessages);
     setInput("");
 
-    // Uncomment this section to enable API call to your backend
-    // try {
-    //   const response = await fetch("https://your-backend-api.com/chat", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ message: text }),
-    //   });
-    //   const data = await response.json();
-    //   setMessages([...newMessages, { sender: "bot", text: data.reply }]);
-    // } catch (error) {
-    //   setMessages([...newMessages, { sender: "bot", text: "Error fetching response." }]);
-    // }
+    try {
+      const response = await fetch(`${API_BASE_URL}/v1/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = await response.json();
+      console.log(data);
+      setMessages([...newMessages, { sender: "bot", text: data.reply }]);
+    } catch (error) {
+      setMessages([
+        ...newMessages,
+        { sender: "bot", text: "Error fetching response." },
+      ]);
+      console.log(error);
+    }
   };
 
   const fetchEthPrice = async () => {
-    // Uncomment this section to enable fetching ETH price
-    // try {
-    //   const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
-    //   const data = await response.json();
-    //   const ethPrice = `$${data.ethereum.usd}`;
-    //   setMessages([...messages, { sender: "bot", text: `Current ETH price: ${ethPrice}` }]);
-    // } catch (error) {
-    //   setMessages([...messages, { sender: "bot", text: "Failed to fetch ETH price." }]);
-    // }
+    try {
+      const response = await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+      );
+      const data = await response.json();
+      const ethPrice = `$${data.ethereum.usd}`;
+      setMessages([
+        ...messages,
+        { sender: "bot", text: `Current ETH price: ${ethPrice}` },
+      ]);
+    } catch (error) {
+      setMessages([
+        ...messages,
+        { sender: "bot", text: "Failed to fetch ETH price." },
+      ]);
+    }
   };
 
   return (
@@ -123,7 +136,7 @@ const ChatbotWidget = () => {
         <div
           className="chatbot-widget"
           style={{
-            right: `${window.innerWidth - position.x}px`,
+            right: `${window.innerWidth - position.x - 50}px`,
             bottom: `${window.innerHeight - position.y}px`,
           }}
         >
