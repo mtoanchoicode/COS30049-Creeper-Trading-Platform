@@ -55,8 +55,15 @@
 }
 
 .send-btn-content {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.send-btn-content .loader-container {
+  position: absolute;
+  top: -0.9rem;
+  left: -1.5rem;
 }
