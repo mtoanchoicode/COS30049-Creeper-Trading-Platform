@@ -71,7 +71,7 @@ const Footer = () => {
         <div className="footer-menu-right footer-menu-container">
           <h4>About Us</h4>
 
-          <Link className = "Link" to = "/">
+          <Link className = "Link" to = "/about">
             <span>About</span>
           </Link>
 
