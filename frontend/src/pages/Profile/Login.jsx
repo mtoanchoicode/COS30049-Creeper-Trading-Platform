@@ -18,7 +18,7 @@ const LoginPage = () => {
 
       {/* Right Column - Image */}
       <Col
-        style={{ backgroundColor: "#05200f", borderRadius: "1rem" }}
+        style={{ backgroundColor: "#05200f" }}
         xs={0}
         sm={0}
         md={12}

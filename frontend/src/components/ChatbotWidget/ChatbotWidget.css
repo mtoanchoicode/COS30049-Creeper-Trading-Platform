@@ -1,7 +1,10 @@
 /* Mobile (481px - 767px) */
-@media (min-width: 481px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .chatbot-widget {
-    width: 20rem;
+    display: none;
+  }
+  .chatbot-open-button {
+    display: none;
   }
 }
 
