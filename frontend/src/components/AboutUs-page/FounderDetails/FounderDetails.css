@@ -1,0 +1,93 @@
+.FounderDetails-Container {
+    width: 80%;
+    padding: 2rem; 
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    justify-self: center;
+}
+
+.FounderDetails_Heading-Container h1 {
+    font-weight: bolder;
+}
+
+.FounderDetails_Content-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.FounderDetails_Block_Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.FounderDetails_Block_Container.blockText2 {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.FounderName_Position-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.Founder_Image-Container img{
+    width: 13rem;
+    height: 13rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.Founder_Name_Position {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.Founder_Name_Position h3{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.Founder_Name_Position p{
+    color: var(--text-color);
+    font-size: 1.3rem;
+}
+
+.Founder_Content-Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.7;
+}
+
+
+/* Mobile (481px - 767px) */
+@media (max-width: 767px) {
+    .FounderDetails_Block_Container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0;
+    }
+    .FounderDetails_Content-Container {
+        padding: 0;
+    }
+    .FounderDetails_Block_Container.blockText2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+  } 
+
+

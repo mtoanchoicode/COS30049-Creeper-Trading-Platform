@@ -13,10 +13,10 @@
 
 .Steps_title {
   color: var(--white-color);
-  font-family: "Oxanium", sans-serif;
   font-size: 3rem;
   font-style: normal;
   font-weight: 500;
+  margin-bottom: 1.5rem;
 }
 
 .Allsteps_container {
