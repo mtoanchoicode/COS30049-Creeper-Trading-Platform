@@ -8,6 +8,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 /* Header section of the chatbot */

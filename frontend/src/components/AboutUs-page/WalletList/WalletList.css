@@ -3,7 +3,7 @@
     align-items: center;
     flex-direction: column;
     gap: 1.5rem;
-    margin-top: 3rem;
+    margin-top: 3.5rem;
     height: 100%;
 }
 
@@ -18,8 +18,10 @@
 }
 
 .WalletList-Item-Container {
-    display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
     gap: 2rem;
 }
 
@@ -28,12 +30,16 @@
     align-items: center ;
     flex-direction: column;
     /* background-color: rgba(77, 77, 77, 0.3); */
-    background: linear-gradient(148deg, rgba(24, 214, 81, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(148deg, rgba(24, 214, 81, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
     backdrop-filter: blur(10px);
     border-radius: 1.2rem;
     padding: 1.2rem;
     gap: 1rem;
     width: 100%;  
+}
+
+.app.light .Wallet-Item {
+    background: linear-gradient(148deg, rgba(24, 214, 81, 0.4) 0%, rgba(255, 255, 255, 0.03) 100%);
 }
 
 .Wallet-Image-Container {
@@ -47,8 +53,8 @@
 }
 
 .Wallet-Image {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .Wallet-Name-Container {
@@ -56,4 +62,14 @@
     text-align: center;
     width: 100%;
 }
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* Mobile (481px - 767px) */
+@media (max-width: 767px) {
+    .WalletList-Item-Container {
+        grid-template-columns: repeat(2,1fr);
+    }
+} 
 

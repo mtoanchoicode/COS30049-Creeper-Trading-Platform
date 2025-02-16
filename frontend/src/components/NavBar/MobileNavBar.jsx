@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useCallback} from "react";
 import "./MobileNavBar.css";
 
 import searchIcon from "../../assets/Market Search Icon.svg";
@@ -17,23 +17,20 @@ import { Button } from "antd";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import shortenAddress from "../../utils/utils";
 
-const NavBar = ({ theme, setTheme, onEvent }) => {
+const NavBar = ({ theme, setTheme }) => {
   const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
-  const [showMenu, setshowMenu] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
   const [showNavSearch, setshowNavSearch] = useState(false);
 
   const { coins } = useContext(CoinContext);
   const HotCoins = coins.slice(0, 5);
 
-  
 
-
-  const handleCloseSearch = (isFalse) => {
-    setshowNavSearch(isFalse);
-  };
+  const handleCloseSearch = useCallback(() => {
+    setshowNavSearch(false);
+  }, []);
 
   return (
     <div
