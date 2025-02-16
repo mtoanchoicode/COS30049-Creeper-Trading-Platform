@@ -1,7 +1,7 @@
 import React from "react";
 import Steps from "./StepsFlow";
 
-import CoinIcon from "../../../assets/Coin-icon.svg";
+import CoinIcon from "../../../assets/CoinIcon.svg";
 import Cardpos from "../../../assets/Card-pos.svg";
 import ShopingCart from "../../../assets/Shopping-cart.svg";
 import BuyCoin from "../../../assets/Buy-crypto.svg";
