@@ -31,7 +31,6 @@ const NewsBlock = () => {
 
     return (
         <div className="News_List_Container">
-
             <h1 className="Category_Filter_Heading">Choose a category</h1>
 
             <div className="Category_Filter_Container">
