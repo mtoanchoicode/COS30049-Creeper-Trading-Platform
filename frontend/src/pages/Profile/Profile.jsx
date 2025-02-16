@@ -8,7 +8,7 @@ const ProfilePage = () => {
   return (
     <Layout
       style={{
-        marginTop: "4rem",
+        marginTop: "6rem",
         height: "fit-content",
         backgroundColor: "var(--app-background)",
       }}

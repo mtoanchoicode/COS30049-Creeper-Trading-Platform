@@ -33,6 +33,7 @@
   --trade-background-active-color: #2b2b2b;
   --trade-input-placeholder-color: #5e5e5e;
   --trade-btn-hover: #1f1f1f;
+  --searchbar-result-background: rgba(77, 77, 77, 0.103);
   --white-color: #fdfdfd;
   --black-color: #131313;
   --grey-color: #343434;
@@ -54,6 +55,7 @@
   --trade-background-active-color: #f6f6f6;
   --trade-input-placeholder-color: #cecece;
   --trade-btn-hover: #f0f0f0;
+  --searchbar-result-background: rgba(255, 255, 255, 0.305);
   --white-color: #131313;
   --black-color: #fdfdfd;
   --grey-color: #e8e8e8;

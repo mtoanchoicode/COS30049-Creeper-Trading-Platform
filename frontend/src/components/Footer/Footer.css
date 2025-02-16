@@ -1,11 +1,29 @@
+
 .footer {
-    display: flex;
-    align-items: flex-start;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.footer_Container {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr); 
     justify-content: space-between;
-    padding: 0 8rem;
-    padding-bottom: 2.5rem;
-    margin-top: 3rem;
-    gap: 2rem;
+    padding: 2.5rem;
+    gap: 2.5rem;
+    width: 100%;
+  }
+
+  .footer_copyright {
+    width: 100%;
+    border-top: 1.5px solid var(--black-background-color);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+  }
+
+  .footer_copyright span:first-child{
+      margin-right: 2rem;
   }
   
   .footer h4 {
@@ -13,7 +31,6 @@
   }
   
   .footer-logo {
-    flex: 0.25;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,6 +82,7 @@
     box-shadow: 0 0 2.5rem 1rem rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .footer-center .footer-social-container a .icon{
@@ -79,7 +97,7 @@
     height: 100%;
     top: -60px;
     left: 0;
-    background-color: var(--white-color);
+    background: linear-gradient(135deg, rgba(132, 250, 176, 0.7), rgba(143, 211, 244, 0.51));
     position: absolute;
     transition: all 0.5s ease;
   }
@@ -90,11 +108,11 @@
 
 
   .footer-menu {
-    flex: 0.5;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 1rem 0;
+    gap: 1.5rem;
   }
   
   .footer-menu .footer-menu-container {
@@ -103,6 +121,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 1rem;
+    flex: 0.5;
   }
   
 
@@ -114,4 +133,31 @@
   .footer-menu-container .Link:hover *{
     color: var(--primary-color);
   }
+
+
+  /* Responsive design css 
+------------------------------------------- */
+
+
+/* Mobile  */
+@media (max-width: 767px) 
+{
+  .footer{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer_Container {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 1rem
+  }
+
+  .footer-menu {
+    grid-column: span 2;
+  }
+
+  .footer-menu .footer-menu-container {
+    align-items: center;
+  }
+}
 

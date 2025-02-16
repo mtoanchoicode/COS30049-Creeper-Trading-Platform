@@ -1,15 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
 import CoinProvider, { CoinContext } from "../../contexts/CoinContext";
 import CloseIcon from "../../assets/X Close Icon.svg";
+import MobileNav from "../NavBar/MobileNavBar"
 import searchIcon from "../../assets/Market Search Icon.svg";
 import "./CoinSearchInput.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const CoinSearchInput = () => {
+
+const CoinSearchInput = ({onEvent}) => {
   const [search, setSearch] = useState("");
   const { coins } = useContext(CoinContext);
   const [selectedCoin, setSelectedCoin] = useState(0);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     setSelectedCoin(0); // Reset selected coin when search changes
@@ -21,6 +24,10 @@ const CoinSearchInput = () => {
 
   const handleClose = () => {
     setSearch("");
+  };
+
+  const handleCoinClick = () => {
+     onCloseSearch(false); 
   };
 
   const handleKeyDown = (e) => {
@@ -78,7 +85,11 @@ const CoinSearchInput = () => {
       </div>
       <div className="coin-search-input-result">
         {filteredCoins.map((coin, index) => (
-          <Link to={`/explore/${coin.id}`} key={index}>
+          <Link 
+            to={`/explore/${coin.id}`} 
+            key={index} 
+            {...(onEvent && { onClick: () => handleCoinClick(coin.id) })} 
+          >
             <div
               className={
                 selectedCoin === index
