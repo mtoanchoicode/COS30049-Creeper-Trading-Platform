@@ -6,7 +6,7 @@ import SendContainer from "../../components/Trade/SendContainer/SendContainer";
 import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWalletAddress";
 import { Button } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
-import { LoaderCircle } from "lucide-react";
+import Loader from "../../components/Loader/Loader";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b";
@@ -113,7 +113,7 @@ const Send = () => {
       >
         {isLoading ? (
           <div className="send-btn-content">
-            <LoaderCircle className="animate-spin" />
+            <Loader />
             <span>Sending...</span>
           </div>
         ) : (
