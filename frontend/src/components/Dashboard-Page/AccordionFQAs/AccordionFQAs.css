@@ -68,6 +68,10 @@
     height: 1.5rem;
 }
 
+.app.light .accordionFQAs-direction {
+    filter: invert(1);
+}
+
 /* .toggled .accordionFQAs-direction {
 
 } */
@@ -75,7 +79,6 @@
 .accorditon .accordionFQAs-content-container {
     max-height: 0;
     overflow: hidden;
-    color: #ffff;
     padding: 0rem 2rem;  
     transition: max-height 0.15s ease-out;
 }
