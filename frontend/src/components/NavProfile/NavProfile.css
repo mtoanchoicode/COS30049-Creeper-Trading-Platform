@@ -6,7 +6,11 @@
   gap: 2rem;
   width: 10rem;
   padding: 1.2rem 1.5rem;
-  background: var(--trade-background-color);
+  color: var(--white-color);
+  background: #2e2e2e1a;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 0 0 0.5rem 0.5rem;
   position: absolute;
   top: 0rem;
@@ -41,26 +45,5 @@
 .navprofile-item .navprofile-content .navprofile-heading p {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-color);
-}
-
-.navprofile-item .navprofile-content .navprofile-heading i {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  display: inline-block;
-  transform: translateX(-100%);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.navprofile-item .navprofile-content .navprofile-heading:hover i {
-  transform: translateX(0%);
-  opacity: 1;
-}
-
-.navprofile-item .navprofile-content .navprofile-desc {
-  font-size: 0.8rem;
-  color: var(--text-color);
+  color: var(--white-color);
 }

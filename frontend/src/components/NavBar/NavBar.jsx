@@ -20,18 +20,28 @@ const NavBar = ({ theme, setTheme }) => {
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
+  const [hoverIcon, setHoverIcon] = useState(false);
+
+  const location = useLocation();
+  const isFixed = location.pathname === "/trade/convert";
 
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      style={{
+        position: isFixed ? "fixed" : "",
+      }}
+    >
       <div className="navbar-left">
         <div className="navbar-left-logo">
-          <Link to="/" className="Link_Home">
+          <Link to="/">
             <div className="navbar-left-logo-img">
               <img src={logo} alt="Logo" />
             </div>
             <p className="navbar-title">CREEPER</p>
           </Link>
         </div>
+
         <div className="navbar-left-menu">
           <Link to="/explore" className="navbar-left-menu-link">
             <div className="navbar-left-menu-name">Explore</div>
@@ -53,19 +63,16 @@ const NavBar = ({ theme, setTheme }) => {
         </div>
       </div>
 
-      
-      {window.location.pathname !== "/explore" && (
-        <div className="navbar-center">
-          <CoinSearchInput />
-        </div>
-      )}
-      
+        {window.location.pathname !== "/explore" && (
+          <div className="navbar-center">
+            <CoinSearchInput />
+          </div>
+        )}
 
       <div className="navbar-right">
         <Button className="navbar-connectWallet" onClick={() => open()}>
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
         </Button>
-
         {theme === "dark" ? (
           <img
             className="DarkMode_Icon"
@@ -94,10 +101,6 @@ const NavBar = ({ theme, setTheme }) => {
           </div>
         </div>
       </div>
-
-      {/* <div className="Btn_Menu_Responsive">
-        <i class="fa-solid fa-bars"></i>
-      </div> */}
     </div>
   );
 };

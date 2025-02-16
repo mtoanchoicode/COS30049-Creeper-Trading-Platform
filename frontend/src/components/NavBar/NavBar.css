@@ -99,7 +99,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20rem;
+  width: 25rem;
 }
 
 .navbar-center .coin-search-input-container {
@@ -117,7 +117,6 @@
   align-items: center;
   border: 0.02rem solid var(--searchbar-border);
   border-radius: 2rem;
-  background: var(--searchbar-background);
   padding: 0 0.2rem;
 }
 
@@ -161,7 +160,7 @@
 
 .navbar-center .coin-search-input input:focus {
   outline: none;
-  caret-color: white;
+  caret-color: var(--white-color);
   font-weight: 600;
 }
 
@@ -199,9 +198,9 @@
   margin-top: 5px;
   border-radius: 0.5rem;
   z-index: 2000;
-  background: rgba(46, 46, 46, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--searchbar-result-background);
+  -webkit-backdrop-filter: blur(8.5px);
+  backdrop-filter: blur(8.5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -209,7 +208,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 22rem;
   justify-content: space-between;
   padding: 7px;
 }
@@ -297,9 +295,6 @@
   .navbar-left {
     gap: 1rem;
   }
-  .navbar-center {
-    width: 20rem;
-  }
   .navbar-right {
     gap: 0.6rem;
   }
@@ -317,7 +312,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 25rem;
+    width: 20rem;
   }
 }
 
