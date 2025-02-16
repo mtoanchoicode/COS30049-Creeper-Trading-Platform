@@ -99,7 +99,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20rem;
+  width: 25rem;
 }
 
 .navbar-center .coin-search-input-container {
@@ -208,7 +208,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 22rem;
   justify-content: space-between;
   padding: 7px;
 }
@@ -296,9 +295,6 @@
   .navbar-left {
     gap: 1rem;
   }
-  .navbar-center {
-    width: 20rem;
-  }
   .navbar-right {
     gap: 0.6rem;
   }
@@ -316,7 +312,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 25rem;
+    width: 20rem;
   }
 }
 
