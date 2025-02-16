@@ -30,8 +30,47 @@
     color: var(--white-color);
 }
 
+/* Sort Order style */
+.Sort_Filter_Container {
+  display: flex;
+  justify-self: center;
+  margin-top: 2rem;
+  width: 80%;
+}
 
+.DataOrder_Sort_Container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
 
+.DataOrder_Sort_Container:hover {
+ border-color: var(--primary-color);
+}
+
+.DataOrder_Sort_Label{
+  font-size: 1.1rem;
+}
+
+.DataOrder_Sort_Select {
+  background: none;
+  padding: 0.3rem; 
+  border-radius: 10px;
+  color: var(--white-color);
+}
+
+.DataOrder_Sort_Select .DataOrder_Sort_Option {
+  background: var(--black-background-color);
+  color: #ffffff;
+  padding: 0.3rem 0;
+  transition: all 0.3s ease;
+}
+
+/* block style */
 .NewsBlock_Container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -111,6 +150,15 @@
     .NewsBlock_Container {
         grid-template-columns: repeat(1, 1fr);
     }
+
+    .Category_Filter_Container {
+      width: 98%;
+      padding: 1rem;
+  }
+
+  .Category_Filter_Item.active {
+    font-size: 1.5rem;
+}
 }
 
 

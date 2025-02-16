@@ -1,40 +1,36 @@
 import React from "react";
-import Wallets from "./WalletListHanle";
+import Steps from "./StepsFlow";
 
 import CoinIcon from "../../../assets/Coin-icon.svg";
 import Cardpos from "../../../assets/Card-pos.svg";
 import ShopingCart from "../../../assets/Shopping-cart.svg";
 import BuyCoin from "../../../assets/Buy-crypto.svg";
 
-const WalletList = () => {
-  const wallets = [
+const BuyCryptoFlow = () => {
+  const steps = [
     {
       src: CoinIcon,
       alt: "picture of step 1",
-      name: "Metamask",
+      desc: "Enter Amount",
     },
     {
       src: Cardpos,
       alt: "picture of step 2",
-      name: "Binance",
+      desc: "Select Payment",
     },
     {
       src: ShopingCart,
       alt: "picture of step 3",
-      name: "Lorem Ispum",
+      desc: "Confirm Order",
     },
     {
       src: BuyCoin,
       alt: "picture of step 4",
-      name: "Lorem Ispum",
+      desc: "Receive Crypto",
     },
   ];
 
-  return <Wallets 
-    wallets={wallets} 
-    title="wallets we support" 
-    subtitle = "Trade With World's Most Trusted And Fastest Wallets"
-  />;
+  return <Steps steps={steps} title="How to Buy Crypto" />;
 };
 
-export default WalletList;
+export default BuyCryptoFlow;

@@ -27,7 +27,10 @@ const CoinSearchInput = ({onEvent}) => {
   };
 
   const handleCoinClick = () => {
-     onCloseSearch(false); 
+    // setTimeout(() => {
+    //   onCloseSearch(false);
+    // }, 100); 
+    onEvent();
   };
 
   const handleKeyDown = (e) => {
@@ -88,7 +91,9 @@ const CoinSearchInput = ({onEvent}) => {
           <Link 
             to={`/explore/${coin.id}`} 
             key={index} 
-            {...(onEvent && { onClick: () => handleCoinClick(coin.id) })} 
+            {...(onEvent && { onClick: (e) => {
+              e.stopPropagation();
+              handleCoinClick()} })} 
           >
             <div
               className={

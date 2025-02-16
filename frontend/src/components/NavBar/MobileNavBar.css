@@ -1,7 +1,7 @@
 .navbar.mobile {
   height: fit-content;
   padding: 1rem 0.5rem;
-  width: 100%;
+  width: 100vw;
 }
 .navbar-left-logo-img.mobile img {
   width: 2.5rem;
@@ -28,8 +28,12 @@
 .Search_Icon_Nav_Bar img{
   width: 1.5rem;
   height: 1.5rem;
-  
 }
+
+.app.light .Search_Icon_Nav_Bar img{
+  filter: invert(1);
+}
+
 
 .Search_Overlay_Container {
     position: absolute;
@@ -38,7 +42,7 @@
     width: 100vw;
     height: 100vh;
     max-height: none;
-    z-index: 1060;
+    z-index: 3000;
     background-color: var(--app-background);
     padding: 5rem 3rem;
 }
@@ -154,10 +158,12 @@
   
   /* Result */
   .navbar-Sreach_Bar .coin-search-input-result {
-    width: 100%;
+    width: 80%;
     position: absolute;
-    left: -3px;
-    margin-top: 5px;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 0 auto;
+    margin-top: 1rem;
     border-radius: 0.5rem;
     z-index: 100;
     background: #2e2e2e1a;

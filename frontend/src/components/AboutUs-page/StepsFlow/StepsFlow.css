@@ -4,6 +4,7 @@
   gap: 0.7rem;
   align-items: center;
   margin-top: 3rem;
+  padding: 0 1.5rem; 
 }
 
 .Steps_heading_container {
@@ -12,10 +13,10 @@
 
 .Steps_title {
   color: var(--white-color);
-  font-family: "Oxanium", sans-serif;
   font-size: 3rem;
   font-style: normal;
   font-weight: 500;
+  margin-bottom: 1.5rem;
 }
 
 .Allsteps_container {
@@ -59,3 +60,23 @@
 .Step-desc {
   text-align: center;
 }
+
+.app.light .Steps_arrow img{
+  filter: invert(1);
+}
+
+/* Mobile (481px - 767px) */
+@media (max-width: 767px) {
+  .Steps_container {
+    width: 100%;
+  }
+
+  .Steps_arrow {
+    display: none;
+  }
+
+  .Allsteps_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

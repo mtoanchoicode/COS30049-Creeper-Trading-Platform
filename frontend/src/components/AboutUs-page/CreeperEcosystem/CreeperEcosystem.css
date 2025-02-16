@@ -1,0 +1,79 @@
+.Our_Ecosystem-Container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    margin-top: 3rem;
+    height: fit-content;
+}
+
+.Our_Ecosystem-Wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 90%;
+}
+
+/* .Heading_title-Ecosystem {
+    font-family: ;
+} */
+
+.Subtest_heading-Ecosystem {
+    color: var(--text-color);
+}
+
+
+.Our_Ecosystem-Item-Container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+}
+
+
+.Ecosystem-Item {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    padding: 2.5rem;
+    border: 1.5px solid var(--white-color);
+    border-radius: 20px;   
+}
+
+.Ecosystem-Content-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.Ecosystem-Title {
+    font-size: 1.3rem;
+}
+
+.Ecosystem-Content-Container p {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.Ecosystem-Image-Container {
+    display: flex;
+    gap: -10px; 
+    height: 100%;
+    align-items: center;
+    height: fit-content;
+}
+
+.Ecosystem-Image {
+    width: 2.7rem; 
+    height: 2.7rem;  
+}
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* Mobile (481px - 767px) */
+@media (max-width: 767px) {
+    .Our_Ecosystem-Item-Container {
+        grid-template-columns: repeat(1, 1fr); 
+    }
+} 
+   
+
