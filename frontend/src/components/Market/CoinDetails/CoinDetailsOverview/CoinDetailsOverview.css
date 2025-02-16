@@ -66,7 +66,7 @@
 .price-period-selection-container{
     display: flex;
     padding: 3px;
-    gap: 1.6rem;
+    gap: 1rem;
     border: 2px solid var(--trade-input-placeholder-color);
     border-radius: 15px;
 }
@@ -76,7 +76,7 @@
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--trade-input-placeholder-color);
-    width: 40px;
+    width: 3rem;
     padding: 1px 0;
     border-radius: 10px;
     transition: 0.2s;
@@ -102,12 +102,11 @@
 /* Chart */
 .coin-details-overview-chart{
     width: 100%;
-    height: 370px;
     background: rgb(0, 0, 0);
 }
 
 .coin-details-overview-chart img{
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
-
