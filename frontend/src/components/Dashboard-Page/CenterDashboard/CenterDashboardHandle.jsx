@@ -7,14 +7,43 @@ import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg"; 
 import Google from "../../../assets/Google.svg";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const onFinish = async (values) => {
-    console.log("Success:", values);
+    console.log(import.meta.env.VITE_API_BASE_URL); 
+    console.log(import.meta.env);
+    //console.log("Success Email Input:", values);
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/v1/api/mail/subscribe/`, 
+        {
+            method: "POST",
+            headers: {
+                "USer-Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: values.email }),
+        })
+    
+    const data = await response.json();
+
+    if (response.ok) {
+        console.log("Success:", data.message);
+        alert(`${data.message}`);
+    } else {
+        console.error("Error:", data.message);
+        alert(`${data.message}`);
+    }
+
+    } catch (error) {
+        console.error("Request error:", error);
+        alert("An error occurred. Please try again.");
+    }
 };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-};
+//   const onFinishFailed = (errorInfo) => {
+//     console.log("Failed Email Input::", errorInfo);
+// };
 
 
 
@@ -41,11 +70,11 @@ const Centers = ({title, subtitle}) => {
                     name = "login"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    // onFinishFailed={onFinishFailed}
                     className="Center_LoginForm"
                 >
                     <Form.Item
-                    className="Center-SignUp-Input_Container"
+                    className="Center-Subscribe-Input_Container"
                     name="email"
                     rules={[
                     {
@@ -54,21 +83,21 @@ const Centers = ({title, subtitle}) => {
                     },
                     ]}>
                         <Input
-                            className="Center-SignUp_Input"
+                            className="Center-Subscribe_Input"
                             placeholder="Email/Phone number"
                         />
                     </Form.Item>
 
                     <Form.Item
-                        className="Center-SignUp-Button_Container"
+                        className="Center-Subscribe-Button_Container"
                     >
                         <Button
                             type="primary"
                             htmlType="submit"
                             block
-                            className="Center-SignUp_Button"
+                            className="Center-Subscribe_Button"
                             >
-                            Sign Up
+                            Subscribe
                         </Button>
                     </Form.Item>
             </Form>
