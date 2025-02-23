@@ -59,7 +59,7 @@
     width: 30%;
 } */
 
-.Center-SignUp_Input {
+.Center-Subscribe_Input {
     border: 2px solid; 
     border-color: var(--text-color);
     border-radius: 12px;
@@ -69,7 +69,7 @@
     padding: 0.8rem;
 }
 
-.Center-SignUp_Input::placeholder {
+.Center-Subscribe_Input::placeholder {
     color: var(--white-color) !important;
 }
 
@@ -77,21 +77,21 @@
     background: none;
 }
 
-/* .Center-SignUp_Input:hover::placeholder {
+/* .Center-Subscribe_Input:hover::placeholder {
     color: var(--text-color);
 } */
 
-.Center-SignUp_Input:hover {
+.Center-Subscribe_Input:hover {
     border-color: var(--primary-color) !important;
     background-color: transparent !important;
 }
 
-.Center-SignUp_Input:focus {
+.Center-Subscribe_Input:focus {
     border-color: var(--primary-color);
     background-color: transparent;
 }
 
-.Center-SignUp_Button { 
+.Center-Subscribe_Button { 
     border-radius: 12px;
     color: var(--white-color);
     background-color: var(--primary-color);
@@ -99,7 +99,7 @@
     padding: 1.5rem;
 }
 
-.Center-SignUp_Button:hover { 
+.Center-Subscribe_Button:hover { 
     background-color: var(--third-color) !important;
 }
 
