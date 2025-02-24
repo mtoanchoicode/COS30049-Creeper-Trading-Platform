@@ -7,19 +7,24 @@ import MobileNavBar from "./components/NavBar/MobileNavBar";
 import Footer from "./components/Footer/Footer";
 import ChatbotWidget from "./components/ChatbotWidget/ChatbotWidget";
 import { AuthContext } from "./contexts/AuthContext";
+import { getAccount } from "./utils/api";
 
 function App() {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   // Authentication
   const { setAuth, appLoading, setAppLoading } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchAccount = async () => {
       setAppLoading(true);
-      const res = await axios.get(`/v1/api/account`);
+      const res = await getAccount();
+      console.log("Check res", res);
       if (res && !res.message) {
         setAuth({
           isAuthenticated: true,
           user: {
+            uid: res.uid,
             email: res.email,
             name: res.name,
           },

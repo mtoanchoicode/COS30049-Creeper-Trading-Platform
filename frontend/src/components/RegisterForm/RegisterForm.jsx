@@ -25,7 +25,7 @@ const RegisterForm = ({ onFinish, onFinishFailed }) => {
             What should we call you?
           </span>
         }
-        name="username"
+        name="name"
         rules={[
           {
             required: true,
@@ -81,7 +81,16 @@ const RegisterForm = ({ onFinish, onFinishFailed }) => {
         />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item
+        name="agree" // Required for validation tracking
+        valuePropName="checked" // Ensures Checkbox handles true/false correctly
+        rules={[
+          {
+            required: true,
+            message: "You must agree to the terms and privacy policy!",
+          },
+        ]}
+      >
         <div>
           <Checkbox className="register-checkbox" style={{ color: "#D9D9D9" }}>
             By creating an account, you agree to the{" "}

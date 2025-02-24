@@ -2,6 +2,7 @@ require("dotenv").config();
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { generateRandomString } = require("./generateRandom");
 const saltRounds = 10;
 
 const createUserService = async (name, email, password, watchList) => {
@@ -13,6 +14,7 @@ const createUserService = async (name, email, password, watchList) => {
     }
     const hashPassword = await bcrypt.hash(password, saltRounds);
     let result = await User.create({
+      uid: generateRandomString(10),
       name: name,
       email: email,
       password: hashPassword,
@@ -37,6 +39,7 @@ const loginService = async (email, password) => {
         };
       } else {
         const payload = {
+          uid: user.uid,
           email: user.email,
           name: user.name,
         };
@@ -46,7 +49,7 @@ const loginService = async (email, password) => {
         return {
           EC: 0,
           access_token,
-          user: { email: user.email, name: user.name },
+          user: { uid: user.uid, email: user.email, name: user.name },
         };
       }
     } else {

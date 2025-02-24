@@ -20,3 +20,19 @@
   font-size: 1.25rem;
   font-weight: 700;
 }
+
+.profileHeader-loginButton {
+  background-color: var(--primary-color);
+  display: block;
+  margin-block: 1rem 2rem;
+  width: fit-content;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.profileHeader-loginButton:hover {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}

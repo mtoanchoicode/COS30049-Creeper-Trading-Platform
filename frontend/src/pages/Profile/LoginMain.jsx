@@ -7,11 +7,10 @@ import { notification } from "antd";
 
 const LoginMain = () => {
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const onFinish = async (values) => {
     const { email, password } = values;
     const res = await loginAPI(email, password);
-
     if (res && res.EC == 0) {
       localStorage.setItem("access_token", res.access_token);
       notification.success({
@@ -21,11 +20,12 @@ const LoginMain = () => {
       setAuth({
         isAuthenticated: true,
         user: {
+          uid: res?.user?.uid ?? "",
           email: res?.user?.email ?? "",
           name: res?.user?.name ?? "",
         },
       });
-      navigate("/");
+      navigate("/profile");
     } else {
       notification.error({
         message: "LOGIN USER",

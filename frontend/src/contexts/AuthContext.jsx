@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   isAuthenticated: false,
   user: {
+    uid: "",
     email: "",
     name: "",
   },
