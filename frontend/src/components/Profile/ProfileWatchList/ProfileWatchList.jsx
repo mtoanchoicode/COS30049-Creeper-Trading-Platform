@@ -10,8 +10,10 @@ import {
   LeftOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 const ProfileWatchList = () => {
+  const { auth, setAuth } = useContext(AuthContext);
   const { userData } = useUser();
   const { coins } = useContext(CoinContext);
   const watchCoin = coins.filter((coin) =>
@@ -34,80 +36,85 @@ const ProfileWatchList = () => {
   // Define the column names
   const columns = ["Name", "Current Price", "24H Change", ""];
 
+  //
   return (
     <div className="watchList-card">
-      <div className="watchList-tableContainer">
-        <h2>Watch List</h2>
-        <table className="watchList-table">
-          <thead>
-            <tr>
-              {columns.map((column, index) => (
-                <th key={index}>{column}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedCoins.map((coin) => (
-              <tr key={coin.id}>
-                <td>
-                  <div className="watchList-CoinNameContainer">
-                    <img src={coin.image} alt={coin.name} />
-
-                    <Link
-                      to={`../explore/${coin.name.toLowerCase()}`}
-                      className="watchList-CoinName"
-                    >
-                      <b>{coin.name}</b>
-                      <div>{coin.symbol.toUpperCase()}</div>
-                    </Link>
-                  </div>
-                </td>
-                <td>{coin.current_price.toLocaleString()}$</td>
-                <td className="watchList-Percent">
-                  {coin.price_change_24h.toLocaleString()}$
-                  <span
-                    className={
-                      coin.price_change_percentage_24h < 0
-                        ? "watchList-PercentNegative"
-                        : "watchList-PercentPositive"
-                    }
-                  >
-                    {coin.price_change_percentage_24h < 0 ? (
-                      <ArrowDownOutlined />
-                    ) : (
-                      <ArrowUpOutlined />
-                    )}
-                    {coin.price_change_percentage_24h.toFixed(2)}%
-                  </span>
-                </td>
-                <td>
-                  <a className="watchList-Delete">
-                    <DeleteFilled></DeleteFilled>
-                  </a>
-                </td>
+      <h2>Watch List</h2>
+      {auth.isAuthenticated ? (
+        <div className="watchList-tableContainer">
+          <table className="watchList-table">
+            <thead>
+              <tr>
+                {columns.map((column, index) => (
+                  <th key={index}>{column}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedCoins.map((coin) => (
+                <tr key={coin.id}>
+                  <td>
+                    <div className="watchList-CoinNameContainer">
+                      <img src={coin.image} alt={coin.name} />
 
-        <div className="watchList-pagination">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            <LeftOutlined />
-          </button>
-          <span className="watchList-page">{currentPage}</span>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            <RightOutlined />
-          </button>
+                      <Link
+                        to={`../explore/${coin.name.toLowerCase()}`}
+                        className="watchList-CoinName"
+                      >
+                        <b>{coin.name}</b>
+                        <div>{coin.symbol.toUpperCase()}</div>
+                      </Link>
+                    </div>
+                  </td>
+                  <td>{coin.current_price.toLocaleString()}$</td>
+                  <td className="watchList-Percent">
+                    {coin.price_change_24h.toLocaleString()}$
+                    <span
+                      className={
+                        coin.price_change_percentage_24h < 0
+                          ? "watchList-PercentNegative"
+                          : "watchList-PercentPositive"
+                      }
+                    >
+                      {coin.price_change_percentage_24h < 0 ? (
+                        <ArrowDownOutlined />
+                      ) : (
+                        <ArrowUpOutlined />
+                      )}
+                      {coin.price_change_percentage_24h.toFixed(2)}%
+                    </span>
+                  </td>
+                  <td>
+                    <a className="watchList-Delete">
+                      <DeleteFilled></DeleteFilled>
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="watchList-pagination">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              <LeftOutlined />
+            </button>
+            <span className="watchList-page">{currentPage}</span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+            >
+              <RightOutlined />
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

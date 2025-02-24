@@ -17,4 +17,9 @@ const getUserAPI = () => {
   return axios.get(URL_API);
 };
 
-export { createUserAPI, loginAPI, getUserAPI };
+const getAccount = () => {
+  const URL_API = "/v1/api/profile/account";
+  return axios.get(URL_API);
+};
+
+export { createUserAPI, loginAPI, getUserAPI, getAccount };
