@@ -2,9 +2,9 @@ const transporter = require("../config/mailer");
 require("dotenv").config();
 
 const sendEmail = async (req, res) => {
-    console.log("Received body:", req.body);
+
     const { email } = req.body;
-    console.log("Received email:", email);
+  
     if (!email) {
         console.log("debugging -----", email);
         return res.status(400).json({ message: "Email is required" });
@@ -13,8 +13,8 @@ const sendEmail = async (req, res) => {
     const emailHtml = `
     <div>
         <h1 style="color: #000;">Welcome to Creeper! 🎉</h1>
-        <p style="color: #333;">Thank you for subscribing! Stay tuned for the latest updates.</p>
-        <p>If you have any questions, feel free to contact us.</p>
+        <p style="color: #333;">Thank you for subscribing! Stay tuned for the latest updates.📝</p>
+        <p>If you have any questions, feel free to contact us.💌 </p>
         <p style="color: #888;">&copy; 2025 Creeper Trading Platform. All Rights Reserved.</p>
     </div>
     `;
@@ -36,7 +36,7 @@ const sendEmail = async (req, res) => {
         await transporter.sendMail(mailOptions);
         res
             .status(200)
-            .json({ message: "Email sent successfully - Check your email !!" });
+            .json({ message: "Email sent successfully - Check your email 📮" });
     } catch (error) {
         console.error("Error sending email:", error);
         res
