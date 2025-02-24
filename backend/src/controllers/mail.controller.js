@@ -1,6 +1,7 @@
 const transporter = require("../config/mailer");
 require("dotenv").config();
 
+
 const sendEmail = async (req, res) => {
 
     const { email } = req.body;
@@ -19,6 +20,8 @@ const sendEmail = async (req, res) => {
     </div>
     `;
 
+    const path = require("path");
+
     //email details
     const mailOptions = {
         from: process.env.EMAIL_USER,  // Creeper email from .env
@@ -27,7 +30,8 @@ const sendEmail = async (req, res) => {
         html: emailHtml,
         attachments: [{
             filename: "Logo.png",
-            path: "../../../frontend/public/Logo.png"
+            // path: "../../../frontend/src/assets/Logo.png"
+            path: path.resolve(__dirname, "../../../frontend/public/Logo.png") 
         }]
     };
 
