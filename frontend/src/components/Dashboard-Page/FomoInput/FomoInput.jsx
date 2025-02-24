@@ -2,12 +2,34 @@ import React from "react";
 import "./FomoInput.css";
 import { Button, Form, Input } from "antd";
 
-const onFinish = async (values) => {
-    console.log("Success:", values);
-};
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+};
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const onFinish = async (values) => {
+    const requestBody = JSON.stringify({ email: values.email.trim() });
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: values.email }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(`${data.message}`);
+        } else {
+            alert(`${data.message}`);
+        }
+
+    } catch (error) {
+        alert("An error occurred. Please try again.");
+    }
 };
 
 
@@ -22,7 +44,7 @@ const FomoInput = () => {
             <Form 
                 layout = "horizontal"
                 name = "Sign Up Email"
-                initialValues={{ remember: true }}
+                initialValues={{ email: "" }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 className="Fomo_SignUpForm"
