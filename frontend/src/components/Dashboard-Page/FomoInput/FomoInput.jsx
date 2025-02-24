@@ -11,6 +11,43 @@ const onFinish = async (values) => {
 };
 
 
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+// const onFinish = async (values) => {
+//     console.log(import.meta.env.VITE_API_BASE_URL);
+//     console.log(import.meta.env);
+//     console.log("Success Email Input:", values.email);
+//     console.log("Full API URL:", `${API_BASE_URL}/v1/api/mail/subscribe`);
+
+//     const requestBody = JSON.stringify({ email: values.email.trim() });
+
+//     console.log("Sending Request Body:", requestBody);
+
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json" },
+//             body: JSON.stringify({ email: values.email }),
+//             // body: JSON.stringify(data1)
+//         });
+
+//         const data = await response.json();
+
+//         if (response.ok) {
+//             console.log("Success: đỉnh ");
+//             alert(`${data.message}`);
+//         } else {
+//             // console.error("Error: lỗi mẹ nó rồi");
+//             alert(`${data.message}`);
+//         }
+
+//     } catch (error) {
+//         console.error("Request error:", error);
+//         alert("An error occurred. Please try again.");
+//     }
+// };
+
+
 const FomoInput = () => {
   return (
     <section className = "FomoInput-Container" >
@@ -22,7 +59,7 @@ const FomoInput = () => {
             <Form 
                 layout = "horizontal"
                 name = "Sign Up Email"
-                initialValues={{ remember: true }}
+                initialValues={{ email: "" }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 className="Fomo_SignUpForm"

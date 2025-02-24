@@ -5,14 +5,14 @@ const sendEmail = async (req, res) => {
     console.log("Received body:", req.body);
     const { email } = req.body;
 
-    if (!email || !email.email) {
-        return res.status(400).json({ message: "Email is required" });
+    if (!email) {
+        return res.status(400).json({ message: "Email is required!!" });
     }
 
     //email details
     const mailOptions = {
         from: process.env.EMAIL_USER,  // Creeper email from .env
-        to: useremail,  // The user's email
+        to: email,  // The user's email
         subject: "Subscription Confirmation",
         text: "Thank you for subscribing to Creeper! 🎉, we happy to share the latest infomation with you !!! 📝",
         attachment: [{
