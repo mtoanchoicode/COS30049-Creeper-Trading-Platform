@@ -6,6 +6,7 @@ import "./LoginForm.css";
 import SubmitButton from "../../SubmitButton/SubmitButton";
 
 const LoginForm = ({ onFinish, onFinishFailed }) => {
+  console.log("onFinish received:", onFinish);
   return (
     <>
       <h1 className="profilePage-h1">Sign in to Creeper</h1>

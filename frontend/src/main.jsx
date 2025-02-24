@@ -26,6 +26,7 @@ import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
 import NewsPage from "./pages/News-Page/NewsPage.jsx";
 import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
+import { AuthWrapper } from "./contexts/AuthContext.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -114,7 +115,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
       <CoinProvider>
-        <RouterProvider router={routers} />
+        <AuthWrapper>
+          <RouterProvider router={routers} />
+        </AuthWrapper>
       </CoinProvider>
     </UserProvider>
   </StrictMode>
