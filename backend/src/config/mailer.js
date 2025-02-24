@@ -1,6 +1,6 @@
-const Creepermailer = require("nodemailer")
+const nodemailer = require("nodemailer")
 
-const transporter = Creepermailer.createTransport({
+const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true,

@@ -31,13 +31,13 @@
     width: 100%;
 } 
 
-/* .Center_LoginForm-Containern {
+/* .Center_SubscribeForm-Containern {
     display: flex;
     align-items: center;
 } */
 
 
-.Center_LoginForm {
+.Center_SubscribeForm {
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -46,16 +46,16 @@
     gap: 2.5rem;
 }   
 
-.Center_LoginForm .ant-form-item {
+.Center_SubscribeForm .ant-form-item {
     margin: 0 0 1rem 0 ;
     width: 50%;
 }
 
-/* .Center_LoginForm .Center-SignUp-Input_Container{
+/* .Center_SubscribeForm .Center-SignUp-Input_Container{
     width: 100%;
 }
 
-.Center_LoginForm .Center-SignUp-Button_Container {
+.Center_SubscribeForm .Center-SignUp-Button_Container {
     width: 30%;
 } */
 

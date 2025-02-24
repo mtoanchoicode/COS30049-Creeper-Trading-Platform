@@ -1,8 +1,9 @@
 const express = require("express");
-const walletRouter = require("./src/routes/wallet.route");
 require("dotenv").config();
 const cors = require("cors");
+const bodyParser = require('body-parser')
 const { connectGraphDB } = require("./src/config/neo4jDatabase");
+const walletRouter = require("./src/routes/wallet.route");
 const connectionMongoDB = require("./src/config/mongoDatabase");
 const chatRouter = require("./src/routes/chat.route");
 const profileRouter = require("./src/routes/profile.route");
@@ -15,6 +16,8 @@ connectGraphDB();
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+app.use(bodyParser.json());
 
 //config cors
 app.use(cors());
