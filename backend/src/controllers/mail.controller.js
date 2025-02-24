@@ -5,7 +5,7 @@ exports.sendEmail = async (req, res) => {
     const { useremail } = req.body;
 
     if (!useremail || !useremail.email) {
-        return res.status(400).json({ message: "Email is required" });
+        return res.status(400).json({ message: "Email is required!!" });
     }
 
     //email details
