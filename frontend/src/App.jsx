@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
 import "./config/appKitConfig";
@@ -6,8 +6,33 @@ import NavBar from "./components/NavBar/NavBar";
 import MobileNavBar from "./components/NavBar/MobileNavBar";
 import Footer from "./components/Footer/Footer";
 import ChatbotWidget from "./components/ChatbotWidget/ChatbotWidget";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
+  // Authentication
+  const { setAuth, appLoading, setAppLoading } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+      setAppLoading(true);
+      const res = await axios.get(`/v1/api/account`);
+      if (res && !res.message) {
+        setAuth({
+          isAuthenticated: true,
+          user: {
+            email: res.email,
+            name: res.name,
+          },
+        });
+      }
+      setAppLoading(false);
+    };
+
+    fetchAccount();
+  }, []);
+
+  // End uthentication
+
   const [theme, setTheme] = useState("dark");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const location = useLocation();

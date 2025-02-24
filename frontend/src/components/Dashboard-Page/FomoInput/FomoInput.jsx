@@ -2,50 +2,35 @@ import React from "react";
 import "./FomoInput.css";
 import { Button, Form, Input } from "antd";
 
-const onFinish = async (values) => {
-    console.log("Success:", values);
-};
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
 };
 
 
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// const onFinish = async (values) => {
-//     console.log(import.meta.env.VITE_API_BASE_URL);
-//     console.log(import.meta.env);
-//     console.log("Success Email Input:", values.email);
-//     console.log("Full API URL:", `${API_BASE_URL}/v1/api/mail/subscribe`);
+const onFinish = async (values) => {
+    const requestBody = JSON.stringify({ email: values.email.trim() });
 
-//     const requestBody = JSON.stringify({ email: values.email.trim() });
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: values.email }),
+        });
 
-//     console.log("Sending Request Body:", requestBody);
+        const data = await response.json();
 
-//     try {
-//         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify({ email: values.email }),
-//             // body: JSON.stringify(data1)
-//         });
+        if (response.ok) {
+            alert(`${data.message}`);
+        } else {
+            alert(`${data.message}`);
+        }
 
-//         const data = await response.json();
-
-//         if (response.ok) {
-//             console.log("Success: đỉnh ");
-//             alert(`${data.message}`);
-//         } else {
-//             // console.error("Error: lỗi mẹ nó rồi");
-//             alert(`${data.message}`);
-//         }
-
-//     } catch (error) {
-//         console.error("Request error:", error);
-//         alert("An error occurred. Please try again.");
-//     }
-// };
+    } catch (error) {
+        alert("An error occurred. Please try again.");
+    }
+};
 
 
 const FomoInput = () => {
