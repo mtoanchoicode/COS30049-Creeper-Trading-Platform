@@ -1,11 +1,12 @@
 const transporter = require("../config/mailer");
 require("dotenv").config();
 
-exports.sendEmail = async (req, res) => {
-    const { useremail } = req.body;
+const sendEmail = async (req, res) => {
+    console.log("Received body:", req.body);
+    const { email } = req.body;
 
-    if (!useremail || !useremail.email) {
-        return res.status(400).json({ message: "Email is required!!" });
+    if (!email || !email.email) {
+        return res.status(400).json({ message: "Email is required" });
     }
 
     //email details
@@ -15,7 +16,7 @@ exports.sendEmail = async (req, res) => {
         subject: "Subscription Confirmation",
         text: "Thank you for subscribing to Creeper! 🎉, we happy to share the latest infomation with you !!! 📝",
         attachment: [{
-            filename: "Creeper logo", 
+            filename: "Creeper logo",
             path: "../../../frontend/src/assets/Logo.png"
         }]
     };
@@ -29,3 +30,8 @@ exports.sendEmail = async (req, res) => {
         res.status(500).json({ message: "Email sending failed 😫 - Try again later" });
     }
 }
+
+module.exports = {
+    sendEmail
+};
+

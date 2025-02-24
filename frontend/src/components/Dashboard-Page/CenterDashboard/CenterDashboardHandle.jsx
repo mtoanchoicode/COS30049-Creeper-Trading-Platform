@@ -6,16 +6,14 @@ import { CoinContext } from "../../../contexts/CoinContext";
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg";
 import Google from "../../../assets/Google.svg";
-
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 
 const onFinish = async (values) => {
     console.log(import.meta.env.VITE_API_BASE_URL);
     console.log(import.meta.env);
     console.log("Success Email Input:", values.email);
-    console.log("Full API URL:", `${API_BASE_URL}/v1/api/hello/subscribe`);
-    
+    console.log("Full API URL:", `${API_BASE_URL}/v1/api/mail/subscribe`);
+
     const requestBody = JSON.stringify({ email: values.email.trim() });
 
     console.log("Sending Request Body:", requestBody);
@@ -43,10 +41,6 @@ const onFinish = async (values) => {
     }
 };
 
-//   const onFinishFailed = (errorInfo) => {
-//     console.log("Failed Email Input::", errorInfo);
-// };
-
 
 
 const Centers = ({ title, subtitle }) => {
@@ -54,6 +48,30 @@ const Centers = ({ title, subtitle }) => {
 
     const HotCoins = coins.slice(0, 5);
 
+   
+    // const onFinish = async (values) => {
+    //     try {
+    //         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ email: values.email }),
+    //         });
+    
+    //         const data = await response.json();
+    
+    //         if (response.ok) {
+    //             console.log("Success: đỉnh ");
+    //             alert(`${data.message}`);
+    //         } else {
+    //             // console.error("Error: lỗi mẹ nó rồi");
+    //             alert(`${data.message}`);
+    //         }
+    
+    //     } catch (error) {
+    //         console.error("Request error:", error);
+    //         alert("An error occurred. Please try again.");
+    //     }
+    // };
 
     return (
         <section className="CenterComponent-Container" >
