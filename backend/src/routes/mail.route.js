@@ -1,5 +1,5 @@
 const express = require("express");
-const { sendEmail } = require("../controllers/mail.controller.js");
+const { sendEmail } = require("../controllers/mail.controller");
 const mailRouter = express.Router();
 
 mailRouter.get("/", (req, res) => {
