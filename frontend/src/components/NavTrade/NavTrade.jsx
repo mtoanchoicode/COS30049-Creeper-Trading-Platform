@@ -5,16 +5,6 @@ import { Link } from "react-router-dom";
 const NavTrade = () => {
   const tradeItems = [
     {
-      name: "Swap",
-      desc: "The easiest way to trade",
-      path: "/trade/swap",
-    },
-    {
-      name: "Limit",
-      desc: "Set your price and take control of your trades",
-      path: "/trade/limit",
-    },
-    {
       name: "Send",
       desc: "Seamlessly transfer crypto to others",
       path: "/trade/send",
@@ -23,6 +13,16 @@ const NavTrade = () => {
       name: "Buy",
       desc: "Onramp with fiat",
       path: "/trade/buy",
+    },
+    {
+      name: "Swap",
+      desc: "The easiest way to trade",
+      path: "/trade/swap",
+    },
+    {
+      name: "Limit",
+      desc: "Set your price and take control of your trades",
+      path: "/trade/limit",
     },
   ];
 

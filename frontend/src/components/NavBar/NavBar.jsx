@@ -20,7 +20,6 @@ const NavBar = ({ theme, setTheme }) => {
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
-  const [hoverIcon, setHoverIcon] = useState(false);
 
   const location = useLocation();
   const isFixed = location.pathname === "/trade/convert";

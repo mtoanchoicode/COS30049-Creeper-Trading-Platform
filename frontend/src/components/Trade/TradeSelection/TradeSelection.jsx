@@ -10,20 +10,6 @@ const TradeSelection = () => {
 
   return (
     <div className="trade-selection">
-      <Link to="/trade/swap">
-        <button
-          className={activePath === "/trade/swap" ? "active" : ""}
-        >
-          Swap
-        </button>
-      </Link>
-      <Link to="/trade/limit">
-        <button
-          className={activePath === "/trade/limit" ? "active" : ""}
-        >
-          Limit
-        </button>
-      </Link>
       <Link to="/trade/send">
         <button
           className={activePath === "/trade/send" ? "active" : ""}
@@ -36,6 +22,20 @@ const TradeSelection = () => {
           className={activePath === "/trade/buy" ? "active" : ""}
         >
           Buy
+        </button>
+      </Link>
+      <Link to="/trade/swap">
+        <button
+          className={activePath === "/trade/swap" ? "active" : ""}
+        >
+          Swap
+        </button>
+      </Link>
+      <Link to="/trade/limit">
+        <button
+          className={activePath === "/trade/limit" ? "active" : ""}
+        >
+          Limit
         </button>
       </Link>
     </div>
