@@ -52,9 +52,9 @@ const routers = createBrowserRouter([
         path: "trade",
         element: <TradePage />,
         children: [
+          { path: "send", element: <Send /> },
           { path: "swap", element: <Swap /> },
           { path: "limit", element: <Limit /> },
-          { path: "send", element: <Send /> },
           { path: "buy", element: <Buy /> },
         ],
       },
