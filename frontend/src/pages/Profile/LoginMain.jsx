@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/Login/LoginForm/LoginForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { loginAPI } from "../../utils/api.js";
 import { AuthContext } from "../../contexts/AuthContext";
 import { notification } from "antd";
@@ -8,37 +8,52 @@ import { notification } from "antd";
 const LoginMain = () => {
   const navigate = useNavigate();
   const { auth, setAuth } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
   const onFinish = async (values) => {
-    const { email, password } = values;
-    const res = await loginAPI(email, password);
-    if (res && res.EC == 0) {
-      localStorage.setItem("access_token", res.access_token);
-      notification.success({
-        message: "LOGIN USER",
-        description: "Success",
-      });
-      setAuth({
-        isAuthenticated: true,
-        user: {
-          uid: res?.user?.uid ?? "",
-          email: res?.user?.email ?? "",
-          name: res?.user?.name ?? "",
-        },
-      });
-      navigate("/profile");
-    } else {
+    setLoading(true);
+    const { email, password, expireCon } = values;
+
+    try {
+      const res = await loginAPI(email, password);
+
+      if (res && res.EC === 0) {
+        if (expireCon) {
+          localStorage.setItem("access_token", res.access_token); // Persistent storage
+        } else {
+          sessionStorage.setItem("access_token", res.access_token); // Temporary storage
+        }
+        notification.success({
+          message: "LOGIN USER",
+          description: "Success",
+        });
+
+        setAuth({
+          isAuthenticated: true,
+          user: {
+            uid: res?.user?.uid ?? "",
+            email: res?.user?.email ?? "",
+            name: res?.user?.name ?? "",
+          },
+        });
+
+        navigate("/profile");
+      } else {
+        notification.error({
+          message: "LOGIN USER",
+          description: res?.EM ?? "Error",
+        });
+      }
+    } catch (error) {
       notification.error({
-        message: "LOGIN USER",
-        description: res?.EM ?? "Error",
+        message: "LOGIN ERROR",
+        description: "Something went wrong!",
       });
     }
-    console.log("Success:", values);
+    setLoading(false);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  return <LoginForm onFinish={onFinish} onFinishFailed={onFinishFailed} />;
+  return <LoginForm onFinish={onFinish} loading={loading} />;
 };
 
 export default LoginMain;

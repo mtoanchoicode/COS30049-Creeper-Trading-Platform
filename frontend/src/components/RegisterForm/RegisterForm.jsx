@@ -5,14 +5,13 @@ import googleIcon from "../../assets/Google Icon.svg";
 import "./RegisterForm.css";
 import SubmitButton from "../SubmitButton/SubmitButton";
 
-const RegisterForm = ({ onFinish, onFinishFailed }) => {
+const RegisterForm = ({ onFinish, loading }) => {
   return (
     <Form
       layout="vertical"
       name="register"
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       className="loginform-main-form"
     >
       <Form.Item
@@ -91,33 +90,15 @@ const RegisterForm = ({ onFinish, onFinishFailed }) => {
           },
         ]}
       >
-        <div>
-          <Checkbox className="register-checkbox" style={{ color: "#D9D9D9" }}>
-            By creating an account, you agree to the{" "}
-            <a href="/">Terms of use</a> and
-            <a href="/"> Privacy Policy</a>
-          </Checkbox>
-        </div>
+        <Checkbox className="register-checkbox" style={{ color: "#D9D9D9" }}>
+          By creating an account, you agree to the <a href="/">Terms of use</a>{" "}
+          and
+          <a href="/"> Privacy Policy</a>
+        </Checkbox>
       </Form.Item>
 
       <Form.Item>
-        <SubmitButton content="Create an account" />
-      </Form.Item>
-      <hr style={{ height: "1px" }} />
-      <Form.Item>
-        <Button
-          type="default"
-          htmlType="button"
-          block
-          className="loginform-google-button"
-        >
-          <img
-            src={googleIcon}
-            alt="Google"
-            className="loginform-google-icon"
-          />
-          Or continue with Google
-        </Button>
+        <SubmitButton content="Create an account" loading={loading} />
       </Form.Item>
 
       <div className="loginform-don-have-account">

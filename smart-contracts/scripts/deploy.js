@@ -1,12 +1,12 @@
 const hre = require("hardhat");
 
 async function main() {
-  const SendETH = await hre.ethers.getContractFactory("SendETH");
-  const sendEth = await SendETH.deploy();
+  const CreeperToken = await hre.ethers.getContractFactory("CreeperToken");
+  const creeperToken = await CreeperToken.deploy();
 
-  await sendEth.waitForDeployment(); // Use this instead of deployed()
+  await creeperToken.waitForDeployment(); // Use this instead of deployed()
 
-  console.log(`Contract deployed at: ${await sendEth.getAddress()}`); // Fetch the address properly
+  console.log(`CreeperToken deployed at: ${await creeperToken.getAddress()}`); // Fetch the address properly
 }
 
 main().catch((error) => {

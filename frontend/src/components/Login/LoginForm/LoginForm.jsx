@@ -1,11 +1,10 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import googleIcon from "../../../assets/Google Icon.svg";
 import "./LoginForm.css";
 import SubmitButton from "../../SubmitButton/SubmitButton";
 
-const LoginForm = ({ onFinish, onFinishFailed }) => {
+const LoginForm = ({ onFinish, loading }) => {
   return (
     <>
       <h1 className="profilePage-h1">Sign in to Creeper</h1>
@@ -15,7 +14,6 @@ const LoginForm = ({ onFinish, onFinishFailed }) => {
         name="login"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         className="loginform-main-form"
       >
         <Form.Item
@@ -69,7 +67,9 @@ const LoginForm = ({ onFinish, onFinishFailed }) => {
               alignItems: "center",
             }}
           >
-            <Checkbox style={{ color: "#D9D9D9" }}>Remember me</Checkbox>
+            <Form.Item name="expireCon" valuePropName="checked" noStyle>
+              <Checkbox style={{ color: "#D9D9D9" }}>Remember me</Checkbox>
+            </Form.Item>
             <Link
               to={"/profile/login/forgot"}
               style={{ color: "#D9D9D9", textDecoration: "underline" }}
@@ -80,23 +80,7 @@ const LoginForm = ({ onFinish, onFinishFailed }) => {
         </Form.Item>
 
         <Form.Item>
-          <SubmitButton content="Sign In" />
-        </Form.Item>
-        <hr style={{ height: "1px" }} />
-        <Form.Item>
-          <Button
-            type="default"
-            htmlType="button"
-            block
-            className="loginform-google-button"
-          >
-            <img
-              src={googleIcon}
-              alt="Google"
-              className="loginform-google-icon"
-            />
-            Or sign in with Google
-          </Button>
+          <SubmitButton content="Sign In" loading={loading} />
         </Form.Item>
 
         <div className="loginform-don-have-account">
