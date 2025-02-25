@@ -2,15 +2,16 @@ import { Button } from "antd";
 import React from "react";
 import "./SubmitButton.css";
 
-const SubmitButton = ({ content }) => {
+const SubmitButton = ({ content, loading = false }) => {
   return (
     <Button
       type="primary"
       htmlType="submit"
       block
       className="loginform-login-button"
+      loading={loading}
     >
-      {content}
+      {loading ? "Loading..." : content}
     </Button>
   );
 };
