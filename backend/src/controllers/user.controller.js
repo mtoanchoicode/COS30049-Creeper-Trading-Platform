@@ -69,6 +69,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+// [POST]
 const otpPassword = async (req, res) => {
   const email = req.body.email;
   const otp = req.body.otp;
