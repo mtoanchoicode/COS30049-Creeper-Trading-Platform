@@ -4,7 +4,9 @@ import "./NewsComponent.css"
 import { NewsContext } from "../../../contexts/NewsContext";
 
 const News = () => {
-    const {news} = useContext(NewsContext);
+    const {newsData} = useContext(NewsContext);
+
+    console.log(newsData)
 
     return (
         <section className="News-container">
@@ -19,7 +21,7 @@ const News = () => {
             </div>
 
             <div className="News-Content-Container">
-                {news?.slice(-4).map((New, index) => {
+                {newsData?.slice(-4).map((New, index) => {
                     return (
                         <div
                         key = {index} 

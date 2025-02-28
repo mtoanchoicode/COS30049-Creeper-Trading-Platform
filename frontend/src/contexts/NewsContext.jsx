@@ -7,23 +7,30 @@ export const NewsContext = createContext();
 
 const NewsProvider = ({ children }) => {
     const [newsData, setNewsData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
-        axios.get("http://localhost:3000/v1/api/news") 
-            .then(response => {
-                setNewsData(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching news:", error);
-            });
+        // axios.get(`${API_BASE_URL}/v1/api/news`) // Fetch news from backend
+        // .then(response => setNewsData(response.data))
+        // .catch(error => console.error("Error fetching news:", error));
 
-            // axios.get(`${API_BASE_URL}/v1/api/news`) // Fetch news from backend
-            //.then(response => setNewsData(response.data))
-            //.catch(error => console.error("Error fetching news:", error));
+        const fetchNews = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/v1/api/news`);
+                setNewsData(response.data);
+            } catch (err) {
+                console.error("Error fetching news:", err);
+            } finally {
+                setLoading(false); // Stop loading when fetch completes
+            }
+        };
+
+        fetchNews();
     }, []);
 
     return (
-        <NewsContext.Provider value={{ newsData }}>
+        <NewsContext.Provider value={{ newsData, loading }}>
             {children}
         </NewsContext.Provider>
     );

@@ -8,8 +8,7 @@ import { NewsContext } from "../../../contexts/NewsContext";
 
 const NewsDetails = () => {
     const {newsData} = useContext(NewsContext);
-    
-    console.log(newsData)
+
     const { id } = useParams();  // Get the ID from the URL
     const newsItem = newsData.find((news) => news.id === Number(id)); //compare this ID
 
