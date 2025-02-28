@@ -9,8 +9,6 @@ import Google from "../../../assets/Google.svg";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const onFinish = async (values) => {
-    const requestBody = JSON.stringify({ email: values.email.trim() });
-
     try {
         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
             method: "POST",
@@ -42,29 +40,6 @@ const Centers = ({ title, subtitle }) => {
     const { coins } = useContext(CoinContext);
 
     const HotCoins = coins.slice(0, 5);
-
-    //     try {
-    //         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ email: values.email }),
-    //         });
-    
-    //         const data = await response.json();
-    
-    //         if (response.ok) {
-    //             console.log("Success: đỉnh ");
-    //             alert(`${data.message}`);
-    //         } else {
-    //             // console.error("Error: lỗi mẹ nó rồi");
-    //             alert(`${data.message}`);
-    //         }
-    
-    //     } catch (error) {
-    //         console.error("Request error:", error);
-    //         alert("An error occurred. Please try again.");
-    //     }
-    // };
 
     return (
         <section className="CenterComponent-Container" >

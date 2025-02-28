@@ -1,10 +1,11 @@
-import React from "react";
+import {React, useContext} from "react";
 import { Link } from "react-router-dom";
 import "./NewsComponent.css"
-import news from "../../News-Page/NewsData"
-
+import { NewsContext } from "../../../contexts/NewsContext";
 
 const News = () => {
+    const {news} = useContext(NewsContext);
+
     return (
         <section className="News-container">
             <div className="News-heading-container">
@@ -18,10 +19,10 @@ const News = () => {
             </div>
 
             <div className="News-Content-Container">
-                {news?.slice(-4).map((New) => {
+                {news?.slice(-4).map((New, index) => {
                     return (
                         <div
-                        key = {New.id} 
+                        key = {index} 
                         className="News-Content">
                             <Link
                                 to={`/news/${New.id}`}

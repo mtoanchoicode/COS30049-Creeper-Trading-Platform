@@ -21,6 +21,7 @@ import ProfileDashboardPage from "./pages/Profile/ProfileDashboard.jsx";
 import ProfileAssetsPage from "./pages/Profile/ProfileAsset.jsx";
 import NotFoundPage from "./pages/NotFound.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
+import  NewsProvider from "./contexts/NewsContext.jsx"
 import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
 import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
@@ -115,9 +116,11 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
       <CoinProvider>
-        <AuthWrapper>
-          <RouterProvider router={routers} />
-        </AuthWrapper>
+        <NewsProvider>
+          <AuthWrapper>
+            <RouterProvider router={routers} />
+          </AuthWrapper>
+        </NewsProvider>
       </CoinProvider>
     </UserProvider>
   </StrictMode>
