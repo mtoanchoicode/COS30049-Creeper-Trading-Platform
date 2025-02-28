@@ -5,6 +5,7 @@ import "./styles/index.css";
 
 import App from "./App.jsx";
 import CoinProvider from "./contexts/CoinContext";
+import  NewsProvider from "./contexts/NewsContext.jsx"
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
@@ -21,7 +22,6 @@ import ProfileDashboardPage from "./pages/Profile/ProfileDashboard.jsx";
 import ProfileAssetsPage from "./pages/Profile/ProfileAsset.jsx";
 import NotFoundPage from "./pages/NotFound.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
-import  NewsProvider from "./contexts/NewsContext.jsx"
 import ProfileSearchPage from "./pages/Profile/ProfileSearch.jsx";
 import LoginMain from "./pages/Profile/LoginMain.jsx";
 import ForgotPage from "./pages/Profile/Forgot.jsx";
@@ -114,14 +114,14 @@ const routers = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserProvider>
-      <CoinProvider>
-        <NewsProvider>
-          <AuthWrapper>
-            <RouterProvider router={routers} />
-          </AuthWrapper>
-        </NewsProvider>
-      </CoinProvider>
-    </UserProvider>
+    <NewsProvider>
+      <UserProvider>
+        <CoinProvider>
+            <AuthWrapper>
+              <RouterProvider router={routers} />
+            </AuthWrapper>
+        </CoinProvider>
+      </UserProvider>
+    </NewsProvider>
   </StrictMode>
 );
