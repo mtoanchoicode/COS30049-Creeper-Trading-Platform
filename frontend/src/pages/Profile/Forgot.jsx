@@ -15,7 +15,7 @@ const ForgotPage = () => {
     try {
       const res = await postGetOtp(email.trim());
       console.log("Debuging", res);
-      if (res.EC == 0) {
+      if (res.EC == 1) {
         notification.success({
           message: "SEND OTP SUCCESS",
           description: res.message,
