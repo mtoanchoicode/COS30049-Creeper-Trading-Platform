@@ -35,12 +35,17 @@ const postResetPassword = (password) => {
   return axios.post(URL_API, data);
 };
 
+const getWatchList = () => {
+  const URL_API = "/v1/api/profile/watch-list";
+  return axios.get(URL_API);
+};
+
 export {
   postResetPassword,
   createUserAPI,
   loginAPI,
-  getUserAPI,
   getAccount,
   postGetOtp,
   postOTP,
+  getWatchList,
 };

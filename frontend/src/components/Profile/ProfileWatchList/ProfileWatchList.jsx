@@ -11,11 +11,14 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { getWatchList } from "../../../utils/api";
 
-const ProfileWatchList = () => {
+const ProfileWatchList = async () => {
   const { auth, setAuth } = useContext(AuthContext);
   const { userData } = useUser();
   const { coins } = useContext(CoinContext);
+
+  // const user = await getWatchList
   const watchCoin = coins.filter((coin) =>
     userData.watch_coin.includes(coin.symbol)
   );
