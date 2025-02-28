@@ -24,6 +24,7 @@ const handleLogin = async (req, res) => {
   return res.status(200).json(data);
 };
 
+// [GET]
 const getAccount = async (req, res) => {
   return res.status(200).json(req.user);
 };
