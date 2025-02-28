@@ -22,4 +22,10 @@ const getAccount = () => {
   return axios.get(URL_API);
 };
 
-export { createUserAPI, loginAPI, getUserAPI, getAccount };
+const postGetOtp = (email) => {
+  const URL_API = "/v1/api/profile/forgot";
+  const data = { email };
+  return axios.post(URL_API, data);
+};
+
+export { createUserAPI, loginAPI, getUserAPI, getAccount, postGetOtp };

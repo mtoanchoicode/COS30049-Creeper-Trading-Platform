@@ -1,6 +1,7 @@
 import React from "react";
 import './MarketCoinFull.css';
 import {Link} from "react-router-dom";
+import FavoriteStar from "../FavoriteStar/FavoriteStar";
 
 function MarketCoinFull(props){
     const handleFluctuation = (change) => {
@@ -27,6 +28,7 @@ function MarketCoinFull(props){
         <Link to={`/explore/${props.id}`} key={props.id}>
             <div className="market-coin-full">
                 <div className="full-coin-logo">
+                    <FavoriteStar coinSymbol={props.symbol} ></FavoriteStar>
                     <img className="full-coin-img" src={props.image} alt={"logo of" + props.name} />
                     <h2 className="full-coin-symbol">{props.symbol}</h2>
                     <p className="full-coin-name">{props.name}</p>
