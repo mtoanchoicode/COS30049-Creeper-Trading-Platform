@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./CoinDetailsOverview.css"
 import TradeChart from "../../../../assets/Trade-Chart.jpg";
-
+import FavoriteStar from "../../FavoriteStar/FavoriteStar";
 
 function CoinDetailsOverview(props){
     const coin = props.coin;
@@ -37,6 +37,7 @@ function CoinDetailsOverview(props){
                 <img className="coin-details-overview-img" src={coin.image} alt={"logo of" + coin.name} />
                 <h2 className="coin-details-overview-symbol">{coin.symbol.toUpperCase()}</h2>
                 <p className="coin-details-overview-name">{coin.name}</p>
+                <FavoriteStar coinSymbol={coin.symbol}></FavoriteStar>
             </div>
             <div className="coin-details-overview-price-period">
                 <h2>{handleMoney(coin.current_price)}</h2>
