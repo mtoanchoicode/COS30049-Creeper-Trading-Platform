@@ -135,6 +135,7 @@ const getWatchList = async (req, res) => {
   }
 };
 
+// [POST]
 const setWatchList = async (req, res) => {
   try {
     const { symbol } = req.body; // Get symbol from request body
