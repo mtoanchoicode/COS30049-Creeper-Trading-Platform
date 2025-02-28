@@ -61,13 +61,17 @@ const forgotPassword = async (req, res) => {
   const html = `
     <p>OTP code is <b>${otp}</b>.</p><p>Note: Do not reveal the OTP code.</p><p>It will expire after 3 minutes.</p>
     `;
-  sendMailHelper.sendMail(email, subject, html);
 
-  return res.status(200).json({
-    EC: 1,
-    message: "OTP has been sent to your email.",
-    email: email,
-  });
+  try {
+    await sendMailHelper.sendMail(email, subject, html);
+    return res.status(200).json({
+      EC: 1,
+      message: "OTP has been sent to your email.",
+      email: email,
+    });
+  } catch (error) {
+    return res.status(500).json({ EC: 0, message: "Failed to send OTP." });
+  }
 };
 
 const otpPassword = async (req, res) => {
