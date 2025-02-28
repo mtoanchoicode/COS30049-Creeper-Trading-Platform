@@ -27,6 +27,7 @@ import ForgotPage from "./pages/Profile/Forgot.jsx";
 import NewsPage from "./pages/News-Page/NewsPage.jsx";
 import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 import { AuthWrapper } from "./contexts/AuthContext.jsx";
+import ResetPasswordPage from "./pages/Profile/ResetPassword.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const routers = createBrowserRouter([
       {
         path: "forgot",
         element: <ForgotPage />,
+      },
+      {
+        path: "reset",
+        element: <ResetPasswordPage />,
       },
     ],
   },

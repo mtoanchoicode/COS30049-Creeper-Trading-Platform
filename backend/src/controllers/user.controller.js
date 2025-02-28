@@ -24,11 +24,6 @@ const handleLogin = async (req, res) => {
   return res.status(200).json(data);
 };
 
-const getUser = async (req, res) => {
-  const data = await getUserService();
-  return res.status(200).json(data);
-};
-
 const getAccount = async (req, res) => {
   return res.status(200).json(req.user);
 };
@@ -122,12 +117,66 @@ const resetPassword = async (req, res) => {
   return res.status(200).json({ EC: 1, message: "Update Complete" });
 };
 
+// [GET]
+const getWatchList = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email });
+
+    if (!user) {
+      return res.status(404).json({ EC: 0, message: "User not found" });
+    }
+
+    // Ensure watchList is always an array
+    const watchList = Array.isArray(user.watch_list) ? user.watch_list : [];
+
+    return res.status(200).json({ EC: 1, watchList });
+  } catch (error) {
+    return res.status(500).json({ EC: 0, message: "Server error", error });
+  }
+};
+
+const setWatchList = async (req, res) => {
+  try {
+    const { symbol } = req.body; // Get symbol from request body
+
+    if (!symbol) {
+      return res.status(400).json({ EC: 0, message: "Symbol is required" });
+    }
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return res.status(404).json({ EC: 0, message: "User not found" });
+    }
+
+    const index = user.watch_list.indexOf(symbol);
+    if (index === -1) {
+      // If symbol is not in the watch list, add it
+      user.watch_list.push(symbol);
+    } else {
+      // If symbol already exists, remove it
+      user.watch_list.splice(index, 1);
+    }
+    await user.save(); // Save the updated user
+
+    return res.status(200).json({
+      EC: 1,
+      message: index === -1 ? "Added to watch list" : "Removed from watch list",
+      watchList: user.watch_list,
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ EC: 0, message: "Server error", error: error });
+  }
+};
+
 module.exports = {
   createUser,
   handleLogin,
-  getUser,
   getAccount,
   forgotPassword,
   otpPassword,
   resetPassword,
+  getWatchList,
+  setWatchList,
 };

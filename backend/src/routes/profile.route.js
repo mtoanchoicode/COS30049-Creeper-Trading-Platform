@@ -7,6 +7,8 @@ const {
   forgotPassword,
   otpPassword,
   resetPassword,
+  getWatchList,
+  setWatchList,
 } = require("../controllers/user.controller");
 const auth = require("../middlewares/auth");
 
@@ -22,8 +24,6 @@ profileRouter.post("/register", createUser);
 
 profileRouter.post("/login", handleLogin);
 
-profileRouter.get("/user", getUser);
-
 profileRouter.get("/account", getAccount);
 
 profileRouter.post("/forgot", forgotPassword);
@@ -31,5 +31,9 @@ profileRouter.post("/forgot", forgotPassword);
 profileRouter.post("/forgot/otp", otpPassword);
 
 profileRouter.post("/forgot/reset", resetPassword);
+
+profileRouter.get("/watch-list", getWatchList);
+
+profileRouter.post("/watch-list", setWatchList);
 
 module.exports = profileRouter; //export default
