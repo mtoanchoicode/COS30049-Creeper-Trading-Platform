@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./NewsBlock.css";
-import newsData from "../NewsData"
+import { NewsContext } from "../../../contexts/NewsContext";
 
 const NewsBlock = () => {
+    const {newsData} = useContext(NewsContext);
+
     // State to track the selected category
     const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -11,7 +13,7 @@ const NewsBlock = () => {
     const [sortOrder, setSortOrder] = useState("latest");
 
     // Categories list (to be displayed as filter options)
-    const categories = ["All", "Ethereum", "BNB", "PEPE", "Shiba"];
+    const categories = ["All", "Ethereum", "BNB", "PEPE", "Shiba", "Regulation"];
 
     // Filter news based on selected category
     // if all will filterednews = newsdata
@@ -72,17 +74,19 @@ const NewsBlock = () => {
                                 <img src={news.Image} alt={news.Title}></img>
                             </div>
 
-                            <div className="Date_Conatainer">
-                                <p className="news_Date">{news.Date}</p>
-                            </div>
+                            <div className="News-Item_Content_Block">    
+                                <div className="Date_Conatainer">
+                                    <p className="news_Date">{new Date(news.Date).toLocaleDateString("en-CA")}</p>
+                                </div>
 
-                            <div className="Title_Container">
-                                <h2 className="news-title">{news.Title}</h2>
-                            </div>
+                                <div className="Title_Container">
+                                    <h2 className="news-title">{news.Title}</h2>
+                                </div>
 
-                            <div className="Sumary_Container">
-                                <p className="news-sumary">{news.Sumary}</p>
-                            </div>
+                                <div className="Sumary_Container">
+                                    <p className="news-sumary">{news.Summary}</p>
+                                </div>
+                            </div>      
                         </Link>
                     </div>
                 ))}
