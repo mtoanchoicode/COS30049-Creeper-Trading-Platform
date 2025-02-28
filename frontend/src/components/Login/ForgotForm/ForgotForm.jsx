@@ -4,7 +4,7 @@ import SubmitButton from "../../SubmitButton/SubmitButton";
 import "./ForgotForm.css";
 import { Link } from "react-router-dom";
 
-const ForgotForm = ({ onFinish, onFinishFailed }) => {
+const ForgotForm = ({ onFinish, loading }) => {
   return (
     <div>
       <div className="forgotForm-header">
@@ -16,10 +16,9 @@ const ForgotForm = ({ onFinish, onFinishFailed }) => {
 
       <Form
         layout="vertical"
-        name="login"
+        name="forgot"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         className="forgotForm-Form"
       >
         <Form.Item
@@ -42,13 +41,13 @@ const ForgotForm = ({ onFinish, onFinishFailed }) => {
         >
           <Input className="forgotForm-input" placeholder="Enter your email" />
         </Form.Item>
+        <div className="forgotForm-BtnContainer">
+          <Button className="forgotForm-backBtn" href="../login">
+            Back
+          </Button>
+          <SubmitButton content={"Continue"} loading={loading} />
+        </div>
       </Form>
-      <div className="forgotForm-BtnContainer">
-        <Button className="forgotForm-backBtn" href="../login">
-          Back
-        </Button>
-        <SubmitButton content={"Continue"} />
-      </div>
     </div>
   );
 };

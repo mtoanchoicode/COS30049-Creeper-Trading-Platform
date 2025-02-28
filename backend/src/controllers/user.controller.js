@@ -40,7 +40,7 @@ const forgotPassword = async (req, res) => {
   });
 
   if (!user) {
-    return res.status(404).json(`Email is not existed`);
+    return res.status(404).json({ EC: 0, message: `Email is not existed` });
   }
 
   const otp = generateRandomString(4);
@@ -64,6 +64,7 @@ const forgotPassword = async (req, res) => {
   sendMailHelper.sendMail(email, subject, html);
 
   return res.status(200).json({
+    EC: 1,
     message: "OTP has been sent to your email.",
     email: email,
   });
@@ -79,7 +80,7 @@ const otpPassword = async (req, res) => {
   });
 
   if (!result) {
-    return res.status(404).json(`Wrong OTP`);
+    return res.status(404).json({ EC: 0, message: `Wrong OTP` });
   }
 
   const user = await User.findOne({
@@ -95,7 +96,7 @@ const otpPassword = async (req, res) => {
     expiresIn: process.env.JWT_EXPIRE,
   });
 
-  return res.status(200).json({ access_token });
+  return res.status(200).json({ EC: 1, access_token: access_token });
 };
 
 // [POST]
@@ -114,7 +115,7 @@ const resetPassword = async (req, res) => {
     }
   );
 
-  return res.status(200).json("Update Complete");
+  return res.status(200).json({ EC: 1, message: "Update Complete" });
 };
 
 module.exports = {
