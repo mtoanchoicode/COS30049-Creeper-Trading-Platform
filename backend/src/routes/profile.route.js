@@ -4,6 +4,9 @@ const {
   handleLogin,
   getUser,
   getAccount,
+  forgotPassword,
+  otpPassword,
+  resetPassword,
 } = require("../controllers/user.controller");
 const auth = require("../middlewares/auth");
 
@@ -22,5 +25,11 @@ profileRouter.post("/login", handleLogin);
 profileRouter.get("/user", getUser);
 
 profileRouter.get("/account", getAccount);
+
+profileRouter.post("/forgot", forgotPassword);
+
+profileRouter.post("/forgot/otp", otpPassword);
+
+profileRouter.post("/forgot/reset", resetPassword);
 
 module.exports = profileRouter; //export default
