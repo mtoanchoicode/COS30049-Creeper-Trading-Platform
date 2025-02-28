@@ -1,12 +1,13 @@
 import React from "react";
 import './MarketCoinBrief.css';
 import {Link} from "react-router-dom";
+import FavoriteStar from "../FavoriteStar/FavoriteStar";
 
 function MarketCoinBrief(props){
     const handleFluctuation = (change) => {
         return Number(change) >= 0?
-        <div className="full-coin-fluctuation full-upward-fluctuation">{"+"+Number(change).toFixed(2)+"%"}</div>:
-        <div className="full-coin-fluctuation full-downward-fluctuation">{Number(change).toFixed(2)+"%"}</div>;
+        <div className="market-coin-fluctuation upward-fluctuation">{"+"+Number(change).toFixed(2)+"%"}</div>:
+        <div className="market-coin-fluctuation downward-fluctuation">{Number(change).toFixed(2)+"%"}</div>;
     }
     
     const handleMoney = (money) => {
@@ -27,6 +28,7 @@ function MarketCoinBrief(props){
         <Link to={`/explore/${props.id}`} key={props.id}>
             <div className="market-coin-brief">
                 <div className="market-coin-logo">
+                    <FavoriteStar coinSymbol={props.symbol} ></FavoriteStar>
                     <img className="market-coin-img" src={props.image} alt={"logo of" + props.name} />
                     <h2 className="market-coin-symbol">{props.symbol}</h2>
                 </div>
