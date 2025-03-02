@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 const { connectGraphDB } = require("./src/config/neo4jDatabase");
 const walletRouter = require("./src/routes/wallet.route");
 const connectionMongoDB = require("./src/config/mongoDatabase");

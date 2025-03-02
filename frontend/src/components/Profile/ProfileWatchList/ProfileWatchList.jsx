@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ProfileWatchList.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 import { useUser } from "../../../contexts/UserContext";
@@ -11,14 +11,30 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { getWatchList } from "../../../utils/api";
 
 const ProfileWatchList = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const { userData } = useUser();
+  const [watchList, setWatchList] = useState([]);
   const { coins } = useContext(CoinContext);
-  const watchCoin = coins.filter((coin) =>
-    userData.watch_coin.includes(coin.symbol)
-  );
+
+  useEffect(() => {
+    async function fetchWatchList() {
+      try {
+        const data = await getWatchList();
+        setWatchList(data.watchList || []);
+      } catch (err) {
+        console.error("Error fetching watch list:", err);
+        setError(err);
+      } finally {
+      }
+    }
+
+    fetchWatchList();
+  }, []);
+
+  const watchCoin = coins.filter((coin) => watchList.includes(coin.symbol));
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,26 +110,28 @@ const ProfileWatchList = () => {
             </tbody>
           </table>
 
-          <div className="watchList-pagination">
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-            >
-              <LeftOutlined />
-            </button>
-            <span className="watchList-page">{currentPage}</span>
-            <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              disabled={currentPage === totalPages}
-            >
-              <RightOutlined />
-            </button>
-          </div>
+          {watchCoin.length > 0 && (
+            <div className="watchList-pagination">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                <LeftOutlined />
+              </button>
+              <span className="watchList-page">{currentPage}</span>
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+              >
+                <RightOutlined />
+              </button>
+            </div>
+          )}
         </div>
       ) : (
-        ""
+        <p> Add token in Explorer page to personalize yout watchlist</p>
       )}
     </div>
   );
