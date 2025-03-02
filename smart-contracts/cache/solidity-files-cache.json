@@ -374,6 +374,43 @@
         "IERC20",
         "TokenFaucet"
       ]
+    },
+    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\FinalFixProject\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\GetTokenFaucet.sol": {
+      "lastModificationDate": 1740906701775,
+      "contentHash": "9f8b561a3be65fcd15da46b8c6a41799",
+      "sourceName": "contracts/GetTokenFaucet.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "GetTokenFaucet",
+        "IERC20"
+      ]
     }
   }
 }

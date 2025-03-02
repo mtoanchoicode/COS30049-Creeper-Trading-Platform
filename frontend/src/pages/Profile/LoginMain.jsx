@@ -21,7 +21,7 @@ const LoginMain = () => {
         if (expireCon) {
           localStorage.setItem("access_token", res.access_token); // Persistent storage
         } else {
-          sessionStorage.setItem("access_token", res.access_token); // Temporary storage
+          localStorage.setItem("access_token", res.access_token); // Temporary storage
         }
         notification.success({
           message: "LOGIN USER",
