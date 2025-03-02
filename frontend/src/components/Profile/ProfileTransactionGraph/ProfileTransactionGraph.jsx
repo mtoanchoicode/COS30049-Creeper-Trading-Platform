@@ -4,6 +4,8 @@ import Loader from "../../Loader/Loader";
 import "./ProfileTransactionGraph.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//DEBUG************
+console.log("API_BASE_URL:", API_BASE_URL);
 
 const WalletGraph = ({ initialWallet }) => {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -30,7 +32,6 @@ const WalletGraph = ({ initialWallet }) => {
         `${API_BASE_URL}/v1/api/wallet/wallet-graph/${walletAddress}`
       );
       const data = await response.json();
-      console.log(data);
       const transactions = data.transactions;
 
       const nodesSet = new Set(graphData.nodes.map((n) => n.id));
