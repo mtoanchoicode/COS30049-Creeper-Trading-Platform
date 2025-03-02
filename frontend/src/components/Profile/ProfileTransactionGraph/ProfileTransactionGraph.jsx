@@ -4,8 +4,6 @@ import Loader from "../../Loader/Loader";
 import "./ProfileTransactionGraph.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-//DEBUG************
-console.log("API_BASE_URL:", API_BASE_URL);
 
 const WalletGraph = ({ initialWallet }) => {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -16,10 +14,10 @@ const WalletGraph = ({ initialWallet }) => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
     fetchTransactions(initialWallet);
   }, [initialWallet]);
 
