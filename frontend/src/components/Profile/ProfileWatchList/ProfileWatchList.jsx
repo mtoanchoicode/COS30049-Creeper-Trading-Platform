@@ -28,7 +28,6 @@ const ProfileWatchList = () => {
         console.error("Error fetching watch list:", err);
         setError(err);
       } finally {
-        setLoading(false);
       }
     }
 
