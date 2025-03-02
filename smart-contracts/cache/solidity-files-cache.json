@@ -263,6 +263,81 @@
       "artifacts": [
         "SendETH"
       ]
+    },
+    "C:\\Users\\Admin\\Documents\\SWINBURNE-COURSE\\COS30049-Computing-Technology-Innovation-Project\\Trading-Platform\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\Buy.sol": {
+      "lastModificationDate": 1740902585151,
+      "contentHash": "31fa2c71d6674d58c1d10eb1229f8e03",
+      "sourceName": "contracts/Buy.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.21"
+      ],
+      "artifacts": [
+        "CreeperBuy"
+      ]
+    },
+    "C:\\Users\\Admin\\Documents\\SWINBURNE-COURSE\\COS30049-Computing-Technology-Innovation-Project\\Trading-Platform\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SwapETH.sol": {
+      "lastModificationDate": 1740575498702,
+      "contentHash": "1114988bcc839288ce02cbf8e2ee722a",
+      "sourceName": "contracts/SwapETH.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "SwapETH"
+      ]
     }
   }
 }
