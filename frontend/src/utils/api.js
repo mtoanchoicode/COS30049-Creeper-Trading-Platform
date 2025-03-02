@@ -40,6 +40,12 @@ const getWatchList = () => {
   return axios.get(URL_API);
 };
 
+const postWatchList = (symbol) => {
+  const URL_API = "/v1/api/profile/watch-list";
+  const data = { symbol };
+  return axios.post(URL_API, data);
+};
+
 export {
   postResetPassword,
   createUserAPI,
@@ -48,4 +54,5 @@ export {
   postGetOtp,
   postOTP,
   getWatchList,
+  postWatchList,
 };
