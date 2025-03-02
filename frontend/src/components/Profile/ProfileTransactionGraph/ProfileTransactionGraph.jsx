@@ -30,6 +30,7 @@ const WalletGraph = ({ initialWallet }) => {
         `${API_BASE_URL}/v1/api/wallet/wallet-graph/${walletAddress}`
       );
       const data = await response.json();
+      console.log(data);
       const transactions = data.transactions;
 
       const nodesSet = new Set(graphData.nodes.map((n) => n.id));
@@ -246,9 +247,9 @@ const WalletGraph = ({ initialWallet }) => {
       // Get the current URL
       const currentUrl = window.location.href;
       // Extract the base URL (everything before the last part)
-      const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/"));
+      const baseUrl = currentUrl.split("/").slice(0, 3).join("/");
       // Construct the new URL
-      const searchUrl = `${baseUrl}/${selectedNode.id}`;
+      const searchUrl = `${baseUrl}/profile/transactions/${selectedNode.id}`;
       window.open(searchUrl, "_blank");
     }
     setMenuPosition(null);
