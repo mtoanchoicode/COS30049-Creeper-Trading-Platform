@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 
@@ -8,6 +8,7 @@ import { Button, notification } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import GetFaucetContainer from "../../components/Trade/GetFaucetContainer/GetFaucetContainer";
+import { ExportOutlined } from "@ant-design/icons";
 
 const Faucet = () => {
   const CONTRACT_ADDRESS = "0xae16023db12926cD6505A0d86118e91DD5A0Eebc";
@@ -158,11 +159,48 @@ const Faucet = () => {
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
+  const [lastClaimText, setLastClaimText] = useState("");
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
     if (!isConnected) return "Connect Wallet";
     return "Get faucet";
+  };
+
+  // Function to fetch and update the last claim time
+  const fetchLastClaimTime = async () => {
+    if (!window.ethereum) return;
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+      const userAddress = await signer.getAddress();
+      const lastClaimTimestamp = await contract.lastClaim(userAddress);
+
+      // Convert BigNumber to a JavaScript number
+      const lastClaimTime = Number(lastClaimTimestamp);
+
+      if (lastClaimTime <= 0) {
+        setLastClaimText("No claim history");
+        return;
+      }
+
+      const currentTime = Math.floor(Date.now() / 1000);
+      const elapsedTime = currentTime - lastClaimTime;
+
+      if (elapsedTime < 0) {
+        setLastClaimText("Fetching last claim...");
+        return;
+      }
+
+      const hours = Math.floor(elapsedTime / 3600);
+      const minutes = Math.floor((elapsedTime % 3600) / 60);
+      setLastClaimText(`Last claim: ${hours}h ${minutes}m ago`);
+    } catch (error) {
+      console.error("Error fetching last claim time:", error);
+    }
   };
 
   const requestFaucet = async () => {
@@ -191,12 +229,13 @@ const Faucet = () => {
       });
     } catch (error) {
       console.log(error.message);
-      notification.success({
+      notification.error({
         message: "Transaction failed!",
-        description: error.message,
+        description: "Wait for faucet cooling down",
       });
     } finally {
       setIsLoading(false); // Ensure loading is turned off after the transaction completes
+      fetchLastClaimTime();
     }
   };
 
@@ -208,9 +247,25 @@ const Faucet = () => {
     }
   };
 
+  useEffect(() => {
+    if (isConnected) {
+      fetchLastClaimTime();
+    } else {
+      setLastClaimText("");
+    }
+  }, [isConnected]);
+
   return (
     <div className="send trade-child">
       <GetFaucetContainer setTokenAddress={setTokenAddress} />
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: "10px",
+        }}
+      >
+        {lastClaimText}
+      </p>
       <Button
         type="primary"
         block
@@ -227,6 +282,15 @@ const Faucet = () => {
           getButtonText()
         )}
       </Button>
+
+      <a
+        className="trade-contractAddress"
+        href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+        target="_blank"
+      >
+        <span>Contract address</span>
+        <ExportOutlined />
+      </a>
     </div>
   );
 };
