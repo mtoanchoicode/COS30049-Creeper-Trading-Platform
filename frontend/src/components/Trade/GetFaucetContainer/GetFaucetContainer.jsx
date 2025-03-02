@@ -5,7 +5,7 @@ const GetFaucetContainer = ({ setTokenAddress }) => {
   return (
     <div className="getFaucet-container">
       <div className="getFaucet-top">
-        <span>You're gettingFaucet</span>
+        <span>You're getting Faucet</span>
       </div>
       <TokensSelection type="buy" tradeType="buy" />
     </div>

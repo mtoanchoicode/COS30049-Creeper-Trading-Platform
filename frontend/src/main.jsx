@@ -30,6 +30,7 @@ import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 import { AuthWrapper } from "./contexts/AuthContext.jsx";
 import ResetPasswordPage from "./pages/Profile/ResetPassword.jsx";
 import Faucet from "./pages/Trade/Faucet.jsx";
+import Add from "./pages/Trade/AddPool.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const routers = createBrowserRouter([
           { path: "limit", element: <Limit /> },
           { path: "buy", element: <Buy /> },
           { path: "faucet", element: <Faucet /> },
+          { path: "add", element: <Add /> },
         ],
       },
       {
