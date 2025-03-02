@@ -5,7 +5,7 @@ import "./styles/index.css";
 
 import App from "./App.jsx";
 import CoinProvider from "./contexts/CoinContext";
-import  NewsProvider from "./contexts/NewsContext.jsx"
+import NewsProvider from "./contexts/NewsContext.jsx";
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
@@ -29,6 +29,7 @@ import NewsPage from "./pages/News-Page/NewsPage.jsx";
 import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 import { AuthWrapper } from "./contexts/AuthContext.jsx";
 import ResetPasswordPage from "./pages/Profile/ResetPassword.jsx";
+import Faucet from "./pages/Trade/Faucet.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -59,6 +60,7 @@ const routers = createBrowserRouter([
           { path: "swap", element: <Swap /> },
           { path: "limit", element: <Limit /> },
           { path: "buy", element: <Buy /> },
+          { path: "faucet", element: <Faucet /> },
         ],
       },
       {
@@ -122,9 +124,9 @@ createRoot(document.getElementById("root")).render(
     <NewsProvider>
       <UserProvider>
         <CoinProvider>
-            <AuthWrapper>
-              <RouterProvider router={routers} />
-            </AuthWrapper>
+          <AuthWrapper>
+            <RouterProvider router={routers} />
+          </AuthWrapper>
         </CoinProvider>
       </UserProvider>
     </NewsProvider>
