@@ -10,15 +10,16 @@ import "./CoinDetails.css";
 
 const CoinDetails = () =>{
     const {coinId} = useParams();
-    const {coins} = useContext(CoinContext);
-    const coin = coins.find((coin) => coin.id === coinId);
+    const {coins = []} = useContext(CoinContext);
+    const coin = coins.length ? coins.find((coin) => coin.id === coinId) : null;
     const hotCoins = sortArray(coins, "total_volume", "desc").slice(0,7);
 
     const [showFullText, setShowFullText] = useState(false);
     const fullText = "Bitcoin (BTC) is the first decentralized digital currency, launched in 2009 by Satoshi Nakamoto. It operates on a peer-to-peer network using blockchain technology, allowing secure and transparent transactions without intermediaries. Bitcoin is a store of value and a medium of exchange, often referred to as \"digital gold.\" With a fixed supply of 21 million coins, it is designed to be deflationary. Transactions are verified through mining, where computers solve cryptographic puzzles. Bitcoin wallets are easy to set up, with popular options like Electrum, Ledger, and Trezor";
     const shortText = fullText.slice(0,150) + "...";
 
-    function sortArray(arrayToSort, keyToSort, direction){
+    function sortArray(arrayToSort = [], keyToSort, direction){
+      if (!arrayToSort.length) return []; // Return an empty array if there's no data
       if (direction === "asc"){
         return arrayToSort.sort((a, b) => (a[keyToSort] > b[keyToSort] ? 1 : -1)); 
       }
