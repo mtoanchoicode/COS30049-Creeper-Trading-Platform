@@ -26,7 +26,7 @@ const addLiquidity = (props) => {
         </div>
 
         <div className="addLiquidity_rate">
-            <p>0.03% fee</p>
+            <p>add 0.1% of balance</p>
         </div>
       </div>
 

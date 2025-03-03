@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import BuyContainer from "../../components/Trade/BuyContainer/BuyContainer";
-import { Button } from "antd";
+import { Button, notification} from "antd";
 import { ethers } from "ethers";
 import { CoinContext } from "../../contexts/CoinContext";
+import Loader from "../../components/Loader/Loader";
+import BuyABI from "./abi/BuyABI.json";
+import IERC20ABI from "./abi/IERC20ABI.json";
+import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 
 const fetchEthPriceInVND = async () => {
   // Fetch ETH price from a reliable API
@@ -19,9 +23,20 @@ const Buy = () => {
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
 
-  const CONTRACT_ADDRESS = "";
-  const ABI = [
-  ];
+  const CONTRACT_ADDRESS = "0x72D4Ae357350a2Ec7C0587C2EF55774E4B8057Bd";
+  const ABI = BuyABI;
+  const Pool_CONTRACT_ADDRESS = "0x66282313102dd160e4eB97033197d8459E6676d0";
+  const Pool_ABI = CreeperPoolABI;
+  const IERC20_ABI = IERC20ABI;
+
+
+  const [CEPAddress, setCEPAddress] = useState(
+    "0x1559368328F951a72da9B7571C6611667dfc72d2"
+  );
+
+  const [LNXAddress, setLNXAddress] = useState(
+    "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9"
+  );
 
   const BuyETH = async (amount) => {
     if (!window.ethereum) {
@@ -33,23 +48,51 @@ const Buy = () => {
 
     try {
       const ethPriceInVND = await fetchEthPriceInVND(); // Get ETH price in VND from an API
-      const stablecoinAmount= (amount / ethPriceInVND) * 50; // Convert VND to ETH
+      
+      let stablecoinAmount= (amount / ethPriceInVND) * 1000; // Convert VND to ETH
 
+      // Ensure at most 18 decimals
+      stablecoinAmount = parseFloat(stablecoinAmount.toFixed(18));
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
+      
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+      const stablecoinContract = new ethers.Contract(LNXAddress, IERC20_ABI, signer);
+      const CEPcoinContract = new ethers.Contract(CEPAddress, IERC20_ABI, signer);
+      const poolContract = new ethers.Contract(Pool_CONTRACT_ADDRESS, Pool_ABI, signer);
 
-      const tx = await contract.buyToken({value: ethers.utils.parseEther(stablecoinAmount.toString())});
+      //wait to approve the stable coin transfer
+      const approveStable = await stablecoinContract.approve(CONTRACT_ADDRESS, ethers.parseUnits(stablecoinAmount.toString(), 18));
+      await approveStable.wait();
 
+      const approveCEP = await CEPcoinContract.approve(CONTRACT_ADDRESS, ethers.MaxUint256);
+      await approveCEP.wait();
+
+      //await poolContract.approve(CONTRACT_ADDRESS, ethers.parseUnits("1000", 18));
+
+      //const cepBalance = await CEPcoinContract.balanceOf(creeperPool.address);
+      //console.log("CreeperPool CEPcoin balance:", cepBalance.toString()); 
+      
+      // call the buyToken method
+      const tx = await contract.buyToken(ethers.parseUnits(stablecoinAmount.toString(), 18));
       await tx.wait();
-      console.log("Transaction buy successful!");
-      alert("Transaction buy successful !!");
+
+      // notification.info({
+      //   message: "Transaction in progress!",
+      //   description: `Hash: ${tx.hash}`,
+      // });
+      
+      notification.success({
+        message: "Successfully buy CEP token",
+      });
 
     } catch (error) {
       console.log(error)
-      alert("Transaction buy failed: " + error.message);
+      notification.error({
+        message: "Transaction failed!",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +103,8 @@ const Buy = () => {
       open();
     } else if (amount) {
       console.log("Button clicked!");
-      //BuyETH()
+      console.log(amount);
+      BuyETH(amount)
     }
   };
 

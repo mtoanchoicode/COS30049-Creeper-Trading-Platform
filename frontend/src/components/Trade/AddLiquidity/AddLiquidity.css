@@ -7,6 +7,10 @@
     margin-bottom: 2rem;
     margin-top: 2rem;
     width: 100%;
+    border-radius: 20px;
+    border: 2px solid var(--white-color);
+    padding: 1.2rem 1.7rem;
+    position: relative;
 }
 
 .addLiquidity_top {
@@ -22,8 +26,9 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .addLiquidity_token {
@@ -40,7 +45,7 @@
 }
 
 .addLiquidity_rate {
-    padding: 0.8rem;
+    padding: 0.5rem 0.8rem;
     background-color: var(--black-background-color);
     border-radius: 30px;
     color: #fafafa;
@@ -85,13 +90,13 @@
 .CEP_line {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    width: 33%;
+    width: 37%;
     background-color:var(--primary-color);
 }
 
 .LNX_line {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    width: 67%;
+    width: 63%;
     background-color:rgb(241, 105, 14) ;
 }
