@@ -1,18 +1,58 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "./CoinDetailsOverview.css";
 import TradeChart from "../../../../assets/Trade-Chart.jpg";
 import FavoriteStar from "../../FavoriteStar/FavoriteStar";
 import { AuthContext } from "../../../../contexts/AuthContext";
+import {Line} from "react-chartjs-2";
+import 'chart.js/auto';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title } from 'chart.js';
+import HistoricalChart from "../../../../config/historic_chart";
+import axios from 'axios';
+
+ChartJS.register(LineElement, PointElement, LinearScale, Title);
 
 function CoinDetailsOverview(props) {
   const { auth } = useContext(AuthContext);
   const coin = props.coin;
   const [period, setPeriod] = useState("1D");
 
+  //Drawing the chart
+  const [historicalData, setHistoricalData] = useState();
+  const [days, setDays] = useState(1)
+  const currency = "usd"
+
+  const fetchHistoricalData = async () => {
+    const {data} = await axios.get(HistoricalChart(coin.id, days, currency));
+    setHistoricalData(data.prices)
+  };
+  
+  useEffect(() => {
+    fetchHistoricalData();
+  }, [coin.id, days, currency])
+
+
   //Extend later to show chart according to period of time
   function handlePeriodClick(selectedPeriod) {
     setPeriod(selectedPeriod);
+    switch(selectedPeriod){
+      case "1H":
+        setDays(1/24);
+        break;
+      case "1D":
+        setDays(1);
+        break;
+      case "1W":
+        setDays(7);
+        break;
+      case "1M":
+        setDays(30);
+        break;
+      case "1Y":
+        setDays(365);
+        break;
+    }
   }
+  
   const handleFluctuation = (change) => {
     return Number(change) >= 0 ? (
       <div className="coin-details-fluctuation coin-details-upward-fluctuation">
@@ -104,7 +144,67 @@ function CoinDetailsOverview(props) {
       <div className="coin-details-overview-chart-container">
         {handleFluctuation(coin.price_change_percentage_24h)}
         <div className="coin-details-overview-chart">
-          <img src={TradeChart} alt="Trade chart" />
+
+          {/* <img src={TradeChart} alt="Trade chart" /> */}
+          {console.log(historicalData)}
+          {
+            !historicalData ? (
+              <div>Loading</div>
+            ):
+            (
+              <Line className="coin-details-line-chart"
+                key={days}
+                data={{
+                  labels: historicalData.map((coin) => {
+                    let date = new Date(coin[0]);
+                    let time = date.getHours() > 12
+                    ? `${(date.getHours() - 12).toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} PM`
+                    : `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} AM` ;
+
+                    return days <= 1? time : date.toLocaleDateString()
+                  }),
+                  datasets: [
+                    {
+                      data: historicalData.map((coin) => coin[1]),
+                      label: days === 1/24
+                      ?`Price (Past 1 Hours) in USD`
+                      :`Price (Past ${days} Days) in ${currency.toUpperCase()}`,
+                      borderColor: "#00A04A",
+                      borderWidth: days <= 1? 2: 1.5,
+                      tension: days === 1/24? 0: 0.2
+                    }
+                  ]
+                }}
+                options = {{
+                  responsive: true,
+                  scales:{
+                    y:{
+                      ticks:{
+                        callback: function (value){
+                          return handleMoney(value);
+                        }
+                      },
+                      grid:{
+                        display: false
+                      }
+                    },
+                    x:{
+                      grid:{
+                        display:false
+                      }
+                    }
+                  },
+                  maintainAspectRatio: false,
+                  elements:{
+                    point:{
+                      radius: 0
+                    }
+                  },
+                }}
+              />
+            )
+          }
+
         </div>
       </div>
     </div>

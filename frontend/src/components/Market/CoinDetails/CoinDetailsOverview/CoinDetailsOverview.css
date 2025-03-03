@@ -4,6 +4,8 @@
     flex-direction: column;
     gap: 10px;
     height: fit-content;
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 /* Coin logo and symbols */
@@ -31,24 +33,6 @@
     height: 4rem;
     margin-right: 5px;
     display: block;
-}
-
-/* Prices fluctuation */
-.coin-details-fluctuation{
-    font-weight: 800;
-    font-size: 1.3rem;
-    text-wrap: nowrap;
-    position: absolute;
-    transform: translate(0.5rem, 0.5rem);
-
-}
-
-.coin-details-upward-fluctuation{
-    color: var(--price-rising);
-}
-
-.coin-details-downward-fluctuation{
-    color: var(--price-falling);
 }
 
 /* Period selection for prices */
@@ -101,13 +85,41 @@
 }
 
 /* Chart */
+/* Prices fluctuation */
+.coin-details-overview-chart-container{
+    width: 100%;
+    position: relative;
+}
+
+.coin-details-fluctuation{
+    font-weight: 800;
+    font-size: 1.3rem;
+    text-wrap: nowrap;
+    width: 100%;
+    position: absolute;
+    text-align: right;
+    transform: translate(0rem, 0.2rem);
+}
+
+.coin-details-upward-fluctuation{
+    color: var(--price-rising);
+}
+
+.coin-details-downward-fluctuation{
+    color: var(--price-falling);
+}
+
 .coin-details-overview-chart{
     width: 100%;
-    background: rgb(0, 0, 0);
 }
 
 .coin-details-overview-chart img{
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.coin-details-line-chart{
+    width: 100%;
+    min-height: 360px;
 }
