@@ -12,12 +12,12 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
     let numericValue = inputValue
       ? Math.max(0, Math.min(9999, Number(inputValue)))
       : "";
-    setValue(numericValue ? `$${numericValue}` : "");
+    setValue(numericValue ? `₫${numericValue}` : "");
     setAmount(numericValue);
   };
 
   const handlePresetValue = (amount) => {
-    setValue(`$${amount}`);
+    setValue(`₫${amount}`);
     setAmount(amount);
   };
 
@@ -25,10 +25,11 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
     <div className="buy-container">
       <div className="buy-top">
         <span>You're buying</span>
+        <p>0.3% fee</p>
       </div>
       <div className="buy-bottom">
         <div className="buy-currency-input">
-          <Input placeholder="$0" value={value} onChange={handleChange} />
+          <Input placeholder="₫0" value={value} onChange={handleChange} />
         </div>
         <div
           className={`buy-token-selection ${currency ? "active" : "inactive"}`}
@@ -40,9 +41,9 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
           <i className="fa-solid fa-chevron-down"></i>
         </div>
         <div className="buy-price-quick-selection">
-          <button onClick={() => handlePresetValue(100)}>$100</button>
-          <button onClick={() => handlePresetValue(300)}>$300</button>
-          <button onClick={() => handlePresetValue(500)}>$500</button>
+          <button onClick={() => handlePresetValue(100)}>₫100</button>
+          <button onClick={() => handlePresetValue(300)}>₫300</button>
+          <button onClick={() => handlePresetValue(500)}>₫500</button>
         </div>
       </div>
       <TokensSelection type="buy" tradeType="buy" />

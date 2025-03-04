@@ -23,9 +23,9 @@ const Buy = () => {
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
 
-  const CONTRACT_ADDRESS = "0x72D4Ae357350a2Ec7C0587C2EF55774E4B8057Bd";
+  const CONTRACT_ADDRESS = "0xF808D37dc336e225649f7980aCfffcA692A7528e";
   const ABI = BuyABI;
-  const Pool_CONTRACT_ADDRESS = "0x66282313102dd160e4eB97033197d8459E6676d0";
+  const Pool_CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
   const Pool_ABI = CreeperPoolABI;
   const IERC20_ABI = IERC20ABI;
 
@@ -48,11 +48,14 @@ const Buy = () => {
 
     try {
       const ethPriceInVND = await fetchEthPriceInVND(); // Get ETH price in VND from an API
-      
-      let stablecoinAmount= (amount / ethPriceInVND) * 1000; // Convert VND to ETH
+      console.log(amount)
+      console.log(ethPriceInVND)
+
+      let stablecoinAmount= (amount / ethPriceInVND) * 50 * 25; // Convert VND to ETH
 
       // Ensure at most 18 decimals
       stablecoinAmount = parseFloat(stablecoinAmount.toFixed(18));
+      console.log(stablecoinAmount)
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -61,7 +64,7 @@ const Buy = () => {
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       const stablecoinContract = new ethers.Contract(LNXAddress, IERC20_ABI, signer);
       const CEPcoinContract = new ethers.Contract(CEPAddress, IERC20_ABI, signer);
-      const poolContract = new ethers.Contract(Pool_CONTRACT_ADDRESS, Pool_ABI, signer);
+      //const poolContract = new ethers.Contract(Pool_CONTRACT_ADDRESS, Pool_ABI, signer);
 
       //wait to approve the stable coin transfer
       const approveStable = await stablecoinContract.approve(CONTRACT_ADDRESS, ethers.parseUnits(stablecoinAmount.toString(), 18));
@@ -78,11 +81,6 @@ const Buy = () => {
       // call the buyToken method
       const tx = await contract.buyToken(ethers.parseUnits(stablecoinAmount.toString(), 18));
       await tx.wait();
-
-      // notification.info({
-      //   message: "Transaction in progress!",
-      //   description: `Hash: ${tx.hash}`,
-      // });
       
       notification.success({
         message: "Successfully buy CEP token",

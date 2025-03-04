@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract CreeperPool is ERC20 {
     IERC20 public CEPcoin;
     IERC20 public stablecoin;
-
+    address public owner;
     uint256 public reserveCEP;
     uint256 public reserveStablecoin;
 
@@ -17,6 +17,7 @@ contract CreeperPool is ERC20 {
     constructor(address _CEPcoin, address _stablecoin) ERC20("Creeper-LNX Token", "CEP-LNX") {
         CEPcoin = IERC20(_CEPcoin);
         stablecoin = IERC20(_stablecoin);
+        owner = msg.sender;
     }
 
     function addLiquidity(uint256 amountCEPcoin, uint256 amountStablecoin) external {
@@ -58,6 +59,11 @@ contract CreeperPool is ERC20 {
         emit LiquidityRemoved(msg.sender, amountCEPcoin, amountStablecoin, liquidity);
     }
 
+    function approveBuyContract(address buyContract) external {
+        require(msg.sender == owner, "Only owner can approve");
+        CEPcoin.approve(buyContract, type(uint256).max);
+    }
+
     function getReserves() external view returns (uint256, uint256) {
         return (reserveCEP, reserveStablecoin);
     }
@@ -69,6 +75,7 @@ contract CreeperPool is ERC20 {
             y = z;
             z = (x / z + z) / 2;
         }
+        return y;
     }
 
     function min(uint256 a, uint256 b) internal pure returns (uint256) {

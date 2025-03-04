@@ -8,8 +8,9 @@ import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 
+
 const AddPool = () => {
-  const CONTRACT_ADDRESS = "0x66282313102dd160e4eB97033197d8459E6676d0";
+  const CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
   const ABI = CreeperPoolABI;
   const IERC20_ABI = IERC20ABI;
 
@@ -23,10 +24,12 @@ const AddPool = () => {
 
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
-  const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingRemove, setIsLoadingRemove] = useState(false);// Ensure initial state is false
   const [CEP_RESERVES, setCEP_RESERVES] = useState();
   const [LNX_RESERVES, setLNX_RESERVES] = useState();
-  const [amount, setAmount] = useState("");
+  const [amountCEP, setAmountCEP] = useState();
+  const [amountLNX, setAmountLNX] = useState();
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
@@ -87,15 +90,14 @@ const AddPool = () => {
       const CEP_Balance = await creepToken.balanceOf(signer.address);
       const lNX_Balance = await lnxToken.balanceOf(signer.address);
 
-      const amountCEP = CEP_Balance / 1000n; // Add 25% of balance
-      const amountLNX = lNX_Balance / 1000n;
+      const amountCEP = Number(CEP_Balance / 1000n).toFixed(0,1); // Add 25% of balance
+      const amountLNX = Number(lNX_Balance / 1000n).toFixed(0,1);
 
       // Approve contract to use tokens
       await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
       await lnxToken.approve(CONTRACT_ADDRESS, amountLNX);
 
-      //const tx = await pool.addLiquidity(amountCEP, amountLNX);
-      const tx = await pool.removeLiquidity(ethers.parseUnits("30", 18));
+      const tx = await pool.addLiquidity(amountCEP, amountLNX);
 
       notification.info({
         message: "Transaction in progress!",
@@ -116,13 +118,13 @@ const AddPool = () => {
     }
   };
 
-  const requestLiquidityRemove = async (amount) => {
+  const requestLiquidityRemove = async (amountCEP , amountLNX) => {
     if (!window.ethereum) {
       alert("MetaMask or a compatible wallet is required!");
       return;
     }
 
-    setIsLoading(true); // Set loading to true when the transaction starts
+    setIsLoadingRemove(true); // Set loading to true when the transaction starts
 
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -132,27 +134,20 @@ const AddPool = () => {
       const creepToken = new ethers.Contract(CEPAddress, IERC20_ABI, signer);
       const lnxToken = new ethers.Contract(LNXAddress, IERC20_ABI, signer);
 
-      // Fetch user balance
-      const CEP_Balance = await creepToken.balanceOf(signer.address);
-      const lNX_Balance = await lnxToken.balanceOf(signer.address);
-
-      const amountCEP = CEP_Balance / 1000n; // Add 25% of balance
-      const amountLNX = lNX_Balance / 1000n;
-
       // Approve contract to use tokens
       await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
       await lnxToken.approve(CONTRACT_ADDRESS, amountLNX);
 
-      //const tx = await pool.addLiquidity(amountCEP, amountLNX);
-      const tx = await pool.removeLiquidity(ethers.parseUnits("30", 18));
+      const txCEP = await pool.removeLiquidity(ethers.parseUnits(`${amountCEP}`, 18));
+      const txLNX = await pool.removeLiquidity(ethers.parseUnits(`${amountLNX}`, 18));
 
-      notification.info({
-        message: "Transaction in progress!",
-        description: `Hash: ${tx.hash}`,
-      });
-      await tx.wait();
+      await txCEP.wait();
       notification.success({
-        message: "Successfully add the liquidity",
+        message: "Successfully remove CEP the liquidity",
+      });
+      await txLNX.wait();
+      notification.success({
+        message: "Successfully remove LNX the liquidity",
       });
     } catch (error) {
       console.log(error.message);
@@ -176,15 +171,30 @@ const AddPool = () => {
   const handleButtonClickRemove = () => {
     if (!isConnected) {
       open();
-    } else if (amount) {
-      requestLiquidityRemove(amount);
+    } else if (CEP_RESERVES == 0 || LNX_RESERVES == 0) {
+      notification.error({
+        message: "Liquidity pool is empty. Cannot remove liquidity!",
+      });
+    } else if (!amountCEP && !amountLNX) {
+      notification.error({
+        message: "Please enter at least one token amount to remove!",
+      });
+    }else {
+      requestLiquidityRemove(amountCEP || "0", amountLNX || "0");
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChangeCEP = (e) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) { // ✅ Allow only numbers and decimals
-      setAmount(value);
+      setAmountCEP(value);
+    }
+  };
+
+  const handleInputChangeLNX = (e) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value)) { // ✅ Allow only numbers and decimals
+      setAmountLNX(value);
     }
   };
 
@@ -221,26 +231,51 @@ const AddPool = () => {
           getButtonText()
         )}
       </Button>
-      <Input
-        style={{
-          textAlign: "center",
-          marginTop: "15px",
-          marginBottom: "10px",
-        }}
-        placeholder="Enter amount of token"
-        value={amount}
-        onChange={handleInputChange}
-        disabled={isLoading}
-        suffix="Token"
-      />
+      <div style= 
+      {{background: "var(--trade-background-color)", 
+        padding: "1rem",
+        borderRadius: "20px",
+        marginTop: "10px",
+        marginBottom: "10px",
+      }}>
+        <p>Enter amount of token CEP:</p>
+        <Input
+          style= {{
+            textAlign: "center",
+            marginBottom: "10px",
+            background: "transparent",
+            color: "var(--white-color)",
+            border: "2px solid",
+            borderRadius: "10px", 
+          }}
+          value={amountCEP}
+          onChange={handleInputChangeCEP}
+          disabled={isLoadingRemove}
+          suffix="Token"
+        />
+        <p>Enter amount of token LNX:</p>
+        <Input
+          style= {{
+            textAlign: "center",
+            background: "transparent",
+            color: "var(--white-color)",
+            border: "2px solid",
+            borderRadius: "10px", 
+          }}
+          value={amountLNX}
+          onChange={handleInputChangeLNX}
+          disabled={isLoadingRemove}
+          suffix="Token"
+        />
+      </div> 
       <Button
         type="primary"
         block
         className={`send-btn trade-btn enabled`}
         onClick={handleButtonClickRemove}
-        disabled={isLoading} // Disable button while loading
+        disabled={isLoadingRemove} // Disable button while loading
       >
-        {isLoading ? (
+        {isLoadingRemove ? (
           <div className="send-btn-content">
             <Loader />
             <span>Removing please wait...</span>

@@ -3,7 +3,7 @@ const hre = require("hardhat");
 async function main() {
   const lnxToken = "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9"; // Your LNX Token Address
   const cepToken = "0x1559368328F951a72da9B7571C6611667dfc72d2"; // Your CEP Token Address
-  const poolAdress = "0x66282313102dd160e4eB97033197d8459E6676d0";
+  const poolAdress = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
 
   // const TokenFaucet = await hre.ethers.getContractFactory("TokenFaucet");
   // const tokenFaucet = await TokenFaucet.deploy(lnxToken, cepToken);

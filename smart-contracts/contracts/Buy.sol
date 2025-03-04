@@ -52,7 +52,6 @@ contract Buy is ERC20 {
 
         require(CEPcoinAmount > 0, "Insufficient token amount");
 
-
         // Check if pool has approved this contract to spend CEPcoin
         require(CEPcoin.allowance(address(creeperPool), address(this)) >= CEPcoinAmount,
         "Insufficient CEPcoin allowance from pool");
@@ -63,18 +62,19 @@ contract Buy is ERC20 {
         "Insufficient CEPcoin balance in pool");
 
 
-        // Transfer stablecoin from user to pool
-        stablecoin.transferFrom(msg.sender, address(creeperPool), stablecoinAmount);
-       
+        // // Transfer stablecoin from user to pool
+        // bool stablecoinTransferSuccess = stablecoin.transferFrom(msg.sender, address(creeperPool), stablecoinAmount);
+        // require(stablecoinTransferSuccess, "Stablecoin transfer failed");
 
-        // Transfer CEPcoin from pool to user
+        // // Transfer CEPcoin from pool to user
+        // bool CEPcoinTransferSuccess = CEPcoin.transferFrom(address(creeperPool), msg.sender, CEPcoinAmount);
+        // require(CEPcoinTransferSuccess, "CEPcoin transfer failed");
+
+        // Transfer stablecoin from the user to the contract - add the stable coin
+        stablecoin.transferFrom(msg.sender,  address(creeperPool), stablecoinAmount);
+
+        // Transfer from pool 
         CEPcoin.transferFrom(address(creeperPool), msg.sender, CEPcoinAmount);
-
-        // // Transfer stablecoin from the user to the contract - add the stable coin
-        // stablecoin.transferFrom(msg.sender,  address(creeperPool), stablecoinAmount);
-
-        // // Transfer from pool 
-        // CEPcoin.transferFrom(address(creeperPool), msg.sender, CEPcoinAmount);
 
         emit CEPcoinBought(msg.sender, stablecoinAmount, CEPcoinAmount);
     }

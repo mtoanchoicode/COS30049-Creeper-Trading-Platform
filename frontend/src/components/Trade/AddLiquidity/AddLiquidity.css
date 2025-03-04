@@ -4,13 +4,13 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
     width: 100%;
     border-radius: 20px;
-    border: 2px solid var(--white-color);
     padding: 1.2rem 1.7rem;
     position: relative;
+    background-color: var(--trade-background-color);
 }
 
 .addLiquidity_top {
@@ -50,6 +50,17 @@
     border-radius: 30px;
     color: #fafafa;
 }
+
+.addLiquidity_rate p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.light .addLiquidity_rate{
+    background-color: var(--grey-color);
+    color: #000;
+  }
+  
 
 .addLiquidity_reservers_container {
     display: flex;

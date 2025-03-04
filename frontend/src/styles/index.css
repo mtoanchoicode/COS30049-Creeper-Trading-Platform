@@ -57,7 +57,7 @@
   --searchbar-result-background: rgba(255, 255, 255, 0.305);
   --white-color: #131313;
   --black-color: #fdfdfd;
-  --grey-color: #e8e8e8;
+  --grey-color: #e2e2e2;
   --text-color: var(--black-color);
   background: var(--app-background);
   color: var(--white-color);
