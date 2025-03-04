@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ExportOutlined } from "@ant-design/icons";
-import "./addLiquidity.css"
+import "./AddLiquidity.css"
 
 const addLiquidity = (props) => {
   return (
