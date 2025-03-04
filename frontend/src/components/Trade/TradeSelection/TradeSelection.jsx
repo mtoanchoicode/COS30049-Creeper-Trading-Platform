@@ -27,7 +27,7 @@ const TradeSelection = () => {
       </Link>
       <Link to="/trade/add">
         <button className={activePath === "/trade/add" ? "active" : ""}>
-          Add
+          Add & Remove
         </button>
       </Link>
       <Link to="/trade/faucet">
