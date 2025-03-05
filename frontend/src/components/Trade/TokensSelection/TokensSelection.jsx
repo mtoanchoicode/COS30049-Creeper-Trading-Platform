@@ -3,8 +3,9 @@ import { CloseOutlined } from "@ant-design/icons";
 import "./TokensSelection.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 
-export const TokensSelection = ({ type, tradeType }) => {
-  const { coins, activeOverlay, setActiveOverlay, handleCoinSelection } =
+const TokensSelection = ({ type, tradeType }) => {
+
+  const { localCoins, activeOverlay, setActiveOverlay, handleCoinSelection } =
     useContext(CoinContext);
 
   return (
@@ -20,22 +21,10 @@ export const TokensSelection = ({ type, tradeType }) => {
               <CloseOutlined />
             </div>
           </div>
-          <div className="convert-selection-container-center">
-            <div className="convert-selection-searchbar">
-              <div className="convert-selection-searchbar-container">
-                <div className="convert-selection-searchbar-icon">
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div className="convert-selection-searchbar-text">
-                  <p>Search tokens</p>
-                </div>
-              </div>
-            </div>
-          </div>
           <div className="convert-coin-selection-container-list">
-            {coins.map((coin) => (
+            {localCoins.map((coin) => (
               <div
-                key={coin.id}
+                key={coin.name}
                 className="selection-coin-item"
                 onClick={() => handleCoinSelection(coin, type, tradeType)}
               >
