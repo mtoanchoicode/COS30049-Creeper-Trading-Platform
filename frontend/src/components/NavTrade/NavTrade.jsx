@@ -26,7 +26,7 @@ const NavTrade = () => {
     },
     {
       name: "Faucet",
-      desc: "Get our faucet",
+      desc: "Claim free LNX and CEP tokens every hour!",
       path: "/trade/faucet",
     },
   ];

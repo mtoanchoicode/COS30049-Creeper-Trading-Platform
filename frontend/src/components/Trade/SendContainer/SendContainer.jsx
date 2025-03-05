@@ -5,7 +5,12 @@ import { CoinContext } from "../../../contexts/CoinContext";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
 const SendContainer = ({ setAmount }) => {
-  const { sendCurrency, sendCurrencyValue, handleSendCurrencyValueChange, setActiveOverlay } = useContext(CoinContext);
+  const {
+    sendCurrency,
+    sendCurrencyValue,
+    handleSendCurrencyValueChange,
+    setActiveOverlay,
+  } = useContext(CoinContext);
   const [value, setValue] = useState("");
 
   // Function to handle input change
@@ -16,6 +21,7 @@ const SendContainer = ({ setAmount }) => {
       : "";
     setValue(numericValue ? `$${numericValue}` : ""); // If empty, reset to ""
     setAmount(numericValue);
+    console.log("numericValue", numericValue);
     handleSendCurrencyValueChange(numericValue);
   };
 
@@ -34,7 +40,10 @@ const SendContainer = ({ setAmount }) => {
             />
           </div>
           <div className="send-currency-change">
-            <div>{sendCurrencyValue ? sendCurrencyValue.toFixed(5) : "0"} {sendCurrency.symbol.toUpperCase()}</div>
+            <div>
+              {sendCurrencyValue ? sendCurrencyValue.toFixed(5) : "0"}{" "}
+              {sendCurrency.symbol.toUpperCase()}
+            </div>
           </div>
         </div>
       </div>

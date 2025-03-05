@@ -7,7 +7,7 @@ import { notification } from "antd";
 
 const LoginMain = () => {
   const navigate = useNavigate();
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, fetchWatchList } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -36,6 +36,8 @@ const LoginMain = () => {
             name: res?.user?.name ?? "",
           },
         });
+
+        await fetchWatchList();
 
         navigate("/profile");
       } else {
