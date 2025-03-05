@@ -1,15 +1,24 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
 import "./NewsDetails.css";
-import newsData from "../NewsData"
+import DOMPurify from "dompurify";
+import { NewsContext } from "../../../contexts/NewsContext";
+
+
 
 const NewsDetails = () => {
+    const {newsData} = useContext(NewsContext);
+
     const { id } = useParams();  // Get the ID from the URL
     const newsItem = newsData.find((news) => news.id === Number(id)); //compare this ID
 
     if (!newsItem) {
         return <h2>News not found</h2>;
     }
+
+    const sanitizedHTML = DOMPurify.sanitize(newsItem.Content, {
+        ALLOWED_TAGS: ['b', 'i', 'strong', 'em', 'p', 'h1', 'h2', 'h3', 'h4', 'ul', 'li', 'img', 'div'], // Allowed tags
+      });
 
     return (
         <div className="News_Details_Container">
@@ -27,7 +36,7 @@ const NewsDetails = () => {
                 </div>
 
                 <div className="Date_Conatainer_Details">
-                    <p className="new_Date_Details">{newsItem.Date}</p>
+                    <p className="new_Date_Details">{new Date(newsItem.Date).toLocaleDateString("en-CA")}</p>
                 </div>
 
                 <div className="Sumary_Container_Details">
@@ -39,8 +48,8 @@ const NewsDetails = () => {
                     <img src={newsItem.Image} alt={newsItem.Title}></img>
                 </div>
 
-                <div className="News_Content_Details">
-                    {newsItem.renderContent()}
+                <div className="News_Content_Details" dangerouslySetInnerHTML={{ __html: sanitizedHTML }}>
+                    {console.log(newsItem.Content)}
                 </div>
             </div>
 

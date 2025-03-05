@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import "./CenterDashboard.css";
+import { Link } from "react-router-dom";
 import NewsComponent from "../NewsComponent/NewsComponentHandle"
 import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
 import { CoinContext } from "../../../contexts/CoinContext";
+import { NewsContext } from "../../../contexts/NewsContext";
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg";
 import Google from "../../../assets/Google.svg";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const onFinish = async (values) => {
-    const requestBody = JSON.stringify({ email: values.email.trim() });
-
     try {
         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
             method: "POST",
@@ -41,30 +41,9 @@ const onFinishFailed = (errorInfo) => {
 const Centers = ({ title, subtitle }) => {
     const { coins } = useContext(CoinContext);
 
-    const HotCoins = coins.slice(0, 5);
+    const { newsData } = useContext(NewsContext);
 
-    //     try {
-    //         const response = await fetch(`${API_BASE_URL}/v1/api/mail/subscribe`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ email: values.email }),
-    //         });
-    
-    //         const data = await response.json();
-    
-    //         if (response.ok) {
-    //             console.log("Success: đỉnh ");
-    //             alert(`${data.message}`);
-    //         } else {
-    //             // console.error("Error: lỗi mẹ nó rồi");
-    //             alert(`${data.message}`);
-    //         }
-    
-    //     } catch (error) {
-    //         console.error("Request error:", error);
-    //         alert("An error occurred. Please try again.");
-    //     }
-    // };
+    const HotCoins = coins.slice(0, 5);
 
     return (
         <section className="CenterComponent-Container" >
@@ -159,7 +138,23 @@ const Centers = ({ title, subtitle }) => {
                     ))}
                 </div>
 
-                <NewsComponent />
+                <div className="News-container">
+                    <div className="News-heading-container">
+                        <h2 className="News-heading-title">
+                            News
+                        </h2>
+
+                        <Link to="/news">
+                            <p className="News-Link">View all news</p>
+                        </Link>
+                    </div>
+
+                    <div className="News-Content-Container">
+                        {newsData?.sort((a, b) => b.id - a.id).slice(0,4).map(news => (
+                            <NewsComponent key={news.id} id={news.id} Title={news.Title} />
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     )

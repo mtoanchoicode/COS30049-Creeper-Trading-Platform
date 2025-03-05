@@ -1,0 +1,28 @@
+.market-favorite-star{
+    height: 1.4rem;
+    width: 1.4rem;
+    margin-right: 0.5rem;
+    background-image: url("../../../assets/Star Icon Border.svg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.market-favorite-star.isFavorite{
+    background-image: url("../../../assets/Star Icon Fill.svg");
+}
+
+.market-favorite-star.notFavorite:hover{
+    filter: brightness(150%);
+    cursor: pointer;
+}
+.app.light .market-favorite-star.notFavorite:hover{
+    filter: brightness(50%);
+    cursor: pointer;
+}
+
+.market-favorite-star.isFavorite:hover{
+    filter: brightness(80%);
+    cursor: pointer;
+}
+

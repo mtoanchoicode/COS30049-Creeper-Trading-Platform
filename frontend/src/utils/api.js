@@ -12,14 +12,47 @@ const loginAPI = (email, password) => {
   return axios.post(URL_API, data);
 };
 
-const getUserAPI = () => {
-  const URL_API = "/v1/api/profile/user";
-  return axios.get(URL_API);
-};
-
 const getAccount = () => {
   const URL_API = "/v1/api/profile/account";
   return axios.get(URL_API);
 };
 
-export { createUserAPI, loginAPI, getUserAPI, getAccount };
+const postGetOtp = (email) => {
+  const URL_API = "/v1/api/profile/forgot";
+  const data = { email };
+  return axios.post(URL_API, data);
+};
+
+const postOTP = (email, otp) => {
+  const URL_API = "/v1/api/profile/forgot/otp";
+  const data = { email, otp };
+  return axios.post(URL_API, data);
+};
+
+const postResetPassword = (password) => {
+  const URL_API = "/v1/api/profile/forgot/reset";
+  const data = { password };
+  return axios.post(URL_API, data);
+};
+
+const getWatchList = () => {
+  const URL_API = "/v1/api/profile/watch-list";
+  return axios.get(URL_API);
+};
+
+const postWatchList = (symbol) => {
+  const URL_API = "/v1/api/profile/watch-list";
+  const data = { symbol };
+  return axios.post(URL_API, data);
+};
+
+export {
+  postResetPassword,
+  createUserAPI,
+  loginAPI,
+  getAccount,
+  postGetOtp,
+  postOTP,
+  getWatchList,
+  postWatchList,
+};
