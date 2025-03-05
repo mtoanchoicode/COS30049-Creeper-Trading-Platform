@@ -1,32 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
+import lnx_icon from "../assets/LNX Icon.png";
+import cep_icon from "../assets/CEP Icon.png";
+import sepolica_icon from "../assets/Sepolia Icon.png";
 
 export const CoinContext = createContext();
 
 const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
+  const [ethCoin, setEthCoin] = useState("");
 
-  const defaultCurrency = {
-    symbol: "USD", // Default symbol
-    name: "US Dollar", // Default name
-  };
-
-  const [buyCurrency, setBuyCurrency] = useState(null);
-
-  const [sendCurrency, setSendCurrency] = useState(defaultCurrency);
-  const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
-
-  const [limitFromCurrency, setLimitFromCurrency] = useState(defaultCurrency);
-  const [limitToCurrency, setLimitToCurrency] = useState(defaultCurrency);
-  const [limitFromCurrencyValue, setLimitFromCurrencyValue] = useState("");
-  const [limitToCurrencyValue, setLimitToCurrencyValue] = useState("");
-
-  const [swapFromCurrency, setSwapFromCurrency] = useState(defaultCurrency);
-  const [swapToCurrency, setSwapToCurrency] = useState(defaultCurrency);
-  const [swapFromCurrencyValue, setSwapFromCurrencyValue] = useState("");
-  const [swapToCurrencyValue, setSwapToCurrencyValue] = useState("");
-  const [swapFromUsdValue, setSwapFromUsdValue] = useState(0);
-  const [swapToUsdValue, setSwapToUsdValue] = useState(0);
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
@@ -35,27 +18,58 @@ const CoinProvider = ({ children }) => {
       .then((data) => {
         setCoins(data);
 
-        // Set default currencies to ETH and USDT
         const ethCoin = data.find(
           (coin) => coin.symbol.toLowerCase() === "eth"
         );
-        const usdtCoin = data.find(
-          (coin) => coin.symbol.toLowerCase() === "usdt"
-        );
-        const usdcCoin = data.find(
-          (coin) => coin.symbol.toLowerCase() === "usdc"
-        );
 
-        if (ethCoin) setSwapFromCurrency(ethCoin);
-        if (usdtCoin) setSwapToCurrency(usdtCoin);
-
-        if (ethCoin) setLimitFromCurrency(ethCoin);
-        if (usdcCoin) setLimitToCurrency(usdcCoin);
-
-        if (ethCoin) setSendCurrency(ethCoin);
+        if (ethCoin) setEthCoin(ethCoin);
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
+
+  const localCoins = [
+    {
+      id: "eth",
+      name: "SepoliaETH",
+      symbol: "ETH",
+      image: sepolica_icon,
+      current_price: ethCoin.current_price,
+    },
+    {
+      id: "cep",
+      name: "Creeper Trading Token",
+      symbol: "CEP",
+      image: cep_icon,
+      current_price: 2,
+    },
+    {
+      id: "lnx",
+      name: "Ancient Forest",
+      symbol: "LNX",
+      image: lnx_icon,
+      current_price: 1,
+    },
+  ];
+
+  const [buyCurrency, setBuyCurrency] = useState(null);
+
+  const [sendCurrency, setSendCurrency] = useState(localCoins[0]);
+  const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
+
+  const [limitFromCurrency, setLimitFromCurrency] = useState(localCoins[1]);
+  const [limitToCurrency, setLimitToCurrency] = useState(localCoins[2]);
+
+  const [limitFromCurrencyValue, setLimitFromCurrencyValue] = useState("");
+  const [limitToCurrencyValue, setLimitToCurrencyValue] = useState("");
+
+  const [swapFromCurrency, setSwapFromCurrency] = useState(localCoins[1]);
+  const [swapToCurrency, setSwapToCurrency] = useState(localCoins[2]);
+
+  const [swapFromCurrencyValue, setSwapFromCurrencyValue] = useState("");
+  const [swapToCurrencyValue, setSwapToCurrencyValue] = useState("");
+
+  const [swapFromUsdValue, setSwapFromUsdValue] = useState(0);
+  const [swapToUsdValue, setSwapToUsdValue] = useState(0);
 
   const resetValues = () => {
     setSwapFromCurrencyValue("");
@@ -63,8 +77,10 @@ const CoinProvider = ({ children }) => {
     setSwapFromUsdValue("");
     setSwapToUsdValue("");
 
-    setLimitFromCurrencyValue(""); 
-  setLimitToCurrencyValue(""); 
+    setLimitFromCurrencyValue("");
+
+    setSendCurrencyValue("");
+    setLimitToCurrencyValue("");
   };
 
   const handleCurrencyValueChange = (e, type, tradeType) => {
@@ -198,6 +214,7 @@ const CoinProvider = ({ children }) => {
 
   const contextValue = {
     coins,
+    localCoins,
     sendCurrency,
     sendCurrencyValue,
     buyCurrency,
