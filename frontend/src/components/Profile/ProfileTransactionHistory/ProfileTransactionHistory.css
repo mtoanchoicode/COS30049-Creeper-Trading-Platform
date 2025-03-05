@@ -8,6 +8,11 @@
   border-radius: 1.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+}
+.profileTH-cardTransaction {
+  width: 70%;
+  overflow-x: hidden;
 }
 .profileTH-header {
   display: flex;
@@ -78,6 +83,7 @@
 }
 
 .profileTH-Tooltip {
+  position: absolute;
   visibility: hidden;
   background-color: var(--grey-color);
   color: #fff;

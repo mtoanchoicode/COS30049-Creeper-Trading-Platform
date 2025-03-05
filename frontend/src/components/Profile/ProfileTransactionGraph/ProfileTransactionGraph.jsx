@@ -30,7 +30,7 @@ const WalletGraph = ({ initialWallet }) => {
         `${API_BASE_URL}/v1/api/wallet/wallet-graph/${walletAddress}`
       );
       const data = await response.json();
-      const transactions = data.transactions;
+      const transactions = data.transactions.slice(0, 20);
 
       const nodesSet = new Set(graphData.nodes.map((n) => n.id));
       const newNodes = [];

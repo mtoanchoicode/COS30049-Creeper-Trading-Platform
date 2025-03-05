@@ -1,22 +1,69 @@
 import React, { useState } from "react";
 import "./ProfileTransactionHistory.css";
-import exportIcon from "../../../assets/Export Icon.svg";
-import Icons from "../../Icons/Icons";
-import shortenAddress from "../../../utils/utils";
 import { CopyOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import WalletGraph from "../ProfileTransactionGraph/ProfileTransactionGraph";
+import shortenAddress from "../../../utils/utils";
 
 const TransactionsHistory = ({ walletDetail }) => {
-  const [view, setView] = useState("transactions");
   const transactionHistory = walletDetail.transactionHistory;
 
-  // Pagination state
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
+  };
+
+  // Check if transactionHistory is an array (wallet address) or an object (single transaction)
+  const isSingleTransaction = !Array.isArray(transactionHistory);
+
+  if (isSingleTransaction) {
+    // If it's a single transaction, render the simple table
+    const transaction = transactionHistory; // Single object
+
+    return (
+      <div className="profileTH-card profileTH-cardTransaction">
+        <div className="profileTH-header">
+          <h2 className="profileTH-heading">Transaction Details</h2>
+        </div>
+        <table className="profileTH-table">
+          <tbody>
+            {Object.entries(transaction).map(([key, value], index) => (
+              <tr key={index}>
+                <td>{key.charAt(0).toUpperCase() + key.slice(1)}</td>
+                <td>
+                  {["hash", "from", "to"].includes(key) ? (
+                    <div className="profileTH-AddressContainer">
+                      <div className="profileTH-TooltipContainer">
+                        <span className="profileTH-AddressText">
+                          {shortenAddress(value)}
+                        </span>
+                        <div className="profileTH-Tooltip">{value}</div>
+                      </div>
+                      <button
+                        className="profileTH-CopyButton"
+                        onClick={() => copyToClipboard(value)}
+                      >
+                        <CopyOutlined />
+                      </button>
+                    </div>
+                  ) : key === "amount" ? (
+                    `${value} ETH`
+                  ) : (
+                    value
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  // If it's an array, render the paginated transactions table
+  const [view, setView] = useState("transactions");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  // Calculate total pages
   const totalPages = Math.ceil(transactionHistory.length / itemsPerPage);
-
-  // Get the coins for the current page
   const paginatedTransactions = transactionHistory.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -33,13 +80,8 @@ const TransactionsHistory = ({ walletDetail }) => {
     "Method",
   ];
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
-  };
-
-  const renderCell = (transactionHistory, column) => {
-    const value = transactionHistory[column.toLowerCase().replace(" ", "")];
+  const renderCell = (transaction, column) => {
+    const value = transaction[column.toLowerCase().replace(" ", "")];
     if (["Hash", "From", "To"].includes(column)) {
       return (
         <div className="profileTH-AddressContainer">
@@ -49,7 +91,6 @@ const TransactionsHistory = ({ walletDetail }) => {
             </span>
             <div className="profileTH-Tooltip">{value}</div>
           </div>
-
           <button
             className="profileTH-CopyButton"
             onClick={() => copyToClipboard(value)}
@@ -58,7 +99,7 @@ const TransactionsHistory = ({ walletDetail }) => {
           </button>
         </div>
       );
-    } else if (["Amount"].includes(column)) {
+    } else if (column === "Amount") {
       return `${value} ETH`;
     } else {
       return value;
@@ -83,6 +124,7 @@ const TransactionsHistory = ({ walletDetail }) => {
           Visualize
         </button>
       </div>
+
       <div className="profileTH-card">
         <div className="profileTH-header">
           <h2 className="profileTH-heading">Transactions</h2>
@@ -108,6 +150,7 @@ const TransactionsHistory = ({ walletDetail }) => {
                 ))}
               </tbody>
             </table>
+
             <div className="watchList-pagination">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
