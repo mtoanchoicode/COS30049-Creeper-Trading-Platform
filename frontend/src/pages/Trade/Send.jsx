@@ -7,6 +7,7 @@ import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWall
 import { Button } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
+import { ExportOutlined } from "@ant-design/icons";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b";
@@ -120,6 +121,14 @@ const Send = () => {
           getButtonText()
         )}
       </Button>
+      <a
+        className="trade-contractAddress"
+        href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+        target="_blank"
+      >
+        <span>Contract address</span>
+        <ExportOutlined />
+      </a>
     </div>
   );
 };

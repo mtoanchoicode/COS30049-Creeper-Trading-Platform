@@ -11,13 +11,33 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { getWatchList } from "../../../utils/api";
+import { getWatchList, postWatchList } from "../../../utils/api";
 
 const ProfileWatchList = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const { userData } = useUser();
   const [watchList, setWatchList] = useState([]);
   const { coins } = useContext(CoinContext);
+
+  const handleDelete = async (symbol) => {
+    try {
+      // Remove from localStorage
+      const savedFavorites =
+        JSON.parse(localStorage.getItem("favorites")) || {};
+      delete savedFavorites[symbol]; // Remove the coin
+      localStorage.setItem("favorites", JSON.stringify(savedFavorites));
+
+      // Call API to delete from backend
+      await postWatchList(symbol.toLowerCase());
+
+      // Update state to reflect the deletion
+      setWatchList((prevWatchList) =>
+        prevWatchList.filter((item) => item !== symbol)
+      );
+    } catch (error) {
+      console.error("Error deleting from watchlist:", error);
+    }
+  };
 
   useEffect(() => {
     async function fetchWatchList() {
@@ -101,7 +121,10 @@ const ProfileWatchList = () => {
                     </span>
                   </td>
                   <td>
-                    <a className="watchList-Delete">
+                    <a
+                      className="watchList-Delete"
+                      onClick={() => handleDelete(coin.symbol)}
+                    >
                       <DeleteFilled></DeleteFilled>
                     </a>
                   </td>
@@ -131,7 +154,7 @@ const ProfileWatchList = () => {
           )}
         </div>
       ) : (
-        <p> Add token in Explorer page to personalize yout watchlist</p>
+        <p> Nothing in Watch List</p>
       )}
     </div>
   );

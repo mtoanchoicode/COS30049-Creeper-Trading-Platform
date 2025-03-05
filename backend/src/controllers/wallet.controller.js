@@ -4,29 +4,36 @@ const { fetchTokenHoldings } = require("../utils/fetchTokenHoldings");
 const { fetchTransactionHistory } = require("../utils/fetchTransactionHistory");
 
 const searchWallet = async (req, res) => {
+  var isTransaction = true;
   const walletAddress = req.params.walletAddress;
   walletInfo = {};
   walletInfo.walletAddress = walletAddress;
   if (!walletAddress) {
-    return res.status(400).json({ error: "Wallet address is required" });
+    return res.status(400).json({ error: "Address is required" });
   }
 
-  try {
-    walletInfo.ethBalance = await fetchETHBalance(walletAddress);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  const isAddress = /^0x[a-fA-F0-9]{40}$/.test(walletAddress);
+  const isTxHash = /^0x[a-fA-F0-9]{64}$/.test(walletAddress);
+
+  if (isAddress) {
+    isTransaction = false;
+    try {
+      walletInfo.tokenHoldings = await fetchTokenHoldings(walletAddress);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    try {
+      walletInfo.ethBalance = await fetchETHBalance(walletAddress);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   }
 
   try {
     walletInfo.transactionHistory = await fetchTransactionHistory(
-      walletAddress
+      walletAddress,
+      isTransaction
     );
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-
-  try {
-    walletInfo.tokenHoldings = await fetchTokenHoldings(walletAddress);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
