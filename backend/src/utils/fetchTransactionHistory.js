@@ -2,11 +2,7 @@ require("dotenv").config();
 const { ethers } = require("ethers");
 const axios = require("axios");
 
-const fetchTransactionHistory = async (
-  walletAddress,
-  isTransaction,
-  limit = 30
-) => {
+const fetchTransactionHistory = async (walletAddress, isTransaction) => {
   const apiKey = process.env.ETHERSCAN_API_KEY;
 
   if (isTransaction) {
