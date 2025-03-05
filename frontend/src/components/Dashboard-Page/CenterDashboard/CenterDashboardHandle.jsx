@@ -150,8 +150,8 @@ const Centers = ({ title, subtitle }) => {
                     </div>
 
                     <div className="News-Content-Container">
-                        {newsData?.slice(-4).map(news => (
-                        <NewsComponent key={news.id} id={news.id} Title={news.Title} />
+                        {newsData?.sort((a, b) => b.id - a.id).slice(0,4).map(news => (
+                            <NewsComponent key={news.id} id={news.id} Title={news.Title} />
                         ))}
                     </div>
                 </div>
