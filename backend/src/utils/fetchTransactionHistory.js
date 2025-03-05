@@ -38,18 +38,16 @@ const fetchTransactionHistory = async (walletAddress, isTransaction) => {
         );
       }
 
-      return response.data.result
-        .slice(0, limit) // Take only the latest 'limit' transactions
-        .map((tx) => ({
-          hash: tx.hash,
-          method: tx.functionName,
-          block: tx.blockNumber,
-          from: tx.from,
-          to: tx.to,
-          amount: ethers.formatEther(tx.value),
-          fee: ethers.formatEther(BigInt(tx.gasUsed) * BigInt(tx.gasPrice)), // Fix gas fee calculation
-          timestamp: new Date(tx.timeStamp * 1000).toLocaleString(),
-        }));
+      return response.data.result.map((tx) => ({
+        hash: tx.hash,
+        method: tx.functionName,
+        block: tx.blockNumber,
+        from: tx.from,
+        to: tx.to,
+        amount: ethers.formatEther(tx.value),
+        fee: ethers.formatEther(BigInt(tx.gasUsed) * BigInt(tx.gasPrice)), // Fix gas fee calculation
+        timestamp: new Date(tx.timeStamp * 1000).toLocaleString(),
+      }));
     } catch (error) {
       console.error(
         "Error fetching transaction history for wallet address:",
