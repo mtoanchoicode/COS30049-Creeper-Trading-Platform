@@ -10,10 +10,36 @@
   height: 21.5rem;
 }
 
+.buy-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .buy-top span {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--trade-secondary-text-color);
+}
+
+.buy-top p{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem; 
+  border-radius: 30px;
+  background-color: var(--black-background-color);
+  color: #fafafa;
+}
+
+.light .buy-top p{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem; 
+  border-radius: 30px;
+  background-color: var(--grey-color);
+  color: #000;
 }
 
 .buy-bottom {

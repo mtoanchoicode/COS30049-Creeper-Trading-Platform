@@ -15,9 +15,13 @@ const ProfileSearchDetail = ({ walletData, isLoading, error }) => {
   if (!walletData) {
     return;
   }
+
+  const isAddress = /^0x[a-fA-F0-9]{40}$/.test(walletData.walletAddress);
+  const isTxHash = /^0x[a-fA-F0-9]{64}$/.test(walletData.walletAddress);
+
   return (
     <div>
-      <ProfileWalletBalance walletBalance={walletData} />
+      {isAddress && <ProfileWalletBalance walletBalance={walletData} />}
       <TransactionsHistory walletDetail={walletData} />
     </div>
   );

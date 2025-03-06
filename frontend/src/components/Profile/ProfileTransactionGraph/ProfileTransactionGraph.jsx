@@ -14,10 +14,10 @@ const WalletGraph = ({ initialWallet }) => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
     fetchTransactions(initialWallet);
   }, [initialWallet]);
 
@@ -30,7 +30,7 @@ const WalletGraph = ({ initialWallet }) => {
         `${API_BASE_URL}/v1/api/wallet/wallet-graph/${walletAddress}`
       );
       const data = await response.json();
-      const transactions = data.transactions;
+      const transactions = data.transactions.slice(0, 20);
 
       const nodesSet = new Set(graphData.nodes.map((n) => n.id));
       const newNodes = [];
@@ -246,9 +246,9 @@ const WalletGraph = ({ initialWallet }) => {
       // Get the current URL
       const currentUrl = window.location.href;
       // Extract the base URL (everything before the last part)
-      const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/"));
+      const baseUrl = currentUrl.split("/").slice(0, 3).join("/");
       // Construct the new URL
-      const searchUrl = `${baseUrl}/${selectedNode.id}`;
+      const searchUrl = `${baseUrl}/profile/transactions/${selectedNode.id}`;
       window.open(searchUrl, "_blank");
     }
     setMenuPosition(null);

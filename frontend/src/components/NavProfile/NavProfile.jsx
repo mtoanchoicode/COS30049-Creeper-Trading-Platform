@@ -17,6 +17,7 @@ const NavProfile = () => {
   // Function to handle logout
   const handleLogout = () => {
     localStorage.clear("access_token");
+    localStorage.clear("favorites");
     navigate("/");
     setAuth({
       isAuthenticated: false,

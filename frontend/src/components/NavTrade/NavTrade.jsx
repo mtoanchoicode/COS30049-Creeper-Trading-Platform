@@ -20,9 +20,14 @@ const NavTrade = () => {
       path: "/trade/swap",
     },
     {
-      name: "Limit",
-      desc: "Set your price and take control of your trades",
-      path: "/trade/limit",
+      name: "Add",
+      desc: "Add the liquidity to our coin pool",
+      path: "/trade/add",
+    },
+    {
+      name: "Faucet",
+      desc: "Claim free LNX and CEP tokens every hour!",
+      path: "/trade/faucet",
     },
   ];
 

@@ -83,6 +83,16 @@
     gap: 1.2rem;
 }
 
+
+
+.News_Content_Details img{
+    width: 50%;
+    height: fit-content;
+    border-radius: 20px;
+    display: flex;
+    align-self: center;
+}
+
 .News_Content_Details *{
     font-size: 1.1rem;
 }

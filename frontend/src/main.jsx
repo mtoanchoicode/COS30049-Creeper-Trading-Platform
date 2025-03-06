@@ -5,6 +5,7 @@ import "./styles/index.css";
 
 import App from "./App.jsx";
 import CoinProvider from "./contexts/CoinContext";
+import NewsProvider from "./contexts/NewsContext.jsx";
 import DashboardPage from "./pages/Dashboard.jsx";
 import MarketPage from "./pages/Market/Market.jsx";
 import TradePage from "./pages/Trade/Trade.jsx";
@@ -27,6 +28,9 @@ import ForgotPage from "./pages/Profile/Forgot.jsx";
 import NewsPage from "./pages/News-Page/NewsPage.jsx";
 import NewsDetailsPage from "./pages/News-Page/NewsDetailsPage.jsx";
 import { AuthWrapper } from "./contexts/AuthContext.jsx";
+import ResetPasswordPage from "./pages/Profile/ResetPassword.jsx";
+import Faucet from "./pages/Trade/Faucet.jsx";
+import Add from "./pages/Trade/AddPool.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -57,6 +61,8 @@ const routers = createBrowserRouter([
           { path: "swap", element: <Swap /> },
           { path: "limit", element: <Limit /> },
           { path: "buy", element: <Buy /> },
+          { path: "faucet", element: <Faucet /> },
+          { path: "add", element: <Add /> },
         ],
       },
       {
@@ -103,6 +109,10 @@ const routers = createBrowserRouter([
         path: "forgot",
         element: <ForgotPage />,
       },
+      {
+        path: "reset",
+        element: <ResetPasswordPage />,
+      },
     ],
   },
   {
@@ -113,12 +123,14 @@ const routers = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserProvider>
-      <CoinProvider>
-        <AuthWrapper>
-          <RouterProvider router={routers} />
-        </AuthWrapper>
-      </CoinProvider>
-    </UserProvider>
+    <NewsProvider>
+      <UserProvider>
+        <CoinProvider>
+          <AuthWrapper>
+            <RouterProvider router={routers} />
+          </AuthWrapper>
+        </CoinProvider>
+      </UserProvider>
+    </NewsProvider>
   </StrictMode>
 );
