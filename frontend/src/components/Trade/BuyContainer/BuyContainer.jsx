@@ -32,11 +32,10 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
           <Input placeholder="₫0" value={value} onChange={handleChange} />
         </div>
         <div
-          className={`buy-token-selection ${currency ? "active" : "inactive"}`}
-          onClick={() => setActiveOverlay("buy")}
+          className="buy-token-selection"
         >
           <div>
-            {currency ? currency.symbol.toUpperCase() : "Select a token"}
+            {currency.symbol.toUpperCase()}
           </div>
           <i className="fa-solid fa-chevron-down"></i>
         </div>

@@ -83,20 +83,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   border-radius: 2rem;
-  padding: 0.3rem 1rem;
+  padding: 0.4rem 0.7rem;
   margin-bottom: 0.4rem;
   color: white;
   font-weight: 600;
-  cursor: pointer;
-}
-
-.buy-token-selection.inactive {
-  background: var(--primary-color);
-}
-
-.buy-token-selection.active {
   background: var(--app-background);
   color: var(--white-color);
   border: 0.01rem solid var(--trade-border-color);
