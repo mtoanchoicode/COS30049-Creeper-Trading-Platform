@@ -61,6 +61,8 @@ const CoinProvider = ({ children }) => {
 
   const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
 
+  const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
+
   const [sendCurrency, setSendCurrency] = useState(localCoins[0]);
   const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
 
@@ -165,7 +167,10 @@ const CoinProvider = ({ children }) => {
     if (tradeType === "send") {
       setSendTokenAddress(updatedCurrency.address || null);
       setSendCurrency(updatedCurrency);
-    } 
+    } else if (tradeType === "faucet") {
+      // setSendTokenAddress(updatedCurrency.address || null);
+      setfaucetCurrency(updatedCurrency);
+    }
 
     setActiveOverlay(null);
     resetValues();
@@ -196,6 +201,8 @@ const CoinProvider = ({ children }) => {
     setActiveOverlay,
     handleCurrencyValueChange,
     handleSendCurrencyValueChange,
+    faucetCurrency,
+    setfaucetCurrency,
   };
 
   return (

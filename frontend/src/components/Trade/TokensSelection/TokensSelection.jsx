@@ -4,10 +4,10 @@ import "./TokensSelection.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 
 const TokensSelection = ({ type, tradeType }) => {
-
   const { localCoins, activeOverlay, setActiveOverlay, handleCoinSelection } =
     useContext(CoinContext);
 
+  const filteredCoins = type === "faucet" ? localCoins.slice(1) : localCoins;
   return (
     activeOverlay === type && (
       <div className="convert-coin-selection">
@@ -22,7 +22,7 @@ const TokensSelection = ({ type, tradeType }) => {
             </div>
           </div>
           <div className="convert-coin-selection-container-list">
-            {localCoins.map((coin) => (
+            {filteredCoins.map((coin) => (
               <div
                 key={coin.name}
                 className="selection-coin-item"
