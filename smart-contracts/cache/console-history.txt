@@ -1,0 +1,8 @@
+console.log("LNX Balance:", ethers.utils.formatUni
+const balance = await lnxToken.balanceOf("0xB292901F154CB8C3402F9328CE1475FC0E699174");
+const lnxToken = await ethers.getContractAt("IERC20", "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9");
+const balance = await lnxToken.balanceOf("0xB292901F154CB8C3402F9328CE1475FC0E699174");
+const lnxToken = await ethers.getContractAt("IERC20", "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9");
+const balance = await lnxToken.balanceOf("0xYourContractAddress"); // Replace with your contract adconsole.log("LNX Balance:", ethers.utils.formatUnits(balance, 18));
+const lnxToken = await ethers.getContractAt("IERC20", "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9");
+(await ethers.provider.getBalance("0x8B108C954F7bc6Df2f4B507eDcF2EF7F24c7efa2")).toString()
