@@ -4,27 +4,61 @@ import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 
 import SendContainer from "../../components/Trade/SendContainer/SendContainer";
 import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWalletAddress";
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import { ExportOutlined } from "@ant-design/icons";
 
 const Send = () => {
-  const CONTRACT_ADDRESS = "0xdc34b8D2c0b388d120519abC70357d70bC28e46b";
+  const CONTRACT_ADDRESS = "0x9239712E274332d3b34a7eeAD4De226376fBF370";
   const ABI = [
+    { inputs: [], stateMutability: "nonpayable", type: "constructor" },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
+          internalType: "uint256",
+          name: "newFeePercentage",
+          type: "uint256",
+        },
+      ],
+      name: "FeeUpdated",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
           internalType: "address",
           name: "from",
           type: "address",
         },
+        { indexed: true, internalType: "address", name: "to", type: "address" },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
         {
           indexed: false,
           internalType: "address",
-          name: "to",
+          name: "token",
+          type: "address",
+        },
+      ],
+      name: "Sent",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "token",
           type: "address",
         },
         {
@@ -34,25 +68,248 @@ const Send = () => {
           type: "uint256",
         },
       ],
-      name: "Sent",
+      name: "TokenWithdrawn",
       type: "event",
     },
     {
+      anonymous: false,
       inputs: [
-        { internalType: "address payable", name: "_to", type: "address" },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
       ],
-      name: "sendETH",
+      name: "Withdrawn",
+      type: "event",
+    },
+    {
+      inputs: [],
+      name: "feePercentage",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "owner",
+      outputs: [{ internalType: "address payable", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "_token", type: "address" },
+        { internalType: "address payable", name: "_to", type: "address" },
+        { internalType: "uint256", name: "_amount", type: "uint256" },
+      ],
+      name: "sendFunds",
       outputs: [],
       stateMutability: "payable",
       type: "function",
     },
+    {
+      inputs: [
+        { internalType: "uint256", name: "_newFeePercentage", type: "uint256" },
+      ],
+      name: "setFeePercentage",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "withdraw",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "_token", type: "address" }],
+      name: "withdrawTokens",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    { stateMutability: "payable", type: "receive" },
   ];
 
-  const { sendCurrencyValue } = useContext(CoinContext);
+  const ERC20_ABI = [
+    { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+    {
+      inputs: [
+        { internalType: "address", name: "spender", type: "address" },
+        { internalType: "uint256", name: "allowance", type: "uint256" },
+        { internalType: "uint256", name: "needed", type: "uint256" },
+      ],
+      name: "ERC20InsufficientAllowance",
+      type: "error",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "sender", type: "address" },
+        { internalType: "uint256", name: "balance", type: "uint256" },
+        { internalType: "uint256", name: "needed", type: "uint256" },
+      ],
+      name: "ERC20InsufficientBalance",
+      type: "error",
+    },
+    {
+      inputs: [{ internalType: "address", name: "approver", type: "address" }],
+      name: "ERC20InvalidApprover",
+      type: "error",
+    },
+    {
+      inputs: [{ internalType: "address", name: "receiver", type: "address" }],
+      name: "ERC20InvalidReceiver",
+      type: "error",
+    },
+    {
+      inputs: [{ internalType: "address", name: "sender", type: "address" }],
+      name: "ERC20InvalidSender",
+      type: "error",
+    },
+    {
+      inputs: [{ internalType: "address", name: "spender", type: "address" }],
+      name: "ERC20InvalidSpender",
+      type: "error",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "Approval",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        { indexed: true, internalType: "address", name: "to", type: "address" },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "owner", type: "address" },
+        { internalType: "address", name: "spender", type: "address" },
+      ],
+      name: "allowance",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "spender", type: "address" },
+        { internalType: "uint256", name: "value", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "account", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "decimals",
+      outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "name",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "symbol",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "totalSupply",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "value", type: "uint256" },
+      ],
+      name: "transfer",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "value", type: "uint256" },
+      ],
+      name: "transferFrom",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ];
+
+  const { sendCurrencyValue, sendTokenAddress } = useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [tokenAddress, setTokenAddress] = useState(""); // ERC-20 Token Address
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
 
   const getButtonText = () => {
@@ -63,9 +320,12 @@ const Send = () => {
     return "Send";
   };
 
-  const sendETH = async () => {
+  const sendFunds = async () => {
     if (!window.ethereum) {
-      alert("MetaMask or a compatible wallet is required!");
+      notification.error({
+        message: "Wallet Required",
+        description: "MetaMask or a compatible wallet is required!",
+      });
       return;
     }
 
@@ -74,18 +334,103 @@ const Send = () => {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
+      const userAddress = await signer.getAddress();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
-      const tx = await contract.sendETH(recipient, {
-        value: ethers.parseEther(sendCurrencyValue.toString()),
-      });
+      const isETH =
+        !sendTokenAddress ||
+        sendTokenAddress === "0x0000000000000000000000000000000000000000";
 
-      alert(`Transaction sent! Hash: ${tx.hash}`);
-      await tx.wait();
-      alert("Transaction confirmed!");
+      if (isETH) {
+        // Check ETH balance
+        const balance = await provider.getBalance(userAddress);
+        const amountToSend = ethers.parseEther(sendCurrencyValue.toString());
+
+        if (balance < amountToSend) {
+          notification.error({
+            message: "Insufficient Balance",
+            description:
+              "You do not have enough ETH to complete this transaction.",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        const tx = await contract.sendFunds(
+          "0x0000000000000000000000000000000000000000", // ETH address
+          recipient,
+          ethers.parseEther(sendCurrencyValue.toString()),
+          { value: ethers.parseEther(sendCurrencyValue.toString()) }
+        );
+        notification.info({
+          message: "ETH Transaction Created",
+          description: `Transaction Hash: ${tx.hash}`,
+        });
+
+        await tx.wait();
+
+        notification.success({
+          message: "Transaction Confirmed",
+          description: "Your ETH transaction has been successfully confirmed!",
+        });
+      } else {
+        const tokenContract = new ethers.Contract(
+          sendTokenAddress,
+          ERC20_ABI,
+          signer
+        );
+
+        // Check token balance
+        const balance = await tokenContract.balanceOf(userAddress);
+        const amountToSend = ethers.parseUnits(
+          sendCurrencyValue.toString(),
+          18
+        );
+
+        if (balance < amountToSend) {
+          notification.error({
+            message: "Insufficient Token Balance",
+            description:
+              "You do not have enough tokens to complete this transaction.",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Approve the contract to spend tokens
+        const approveTx = await tokenContract.approve(
+          CONTRACT_ADDRESS,
+          ethers.parseUnits(sendCurrencyValue.toString(), 18)
+        );
+        await approveTx.wait();
+
+        notification.info({
+          message: "Approval Successful",
+          description: `Token approval completed with hash. Sending transaction now...`,
+        });
+
+        const tx = await contract.sendFunds(
+          sendTokenAddress,
+          recipient,
+          ethers.parseUnits(sendCurrencyValue.toString(), 18)
+        );
+        notification.info({
+          message: "Token Transaction Created",
+          description: `Transaction Hash: ${tx.hash}`,
+        });
+        await tx.wait();
+        notification.success({
+          message: "Transaction Confirmed",
+          description:
+            "Your token transaction has been successfully confirmed!",
+        });
+      }
     } catch (error) {
       console.error(error);
-      alert("Transaction failed: " + error.message);
+      notification.error({
+        message: "Transaction Failed",
+        description: error.message || "An unknown error occurred.",
+      });
     } finally {
       setIsLoading(false); // Ensure loading is turned off after the transaction completes
     }
@@ -93,15 +438,15 @@ const Send = () => {
 
   const handleButtonClick = () => {
     if (!isConnected) {
-      open();
+      open(); // Open wallet connection
     } else {
-      sendETH();
+      sendFunds();
     }
   };
 
   return (
     <div className="send trade-child">
-      <SendContainer setAmount={setAmount} />
+      <SendContainer setAmount={setAmount} setTokenAddress={setTokenAddress} />
       <SendWalletAddress setRecipient={setRecipient} />
       <Button
         type="primary"

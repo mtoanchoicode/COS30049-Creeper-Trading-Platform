@@ -1,17 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SendContainer.css";
 import { Input } from "antd";
 import { CoinContext } from "../../../contexts/CoinContext";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
-const SendContainer = ({ setAmount }) => {
+const SendContainer = ({ setAmount, setTokenAddress }) => {
   const {
     sendCurrency,
     sendCurrencyValue,
     handleSendCurrencyValueChange,
     setActiveOverlay,
+    sendTokenAddress,
+    setSendTokenAddress,
   } = useContext(CoinContext);
   const [value, setValue] = useState("");
+
+  // Update token address when currency changes
+  useEffect(() => {
+    if (sendCurrency.address) {
+      setTokenAddress(sendCurrency.address);
+      setSendTokenAddress(sendCurrency.address);
+    } else {
+      setTokenAddress(null);
+      setSendTokenAddress(null);
+    }
+    // Reset amount when currency changes
+    if (value) {
+      handleSendCurrencyValueChange(value.replace("$", "")); // Recalculate new token equivalent
+    }
+  }, [sendCurrency]);
 
   // Function to handle input change
   const handleAmountChange = (e) => {
