@@ -94,9 +94,9 @@
   border: 0.01rem solid var(--trade-border-color);
 }
 
-.buy-token-selection i {
-  font-size: 0.7rem;
-  color: white;
+.buy-token-selection img {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .buy-price-quick-selection {

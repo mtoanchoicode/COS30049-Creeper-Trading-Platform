@@ -3,7 +3,6 @@ import "./BuyContainer.css";
 import { Input } from "antd";
 import TokensSelection from "../TokensSelection/TokensSelection";
 
-
 const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
   const [value, setValue] = useState("");
 
@@ -31,13 +30,9 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
         <div className="buy-currency-input">
           <Input placeholder="₫0" value={value} onChange={handleChange} />
         </div>
-        <div
-          className="buy-token-selection"
-        >
-          <div>
-            {currency.symbol.toUpperCase()}
-          </div>
-          <i className="fa-solid fa-chevron-down"></i>
+        <div className="buy-token-selection">
+          <img src={currency.image} alt={currency.symbol} />
+          <div>{currency.symbol.toUpperCase()}</div>
         </div>
         <div className="buy-price-quick-selection">
           <button onClick={() => handlePresetValue(100)}>₫100</button>
