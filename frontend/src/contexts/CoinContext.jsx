@@ -38,18 +38,26 @@ const CoinProvider = ({ children }) => {
     {
       id: "cep",
       name: "Creeper Trading Token",
+      address: "0x1559368328F951a72da9B7571C6611667dfc72d2",
       symbol: "CEP",
       image: cep_icon,
-      current_price: 2
+      current_price: 2,
+      address: "0x1559368328F951a72da9B7571C6611667dfc72d2",
     },
     {
       id: "lnx",
       name: "Ancient Forest",
+      address: "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9",
       symbol: "LNX",
       image: lnx_icon,
-      current_price: 1
+      current_price: 1,
+      address: "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9",
     },
   ];
+
+  const [sendTokenAddress, setSendTokenAddress] = useState(
+    localCoins[0]?.address || null
+  );
 
   const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
 
@@ -151,9 +159,11 @@ const CoinProvider = ({ children }) => {
       market_cap: selectedCoin.market_cap,
       min_transaction_amount: selectedCoin.min_transaction_amount,
       max_transaction_amount: selectedCoin.max_transaction_amount,
+      address: selectedCoin.address || null,
     };
 
     if (tradeType === "send") {
+      setSendTokenAddress(updatedCurrency.address || null);
       setSendCurrency(updatedCurrency);
     } 
 
@@ -170,6 +180,8 @@ const CoinProvider = ({ children }) => {
     localCoins,
     sendCurrency,
     sendCurrencyValue,
+    sendTokenAddress,
+    setSendTokenAddress,
     buyCurrency,
     swapFromCurrency,
     swapToCurrency,
