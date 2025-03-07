@@ -11,10 +11,6 @@ const NewsProvider = ({ children }) => {
 
 
     useEffect(() => {
-        // axios.get(`${API_BASE_URL}/v1/api/news`) // Fetch news from backend
-        // .then(response => setNewsData(response.data))
-        // .catch(error => console.error("Error fetching news:", error));
-
         const fetchNews = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/v1/api/news`);

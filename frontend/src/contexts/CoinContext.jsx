@@ -34,7 +34,6 @@ const CoinProvider = ({ children }) => {
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin.current_price,
-      address: null,
     },
     {
       id: "cep",
@@ -65,12 +64,6 @@ const CoinProvider = ({ children }) => {
   const [sendCurrency, setSendCurrency] = useState(localCoins[0]);
   const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
 
-  const [limitFromCurrency, setLimitFromCurrency] = useState(localCoins[1]);
-  const [limitToCurrency, setLimitToCurrency] = useState(localCoins[2]);
-
-  const [limitFromCurrencyValue, setLimitFromCurrencyValue] = useState("");
-  const [limitToCurrencyValue, setLimitToCurrencyValue] = useState("");
-
   const [swapFromCurrency, setSwapFromCurrency] = useState(localCoins[1]);
   const [swapToCurrency, setSwapToCurrency] = useState(localCoins[2]);
 
@@ -85,14 +78,10 @@ const CoinProvider = ({ children }) => {
     setSwapToCurrencyValue("");
     setSwapFromUsdValue("");
     setSwapToUsdValue("");
-
-    setLimitFromCurrencyValue("");
-
     setSendCurrencyValue("");
-    setLimitToCurrencyValue("");
   };
 
-  const handleCurrencyValueChange = (e, type, tradeType) => {
+  const handleCurrencyValueChange = (e, type) => {
     const value = e.target.value;
 
     if (value === "") {
@@ -103,41 +92,31 @@ const CoinProvider = ({ children }) => {
     const minmaxValue = Math.max(0, Math.min(10000, Number(value)));
     const numericValue = parseFloat(minmaxValue);
 
-    const fromCurrency =
-      tradeType === "swap" ? swapFromCurrency : limitFromCurrency;
-    const toCurrency = tradeType === "swap" ? swapToCurrency : limitToCurrency;
-    const setFromCurrencyValue =
-      tradeType === "swap"
-        ? setSwapFromCurrencyValue
-        : setLimitFromCurrencyValue;
-    const setToCurrencyValue =
-      tradeType === "swap" ? setSwapToCurrencyValue : setLimitToCurrencyValue;
-    const setFromUsdValue =
-      tradeType === "swap" ? setSwapFromUsdValue : () => {};
-    const setToUsdValue = tradeType === "swap" ? setSwapToUsdValue : () => {};
+    const fromCurrency = swapFromCurrency;
+    const toCurrency = swapToCurrency;
 
     if (type === "From") {
-      setFromCurrencyValue(numericValue);
+      setSwapFromCurrencyValue(numericValue);
 
       const usdFromValue = numericValue * fromCurrency.current_price;
-      setFromUsdValue(usdFromValue);
+      setSwapFromUsdValue(usdFromValue);
 
       const toValue = usdFromValue / toCurrency.current_price;
-      setToCurrencyValue(toValue);
+      setSwapToCurrencyValue(toValue);
 
       const usdToValue = toValue * toCurrency.current_price;
-      setToUsdValue(usdToValue);
+      setSwapToUsdValue(usdToValue);
     } else if (type === "To") {
-      setToCurrencyValue(numericValue);
+      setSwapToCurrencyValue(numericValue);
 
       const usdToValue = numericValue * toCurrency.current_price;
-      setToUsdValue(usdToValue);
+      setSwapToUsdValue(usdToValue);
 
       const fromValue = usdToValue / fromCurrency.current_price;
-      setFromCurrencyValue(fromValue);
+      setSwapFromCurrencyValue(fromValue);
 
       const usdFromValue = fromValue * fromCurrency.current_price;
-      setFromUsdValue(usdFromValue);
+      setSwapFromUsdValue(usdFromValue);
     }
   };
 
@@ -159,26 +138,18 @@ const CoinProvider = ({ children }) => {
     setSendCurrencyValue(amount);
   };
 
-  const swapCurrency = (type) => {
-    if (type === "swap") {
-      setSwapFromCurrency(swapToCurrency);
-      setSwapToCurrency(swapFromCurrency);
+  const swapCurrency = () => {
+    setSwapFromCurrency(swapToCurrency);
+    setSwapToCurrency(swapFromCurrency);
 
-      setSwapFromCurrencyValue(swapToCurrencyValue);
-      setSwapToCurrencyValue(swapFromCurrencyValue);
+    setSwapFromCurrencyValue(swapToCurrencyValue);
+    setSwapToCurrencyValue(swapFromCurrencyValue);
 
-      setSwapFromUsdValue(swapToUsdValue);
-      setSwapToUsdValue(swapFromUsdValue);
-    }
-    if (type === "limit") {
-      setLimitFromCurrency(limitToCurrency);
-      setLimitToCurrency(limitFromCurrency);
-    }
+    setSwapFromUsdValue(swapToUsdValue);
+    setSwapToUsdValue(swapFromUsdValue);
   };
 
   const handleCoinSelection = (selectedCoin, type, tradeType) => {
-    const isFromType = type === "from";
-
     const updatedCurrency = {
       ...selectedCoin,
       name: selectedCoin.name,
@@ -191,29 +162,10 @@ const CoinProvider = ({ children }) => {
       address: selectedCoin.address || null,
     };
 
-    if (tradeType === "swap") {
-      let otherType = isFromType ? swapToCurrency : swapFromCurrency;
-      if (selectedCoin.id === otherType.id) {
-        swapCurrency();
-      } else {
-        if (isFromType) {
-          setSwapFromCurrency(updatedCurrency);
-        } else {
-          setSwapToCurrency(updatedCurrency);
-        }
-      }
-    } else if (tradeType === "limit") {
-      if (isFromType) {
-        setLimitFromCurrency(updatedCurrency);
-      } else {
-        setLimitToCurrency(updatedCurrency);
-      }
-    } else if (tradeType === "send") {
+    if (tradeType === "send") {
       setSendTokenAddress(updatedCurrency.address || null);
       setSendCurrency(updatedCurrency);
-    } else if (tradeType === "buy") {
-      setBuyCurrency(updatedCurrency);
-    }
+    } 
 
     setActiveOverlay(null);
     resetValues();
@@ -233,10 +185,6 @@ const CoinProvider = ({ children }) => {
     buyCurrency,
     swapFromCurrency,
     swapToCurrency,
-    limitFromCurrency,
-    limitToCurrency,
-    limitFromCurrencyValue,
-    limitToCurrencyValue,
     swapFromCurrencyValue,
     swapToCurrencyValue,
     swapFromUsdValue,

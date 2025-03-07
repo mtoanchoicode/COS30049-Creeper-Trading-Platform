@@ -13,7 +13,6 @@ import CoinDetails from "./pages/Market/CoinDetails.jsx";
 import About from "./pages/AboutUs/AboutUs.jsx";
 import RegisterPage from "./pages/Profile/Register.jsx";
 import Swap from "./pages/Trade/Swap.jsx";
-import Limit from "./pages/Trade/Limit.jsx";
 import Send from "./pages/Trade/Send.jsx";
 import Buy from "./pages/Trade/Buy.jsx";
 import ProfilePage from "./pages/Profile/Profile.jsx";
@@ -59,7 +58,6 @@ const routers = createBrowserRouter([
         children: [
           { path: "send", element: <Send /> },
           { path: "swap", element: <Swap /> },
-          { path: "limit", element: <Limit /> },
           { path: "buy", element: <Buy /> },
           { path: "faucet", element: <Faucet /> },
           { path: "add", element: <Add /> },
