@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import TokensSelection from "../TokensSelection/TokensSelection";
 import { CoinContext } from "../../../contexts/CoinContext";
+import "./GetFaucetContainer.css";
 
 const GetFaucetContainer = ({ setTokenAddress }) => {
   const {
@@ -12,7 +13,7 @@ const GetFaucetContainer = ({ setTokenAddress }) => {
   return (
     <div className="getFaucet-container">
       <div
-        className="send-tokens-selection"
+        className="send-tokens-selection faucet-tokens-selection"
         onClick={() => setActiveOverlay("faucet")}
       >
         <div className="send-tokens-selection-coin">

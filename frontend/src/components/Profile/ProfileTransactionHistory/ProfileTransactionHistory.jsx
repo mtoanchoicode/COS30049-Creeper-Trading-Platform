@@ -75,9 +75,8 @@ const TransactionsHistory = ({ walletDetail }) => {
     "Block",
     "From",
     "To",
+    "Category",
     "Amount",
-    "Fee",
-    "Method",
   ];
 
   const renderCell = (transaction, column) => {
@@ -100,7 +99,7 @@ const TransactionsHistory = ({ walletDetail }) => {
         </div>
       );
     } else if (column === "Amount") {
-      return `${value} ETH`;
+      return `${value} ${transaction.asset}`;
     } else {
       return value;
     }
