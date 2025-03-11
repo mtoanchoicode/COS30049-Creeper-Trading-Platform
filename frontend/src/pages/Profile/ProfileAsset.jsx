@@ -22,6 +22,7 @@ const ProfileAssetsPage = () => {
       setError("");
 
       try {
+        console.log("start", `${API_BASE_URL}/v1/api/wallet/${address}`);
         const response = await fetch(
           `${API_BASE_URL}/v1/api/wallet/${address}`,
           { method: "GET" }
@@ -43,6 +44,7 @@ const ProfileAssetsPage = () => {
         setWalletData(null); // Clear previous data on error
       } finally {
         setIsLoading(false);
+        console.log("DONEEEEEEE");
       }
     };
 
