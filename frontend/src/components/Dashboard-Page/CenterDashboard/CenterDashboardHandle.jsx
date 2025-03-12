@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NewsComponent from "../NewsComponent/NewsComponentHandle"
 import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
 import { CoinContext } from "../../../contexts/CoinContext";
-import { NewsContext } from "../../../contexts/NewsContext";
+import NewsProvider , {NewsContext } from "../../../contexts/NewsContext";
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg";
 import Google from "../../../assets/Google.svg";
@@ -149,11 +149,11 @@ const Centers = ({ title, subtitle }) => {
                         </Link>
                     </div>
 
-                    {/* <div className="News-Content-Container">
+                    <div className="News-Content-Container">
                         {newsData?.sort((a, b) => b.id - a.id).slice(0,4).map(news => (
                             <NewsComponent key={news.id} id={news.id} Title={news.Title} />
                         ))}
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </section>

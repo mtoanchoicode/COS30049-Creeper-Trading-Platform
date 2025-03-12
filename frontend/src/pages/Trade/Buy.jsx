@@ -9,9 +9,9 @@ import BuyABI from "./abi/BuyABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 
-const fetchEthPriceInVND = async () => {
+const fetchEthPriceInUSD = async () => {
   // Fetch ETH price from a reliable API
-  const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=vnd");
+  const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
   const data = await response.json();
   return data.ethereum.vnd;
 }
@@ -47,11 +47,11 @@ const Buy = () => {
     setIsLoading(true); // Set loading true for disable button when the buy process start
 
     try {
-      const ethPriceInVND = await fetchEthPriceInVND(); // Get ETH price in VND from an API
+      const ethPriceInUSD = await fetchEthPriceInUSD(); // Get ETH price in VND from an API
       console.log(amount)
-      console.log(ethPriceInVND)
+      console.log(ethPriceInUSD)
 
-      let stablecoinAmount= (amount / ethPriceInVND) * 50 * 25; // Convert VND to ETH
+      let stablecoinAmount= (amount / ethPriceInUSD) * 1890; // Convert the price of LNX - make the dynamic
 
       // Ensure at most 18 decimals
       stablecoinAmount = parseFloat(stablecoinAmount.toFixed(18));
@@ -78,6 +78,10 @@ const Buy = () => {
       //const cepBalance = await CEPcoinContract.balanceOf(creeperPool.address);
       //console.log("CreeperPool CEPcoin balance:", cepBalance.toString()); 
       
+      notification.info({
+            message: "Transaction in progress!",
+            description: `Hash: ${tx.hash}`,
+      });
       // call the buyToken method
       const tx = await contract.buyToken(ethers.parseUnits(stablecoinAmount.toString(), 18));
       await tx.wait();
