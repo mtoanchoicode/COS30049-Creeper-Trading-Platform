@@ -146,7 +146,6 @@ function CoinDetailsOverview(props) {
         <div className="coin-details-overview-chart">
 
           {/* <img src={TradeChart} alt="Trade chart" /> */}
-          {console.log(historicalData)}
           {
             !historicalData ? (
               <div>Loading</div>
