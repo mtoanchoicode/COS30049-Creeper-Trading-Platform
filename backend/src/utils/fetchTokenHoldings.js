@@ -2,51 +2,56 @@ require("dotenv").config();
 const { ethers } = require("ethers");
 const axios = require("axios");
 
+const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
+const ALCHEMY_URL = process.env.ALCHEMY_API_URL;
+
+const ERC20_ABI = [
+  "function balanceOf(address owner) view returns (uint256)",
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
+  "function name() view returns (string)",
+];
+
 const fetchTokenHoldings = async (walletAddress) => {
-  const apiKey = process.env.ETHERSCAN_API_KEY;
-  const url = `https://api-sepolia.etherscan.io/api?module=account&action=tokentx&address=${walletAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
-
   try {
-    const response = await axios.get(url);
-
-    if (!response.data.result || response.data.status !== "1") {
-      throw new Error(
-        response.data.message || "Failed to fetch token transactions"
-      );
-    }
-
-    // Process token balances
-    const tokenBalances = {};
-
-    response.data.result.forEach((tx) => {
-      const tokenSymbol = tx.tokenSymbol;
-      const tokenName = tx.tokenName;
-      const decimals = parseInt(tx.tokenDecimal);
-      const value = ethers.formatUnits(tx.value, decimals);
-
-      if (!tokenBalances[tokenSymbol]) {
-        tokenBalances[tokenSymbol] = {
-          tokenName,
-          symbol: tokenSymbol,
-          balance: 0,
-        };
-      }
-
-      // Add to balance if the wallet received tokens
-      if (tx.to.toLowerCase() === walletAddress.toLowerCase()) {
-        tokenBalances[tokenSymbol].balance += parseFloat(value);
-      }
-
-      // Subtract from balance if the wallet sent tokens
-      if (tx.from.toLowerCase() === walletAddress.toLowerCase()) {
-        tokenBalances[tokenSymbol].balance -= parseFloat(value);
-      }
+    // Step 1: Get all token contract addresses from Alchemy
+    const alchemyResponse = await axios.post(ALCHEMY_URL, {
+      jsonrpc: "2.0",
+      method: "alchemy_getTokenBalances",
+      params: [walletAddress],
+      id: 1,
     });
 
-    // Convert balances to an array and filter out zero balances
-    return Object.values(tokenBalances).filter((token) => token.balance > 0);
+    const tokenContracts = alchemyResponse.data.result.tokenBalances
+      .filter((token) => token.tokenBalance !== "0x0") // Exclude zero-balance tokens
+      .map((token) => token.contractAddress);
+
+    const tokenBalances = [];
+
+    // Step 2: Fetch token details (symbol, name, decimals, balance)
+    for (const tokenAddress of tokenContracts) {
+      const contract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
+
+      const [rawBalance, decimals, symbol, name] = await Promise.all([
+        contract.balanceOf(walletAddress),
+        contract.decimals(),
+        contract.symbol(),
+        contract.name(),
+      ]);
+
+      const balance = ethers.formatUnits(rawBalance, decimals);
+
+      if (parseFloat(balance) > 0) {
+        tokenBalances.push({
+          tokenName: name,
+          symbol,
+          balance: parseFloat(balance),
+        });
+      }
+    }
+    return tokenBalances;
   } catch (error) {
-    console.error("Error fetching token holdings:", error.message);
+    console.error("Error fetching token balances:", error.message);
     return [];
   }
 };

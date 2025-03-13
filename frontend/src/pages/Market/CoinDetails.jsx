@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { CoinContext } from "../../contexts/CoinContext";
 import { Link, useParams } from "react-router-dom";
 import notFoundImg from "../../assets/404 Image.svg";
@@ -14,10 +14,37 @@ const CoinDetails = () =>{
     const coin = coins.length ? coins.find((coin) => coin.id === coinId) : null;
     const hotCoins = sortArray(coins, "total_volume", "desc").slice(0,7);
 
-    const [showFullText, setShowFullText] = useState(false);
-    const fullText = "Bitcoin (BTC) is the first decentralized digital currency, launched in 2009 by Satoshi Nakamoto. It operates on a peer-to-peer network using blockchain technology, allowing secure and transparent transactions without intermediaries. Bitcoin is a store of value and a medium of exchange, often referred to as \"digital gold.\" With a fixed supply of 21 million coins, it is designed to be deflationary. Transactions are verified through mining, where computers solve cryptographic puzzles. Bitcoin wallets are easy to set up, with popular options like Electrum, Ledger, and Trezor";
-    const shortText = fullText.slice(0,150) + "...";
+    const API_KEY = "CG-dfMn1KtFVaUrUvHBwh5SRFYy"
+    const [description, setDescription] = useState("");
+    const [descriptionError, setDescriptionError] = useState(false)
+    const [descriptionLoading, setDescriptionLoading] = useState(true)
 
+    const [showFullText, setShowFullText] = useState(false);
+    const shortDescription = description.slice(0,150) + "...";
+
+    useEffect(() => {
+      const fetchDescription = async () => {
+        if (!coin){
+          return;
+        }
+        try{
+          setDescriptionLoading(true);
+          const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);          if (!response.ok) throw new Error("failed to fetch coin description")
+
+          const data = await response.json()
+          setDescription(data.description?.en || "No description available")
+        }catch{
+          console.error("Error fetching coin description:", err);
+          setDescriptionError(true);
+        }finally{
+          setDescriptionLoading(false);
+        }
+      }
+
+      fetchDescription()
+    }, [coinId]);
+
+  
     function sortArray(arrayToSort = [], keyToSort, direction){
       if (!arrayToSort.length) return []; // Return an empty array if there's no data
       if (direction === "asc"){
@@ -44,10 +71,20 @@ const CoinDetails = () =>{
                   </div>
                   <div className="coin-details-intro">
                     <h2 className="coin-details-intro-heading">Info</h2>
-                    <p className="coin-details-intro-description">{showFullText?fullText:shortText}</p>
-                    <div className="coin-details-intro-show-more" onClick={()=>handleShowText()}>
-                      {showFullText ? "Show less": "Show more"}
-                    </div>
+                    {descriptionLoading?(
+                      <p className="coin-details-intro-description">Loading description...</p>
+                    ):descriptionError?(
+                      <p className="coin-details-intro-description">Failed to load description.</p>
+                    ):(
+                      <>
+                        <p className="coin-details-intro-description">{showFullText?description:shortDescription}</p>
+                        <div className="coin-details-intro-show-more" onClick={()=>handleShowText()}>
+                          {showFullText ? "Show less": "Show more"}
+                        </div>
+                      </>
+                    )}
+                    
+                    
                   </div>
                 </div>
               </div>

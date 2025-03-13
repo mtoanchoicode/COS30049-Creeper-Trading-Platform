@@ -4,6 +4,7 @@ require("dotenv").config();
 // Initialize Ethereum provider
 const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
 
+// Using Alchemy
 const fetchETHBalance = async (walletAddress) => {
   try {
     const balance = await provider.getBalance(walletAddress);

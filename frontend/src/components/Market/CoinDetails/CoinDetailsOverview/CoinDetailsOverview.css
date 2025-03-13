@@ -33,6 +33,7 @@
     height: 4rem;
     margin-right: 5px;
     display: block;
+    border-radius:50%;
 }
 
 /* Period selection for prices */
