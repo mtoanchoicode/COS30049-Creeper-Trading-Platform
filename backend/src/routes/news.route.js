@@ -1,12 +1,12 @@
-const express = require("express");
-const newsRouter = express.Router();
-const News = require("../models/news.model");
+import { Router } from "express";
+const newsRouter = Router();
+import { find, findOne } from "../models/news.model";
 
 // Get all news
 newsRouter.get("/", async (req, res) => {
     try {
         // const news = await News.find().sort({ date: -1 }); // Get latest news first
-        const news = await News.find()
+        const news = await find()
         res.json(news);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -16,7 +16,7 @@ newsRouter.get("/", async (req, res) => {
 // find news by id
 newsRouter.get("/:id", async (req, res) => {
     try {
-        const news = await News.findOne({ id: Number(req.params.id) }); // Convert to number
+        const news = await findOne({ id: Number(req.params.id) }); // Convert to number
         if (!news) return res.status(404).json({ message: "News not found!" });
 
         res.json(news);
@@ -49,4 +49,4 @@ newsRouter.get("/:id", async (req, res) => {
 //     }
 // });
 
-module.exports = newsRouter;
+export default newsRouter;
