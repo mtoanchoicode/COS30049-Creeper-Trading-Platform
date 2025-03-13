@@ -31,6 +31,7 @@ const CoinProvider = ({ children }) => {
     {
       id: "eth",
       name: "SepoliaETH",
+      address: null,
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin.current_price,
