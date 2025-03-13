@@ -257,31 +257,33 @@ const Faucet = () => {
 
   return (
     <div className="send trade-child">
-      <GetFaucetContainer setTokenAddress={setTokenAddress} />
-      <p
-        style={{
-          textAlign: "center",
-          marginTop: "10px",
-        }}
-      >
-        {lastClaimText}
-      </p>
-      <Button
-        type="primary"
-        block
-        className={`send-btn trade-btn enabled`}
-        onClick={handleButtonClick}
-        disabled={isLoading} // Disable button while loading
-      >
-        {isLoading ? (
-          <div className="send-btn-content">
-            <Loader />
-            <span>Sending...</span>
-          </div>
-        ) : (
-          getButtonText()
-        )}
-      </Button>
+      <div className="trade-main">
+        <GetFaucetContainer setTokenAddress={setTokenAddress} />
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "10px",
+          }}
+        >
+          {lastClaimText}
+        </p>
+        <Button
+          type="primary"
+          block
+          className={`send-btn trade-btn enabled`}
+          onClick={handleButtonClick}
+          disabled={isLoading} // Disable button while loading
+        >
+          {isLoading ? (
+            <div className="send-btn-content">
+              <Loader />
+              <span>Sending...</span>
+            </div>
+          ) : (
+            getButtonText()
+          )}
+        </Button>
+      </div>
 
       <a
         className="trade-contractAddress"

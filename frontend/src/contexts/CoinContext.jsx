@@ -31,6 +31,7 @@ const CoinProvider = ({ children }) => {
     {
       id: "eth",
       name: "SepoliaETH",
+      address: null,
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin.current_price,
@@ -42,7 +43,6 @@ const CoinProvider = ({ children }) => {
       symbol: "CEP",
       image: cep_icon,
       current_price: 2,
-      address: "0x1559368328F951a72da9B7571C6611667dfc72d2",
     },
     {
       id: "lnx",
@@ -51,7 +51,6 @@ const CoinProvider = ({ children }) => {
       symbol: "LNX",
       image: lnx_icon,
       current_price: 1,
-      address: "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9",
     },
   ];
 
