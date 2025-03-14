@@ -5,6 +5,22 @@
   padding-right: 1rem;
 }
 
+.trade-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trade-child.swap .trade-main {
+  margin-bottom: 3.5rem;
+}
+.trade-child.buy .trade-main {
+  margin-bottom: 4rem;
+}
+.trade-child.send .trade-main {
+  margin-bottom: 5rem;
+}
+
 .trade-main {
   display: flex;
   flex-direction: column;
@@ -13,6 +29,7 @@
   width: 28.125rem;
   margin: auto;
 }
+
 .trade-contractAddress {
   margin-top: 0.5rem;
   text-align: center;

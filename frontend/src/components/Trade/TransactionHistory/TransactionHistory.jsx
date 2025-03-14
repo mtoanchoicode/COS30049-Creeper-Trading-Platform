@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TransactionHistory.css";
 
 const shortenAddress = (address) => {
@@ -6,6 +6,16 @@ const shortenAddress = (address) => {
 };
 
 const TransactionHistory = () => {
+  const [copied, setCopied] = useState(null);
+
+  const copyToClipboard = (address) => {
+    navigator.clipboard.writeText(address);
+    setCopied(address);
+
+    // Reset copied state after 2 seconds
+    setTimeout(() => setCopied(null), 1000);
+  };
+
   const transactions = [
     {
       txHash:
@@ -61,38 +71,71 @@ const TransactionHistory = () => {
           {transactions.map((txn, index) => (
             <tr key={index}>
               <td>
-                <a
-                  href={`https://sepolia.etherscan.io/tx/${txn.txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {shortenAddress(txn.txHash)}
-                </a>
-                <i className="fa-solid fa-copy"></i>
+                <div>
+                  <a
+                    href={`https://sepolia.etherscan.io/tx/${txn.txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {shortenAddress(txn.txHash)}
+                  </a>
+                  <div
+                    className="copy-btn"
+                    onClick={() => copyToClipboard(txn.txHash)}
+                  >
+                    {copied === txn.txHash ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-copy"></i>
+                    )}
+                  </div>
+                </div>
               </td>
               <td>
                 <span>{txn.method}</span>
               </td>
               <td>{txn.age}</td>
               <td>
-                <a
-                  href={`https://sepolia.etherscan.io/address/${txn.from}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {shortenAddress(txn.from)}
-                </a>
-                <i className="fa-solid fa-copy"></i>
+                <div>
+                  <a
+                    href={`https://sepolia.etherscan.io/address/${txn.from}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {shortenAddress(txn.from)}
+                  </a>
+                  <div
+                    className="copy-btn"
+                    onClick={() => copyToClipboard(txn.from)}
+                  >
+                    {copied === txn.from ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-copy"></i>
+                    )}
+                  </div>
+                </div>
               </td>
               <td>
-                <a
-                  href={`https://sepolia.etherscan.io/address/${txn.to}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {shortenAddress(txn.to)}
-                </a>
-                <i className="fa-solid fa-copy"></i>
+                <div>
+                  <a
+                    href={`https://sepolia.etherscan.io/address/${txn.to}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {shortenAddress(txn.to)}
+                  </a>
+                  <div
+                    className="copy-btn"
+                    onClick={() => copyToClipboard(txn.to)}
+                  >
+                    {copied === txn.to ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-copy"></i>
+                    )}
+                  </div>
+                </div>
               </td>
               <td>{txn.amount}</td>
               <td>{txn.fee}</td>

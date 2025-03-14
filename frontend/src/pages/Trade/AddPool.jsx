@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import { Button, notification, Input, Statistic } from "antd";
-import { formatUnits } from "ethers";
 import Loader from "../../components/Loader/Loader";
 import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
@@ -39,7 +38,7 @@ const AddPool = () => {
   const getButtonTextRemove = () => {
     if (isLoading) return "Processing...";
     if (!isConnected) return "Connect Wallet";
-    return "Remove liquidity to pool";
+    return "Remove liquidity from pool";
   };
 
   // Function to fetch and update the last claim time
@@ -261,7 +260,7 @@ const AddPool = () => {
             value={amountCEP}
             onChange={handleInputChangeCEP}
             disabled={isLoadingRemove}
-            suffix="Token"
+            suffix="Tokens"
           />
           <p>Enter amount of token LNX:</p>
           <Input
@@ -275,7 +274,7 @@ const AddPool = () => {
             value={amountLNX}
             onChange={handleInputChangeLNX}
             disabled={isLoadingRemove}
-            suffix="Token"
+            suffix="Tokens"
           />
         </div>
         <Button

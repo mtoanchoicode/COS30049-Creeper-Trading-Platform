@@ -9,6 +9,7 @@ import Loader from "../../components/Loader/Loader";
 import BuyABI from "./abi/BuyABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
+import { ExportOutlined } from "@ant-design/icons";
 
 const fetchEthPriceInUSD = async () => {
   // Fetch ETH price from a reliable API
@@ -47,10 +48,10 @@ const Buy = () => {
 
     try {
       const ethPriceInUSD = await fetchEthPriceInUSD(); // Get ETH price in VND from an API
-      console.log(amount)
-      console.log(ethPriceInUSD)
+      console.log(amount);
+      console.log(ethPriceInUSD);
 
-      let stablecoinAmount= (amount / ethPriceInUSD) * 1890; // Convert the price of LNX - make the dynamic
+      let stablecoinAmount = (amount / ethPriceInUSD) * 1890; // Convert the price of LNX - make the dynamic
 
       // Ensure at most 18 decimals
       stablecoinAmount = parseFloat(stablecoinAmount.toFixed(18));
@@ -88,11 +89,11 @@ const Buy = () => {
       //await poolContract.approve(CONTRACT_ADDRESS, ethers.parseUnits("1000", 18));
 
       //const cepBalance = await CEPcoinContract.balanceOf(creeperPool.address);
-      //console.log("CreeperPool CEPcoin balance:", cepBalance.toString()); 
-      
+      //console.log("CreeperPool CEPcoin balance:", cepBalance.toString());
+
       notification.info({
-            message: "Transaction in progress!",
-            description: `Hash: ${tx.hash}`,
+        message: "Transaction in progress!",
+        description: `Hash: ${tx.hash}`,
       });
 
       // call the buyToken method
@@ -158,7 +159,16 @@ const Buy = () => {
             getButtonText()
           )}
         </Button>
+        <a
+          className="trade-contractAddress"
+          href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+          target="_blank"
+        >
+          <span>Contract address</span>
+          <ExportOutlined />
+        </a>
       </div>
+
       <div className="trade-history">
         <TransactionHistory />
       </div>
