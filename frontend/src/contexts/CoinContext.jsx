@@ -201,6 +201,7 @@ const CoinProvider = ({ children }) => {
     handleSendCurrencyValueChange,
     faucetCurrency,
     setfaucetCurrency,
+    resetValues,
   };
 
   return (
