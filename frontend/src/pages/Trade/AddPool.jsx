@@ -33,7 +33,6 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 // };
 
 
-
 const AddPool = () => {
   const CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
   const ABI = CreeperPoolABI;
@@ -264,22 +263,23 @@ const AddPool = () => {
           getButtonText()
         )}
       </Button>
-      <div style= 
-      {{background: "var(--trade-background-color)", 
-        padding: "1rem",
-        borderRadius: "20px",
-        marginTop: "10px",
-        marginBottom: "10px",
-      }}>
+      <div style=
+        {{
+          background: "var(--trade-background-color)",
+          padding: "1rem",
+          borderRadius: "20px",
+          marginTop: "10px",
+          marginBottom: "10px",
+        }}>
         <p>Enter amount of token CEP:</p>
         <Input
-          style= {{
+          style={{
             textAlign: "center",
             marginBottom: "10px",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
           value={amountCEP}
           onChange={handleInputChangeCEP}
@@ -288,19 +288,19 @@ const AddPool = () => {
         />
         <p>Enter amount of token LNX:</p>
         <Input
-          style= {{
+          style={{
             textAlign: "center",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
           value={amountLNX}
           onChange={handleInputChangeLNX}
           disabled={isLoadingRemove}
           suffix="Token"
         />
-      </div> 
+      </div>
       <Button
         type="primary"
         block
