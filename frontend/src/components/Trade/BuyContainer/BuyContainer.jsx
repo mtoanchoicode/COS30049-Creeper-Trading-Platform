@@ -36,7 +36,7 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
     <div className="buy-container">
       <div className="buy-top">
         <span>You're buying</span>
-        <p>0.3% fee</p>
+        <span>Fee (0.3%)</span>
       </div>
       <div className="buy-bottom">
         <div className="buy-currency-input">

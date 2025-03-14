@@ -1,15 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TokensSelection from "../TokensSelection/TokensSelection";
 import { CoinContext } from "../../../contexts/CoinContext";
 import "./GetFaucetContainer.css";
 
 const GetFaucetContainer = ({ setTokenAddress }) => {
-  const {
-    faucetCurrency,
-    setActiveOverlay,
-    sendTokenAddress,
-    setSendTokenAddress,
-  } = useContext(CoinContext);
+  const { faucetCurrency, setActiveOverlay } = useContext(CoinContext);
+
+  useEffect(() => {
+    if (faucetCurrency.address) {
+      setTokenAddress(faucetCurrency.address);
+    } else {
+      setTokenAddress(null);
+    }
+  }, [faucetCurrency]);
+
   return (
     <div className="getFaucet-container">
       <div
