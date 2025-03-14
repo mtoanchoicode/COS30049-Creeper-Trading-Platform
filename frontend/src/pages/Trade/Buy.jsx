@@ -12,9 +12,10 @@ import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import { ExportOutlined } from "@ant-design/icons";
 
 const fetchEthPriceInUSD = async () => {
+  const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
   // Fetch ETH price from a reliable API
   const data = await response.json();
-  return data.ethereum.vnd;
+  return data.ethereum.usd;
 };
 
 const Buy = () => {
@@ -66,6 +67,7 @@ const Buy = () => {
         IERC20_ABI,
         signer
       );
+
       const CEPcoinContract = new ethers.Contract(
         CEPAddress,
         IERC20_ABI,
