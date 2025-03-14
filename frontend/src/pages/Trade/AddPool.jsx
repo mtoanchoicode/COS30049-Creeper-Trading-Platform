@@ -9,6 +9,32 @@ import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 
 
+const handleTransaction = async (transactionHash) => {
+  // make the prama for base URL 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  try {
+    await fetch(`${API_BASE_URL}v1/api/transaction/created`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        walletAddress: userWallet,
+        tokenID: selectedTokenID,
+        addressFrom: userWallet,
+        addressTo: poolWallet,
+        amount: transactionAmount,
+        fee: estimatedFee,
+        gas: gasLimit,
+        method: "ADD",
+        hashCode: transactionHash,
+      }),
+    });
+  } catch (err) {
+
+  }
+};
+
+
+
 const AddPool = () => {
   const CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
   const ABI = CreeperPoolABI;
@@ -90,8 +116,8 @@ const AddPool = () => {
       const CEP_Balance = await creepToken.balanceOf(signer.address);
       const lNX_Balance = await lnxToken.balanceOf(signer.address);
 
-      const amountCEP = Number(CEP_Balance / 1000n).toFixed(0,1); // Add 25% of balance
-      const amountLNX = Number(lNX_Balance / 1000n).toFixed(0,1);
+      const amountCEP = Number(CEP_Balance / 1000n).toFixed(0, 1); // Add 25% of balance
+      const amountLNX = Number(lNX_Balance / 1000n).toFixed(0, 1);
 
       // Approve contract to use tokens
       await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
@@ -118,7 +144,7 @@ const AddPool = () => {
     }
   };
 
-  const requestLiquidityRemove = async (amountCEP , amountLNX) => {
+  const requestLiquidityRemove = async (amountCEP, amountLNX) => {
     if (!window.ethereum) {
       alert("MetaMask or a compatible wallet is required!");
       return;
@@ -179,7 +205,7 @@ const AddPool = () => {
       notification.error({
         message: "Please enter at least one token amount to remove!",
       });
-    }else {
+    } else {
       requestLiquidityRemove(amountCEP || "0", amountLNX || "0");
     }
   };
@@ -231,22 +257,23 @@ const AddPool = () => {
           getButtonText()
         )}
       </Button>
-      <div style= 
-      {{background: "var(--trade-background-color)", 
-        padding: "1rem",
-        borderRadius: "20px",
-        marginTop: "10px",
-        marginBottom: "10px",
-      }}>
+      <div style=
+        {{
+          background: "var(--trade-background-color)",
+          padding: "1rem",
+          borderRadius: "20px",
+          marginTop: "10px",
+          marginBottom: "10px",
+        }}>
         <p>Enter amount of token CEP:</p>
         <Input
-          style= {{
+          style={{
             textAlign: "center",
             marginBottom: "10px",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
           value={amountCEP}
           onChange={handleInputChangeCEP}
@@ -255,19 +282,19 @@ const AddPool = () => {
         />
         <p>Enter amount of token LNX:</p>
         <Input
-          style= {{
+          style={{
             textAlign: "center",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
           value={amountLNX}
           onChange={handleInputChangeLNX}
           disabled={isLoadingRemove}
           suffix="Token"
         />
-      </div> 
+      </div>
       <Button
         type="primary"
         block

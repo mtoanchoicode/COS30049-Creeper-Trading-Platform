@@ -1,6 +1,6 @@
-import CreeperDB from "../config/db.js";
+const CreeperDB = require("../config/CreeperDB.js");
 
-export const insertToken = async (tokenName, tokenSymbol, tokenChain) => {
+const insertToken = async (tokenName, tokenSymbol, tokenChain) => {
     const query = `
         INSERT INTO Tokens (TokenName, TokenSymbol, TokenChain) 
         VALUES ($1, $2, $3) 
@@ -15,7 +15,7 @@ export const insertToken = async (tokenName, tokenSymbol, tokenChain) => {
     }
 };
 
-export const getAllTokens = async () => {
+const getAllTokens = async () => {
     const query = `SELECT * FROM Tokens;`;
     
     try {
@@ -26,3 +26,4 @@ export const getAllTokens = async () => {
     }
 };
 
+module.exports = { insertToken, getAllTokens };

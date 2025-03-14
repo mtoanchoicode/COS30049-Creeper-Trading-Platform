@@ -1,6 +1,6 @@
-import CreeperDB from "../config/db.js";
+const CreeperDB = require("../config/CreeperDB.js");
 
-export const createUser = async (walletAddress) => {
+const createUser = async (walletAddress) => {
     try {
         // Insert new user
         const { rows } = await CreeperDB.query(
@@ -14,7 +14,7 @@ export const createUser = async (walletAddress) => {
 
 };
 
-export const getUserByWallet = async (walletAddress) => {
+const getUserByWallet = async (walletAddress) => {
     try {
         const { rows } = await CreeperDB.query(
             "SELECT * FROM Users WHERE WalletAddress = $1",
@@ -27,3 +27,5 @@ export const getUserByWallet = async (walletAddress) => {
     }
 
 };
+
+module.exports = { createUser, getUserByWallet };

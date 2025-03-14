@@ -1,6 +1,7 @@
-import { Router } from "express";
-import { postAnwserChat } from "../controllers/chat.controller";
-const chatRouter = Router();
+const express = require("express");
+const { postAnwserChat } = require("../controllers/chat.controller");
+const chatRouter = express.Router();
+
 
 chatRouter.get("/hello", (req, res) => {
   return res.status(200).json("Hello CHATGPT API");
@@ -8,4 +9,4 @@ chatRouter.get("/hello", (req, res) => {
 
 chatRouter.post("/", postAnwserChat);
 
-export default chatRouter; //export default
+module.exports = chatRouter; //export default
