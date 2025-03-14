@@ -49,10 +49,21 @@
 
 .send-currency-change {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   color: var(--trade-secondary-text-color);
+}
+
+.send-currency-change span {
+  margin-right: 1rem;
+}
+
+.send-currency-change hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-top: 0.1rem;
 }
 
 .send-currency-change i {

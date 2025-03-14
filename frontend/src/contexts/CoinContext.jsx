@@ -33,7 +33,7 @@ const CoinProvider = ({ children }) => {
       name: "SepoliaETH",
       symbol: "ETH",
       image: sepolica_icon,
-      current_price: ethCoin.current_price,
+      current_price: ethCoin?.current_price ?? 1868,
     },
     {
       id: "cep",
@@ -42,7 +42,6 @@ const CoinProvider = ({ children }) => {
       symbol: "CEP",
       image: cep_icon,
       current_price: 2,
-      address: "0x1559368328F951a72da9B7571C6611667dfc72d2",
     },
     {
       id: "lnx",
@@ -51,7 +50,6 @@ const CoinProvider = ({ children }) => {
       symbol: "LNX",
       image: lnx_icon,
       current_price: 1,
-      address: "0xD1e9eac1381B94421cBDAB76875d8086e7Def8D9",
     },
   ];
 
@@ -124,7 +122,6 @@ const CoinProvider = ({ children }) => {
 
   const handleSendCurrencyValueChange = (input) => {
     let numericValue = typeof input === "number" ? input : parseFloat(input);
-
     if (isNaN(numericValue) || numericValue < 0) {
       setSendCurrencyValue(0);
       return;
