@@ -1,6 +1,6 @@
-import { updateDepositBalance, getDeposit } from "../models/deposit.model.js";
+const { updateDepositBalance, getDeposit } = require("../models/deposit.model.js");
 
-export const createDeposit = async (req , res) => {
+const createDeposit = async (req , res) => {
     const { userID, balance, transactionID } = req.body;
 
     try {
@@ -12,7 +12,7 @@ export const createDeposit = async (req , res) => {
 }; 
 
 
-export const getDeposit = async (req , res) => {
+const getDeposit = async (req , res) => {
     const { userID } = req.params;
 
     try {
@@ -22,3 +22,8 @@ export const getDeposit = async (req , res) => {
         res.status(500).json({ error: error.message });
     }
 }; 
+
+exports = {
+    createDeposit,
+    getDeposit
+};

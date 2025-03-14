@@ -1,9 +1,18 @@
-import { Router } from "express";
+const express = require("express");
+const {
+  createUser,
+  handleLogin,
+  getUser,
+  getAccount,
+  forgotPassword,
+  otpPassword,
+  resetPassword,
+  getWatchList,
+  setWatchList,
+} = require("../controllers/user.controller");
+const auth = require("../middlewares/auth");
 
-import { createUser, handleLogin, getUser, getAccount, forgotPassword, otpPassword, resetPassword, getWatchList, setWatchList } from "../controllers/user.controller";
-import auth from "../middlewares/auth";
-
-const profileRouter = Router();
+const profileRouter = express.Router();
 
 profileRouter.all("*", auth);
 
@@ -27,4 +36,5 @@ profileRouter.get("/watch-list", getWatchList);
 
 profileRouter.post("/watch-list", setWatchList);
 
-export default profileRouter; //export default
+
+module.exports = profileRouter;  //export default

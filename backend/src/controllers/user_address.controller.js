@@ -1,6 +1,7 @@
-import { createUser, getUserByWallet } from "../models/user_address.model.js";
+const { createUser, getUserByWallet } = require("../models/user_address.model.js");
 
-export const registerUser = async (req, res) => {
+
+const registerUser = async (req, res) => {
     // the walletAddress = request body 
     const { walletAddress } = req.body;
 
@@ -14,3 +15,7 @@ export const registerUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+module.exports = {
+    registerUser
+}

@@ -1,5 +1,5 @@
-import { createTransaction, getTransaction } from "../models/user_transaction.model.js";
-import { updateDepositBalance } from "../models/deposit.model.js";
+const { createTransaction, getTransaction } = require("../models/user_transaction.model.js");
+const { updateDepositBalance } = require("../models/deposit.model.js");
 
 const createHandleTransaction = async (req, res) => {
     const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
@@ -21,7 +21,7 @@ const createHandleTransaction = async (req, res) => {
 
 const getHandleTransaction = async(req, res) => {
     const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
- 
+
     try {
         const transaction = await getTransaction(hashCode);
         res.status(201).json(transaction);
@@ -31,8 +31,7 @@ const getHandleTransaction = async(req, res) => {
 }
 
 
-exports = {
+module.exports = {
     createHandleTransaction,
     getHandleTransaction
 };
-  
