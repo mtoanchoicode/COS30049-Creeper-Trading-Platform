@@ -242,81 +242,84 @@ const AddPool = () => {
 
   return (
     <div className="add trade-child">
-      <AddLiquidity
-        CEP={CEP_RESERVES}
-        LNX={LNX_RESERVES}
-        address={CONTRACT_ADDRESS}
-      />
-      <Button
-        type="primary"
-        block
-        className={`send-btn trade-btn enabled`}
-        onClick={handleButtonClickAdd}
-        disabled={isLoading} // Disable button while loading
-      >
-        {isLoading ? (
-          <div className="send-btn-content">
-            <Loader />
-            <span>Adding please wait...</span>
-          </div>
-        ) : (
-          getButtonText()
-        )}
-      </Button>
-      <div style=
-        {{
-          background: "var(--trade-background-color)",
-          padding: "1rem",
-          borderRadius: "20px",
-          marginTop: "10px",
-          marginBottom: "10px",
-        }}>
-        <p>Enter amount of token CEP:</p>
-        <Input
+      <div className="trade-main">
+        <AddLiquidity
+          CEP={CEP_RESERVES}
+          LNX={LNX_RESERVES}
+          address={CONTRACT_ADDRESS}
+        />
+        <Button
+          type="primary"
+          block
+          className={`send-btn trade-btn enabled`}
+          onClick={handleButtonClickAdd}
+          disabled={isLoading} // Disable button while loading
+        >
+          {isLoading ? (
+            <div className="send-btn-content">
+              <Loader />
+              <span>Adding please wait...</span>
+            </div>
+          ) : (
+            getButtonText()
+          )}
+        </Button>
+        <div
           style={{
-            textAlign: "center",
+            background: "var(--trade-background-color)",
+            padding: "1rem",
+            borderRadius: "20px",
+            marginTop: "10px",
             marginBottom: "10px",
-            background: "transparent",
-            color: "var(--white-color)",
-            border: "2px solid",
-            borderRadius: "10px",
           }}
-          value={amountCEP}
-          onChange={handleInputChangeCEP}
-          disabled={isLoadingRemove}
-          suffix="Token"
-        />
-        <p>Enter amount of token LNX:</p>
-        <Input
-          style={{
-            textAlign: "center",
-            background: "transparent",
-            color: "var(--white-color)",
-            border: "2px solid",
-            borderRadius: "10px",
-          }}
-          value={amountLNX}
-          onChange={handleInputChangeLNX}
-          disabled={isLoadingRemove}
-          suffix="Token"
-        />
+        >
+          <p>Enter amount of token CEP:</p>
+          <Input
+            style={{
+              textAlign: "center",
+              marginBottom: "10px",
+              background: "transparent",
+              color: "var(--white-color)",
+              border: "2px solid",
+              borderRadius: "10px",
+            }}
+            value={amountCEP}
+            onChange={handleInputChangeCEP}
+            disabled={isLoadingRemove}
+            suffix="Tokens"
+          />
+          <p>Enter amount of token LNX:</p>
+          <Input
+            style={{
+              textAlign: "center",
+              background: "transparent",
+              color: "var(--white-color)",
+              border: "2px solid",
+              borderRadius: "10px",
+            }}
+            value={amountLNX}
+            onChange={handleInputChangeLNX}
+            disabled={isLoadingRemove}
+            suffix="Tokens"
+          />
+        </div>
+        <Button
+          type="primary"
+          block
+          className={`send-btn trade-btn enabled`}
+          onClick={handleButtonClickRemove}
+          disabled={isLoadingRemove} // Disable button while loading
+        >
+          {isLoadingRemove ? (
+            <div className="send-btn-content">
+              <Loader />
+              <span>Removing please wait...</span>
+            </div>
+          ) : (
+            getButtonTextRemove()
+          )}
+        </Button>
       </div>
-      <Button
-        type="primary"
-        block
-        className={`send-btn trade-btn enabled`}
-        onClick={handleButtonClickRemove}
-        disabled={isLoadingRemove} // Disable button while loading
-      >
-        {isLoadingRemove ? (
-          <div className="send-btn-content">
-            <Loader />
-            <span>Removing please wait...</span>
-          </div>
-        ) : (
-          getButtonTextRemove()
-        )}
-      </Button>
     </div>
   );
 };
