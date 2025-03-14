@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import { Button, notification, Input, Statistic } from "antd";
-import { formatUnits } from "ethers";
 import Loader from "../../components/Loader/Loader";
 import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
@@ -51,7 +50,7 @@ const AddPool = () => {
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingRemove, setIsLoadingRemove] = useState(false);// Ensure initial state is false
+  const [isLoadingRemove, setIsLoadingRemove] = useState(false); // Ensure initial state is false
   const [CEP_RESERVES, setCEP_RESERVES] = useState();
   const [LNX_RESERVES, setLNX_RESERVES] = useState();
   const [amountCEP, setAmountCEP] = useState();
@@ -66,13 +65,12 @@ const AddPool = () => {
   const getButtonTextRemove = () => {
     if (isLoading) return "Processing...";
     if (!isConnected) return "Connect Wallet";
-    return "Remove liquidity to pool";
+    return "Remove liquidity from pool";
   };
 
   // Function to fetch and update the last claim time
   const getPoolReserves = async () => {
     if (!window.ethereum) return;
-
 
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -81,15 +79,19 @@ const AddPool = () => {
       // Fetch reserve values
       const [reserveCEP, reserveStablecoin] = await poolContract.getReserves();
 
-      console.log(`Creeper Coin Reserve: ${ethers.formatUnits(reserveCEP, 18)}`);
-      console.log(`Stablecoin Reserve: ${ethers.formatUnits(reserveStablecoin, 18)}`);
+      console.log(
+        `Creeper Coin Reserve: ${ethers.formatUnits(reserveCEP, 18)}`
+      );
+      console.log(
+        `Stablecoin Reserve: ${ethers.formatUnits(reserveStablecoin, 18)}`
+      );
       // console.log("Creeper Coin Reserve:",reserveCEP);
       // console.log("Stablecoin Reserve:", reserveStablecoin);
 
       setCEP_RESERVES(Number(ethers.formatUnits(reserveCEP, 18)).toFixed(1));
-      setLNX_RESERVES(Number(ethers.formatUnits(reserveStablecoin, 18)).toFixed(1));
-
-
+      setLNX_RESERVES(
+        Number(ethers.formatUnits(reserveStablecoin, 18)).toFixed(1)
+      );
     } catch (error) {
       console.log(error.message);
       return { reserveCEP: "0", reserveStablecoin: "0" };
@@ -164,8 +166,12 @@ const AddPool = () => {
       await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
       await lnxToken.approve(CONTRACT_ADDRESS, amountLNX);
 
-      const txCEP = await pool.removeLiquidity(ethers.parseUnits(`${amountCEP}`, 18));
-      const txLNX = await pool.removeLiquidity(ethers.parseUnits(`${amountLNX}`, 18));
+      const txCEP = await pool.removeLiquidity(
+        ethers.parseUnits(`${amountCEP}`, 18)
+      );
+      const txLNX = await pool.removeLiquidity(
+        ethers.parseUnits(`${amountLNX}`, 18)
+      );
 
       await txCEP.wait();
       notification.success({
@@ -212,25 +218,26 @@ const AddPool = () => {
 
   const handleInputChangeCEP = (e) => {
     const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) { // ✅ Allow only numbers and decimals
+    if (/^\d*\.?\d*$/.test(value)) {
+      // ✅ Allow only numbers and decimals
       setAmountCEP(value);
     }
   };
 
   const handleInputChangeLNX = (e) => {
     const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) { // ✅ Allow only numbers and decimals
+    if (/^\d*\.?\d*$/.test(value)) {
+      // ✅ Allow only numbers and decimals
       setAmountLNX(value);
     }
   };
-
 
   useEffect(() => {
     if (isConnected) {
       getPoolReserves();
     } else {
-      setCEP_RESERVES("0")
-      setLNX_RESERVES("0")
+      setCEP_RESERVES("0");
+      setLNX_RESERVES("0");
     }
   }, [isConnected]);
 
@@ -257,23 +264,22 @@ const AddPool = () => {
           getButtonText()
         )}
       </Button>
-      <div style=
-        {{
-          background: "var(--trade-background-color)",
-          padding: "1rem",
-          borderRadius: "20px",
-          marginTop: "10px",
-          marginBottom: "10px",
-        }}>
+      <div style= 
+      {{background: "var(--trade-background-color)", 
+        padding: "1rem",
+        borderRadius: "20px",
+        marginTop: "10px",
+        marginBottom: "10px",
+      }}>
         <p>Enter amount of token CEP:</p>
         <Input
-          style={{
+          style= {{
             textAlign: "center",
             marginBottom: "10px",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px",
+            borderRadius: "10px", 
           }}
           value={amountCEP}
           onChange={handleInputChangeCEP}
@@ -282,19 +288,19 @@ const AddPool = () => {
         />
         <p>Enter amount of token LNX:</p>
         <Input
-          style={{
+          style= {{
             textAlign: "center",
             background: "transparent",
             color: "var(--white-color)",
             border: "2px solid",
-            borderRadius: "10px",
+            borderRadius: "10px", 
           }}
           value={amountLNX}
           onChange={handleInputChangeLNX}
           disabled={isLoadingRemove}
           suffix="Token"
         />
-      </div>
+      </div> 
       <Button
         type="primary"
         block

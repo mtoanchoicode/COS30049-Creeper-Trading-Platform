@@ -31,9 +31,10 @@ const CoinProvider = ({ children }) => {
     {
       id: "eth",
       name: "SepoliaETH",
+      address: null,
       symbol: "ETH",
       image: sepolica_icon,
-      current_price: ethCoin.current_price,
+      current_price: ethCoin?.current_price ?? 1868,
     },
     {
       id: "cep",
@@ -122,7 +123,6 @@ const CoinProvider = ({ children }) => {
 
   const handleSendCurrencyValueChange = (input) => {
     let numericValue = typeof input === "number" ? input : parseFloat(input);
-
     if (isNaN(numericValue) || numericValue < 0) {
       setSendCurrencyValue(0);
       return;
@@ -201,6 +201,7 @@ const CoinProvider = ({ children }) => {
     handleSendCurrencyValueChange,
     faucetCurrency,
     setfaucetCurrency,
+    resetValues,
   };
 
   return (

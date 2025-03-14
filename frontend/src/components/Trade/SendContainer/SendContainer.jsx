@@ -38,7 +38,6 @@ const SendContainer = ({ setAmount, setTokenAddress }) => {
       : "";
     setValue(numericValue ? `$${numericValue}` : ""); // If empty, reset to ""
     setAmount(numericValue);
-    console.log("numericValue", numericValue);
     handleSendCurrencyValueChange(numericValue);
   };
 
@@ -47,6 +46,7 @@ const SendContainer = ({ setAmount, setTokenAddress }) => {
       <div className="send-tokens-exchange">
         <div className="send-top">
           <span>You're sending</span>
+          <span>Fee (0.3%)</span>
         </div>
         <div className="send-bottom">
           <div className="send-currency-input">
@@ -59,6 +59,11 @@ const SendContainer = ({ setAmount, setTokenAddress }) => {
           <div className="send-currency-change">
             <div>
               {sendCurrencyValue ? sendCurrencyValue.toFixed(5) : "0"}{" "}
+              {sendCurrency.symbol.toUpperCase()}
+            </div>
+            <div>
+              <span>Fee</span>~
+              {sendCurrencyValue ? (sendCurrencyValue * 0.003).toFixed(6) : "0"}{" "}
               {sendCurrency.symbol.toUpperCase()}
             </div>
           </div>

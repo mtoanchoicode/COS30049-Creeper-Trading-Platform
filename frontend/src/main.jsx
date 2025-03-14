@@ -30,6 +30,9 @@ import { AuthWrapper } from "./contexts/AuthContext.jsx";
 import ResetPasswordPage from "./pages/Profile/ResetPassword.jsx";
 import Faucet from "./pages/Trade/Faucet.jsx";
 import Add from "./pages/Trade/AddPool.jsx";
+import AdminPage from "./pages/Admin/Admin.jsx";
+import ProtectedRoute from "./utils/ProtectedRoute.jsx";
+import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -112,6 +115,14 @@ const routers = createBrowserRouter([
         element: <ResetPasswordPage />,
       },
     ],
+  },
+  {
+    path: "/admin",
+    element: <ProtectedRoute element={<AdminPage />} />,
+  },
+  {
+    path: "/admin/login",
+    element: <LoginAdminPage />,
   },
   {
     path: "*",

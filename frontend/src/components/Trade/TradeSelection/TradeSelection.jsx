@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./TradeSelection.css";
+import { CoinContext } from "../../../contexts/CoinContext";
 
 const TradeSelection = () => {
   const location = useLocation();
+
+  const { resetValues } = useContext(CoinContext);
 
   // Determine the active option based on the current pathname
   const activePath = location.pathname;
@@ -11,27 +14,42 @@ const TradeSelection = () => {
   return (
     <div className="trade-selection">
       <Link to="/trade/send">
-        <button className={activePath === "/trade/send" ? "active" : ""}>
+        <button
+          className={activePath === "/trade/send" ? "active" : ""}
+          onClick={resetValues}
+        >
           Send
         </button>
       </Link>
       <Link to="/trade/buy">
-        <button className={activePath === "/trade/buy" ? "active" : ""}>
+        <button
+          className={activePath === "/trade/buy" ? "active" : ""}
+          onClick={resetValues}
+        >
           Buy
         </button>
       </Link>
       <Link to="/trade/swap">
-        <button className={activePath === "/trade/swap" ? "active" : ""}>
+        <button
+          className={activePath === "/trade/swap" ? "active" : ""}
+          onClick={resetValues}
+        >
           Swap
         </button>
       </Link>
       <Link to="/trade/add">
-        <button className={activePath === "/trade/add" ? "active" : ""}>
+        <button
+          className={activePath === "/trade/add" ? "active" : ""}
+          onClick={resetValues}
+        >
           Add & Remove
         </button>
       </Link>
       <Link to="/trade/faucet">
-        <button className={activePath === "/trade/faucet" ? "active" : ""}>
+        <button
+          className={activePath === "/trade/faucet" ? "active" : ""}
+          onClick={resetValues}
+        >
           Faucet
         </button>
       </Link>

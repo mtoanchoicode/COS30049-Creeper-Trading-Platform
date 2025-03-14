@@ -1,0 +1,94 @@
+.transaction-history {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 1rem;
+  background: var(--trade-background-color);
+  overflow: hidden;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  padding: 0.5rem 1rem;
+  table-layout: fixed; /* Ensures columns respect width */
+  overflow: hidden;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px var(--trade-border-color) solid;
+}
+
+.transaction-table th:nth-child(1),
+.transaction-table td:nth-child(1) {
+  width: 17.5%;
+  padding-left: 2rem;
+} /* Tx Hash */
+.transaction-table th:nth-child(2),
+.transaction-table td:nth-child(2) {
+  width: 7.5%;
+} /* Method */
+.transaction-table th:nth-child(3),
+.transaction-table td:nth-child(3) {
+  width: 7.5%;
+} /* Age */
+.transaction-table th:nth-child(4),
+.transaction-table td:nth-child(4) {
+  width: 17.5%;
+} /* From */
+.transaction-table th:nth-child(5),
+.transaction-table td:nth-child(5) {
+  width: 17.5%;
+} /* To */
+.transaction-table th:nth-child(6),
+.transaction-table td:nth-child(6) {
+  width: 7.5%;
+} /* Amount */
+.transaction-table th:nth-child(7),
+.transaction-table td:nth-child(7) {
+  width: 5%;
+} /* Fee */
+.transaction-table th:nth-child(8),
+.transaction-table td:nth-child(8) {
+  width: 5%;
+  padding-right: 2rem;
+} /* Token */
+
+.transaction-table td a {
+  color: var(--primary-color);
+}
+.transaction-table td a:hover {
+  color: var(--third-color);
+  text-decoration: underline;
+}
+
+.transaction-table td div {
+  display: flex;
+}
+
+.transaction-table td i {
+  margin-left: 1rem;
+  cursor: pointer;
+  color: var(--trade-secondary-text-color);
+}
+
+.transaction-table td i:hover {
+  color: var(--primary-color);
+}
+
+.transaction-table td i.fa-check {
+  color: var(--primary-color);
+}
+
+.transaction-table td span {
+  margin: auto;
+  background: var(--trade-background-active-color);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+}
+

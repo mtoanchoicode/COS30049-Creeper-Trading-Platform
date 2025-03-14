@@ -6,7 +6,7 @@
   gap: 0.1rem;
   background: var(--trade-background-color);
   border-radius: 1rem;
-  padding: 0.9rem 1rem;
+  padding: 0.93rem 1rem;
   height: 21.5rem;
 }
 
@@ -22,24 +22,6 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--trade-secondary-text-color);
-}
-
-.buy-top p{
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.8rem; 
-  border-radius: 30px;
-  background-color: var(--black-background-color);
-  color: #fafafa;
-}
-
-.light .buy-top p{
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.8rem; 
-  border-radius: 30px;
-  background-color: var(--grey-color);
-  color: #000;
 }
 
 .buy-bottom {
