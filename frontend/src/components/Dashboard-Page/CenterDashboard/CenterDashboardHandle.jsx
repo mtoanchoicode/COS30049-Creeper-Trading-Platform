@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NewsComponent from "../NewsComponent/NewsComponentHandle";
 import MarketCoinBrief from "../../Market/MarketCoinBrief/MarketCoinBrief";
 import { CoinContext } from "../../../contexts/CoinContext";
-import { NewsContext } from "../../../contexts/NewsContext";
+import NewsProvider, { NewsContext } from "../../../contexts/NewsContext";
 import { Button, Form, Input } from "antd";
 import Github from "../../../assets/Github.svg";
 import Google from "../../../assets/Google.svg";
@@ -139,15 +139,46 @@ const Centers = ({ title, subtitle }) => {
             </Link>
           </div>
 
-          {/* <div className="News-Content-Container">
-                        {newsData?.sort((a, b) => b.id - a.id).slice(0,4).map(news => (
-                            <NewsComponent key={news.id} id={news.id} Title={news.Title} />
-                        ))}
-                    </div> */}
+
+          <div className="Rightside-Container" >
+            <div className="List-HotCoin-Container">
+              <h2>Hot Coins</h2>
+              {HotCoins.map(coin => (
+                <MarketCoinBrief
+                  key={coin.id}
+                  className="Hot-Coins-listing"
+                  id={coin.id}
+                  name={coin.name}
+                  symbol={coin.symbol.toUpperCase()}
+                  current_price={coin.current_price}
+                  image={coin.image}
+                  change={coin.price_change_percentage_24h}
+                />
+              ))}
+            </div>
+
+            <div className="News-container">
+              <div className="News-heading-container">
+                <h2 className="News-heading-title">
+                  News
+                </h2>
+
+                <Link to="/news">
+                  <p className="News-Link">View all news</p>
+                </Link>
+              </div>
+
+              <div className="News-Content-Container">
+                {newsData?.sort((a, b) => b.id - a.id).slice(0, 4).map(news => (
+                  <NewsComponent key={news.id} id={news.id} Title={news.Title} />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 };
 
 export default Centers;

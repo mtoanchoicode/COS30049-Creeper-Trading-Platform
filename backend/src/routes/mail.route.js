@@ -1,6 +1,6 @@
-const express = require("express");
-const { sendEmail } = require("../controllers/mail.controller");
-const mailRouter = express.Router();
+import { Router } from "express";
+import { sendEmail } from "../controllers/mail.controller";
+const mailRouter = Router();
 
 mailRouter.get("/", (req, res) => {
     return res.status(200).json("Success Get");
@@ -14,4 +14,4 @@ mailRouter.get("/subscribe", (req, res) => {
 
 mailRouter.post("/subscribe", sendEmail); // call the sendEmail in the controller
 
-module.exports = mailRouter; //export default
+export default mailRouter; //export default

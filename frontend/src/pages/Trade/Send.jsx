@@ -5,6 +5,7 @@ import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import SendContainer from "../../components/Trade/SendContainer/SendContainer";
 import SendWalletAddress from "../../components/Trade/SendWalletAddress/SendWalletAddress";
 import { Button, notification } from "antd";
+import TransactionHistory from "../../components/Trade/TransactionHistory/TransactionHistory";
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import { ExportOutlined } from "@ant-design/icons";
@@ -446,34 +447,42 @@ const Send = () => {
 
   return (
     <div className="send trade-child">
-      <SendContainer setAmount={setAmount} setTokenAddress={setTokenAddress} />
-      <SendWalletAddress setRecipient={setRecipient} />
-      <Button
-        type="primary"
-        block
-        className={`send-btn trade-btn ${
-          isConnected && (!amount || !recipient) ? "disabled" : "enabled"
-        }`}
-        onClick={handleButtonClick}
-        disabled={isLoading} // Disable button while loading
-      >
-        {isLoading ? (
-          <div className="send-btn-content">
-            <Loader />
-            <span>Sending...</span>
-          </div>
-        ) : (
-          getButtonText()
-        )}
-      </Button>
-      <a
-        className="trade-contractAddress"
-        href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
-        target="_blank"
-      >
-        <span>Contract address</span>
-        <ExportOutlined />
-      </a>
+      <div className="trade-main">
+        <SendContainer
+          setAmount={setAmount}
+          setTokenAddress={setTokenAddress}
+        />
+        <SendWalletAddress setRecipient={setRecipient} />
+        <Button
+          type="primary"
+          block
+          className={`send-btn trade-btn ${
+            isConnected && (!amount || !recipient) ? "disabled" : "enabled"
+          }`}
+          onClick={handleButtonClick}
+          disabled={isLoading} // Disable button while loading
+        >
+          {isLoading ? (
+            <div className="send-btn-content">
+              <Loader />
+              <span>Sending...</span>
+            </div>
+          ) : (
+            getButtonText()
+          )}
+        </Button>
+        <a
+          className="trade-contractAddress"
+          href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+          target="_blank"
+        >
+          <span>Contract address</span>
+          <ExportOutlined />
+        </a>
+      </div>
+      <div className="trade-history">
+          <TransactionHistory />
+      </div>
     </div>
   );
 };

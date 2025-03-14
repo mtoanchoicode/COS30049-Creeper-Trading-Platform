@@ -1,19 +1,17 @@
 .trade {
   padding-top: 8rem;
   padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-.trade-container {
-  width: 28.125rem;
-  margin: auto;
-}
-
-.trade-child {
+.trade-main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  width: 100%;
+  width: 28.125rem;
+  margin: auto;
 }
 .trade-contractAddress {
   margin-top: 0.5rem;
