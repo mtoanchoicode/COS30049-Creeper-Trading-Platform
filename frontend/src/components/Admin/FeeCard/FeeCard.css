@@ -1,0 +1,25 @@
+.adminFee-tokenBalance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adminFee-tokenBalance p {
+  margin-bottom: 0rem;
+}
+.adminFee-tokenBalance select {
+  background-color: transparent;
+  color: var(--white-color);
+  padding: 0rem 0.3rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.adminFee-tokenBalance select option {
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+
+.adminFee-tokenBalance select:focus {
+  outline: none;
+}
