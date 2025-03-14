@@ -53,6 +53,14 @@ const TradeSelection = () => {
           Faucet
         </button>
       </Link>
+      <Link to="/trade/create">
+        <button
+          className={activePath === "/trade/create" ? "active" : ""}
+          onClick={resetValues}
+        >
+          Create Token
+        </button>
+      </Link>
     </div>
   );
 };

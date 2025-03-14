@@ -5,7 +5,7 @@
   gap: 1rem;
   margin: auto;
   margin-bottom: 0.7rem;
-  width: 450px;
+  width: fit-content;
 }
 
 .trade-selection button {
