@@ -47,6 +47,7 @@ const SendContainer = ({ setAmount, setTokenAddress }) => {
       <div className="send-tokens-exchange">
         <div className="send-top">
           <span>You're sending</span>
+          <span>Fee (0.3%)</span>
         </div>
         <div className="send-bottom">
           <div className="send-currency-input">

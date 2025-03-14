@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
-
 import { Button } from "antd";
 import SwapContainer from "../../components/Trade/SwapContainer/SwapContainer";
 import TransactionHistory from "../../components/Trade/TransactionHistory/TransactionHistory";
 import { CoinContext } from "../../contexts/CoinContext";
+import { ExportOutlined } from "@ant-design/icons";
 
-const Swap = () => {
+const Swap = ({ showHistory = true }) => {
   const { swapFromCurrencyValue, swapToCurrencyValue } =
     useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
@@ -43,10 +43,20 @@ const Swap = () => {
         >
           {getButtonText()}
         </Button>
+        <a
+          className="trade-contractAddress"
+          href={`https://sepolia.etherscan.io/address/}`}
+          target="_blank"
+        >
+          <span>Contract address</span>
+          <ExportOutlined />
+        </a>
       </div>
-      <div className="trade-history">
-        <TransactionHistory />
-      </div>
+      {showHistory && (
+        <div className="trade-history">
+          <TransactionHistory />
+        </div>
+      )}
     </div>
   );
 };

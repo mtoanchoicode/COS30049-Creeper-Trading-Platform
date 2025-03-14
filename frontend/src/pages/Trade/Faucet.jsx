@@ -283,16 +283,15 @@ const Faucet = () => {
             getButtonText()
           )}
         </Button>
+        <a
+          className="trade-contractAddress"
+          href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+          target="_blank"
+        >
+          <span>Contract address</span>
+          <ExportOutlined />
+        </a>
       </div>
-
-      <a
-        className="trade-contractAddress"
-        href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
-        target="_blank"
-      >
-        <span>Contract address</span>
-        <ExportOutlined />
-      </a>
     </div>
   );
 };
