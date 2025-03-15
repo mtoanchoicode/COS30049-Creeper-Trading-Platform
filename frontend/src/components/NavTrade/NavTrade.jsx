@@ -20,8 +20,8 @@ const NavTrade = () => {
       path: "/trade/swap",
     },
     {
-      name: "Add",
-      desc: "Add the liquidity to our coin pool",
+      name: "Add & Remove",
+      desc: "Add or withdraw liquidity from the coin pool.",
       path: "/trade/add",
     },
     {
@@ -29,23 +29,48 @@ const NavTrade = () => {
       desc: "Claim free LNX and CEP tokens every hour!",
       path: "/trade/faucet",
     },
+    {
+      name: "Create Token",
+      desc: "Easily generate your own custom crypto token!",
+      path: "/trade/create",
+    },
   ];
+
+  const leftItems = tradeItems.slice(0, 3);
+  const rightItems = tradeItems.slice(3, 6);
 
   return (
     <div className="navtrade">
-      {tradeItems.map((item, index) => (
-        <Link to={item.path} key={item.name}>
-          <div key={index} className="navtrade-item">
-            <div className="navtrade-content">
-              <div className="navtrade-heading">
-                <p>{item.name}</p>
-                <i className="fa-solid fa-arrow-right"></i>
+      <div className="navtrade-column">
+        {leftItems.map((item, index) => (
+          <Link to={item.path} key={item.name}>
+            <div key={index} className="navtrade-item">
+              <div className="navtrade-content">
+                <div className="navtrade-heading">
+                  <p>{item.name}</p>
+                  <i className="fa-solid fa-arrow-right"></i>
+                </div>
+                <p className="navtrade-desc">{item.desc}</p>
               </div>
-              <p className="navtrade-desc">{item.desc}</p>
             </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
+      </div>
+      <div className="navtrade-column">
+        {rightItems.map((item, index) => (
+          <Link to={item.path} key={item.name}>
+            <div key={index} className="navtrade-item">
+              <div className="navtrade-content">
+                <div className="navtrade-heading">
+                  <p>{item.name}</p>
+                  <i className="fa-solid fa-arrow-right"></i>
+                </div>
+                <p className="navtrade-desc">{item.desc}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

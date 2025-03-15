@@ -61,21 +61,15 @@ contract Buy is ERC20 {
         require(CEPcoin.balanceOf(address(creeperPool)) >= CEPcoinAmount,
         "Insufficient CEPcoin balance in pool");
 
-
-        // // Transfer stablecoin from user to pool
-        // bool stablecoinTransferSuccess = stablecoin.transferFrom(msg.sender, address(creeperPool), stablecoinAmount);
-        // require(stablecoinTransferSuccess, "Stablecoin transfer failed");
-
-        // // Transfer CEPcoin from pool to user
-        // bool CEPcoinTransferSuccess = CEPcoin.transferFrom(address(creeperPool), msg.sender, CEPcoinAmount);
-        // require(CEPcoinTransferSuccess, "CEPcoin transfer failed");
-
         // Transfer stablecoin from the user to the contract - add the stable coin
         stablecoin.transferFrom(msg.sender,  address(creeperPool), stablecoinAmount);
 
         // Transfer from pool 
         CEPcoin.transferFrom(address(creeperPool), msg.sender, CEPcoinAmount);
 
+        // Update reserves in the pool
+        creeperPool.updateReserves();
+        
         emit CEPcoinBought(msg.sender, stablecoinAmount, CEPcoinAmount);
     }
 }

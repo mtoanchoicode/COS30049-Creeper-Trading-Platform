@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const { connectGraphDB } = require("./src/config/neo4jDatabase");
 const walletRouter = require("./src/routes/wallet.route");
 const connectionMongoDB = require("./src/config/mongoDatabase");
+const connectionPostgreSQL = require("./src/config/CreaperDB");
 const chatRouter = require("./src/routes/chat.route");
 const profileRouter = require("./src/routes/profile.route");
 const mailRouter = require("./src/routes/mail.route");
@@ -42,6 +43,10 @@ app.use("/v1/api/user", userRouter);
   try {
     //using mongoose
     await connectionMongoDB();
+
+    //using PostgreSQL database
+    // await this connected
+    await connectionPostgreSQL();
 
     app.listen(port, () => {
       console.log(`Backend Nodejs App listening on port ${port}`);
