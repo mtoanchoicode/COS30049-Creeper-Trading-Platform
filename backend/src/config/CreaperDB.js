@@ -1,18 +1,8 @@
 const postgres = require('postgres')
 
-  
-const connection = async () => {
-  try {
-    const connectionString = process.env.DATABASE_URL
-    const sql = postgres(connectionString)
 
-    console.log("Connected to PostgreSQL database"); // connected to db
-    return sql;
+const connectionString = process.env.DATABASE_URL
 
-  } catch (err) {
-    console.error("Error connecting to PostgreSQL database :", err);
-    return null;
-  }
-};
+const sql = postgres(connectionString);
 
-module.exports = connection;
+module.exports ={ sql };
