@@ -46,7 +46,8 @@ app.use("/v1/api/user", userRouter);
 
     //using PostgreSQL database
     // await this connected
-    await connectionPostgreSQL();
+    
+    // await connectionPostgreSQL();
 
     app.listen(port, () => {
       console.log(`Backend Nodejs App listening on port ${port}`);
