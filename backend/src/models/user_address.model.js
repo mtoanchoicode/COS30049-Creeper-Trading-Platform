@@ -3,11 +3,15 @@ const CreeperDB = require("../config/CreeperDB.js");
 const createUser = async (walletAddress) => {
     try {
         // Insert new user
-        const { rows } = await CreeperDB.query(
-            "INSERT INTO Users (WalletAddress) VALUES ($1) RETURNING *",
-            [walletAddress]
-        )
-        return rows[0];
+        const rows = await CreeperDB.sql`
+        INSERT INTO "Users" ("WalletAddress") VALUES (${walletAddress}) RETURNING *;
+    `;
+        if (!rows || rows.length === 0) {
+            console.log('User creation failed: No data returned');
+        }else{
+            return rows[0]; // First row of the result
+        }
+
     } catch (err) {
         console.error('Error inserting user:', err);
     }
@@ -15,12 +19,15 @@ const createUser = async (walletAddress) => {
 };
 
 const getUserByWallet = async (walletAddress) => {
+    walletAddress = walletAddress.trim();
     try {
-        const { rows } = await CreeperDB.query(
-            "SELECT * FROM Users WHERE WalletAddress = $1",
-            [walletAddress]
-        )
-        return rows[0];
+        const rows  = await CreeperDB.sql`
+        SELECT * FROM "Users" WHERE "WalletAddress" = ${walletAddress} LIMIT 1;
+    `;
+        if (!rows || rows.length === 0) {
+            return null;
+        }
+        return rows[0]; // First row of the result
     }
     catch (err) {
         console.error('Error getting user:', err);

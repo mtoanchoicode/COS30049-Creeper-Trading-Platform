@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./NavBar.css";
-
+import axios from "axios";
 import logo from "../../assets/Logo.png";
 import moonIcon from "../../assets/Dark Mode Icon.svg";
 import sunIcon from "../../assets/Light Mode Icon.svg";
@@ -16,6 +16,8 @@ import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import shortenAddress from "../../utils/utils";
 
 const NavBar = ({ theme, setTheme }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
@@ -23,6 +25,26 @@ const NavBar = ({ theme, setTheme }) => {
 
   const location = useLocation();
   const isFixed = location.pathname === "/trade/convert";
+
+  const addUserOnWalletConnection = async (userWalletAddress) => {
+    try{
+      if(isConnected){
+        //Call API to register wallet
+        console.log("Connected to wallet");
+        const response = await axios.post(`${API_BASE_URL}/v1/api/user/register`, {
+          walletAddress: userWalletAddress,
+        });
+      }else{
+        console.log("Wallet disconnected")
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    addUserOnWalletConnection(address);
+  }, [isConnected]);
 
   return (
     <div
