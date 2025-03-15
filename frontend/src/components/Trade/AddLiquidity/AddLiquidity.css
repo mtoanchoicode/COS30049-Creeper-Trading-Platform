@@ -97,18 +97,44 @@
 .Liquidity_Line {
   padding: 0.3rem 0.2rem;
   height: 10px;
+  transition: width 0.3s ease-in-out; 
 }
 
 .CEP_line {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  width: 37%;
   background-color: var(--primary-color);
 }
 
 .LNX_line {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  width: 63%;
   background-color: rgb(241, 105, 14);
+}
+
+.addLiquidity_input_container {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.addLiquidity_input{
+    padding: 0.5rem; 
+    background-color: transparent !important; 
+    border: 1.5px solid var(--white-color) !important;
+    border-radius: 10px !important;
+    color: var(--white-color) !important;   
+}
+
+.addLiquidity_input::placeholder{
+  color: var(--text-color) !important;
+}
+
+.addLiquidity_input:hover {
+  background-color: transparent !important;
+}
+
+.addLiquidity_input:focus { 
+  background-color: transparent !important;
 }

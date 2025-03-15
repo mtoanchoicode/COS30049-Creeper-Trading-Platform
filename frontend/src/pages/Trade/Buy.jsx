@@ -52,6 +52,15 @@ const fetchEthPriceInUSD = async () => {
   return data.ethereum.usd;
 };
 
+// const fetchEthPriceInUSD = async () => {
+//   const CHAINLINK_ETH_USD_FEED = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
+//   const provider = new ethers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_API_KEY");
+//   const abi = ["function latestRoundData() external view returns (uint80, int256, uint256, uint256, uint80)"];
+//   const priceFeed = new ethers.Contract(CHAINLINK_ETH_USD_FEED, abi, provider);
+//   const [, price] = await priceFeed.latestRoundData();
+//   return Number(price) / 1e8;
+// };
+
 const Buy = () => {
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();

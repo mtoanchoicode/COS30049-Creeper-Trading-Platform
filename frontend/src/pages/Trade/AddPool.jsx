@@ -53,8 +53,13 @@ const AddPool = () => {
   const [isLoadingRemove, setIsLoadingRemove] = useState(false); // Ensure initial state is false
   const [CEP_RESERVES, setCEP_RESERVES] = useState();
   const [LNX_RESERVES, setLNX_RESERVES] = useState();
-  const [amountCEP, setAmountCEP] = useState();
-  const [amountLNX, setAmountLNX] = useState();
+
+  const [amountCEP, setAmountCEP] = useState("");
+  const [amountLNX, setAmountLNX] = useState("");
+
+  const [amountCEP_remove, setAmountCEP_remove] = useState();
+  const [amountLNX_remove, setAmountLNX_remove] = useState();
+
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
@@ -85,6 +90,7 @@ const AddPool = () => {
       console.log(
         `Stablecoin Reserve: ${ethers.formatUnits(reserveStablecoin, 18)}`
       );
+    
       // console.log("Creeper Coin Reserve:",reserveCEP);
       // console.log("Stablecoin Reserve:", reserveStablecoin);
 
@@ -114,26 +120,40 @@ const AddPool = () => {
       const creepToken = new ethers.Contract(CEPAddress, IERC20_ABI, signer);
       const lnxToken = new ethers.Contract(LNXAddress, IERC20_ABI, signer);
 
-      // Fetch user balance
-      const CEP_Balance = await creepToken.balanceOf(signer.address);
-      const lNX_Balance = await lnxToken.balanceOf(signer.address);
+      // // Fetch user balance
+      // const CEP_Balance = await creepToken.balanceOf(signer.address);
+      // const lNX_Balance = await lnxToken.balanceOf(signer.address);
 
-      const amountCEP = Number(CEP_Balance / 1000n).toFixed(0, 1); // Add 25% of balance
-      const amountLNX = Number(lNX_Balance / 1000n).toFixed(0, 1);
+      if (!amountCEP || isNaN(amountCEP) || parseFloat(amountCEP) <= 0) {
+        notification.error({
+          message: "Invalid Input",
+          description: "Please enter a valid positive number for CEP amount.",
+        });
+        return;
+      }
+      
+      if (!amountLNX || isNaN(amountLNX) || parseFloat(amountLNX) <= 0) {
+        notification.error({
+          message: "Invalid Input",
+          description: "Please enter a valid positive number for LNX amount.",
+        });
+        return;
+      }
+
+      const amountCEP_add = ethers.parseUnits(amountCEP.toString() , 18);
+      const amountLNX_add = ethers.parseUnits(amountLNX.toString() , 18);
 
       // Approve contract to use tokens
-      await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
-      await lnxToken.approve(CONTRACT_ADDRESS, amountLNX);
+      await creepToken.approve(CONTRACT_ADDRESS, amountCEP_add);
+      await lnxToken.approve(CONTRACT_ADDRESS, amountLNX_add);
 
-      const tx = await pool.addLiquidity(amountCEP, amountLNX);
+      const tx = await pool.addLiquidity(amountCEP_add , amountLNX_add);
 
       notification.info({
         message: "Transaction in progress!",
         description: `Hash: ${tx.hash}`,
       });
       await tx.wait();
-
-
 
       notification.success({
         message: "Successfully add the liquidity",
@@ -222,19 +242,19 @@ const AddPool = () => {
     }
   };
 
-  const handleInputChangeCEP = (e) => {
+  const handleInputChangeCEP_remove = (e) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
       // ✅ Allow only numbers and decimals
-      setAmountCEP(value);
+      setAmountCEP_remove(value);
     }
   };
 
-  const handleInputChangeLNX = (e) => {
+  const handleInputChangeLNX_remove = (e) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
       // ✅ Allow only numbers and decimals
-      setAmountLNX(value);
+      setAmountLNX_remove(value);
     }
   };
 
@@ -254,7 +274,13 @@ const AddPool = () => {
           CEP={CEP_RESERVES}
           LNX={LNX_RESERVES}
           address={CONTRACT_ADDRESS}
+          amountCEP={amountCEP}
+          amountLNX={amountLNX}
+          setAmountCEP={setAmountCEP} 
+          setAmountLNX={setAmountLNX} 
+          isLoading={isLoading} 
         />
+
         <Button
           type="primary"
           block
@@ -271,6 +297,7 @@ const AddPool = () => {
             getButtonText()
           )}
         </Button>
+
         <div
           style={{
             background: "var(--trade-background-color)",
@@ -280,36 +307,41 @@ const AddPool = () => {
             marginBottom: "10px",
           }}
         >
-          <p>Enter amount of token CEP:</p>
+          <p>Enter amount of token CEP to remove:</p>
           <Input
             style={{
               textAlign: "center",
               marginBottom: "10px",
+              marginTop: "5px",
+              padding: "0.5rem",
               background: "transparent",
               color: "var(--white-color)",
-              border: "2px solid",
+              border: "1.5px solid",
               borderRadius: "10px",
             }}
-            value={amountCEP}
-            onChange={handleInputChangeCEP}
+            value={amountCEP_remove}
+            onChange={handleInputChangeCEP_remove}
             disabled={isLoadingRemove}
             suffix="Tokens"
           />
-          <p>Enter amount of token LNX:</p>
+          <p>Enter amount of token LNX to remove:</p>
           <Input
             style={{
               textAlign: "center",
+              marginTop: "5px",
+              padding: "0.5rem",
               background: "transparent",
               color: "var(--white-color)",
-              border: "2px solid",
+              border: "1.5px solid",
               borderRadius: "10px",
             }}
-            value={amountLNX}
-            onChange={handleInputChangeLNX}
+            value={amountLNX_remove}
+            onChange={handleInputChangeLNX_remove}
             disabled={isLoadingRemove}
             suffix="Tokens"
           />
         </div>
+
         <Button
           type="primary"
           block
