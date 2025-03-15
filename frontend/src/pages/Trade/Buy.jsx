@@ -11,6 +11,37 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import { ExportOutlined } from "@ant-design/icons";
 
+// const handleTransaction = async (userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus) => {
+//   // make the prama for base URL 
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//   try {
+//     await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         walletAddress: userWallet.toString(),
+//         tokenID: selectedTokenID.toString(),
+//         addressFrom: userWallet.toString(),
+//         addressTo: poolWallet.toString(),
+//         amount: Number(transactionAmount),
+//         fee: parseFloat(estimatedFee),
+//         gas: Number(gasLimit),
+//         method: transactionMethod,
+//         hashCode: transactionHash.toString(),
+//         status: transactionStatus
+//       }),
+//     });
+//     notification.info({
+//       message: "Success!",
+//       description: `Successfully add to the database`,
+//     });
+//     console.log("Successfully created in database")
+//   } catch (err) {
+//     console.log("Error updating the Creaper database: ", err)
+//   }
+// };
+
+
 const fetchEthPriceInUSD = async () => {
   const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
   // Fetch ETH price from a reliable API
@@ -27,8 +58,6 @@ const Buy = () => {
 
   const CONTRACT_ADDRESS = "0xF808D37dc336e225649f7980aCfffcA692A7528e";
   const ABI = BuyABI;
-  const Pool_CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
-  const Pool_ABI = CreeperPoolABI;
   const IERC20_ABI = IERC20ABI;
 
   const [CEPAddress, setCEPAddress] = useState(
@@ -56,10 +85,11 @@ const Buy = () => {
 
       // Ensure at most 18 decimals
       stablecoinAmount = parseFloat(stablecoinAmount.toFixed(18));
-      console.log(stablecoinAmount);
+      //console.log(stablecoinAmount);
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
+      const userWallet = await signer.getAddress(); // Get user's wallet address
 
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       const stablecoinContract = new ethers.Contract(
@@ -68,13 +98,6 @@ const Buy = () => {
         signer
       );
 
-      const CEPcoinContract = new ethers.Contract(
-        CEPAddress,
-        IERC20_ABI,
-        signer
-      );
-      //const poolContract = new ethers.Contract(Pool_CONTRACT_ADDRESS, Pool_ABI, signer);
-
       //wait to approve the stable coin transfer
       const approveStable = await stablecoinContract.approve(
         CONTRACT_ADDRESS,
@@ -82,27 +105,24 @@ const Buy = () => {
       );
       await approveStable.wait();
 
-      const approveCEP = await CEPcoinContract.approve(
-        CONTRACT_ADDRESS,
-        ethers.MaxUint256
+
+      // call the buyToken method
+      const tx = await contract.buyToken(
+        ethers.parseUnits(stablecoinAmount.toString(), 18)
       );
-      await approveCEP.wait();
-
-      //await poolContract.approve(CONTRACT_ADDRESS, ethers.parseUnits("1000", 18));
-
-      //const cepBalance = await CEPcoinContract.balanceOf(creeperPool.address);
-      //console.log("CreeperPool CEPcoin balance:", cepBalance.toString());
 
       notification.info({
         message: "Transaction in progress!",
         description: `Hash: ${tx.hash}`,
       });
 
-      // call the buyToken method
-      const tx = await contract.buyToken(
-        ethers.parseUnits(stablecoinAmount.toString(), 18)
-      );
-      await tx.wait();
+      const receipt = await tx.wait();
+      const gasUsed = receipt.gasUsed;
+
+      // call the transaction when this is successful
+      handleTransaction(userWallet, CEPAddress, CONTRACT_ADDRESS, stablecoinAmount, 0, 3, gasUsed, "BUY", tx.hash, "Success");
+
+      //userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
 
       notification.success({
         message: "Successfully buy CEP token",
@@ -112,6 +132,10 @@ const Buy = () => {
       notification.error({
         message: "Transaction failed!",
       });
+
+      // call the transaction when this is successful
+      handleTransaction(userWallet, "CEP", CONTRACT_ADDRESS, stablecoinAmount, 0, 3, 0, "BUY", "", "Failed");
+
     } finally {
       setIsLoading(false);
     }
@@ -146,9 +170,8 @@ const Buy = () => {
         <Button
           type="primary"
           block
-          className={`buy-btn trade-btn ${
-            isConnected && (!amount || !buyCurrency) ? "disabled" : "enabled"
-          }`}
+          className={`buy-btn trade-btn ${isConnected && (!amount || !buyCurrency) ? "disabled" : "enabled"
+            }`}
           onClick={handleButtonClick}
           disabled={isLoading} // Disable button while loading
         >

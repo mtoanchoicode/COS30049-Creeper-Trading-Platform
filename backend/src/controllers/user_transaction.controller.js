@@ -2,11 +2,10 @@ const { createTransaction, getTransaction } = require("../models/user_transactio
 const { updateDepositBalance } = require("../models/deposit.model.js");
 
 const createHandleTransaction = async (req, res) => {
-    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
+    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status } = req.body;
     
     try {
-        const transaction = await createTransaction(userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode);
-
+        const transaction = await createTransaction(userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status);
         // If method is BUY, update deposit balance
         if (method === "BUY") {
             await updateDepositBalance(userID, amount, transaction.transactionid);
@@ -20,7 +19,7 @@ const createHandleTransaction = async (req, res) => {
 
 
 const getHandleTransaction = async(req, res) => {
-    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
+    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status} = req.body;
 
     try {
         const transaction = await getTransaction(hashCode);

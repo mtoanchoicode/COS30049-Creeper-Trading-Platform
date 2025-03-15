@@ -1,4 +1,4 @@
-const CreeperDB = require("../config/CreeperDB.js");
+const CreeperDB = require("../config/CreaperDB.js");
 
 const createUser = async (walletAddress) => {
     try {
