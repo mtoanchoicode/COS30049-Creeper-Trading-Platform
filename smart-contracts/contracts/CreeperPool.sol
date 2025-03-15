@@ -68,6 +68,11 @@ contract CreeperPool is ERC20 {
         return (reserveCEP, reserveStablecoin);
     }
 
+    function updateReserves() external {
+        reserveCEP = CEPcoin.balanceOf(address(this));
+        reserveStablecoin = stablecoin.balanceOf(address(this));
+    }
+
     function sqrt(uint256 x) internal pure returns (uint256 y) {
         uint256 z = (x + 1) / 2;
         y = x;

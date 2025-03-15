@@ -1,4 +1,4 @@
-const CreeperDB = require("../config/CreeperDB.js");
+const CreeperDB = require("../config/CreaperDB.js");
 
 const updateDepositBalance = async (userID, balance, transactionID) => {
     const query = `
@@ -32,4 +32,4 @@ const getDeposit = async (userID) => {
     }
 };
 
-module.exports = { updateDepositBalance, getDeposit};
+module.exports = { updateDepositBalance, getDeposit };
