@@ -33,6 +33,7 @@ import Add from "./pages/Trade/AddPool.jsx";
 import AdminPage from "./pages/Admin/Admin.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
+import CreateToken from "./pages/Trade/CreateToken.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ const routers = createBrowserRouter([
           { path: "buy", element: <Buy /> },
           { path: "faucet", element: <Faucet /> },
           { path: "add", element: <Add /> },
+          { path: "create", element: <CreateToken /> },
         ],
       },
       {
