@@ -3,8 +3,8 @@ const { ethers } = require("hardhat");
 async function main() {
     const [deployer] = await ethers.getSigners();  // Get the deployer account
 
-    const CREEPER_POOL_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955"; 
-    const BUY_CONTRACT_ADDRESS = "0xF808D37dc336e225649f7980aCfffcA692A7528e"; 
+    const CREEPER_POOL_ADDRESS = "0x551d6A53CB243E3718257001065Cf8d29F8cdCb8"; 
+    const BUY_CONTRACT_ADDRESS = "0x8Ac96B30B627F8E6FEFFD40C662c88949a5de140"; 
 
     // Attach to deployed CreeperPool contract
     const CreeperPool = await ethers.getContractFactory("CreeperPool");

@@ -35,7 +35,7 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 
 
 const AddPool = () => {
-  const CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
+  const CONTRACT_ADDRESS = "0x551d6A53CB243E3718257001065Cf8d29F8cdCb8";
   const ABI = CreeperPoolABI;
   const IERC20_ABI = IERC20ABI;
 

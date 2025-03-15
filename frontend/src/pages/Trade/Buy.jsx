@@ -11,35 +11,38 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import { ExportOutlined } from "@ant-design/icons";
 
-// const handleTransaction = async (userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus) => {
-//   // make the prama for base URL 
-//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-//   try {
-//     await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         walletAddress: userWallet.toString(),
-//         tokenID: selectedTokenID.toString(),
-//         addressFrom: userWallet.toString(),
-//         addressTo: poolWallet.toString(),
-//         amount: Number(transactionAmount),
-//         fee: parseFloat(estimatedFee),
-//         gas: Number(gasLimit),
-//         method: transactionMethod,
-//         hashCode: transactionHash.toString(),
-//         status: transactionStatus
-//       }),
-//     });
-//     notification.info({
-//       message: "Success!",
-//       description: `Successfully add to the database`,
-//     });
-//     console.log("Successfully created in database")
-//   } catch (err) {
-//     console.log("Error updating the Creaper database: ", err)
-//   }
-// };
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
+const handleTransaction = async (userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus) => {
+  // make the prama for base URL 
+  try {
+    await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        walletAddress: userWallet.toString(),
+        tokenID: selectedTokenID.toString(),
+        addressFrom: userWallet.toString(),
+        addressTo: poolWallet.toString(),
+        amount: Number(transactionAmount),
+        fee: parseFloat(estimatedFee),
+        gas: Number(gasLimit),
+        method: transactionMethod,
+        hashCode: transactionHash.toString(),
+        status: transactionStatus
+      }),
+    });
+    console.log("Successfully created in database")
+  } catch (err) {
+    console.log("Error updating the Creaper database: ", err)
+  }
+
+  notification.info({
+    message: "Success!",
+    description: `Successfully add to the database`,
+  });
+};
 
 
 const fetchEthPriceInUSD = async () => {
@@ -56,7 +59,7 @@ const Buy = () => {
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
 
-  const CONTRACT_ADDRESS = "0xF808D37dc336e225649f7980aCfffcA692A7528e";
+  const CONTRACT_ADDRESS = "0x8Ac96B30B627F8E6FEFFD40C662c88949a5de140";
   const ABI = BuyABI;
   const IERC20_ABI = IERC20ABI;
 
