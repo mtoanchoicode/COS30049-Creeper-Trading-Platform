@@ -1,4 +1,4 @@
-const { createTransaction, getTransaction } = require("../models/user_transaction.model.js");
+const { createTransaction, getTransaction, getAllTransactions } = require("../models/user_transaction.model.js");
 const { updateDepositBalance } = require("../models/deposit.model.js");
 
 const createHandleTransaction = async (req, res) => {
@@ -28,8 +28,18 @@ const getHandleTransaction = async(req, res) => {
     }
 }
 
+const getHandleAllTransaction = async(req, res) => {
+    try {
+        const allTransactions = await getAllTransactions();
+        res.status(200).json(allTransactions);
+    } catch (error) {
+        console.error("Error fetching transactions:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
 module.exports = {
     createHandleTransaction,
-    getHandleTransaction
+    getHandleTransaction,
+    getHandleAllTransaction
 };
