@@ -27,7 +27,7 @@ const BuyContainer = ({ setAmount, currency }) => {
   const handlePresetValue = (amount) => {
     setValue(`$${amount}`);
     setAmount(amount);
-    handleBuyCurrencyValueChange(numericValue);
+    handleBuyCurrencyValueChange(amount);
   };
 
   return (
