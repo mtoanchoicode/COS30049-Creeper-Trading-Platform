@@ -32,7 +32,7 @@ const FeeCard = ({ feeData }) => {
   }));
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-4">
       <div className="p-3 bg-white shadow-sm d-flex flex-column align-items-center rounded">
         <h3 className="fs-2">Total Fee</h3>
         <div className="adminFee-tokenBalance">
