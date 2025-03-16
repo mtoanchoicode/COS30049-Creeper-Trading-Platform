@@ -32,6 +32,26 @@ const NavBar = ({ theme, setTheme }) => {
     setshowNavSearch(false);
   }, []);
 
+  const addUserOnWalletConnection = async (userWalletAddress) => {
+    try{
+      if(isConnected){
+        //Call API to register wallet
+        console.log("Connected to wallet");
+        const response = await axios.post(`${API_BASE_URL}/v1/api/user/register`, {
+          walletAddress: userWalletAddress,
+        });
+      }else{
+        console.log("Wallet disconnected")
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    addUserOnWalletConnection(address);
+  }, [isConnected]);
+
   return (
     <div
       className="navbar mobile"
