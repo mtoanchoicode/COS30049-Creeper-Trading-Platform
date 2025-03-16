@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
+import { ethers } from "ethers";
 import lnx_icon from "../assets/LNX Icon.png";
 import cep_icon from "../assets/CEP Icon.png";
 import sepolica_icon from "../assets/Sepolia Icon.png";
+
 
 export const CoinContext = createContext();
 
@@ -9,6 +11,56 @@ const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
   const [ethCoin, setEthCoin] = useState("");
+
+  const api = import.meta.env.VITE_INFURA_API_KEY;;
+
+  const provider = new ethers.JsonRpcProvider(
+    "https://sepolia.infura.io/v3/84bd9348e9ce42f4976205ca385dd09d"
+  );
+
+  const contractAddress = "0x0ddbDB06684B2763789D8462996A7F8C74035C67";
+
+  const contractABI = [
+    {
+      inputs: [],
+      name: "getLatestBtcPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getLatestEthPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getLatestLinkPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+  ];
+
+  async function fetchPrices() {
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      provider
+    );
+
+    const btcPrice = await contract.getLatestBtcPrice();
+    const ethPrice = await contract.getLatestEthPrice();
+    const linkPrice = await contract.getLatestLinkPrice();
+
+    console.log(`BTC Price: $${btcPrice}`);
+    console.log(`ETH Price: $${ethers.formatUnits(ethPrice, 8)}`);
+    console.log(`LINK Price: $${ethers.formatUnits(linkPrice, 8)}`);
+  }
+
+  fetchPrices();
 
   useEffect(() => {
     fetch(
