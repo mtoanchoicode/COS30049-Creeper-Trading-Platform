@@ -24,7 +24,12 @@ const TokensSelection = ({ type, tradeType }) => {
     handleCoinSelection,
   } = useContext(CoinContext);
 
-  const filteredCoins = tradeType === "swap" ? RPCcoins : tradeType === "faucet" ? localCoins.slice(1) : localCoins;
+  const filteredCoins =
+    tradeType === "swap"
+      ? RPCcoins
+      : tradeType === "faucet"
+      ? localCoins.slice(1)
+      : localCoins;
   return (
     activeOverlay === type && (
       <div className="convert-coin-selection">
@@ -56,7 +61,7 @@ const TokensSelection = ({ type, tradeType }) => {
                     <p className="selection-coin-symbol">
                       {coin.symbol.toUpperCase()}
                     </p>
-                    {tradeType === "faucet" || tradeType ==="send" && (
+                    {(type === "faucet" || type === "send") && (
                       <p>
                         <a
                           href={`https://sepolia.etherscan.io/address/${coin.address}`}
@@ -65,7 +70,7 @@ const TokensSelection = ({ type, tradeType }) => {
                         >
                           {shortenAddress(coin.address)}{" "}
                         </a>
-                  
+
                         <div
                           className="copy-btn"
                           style={{ display: "inline", marginLeft: "1rem" }}
@@ -81,7 +86,7 @@ const TokensSelection = ({ type, tradeType }) => {
                           )}
                         </div>
                       </p>
-                      )}
+                    )}
                   </div>
                 </div>
               </div>
