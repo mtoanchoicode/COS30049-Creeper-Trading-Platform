@@ -1,16 +1,22 @@
-require("dotenv").config();
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
-//Deploy script
 async function main() {
-  const PriceFeed = await hre.ethers.getContractFactory("PriceFeed");
-  const priceFeed = await PriceFeed.deploy();
+  const USDT = "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1";
+  const LINK = "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62";
+  const PRICE_FEED = "0xc59E3633BAAC79493d908e63626716e204A45EdF";
 
-  await priceFeed.waitForDeployment(); // Updated for Ethers.js v6+
-  console.log("PriceFeed deployed to:", await priceFeed.getAddress()); // Use getAddress() instead of .address
+  console.log("Deploying SwapContract...");
+
+  const SwapContract = await ethers.getContractFactory("SwapContract");
+  const swap = await SwapContract.deploy(USDT, LINK, PRICE_FEED);
+
+  await swap.waitForDeployment();
+  console.log("SwapContract deployed to:", await swap.getAddress());
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
