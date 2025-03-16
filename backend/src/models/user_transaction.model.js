@@ -44,8 +44,20 @@ const getTransaction = async (hashCode) => {
 const getAllTransactions = async () => {
     try{
         const rows = await CreeperDB.sql`
-        SELECT * FROM "Transactions"
-        WHERE "Status" = 'Success';
+        SELECT 
+        t."TransactionID",
+        tok."TokenAddress",
+        t."AddressFrom",
+        t."AddressTo",
+        t."Amount",
+        t."Fee",
+        t."Gas",
+        t."Method",
+        t."CreatedAt",
+        t."HashCode",
+        t."Status"
+        FROM "Transactions" t
+        JOIN "Tokens" tok ON t."TokenID" = tok."TokenID";
         `
         return rows;
     }catch(error){
