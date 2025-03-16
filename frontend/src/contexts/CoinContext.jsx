@@ -53,6 +53,7 @@ const CoinProvider = ({ children }) => {
 
     const btcPrice = await contract.getLatestBtcPrice();
     const ethPrice = await contract.getLatestEthPrice();
+    current_price[0].current_price = ethPrice;
     const linkPrice = await contract.getLatestLinkPrice();
 
     console.log(`BTC Price: $${btcPrice}`);

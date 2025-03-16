@@ -16,6 +16,7 @@ import { CoinContext } from "../../contexts/CoinContext";
 import { Button } from "antd";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import shortenAddress from "../../utils/utils";
+import axios from "axios";
 
 const NavBar = ({ theme, setTheme }) => {
   const { open } = useAppKit();

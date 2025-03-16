@@ -330,7 +330,7 @@ const Send = () => {
       });
       return;
     }
- 
+
     setIsLoading(true); // Set loading to true when the transaction starts
 
     try {
@@ -375,7 +375,6 @@ const Send = () => {
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
-
       } else {
         const tokenContract = new ethers.Contract(
           sendTokenAddress,
@@ -429,7 +428,7 @@ const Send = () => {
         });
 
         const gasUsed = receipt.gasUsed;
-        const transactionFee = 0.003 * sendCurrencyValue
+        const transactionFee = 0.003 * sendCurrencyValue;
 
         await handleTransaction(
           userAddress,
@@ -441,9 +440,7 @@ const Send = () => {
           "Send",
           tx.hash,
           "Success"
-         );
-
-
+        );
       }
     } catch (error) {
       console.error(error);
@@ -500,7 +497,7 @@ const Send = () => {
         </a>
       </div>
       <div className="trade-history">
-          <TransactionHistory />
+        <TransactionHistory />
       </div>
     </div>
   );
