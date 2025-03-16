@@ -7,7 +7,7 @@ import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 import { CoinContext } from "../../contexts/CoinContext";
-import handleTransaction from "../../utils/TransactionAPI";
+import handleTransaction from "../../utils/transactionAPI";
 
 
 // const handleTransaction = async (userWallet, amountCEP, amountLNX, hash, methodtransactionHash) => {
