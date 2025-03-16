@@ -1,9 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import "./TokensSelection.css";
 import { CoinContext } from "../../../contexts/CoinContext";
 
+const shortenAddress = (address) => {
+  return `${address.slice(0, 17)}...${address.slice(-4)}`;
+};
 const TokensSelection = ({ type, tradeType }) => {
+  const [copied, setCopied] = useState(null);
+
+  const copyToClipboard = (address) => {
+    navigator.clipboard.writeText(address);
+    setCopied(address);
+
+    // Reset copied state after 2 seconds
+    setTimeout(() => setCopied(null), 1000);
+  };
   const { localCoins, activeOverlay, setActiveOverlay, handleCoinSelection } =
     useContext(CoinContext);
 
@@ -38,6 +50,28 @@ const TokensSelection = ({ type, tradeType }) => {
                     <p className="selection-coin-title">{coin.name}</p>
                     <p className="selection-coin-symbol">
                       {coin.symbol.toUpperCase()}
+                    </p>
+                    <p>
+                      <a
+                        href={`https://sepolia.etherscan.io/address/${coin.address}`}
+                        target="_blank"
+                      >
+                        {shortenAddress(coin.address)}{" "}
+                      </a>
+                      <div
+                        className="copy-btn"
+                        style={{ display: "inline", marginLeft: "1rem" }}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering parent onClick
+                          copyToClipboard(coin.address);
+                        }}
+                      >
+                        {copied === coin.address ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
                     </p>
                   </div>
                 </div>
