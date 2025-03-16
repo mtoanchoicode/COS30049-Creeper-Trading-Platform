@@ -27,7 +27,7 @@ const CreateTokenContainer = ({
       </div>
       <div className="send-wallet-address">
         <div className="send-wallet-title">
-          <span>Token Name</span>
+          <span>Token Symbol</span>
         </div>
         <div className="send-wallet-input">
           <Input

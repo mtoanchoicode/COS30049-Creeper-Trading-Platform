@@ -19,6 +19,7 @@
   "dependencies": {
     "@chainlink/contracts": "^1.3.0",
     "@openzeppelin/contracts": "^5.2.0",
+    "@uniswap/v3-periphery": "^1.4.4",
     "hardhat-etherscan": "^1.0.1"
   }
 }
