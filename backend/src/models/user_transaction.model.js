@@ -47,6 +47,7 @@ const getAllTransactions = async () => {
         SELECT 
         t."TransactionID",
         tok."TokenAddress",
+        tok."Symbol",
         t."AddressFrom",
         t."AddressTo",
         t."Amount",
