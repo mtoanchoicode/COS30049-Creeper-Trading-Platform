@@ -1,6 +1,6 @@
-import CreeperDB from "../config/db.js";
+const CreeperDB = require("../config/CreaperDB.js");
 
-export const updateDepositBalance = async (userID, balance, transactionID) => {
+const updateDepositBalance = async (userID, balance, transactionID) => {
     const query = `
         INSERT INTO Deposits (UserID, Balance, TransactionID)
         VALUES ($1, $2, $3) 
@@ -18,7 +18,7 @@ export const updateDepositBalance = async (userID, balance, transactionID) => {
 };
 
 
-export const getDeposit = async (userID) => {
+const getDeposit = async (userID) => {
     const query = `
         SELECT * FROM Deposits 
         WHERE UserID = $1;
@@ -31,3 +31,5 @@ export const getDeposit = async (userID) => {
         throw error;
     }
 };
+
+module.exports = { updateDepositBalance, getDeposit };

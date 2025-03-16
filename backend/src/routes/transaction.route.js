@@ -1,9 +1,14 @@
-import { Router } from "express";
-import { createHandleTransaction, getHandleTransaction } from "../controllers/user_transaction.controller";
-const TransactionRouter = Router();
+const express = require("express");
+const { createHandleTransaction, getHandleTransaction } = require("../controllers/user_transaction.controller");
+const TransactionRouter = express.Router();
 
 TransactionRouter.get("/", getHandleTransaction)
 
-TransactionRouter.post("/created", createHandleTransaction); // call the sendEmail in the controller
+TransactionRouter.get("/created", (req, res) => {
+    return res.status(200).json("Success Get Created Transaction");
+});
 
-export default TransactionRouter; //export default
+
+TransactionRouter.post("/created", createHandleTransaction); 
+
+module.exports = TransactionRouter; //export default

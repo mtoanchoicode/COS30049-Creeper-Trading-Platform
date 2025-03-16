@@ -1,12 +1,11 @@
-import { createTransaction, getTransaction } from "../models/user_transaction.model.js";
-import { updateDepositBalance } from "../models/deposit.model.js";
+const { createTransaction, getTransaction } = require("../models/user_transaction.model.js");
+const { updateDepositBalance } = require("../models/deposit.model.js");
 
 const createHandleTransaction = async (req, res) => {
-    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
+    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status } = req.body;
     
     try {
-        const transaction = await createTransaction(userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode);
-
+        const transaction = await createTransaction(userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status);
         // If method is BUY, update deposit balance
         if (method === "BUY") {
             await updateDepositBalance(userID, amount, transaction.transactionid);
@@ -20,8 +19,8 @@ const createHandleTransaction = async (req, res) => {
 
 
 const getHandleTransaction = async(req, res) => {
-    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode } = req.body;
- 
+    const { userID, tokenID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status} = req.body;
+
     try {
         const transaction = await getTransaction(hashCode);
         res.status(201).json(transaction);
@@ -31,8 +30,7 @@ const getHandleTransaction = async(req, res) => {
 }
 
 
-exports = {
+module.exports = {
     createHandleTransaction,
     getHandleTransaction
 };
-  

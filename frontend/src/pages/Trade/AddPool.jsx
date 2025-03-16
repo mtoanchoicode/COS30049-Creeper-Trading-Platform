@@ -7,6 +7,33 @@ import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
 
+
+// const handleTransaction = async (userWallet, amountCEP, amountLNX, hash, methodtransactionHash) => {
+//   // make the prama for base URL 
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//   try {
+//     await fetch(`${API_BASE_URL}v1/api/transaction/created`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         walletAddress: userWallet,
+//         tokenID: selectedTokenID,
+//         addressFrom: userWallet,
+//         addressTo: poolWallet,
+//         amount: transactionAmount,
+//         fee: estimatedFee,
+//         gas: gasLimit,
+//         method: transactionMethod,
+//         hashCode: transactionHash,
+//         status: transactionStatus 
+//       }),
+//     });
+//   } catch (err) {
+//     console.log("Error updating the Creaper database: ", err)
+//   }
+// };
+
+
 const AddPool = () => {
   const CONTRACT_ADDRESS = "0x5b45fb976b4ED18e93412045375b0E8ae0C13955";
   const ABI = CreeperPoolABI;
@@ -105,6 +132,9 @@ const AddPool = () => {
         description: `Hash: ${tx.hash}`,
       });
       await tx.wait();
+
+
+
       notification.success({
         message: "Successfully add the liquidity",
       });
@@ -138,12 +168,13 @@ const AddPool = () => {
       // Approve contract to use tokens
       await creepToken.approve(CONTRACT_ADDRESS, amountCEP);
       await lnxToken.approve(CONTRACT_ADDRESS, amountLNX);
+  
 
       const txCEP = await pool.removeLiquidity(
-        ethers.parseUnits(`${amountCEP}`, 18)
+        ethers.parseUnits(amountCEP, 18)
       );
       const txLNX = await pool.removeLiquidity(
-        ethers.parseUnits(`${amountLNX}`, 18)
+        ethers.parseUnits(amountLNX, 18)
       );
 
       await txCEP.wait();
@@ -154,13 +185,15 @@ const AddPool = () => {
       notification.success({
         message: "Successfully remove LNX the liquidity",
       });
+
     } catch (error) {
       console.log(error.message);
+
       notification.error({
         message: "Transaction failed!",
       });
     } finally {
-      setIsLoading(false); // Ensure loading is turned off after the transaction completes
+      setIsLoadingRemove(false); // Ensure loading is turned off after the transaction completes
       getPoolReserves();
     }
   };

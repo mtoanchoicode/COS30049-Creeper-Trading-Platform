@@ -1,8 +1,9 @@
-import express from "express";
-import { registerUser } from "../controllers/user_address.controller.js";
+const express = require("express");
+const { registerUser } = require("../controllers/user_address.controller");
 const userRouter = express.Router();
+
 
 // add wallet address
 userRouter.post("/register", registerUser);
 
-export default userRouter;
+module.exports = userRouter; //export default
