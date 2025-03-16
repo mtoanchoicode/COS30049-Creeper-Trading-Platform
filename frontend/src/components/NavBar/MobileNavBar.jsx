@@ -1,4 +1,5 @@
 import React, { useState, useContext, useCallback, useEffect } from "react";
+
 import "./MobileNavBar.css";
 
 import searchIcon from "../../assets/Market Search Icon.svg";

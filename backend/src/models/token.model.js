@@ -1,14 +1,13 @@
 const CreeperDB = require("../config/CreaperDB.js");
 
 const insertToken = async (tokenName, tokenSymbol, tokenChain) => {
-    const query = `
-        INSERT INTO Tokens (TokenName, TokenSymbol, TokenChain) 
-        VALUES ($1, $2, $3) 
-        RETURNING *;
-    `;
     
     try {
-        const { rows } = await CreeperDB.query(query, [tokenName, tokenSymbol, tokenChain]);
+        const rows = await CreeperDB.sql` 
+        INSERT INTO "Tokens" ("TokenName", "TokenSymbol", "TokenChain") 
+        VALUES (${tokenName}, ${tokenSymbol}, ${tokenChain}) 
+        RETURNING *;
+        `
         return rows[0];
     } catch (err) {
         console.error("Error inserting token: ", err);
@@ -16,14 +15,15 @@ const insertToken = async (tokenName, tokenSymbol, tokenChain) => {
 };
 
 const getAllTokens = async () => {
-    const query = `SELECT * FROM Tokens;`;
-    
+   
+
     try {
-        const { rows } = await CreeperDB.query(query);
+        const rows = await CreeperDB.sql`SELECT * FROM "Tokens";`;
         return rows;
     } catch (err) {
         console.log("Error getting all token: ", err)
     }
+
 };
 
 const getTokenIdFromAddress = async (tokenAddress) => {
