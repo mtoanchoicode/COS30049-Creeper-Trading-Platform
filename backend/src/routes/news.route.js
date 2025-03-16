@@ -26,7 +26,6 @@ newsRouter.get("/:id", async (req, res) => {
 });
 
 
-
 // // Add a news item
 // newsRouter.post("/", async (req, res) => {
 //     try {
