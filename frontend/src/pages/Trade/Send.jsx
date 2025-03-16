@@ -9,7 +9,7 @@ import TransactionHistory from "../../components/Trade/TransactionHistory/Transa
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import { ExportOutlined } from "@ant-design/icons";
-import handleTransaction from "../../utils/TransactionAPI";
+import handleTransaction from "../../utils/transactionAPI";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0x9239712E274332d3b34a7eeAD4De226376fBF370";
