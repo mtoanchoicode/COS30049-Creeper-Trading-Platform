@@ -61,6 +61,7 @@ const fetchEthPriceInUSD = async () => {
 //   return Number(price) / 1e8;
 // };
 
+
 const Buy = () => {
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();

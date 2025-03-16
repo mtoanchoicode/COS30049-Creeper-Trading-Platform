@@ -4,13 +4,13 @@ import { Input } from "antd";
 import TokensSelection from "../TokensSelection/TokensSelection";
 import { CoinContext } from "../../../contexts/CoinContext";
 
-const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
+const BuyContainer = ({ setAmount, currency }) => {
   const [value, setValue] = useState("");
   const [VNDamount, setVNDamount] = useState(0)
- 
+
   const {
-    sendCurrencyValue,
-    handleSendCurrencyValueChange,
+    buyCurrencyValue,
+    handleBuyCurrencyValueChange
   } = useContext(CoinContext);
 
 
@@ -21,15 +21,13 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
       : "";
     setValue(numericValue ? `$${numericValue}` : "");
     setAmount(numericValue);
-    let VNDamount =  numericValue / 25
-    handleSendCurrencyValueChange(VNDamount);
+    handleBuyCurrencyValueChange(numericValue);
   };
 
   const handlePresetValue = (amount) => {
     setValue(`$${amount}`);
     setAmount(amount);
-    let VNDamount = amount / 25
-    handleSendCurrencyValueChange(VNDamount);
+    handleBuyCurrencyValueChange(numericValue);
   };
 
   return (
@@ -43,11 +41,11 @@ const BuyContainer = ({ setAmount, currency, setActiveOverlay }) => {
           <Input placeholder="$0" value={value} onChange={handleChange} />
         </div>
         <div className="send-currency-change">
-            <div>
-              {sendCurrencyValue ? sendCurrencyValue.toFixed(5) : "0"}{" "}
-              {currency.symbol.toUpperCase()}
-            </div>
+          <div>
+            {buyCurrencyValue ? buyCurrencyValue.toFixed(5) : "0"}{" "}
+            {currency.symbol.toUpperCase()}
           </div>
+        </div>
         <div className="buy-token-selection">
           <img src={currency.image} alt={currency.symbol} />
           <div>{currency.symbol.toUpperCase()}</div>

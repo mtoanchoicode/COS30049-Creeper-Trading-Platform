@@ -34,6 +34,7 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 // };
 
 
+
 const AddPool = () => {
   const CONTRACT_ADDRESS = "0x551d6A53CB243E3718257001065Cf8d29F8cdCb8";
   const ABI = CreeperPoolABI;
@@ -61,6 +62,28 @@ const AddPool = () => {
   const [amountLNX_remove, setAmountLNX_remove] = useState();
 
 
+  // const fetchReservesWithoutWallet = async () => {
+  //   try {
+  //     // Create a provider (Infura, Alchemy, or public RPC)
+  //     const provider = new ethers.JsonRpcProvider(RPC_URL);
+  
+  //     // Connect to contract
+  //     const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
+  
+  //     // Call getReserves()
+  //     const [reserve0, reserve1] = await contract.getReserves();
+  
+  //     console.log(`Reserve 0: ${reserve0.toString()}`);
+  //     console.log(`Reserve 1: ${reserve1.toString()}`);
+  
+  //     return { reserve0: reserve0.toString(), reserve1: reserve1.toString() };
+  //   } catch (error) {
+  //     console.error("Error fetching reserves:", error);
+  //     return { reserve0: "0", reserve1: "0" };
+  //   }
+  // };
+  
+
   const getButtonText = () => {
     if (isLoading) return "Processing...";
     if (!isConnected) return "Connect Wallet";
@@ -75,14 +98,25 @@ const AddPool = () => {
 
   // Function to fetch and update the last claim time
   const getPoolReserves = async () => {
-    if (!window.ethereum) return;
-
     try {
+
+
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const poolContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       // Fetch reserve values
-      const [reserveCEP, reserveStablecoin] = await poolContract.getReserves();
+
+      if (isConnected) {
+        // Fetch reserves using the connected wallet
+        const [reserveCEP, reserveStablecoin] = await poolContract.getReserves();
+        setCEP_RESERVES(Number(ethers.formatUnits(reserveCEP, 18)).toFixed(1));
+        setLNX_RESERVES(
+          Number(ethers.formatUnits(reserveStablecoin, 18)).toFixed(1)
+        );
+      } else {
+        const [reserveCEP, reserveStablecoin] = await fetchReservesWithoutWallet();
+      }
+     
 
       console.log(
         `Creeper Coin Reserve: ${ethers.formatUnits(reserveCEP, 18)}`
@@ -93,11 +127,6 @@ const AddPool = () => {
     
       // console.log("Creeper Coin Reserve:",reserveCEP);
       // console.log("Stablecoin Reserve:", reserveStablecoin);
-
-      setCEP_RESERVES(Number(ethers.formatUnits(reserveCEP, 18)).toFixed(1));
-      setLNX_RESERVES(
-        Number(ethers.formatUnits(reserveStablecoin, 18)).toFixed(1)
-      );
     } catch (error) {
       console.log(error.message);
       return { reserveCEP: "0", reserveStablecoin: "0" };
@@ -259,12 +288,7 @@ const AddPool = () => {
   };
 
   useEffect(() => {
-    if (isConnected) {
-      getPoolReserves();
-    } else {
-      setCEP_RESERVES("0");
-      setLNX_RESERVES("0");
-    }
+      getPoolReserves();    
   }, [isConnected]);
 
   return (

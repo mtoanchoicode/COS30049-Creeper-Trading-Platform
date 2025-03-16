@@ -59,6 +59,7 @@ const CoinProvider = ({ children }) => {
   );
 
   const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+  const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
 
   const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
 
@@ -138,6 +139,23 @@ const CoinProvider = ({ children }) => {
     setSendCurrencyValue(amount);
   };
 
+  const handleBuyCurrencyValueChange = (input) => {
+    let numericValue = typeof input === "number" ? input : parseFloat(input);
+    if (isNaN(numericValue) || numericValue < 0) {
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    if (!buyCurrency || !buyCurrency.current_price) {
+      console.error("sendCurrency or its price is undefined");
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    const amount = numericValue / buyCurrency.current_price;
+    setBuyCurrencyValue(amount);
+  };
+
   const swapCurrency = () => {
     setSwapFromCurrency(swapToCurrency);
     setSwapToCurrency(swapFromCurrency);
@@ -186,6 +204,7 @@ const CoinProvider = ({ children }) => {
     sendTokenAddress,
     setSendTokenAddress,
     buyCurrency,
+    buyCurrencyValue,
     swapFromCurrency,
     swapToCurrency,
     swapFromCurrencyValue,
@@ -197,6 +216,7 @@ const CoinProvider = ({ children }) => {
     handleCoinSelection,
     handleOverlay,
     setActiveOverlay,
+    handleBuyCurrencyValueChange,
     handleCurrencyValueChange,
     handleSendCurrencyValueChange,
     faucetCurrency,
