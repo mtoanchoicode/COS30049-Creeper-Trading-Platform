@@ -26,4 +26,21 @@ const getAllTokens = async () => {
     }
 };
 
-module.exports = { insertToken, getAllTokens };
+const getTokenIdFromAddress = async (tokenAddress) => {
+    tokenAddress = tokenAddress.trim();
+    try {
+        const rows = await CreeperDB.sql`
+        SELECT * FROM "Tokens" WHERE "TokenAddress" = ${tokenAddress.toLowerCase()} LIMIT 1;
+    `;
+        if (!rows || rows.length === 0) {
+            return null;
+        }
+        console.log(rows[0]);
+        return rows[0]; // First row of the result
+    }
+    catch (err) {
+        console.error('Error getting token:', err);
+    }
+};
+
+module.exports = { insertToken, getAllTokens, getTokenIdFromAddress };

@@ -321,6 +321,48 @@ const Send = () => {
     return "Send";
   };
 
+  const handleTransaction = async (userWallet, selectedTokenID, recipientAddress, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
+  ) => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    console.log(
+      typeof userWallet, 
+      typeof selectedTokenID,
+      typeof transactionAmount,
+      typeof estimatedFee,  
+      typeof gasLimit, 
+      typeof transactionMethod,  
+      typeof transactionHash, 
+      typeof transactionStatus
+    )
+    try {
+      await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          userID: userWallet.toString(),
+          tokenID: selectedTokenID,
+          addressFrom: userWallet.toString(),
+          addressTo: recipientAddress.toString(),
+          amount: transactionAmount.toString(),
+          fee: parseFloat(estimatedFee),
+          gas: gasLimit.toString(),
+          method: transactionMethod.toString(),
+          hashCode: transactionHash.toString(),
+          status: transactionStatus
+        }),
+      });
+
+      console.log(amount);
+      
+      notification.success({
+        message: "Transaction succeeded",
+        description: `Transaction added to database `
+      });
+    }catch (err){
+      console.log("Error adding transaction to database:", err)
+    }
+  }
+
   const sendFunds = async () => {
     if (!window.ethereum) {
       notification.error({
@@ -329,7 +371,7 @@ const Send = () => {
       });
       return;
     }
-
+ 
     setIsLoading(true); // Set loading to true when the transaction starts
 
     try {
@@ -374,6 +416,7 @@ const Send = () => {
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
+
       } else {
         const tokenContract = new ethers.Contract(
           sendTokenAddress,
@@ -419,12 +462,29 @@ const Send = () => {
           message: "Token Transaction Created",
           description: `Transaction Hash: ${tx.hash}`,
         });
-        await tx.wait();
+        const receipt = await tx.wait();
         notification.success({
           message: "Transaction Confirmed",
           description:
             "Your token transaction has been successfully confirmed!",
         });
+
+        const gasUsed = receipt.gasUsed;
+        const transactionFee = 0.003 * sendCurrencyValue
+
+        await handleTransaction(
+          userAddress,
+          sendTokenAddress,
+          recipient,
+          sendCurrencyValue,
+          transactionFee,
+          gasUsed,
+          "Send",
+          tx.hash,
+          "Success"
+         );
+
+
       }
     } catch (error) {
       console.error(error);
