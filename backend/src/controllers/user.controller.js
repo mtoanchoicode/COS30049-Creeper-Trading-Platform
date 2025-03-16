@@ -12,6 +12,7 @@ const {
 const sendMailHelper = require("../utils/sendEmail");
 const { generateRandomString } = require("../utils/generateRandom");
 
+// [POST]
 const createUser = async (req, res) => {
   const { name, email, password, watchList } = req.body;
   const data = await createUserService(name, email, password, watchList);
