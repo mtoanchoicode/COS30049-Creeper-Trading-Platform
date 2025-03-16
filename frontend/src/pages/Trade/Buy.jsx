@@ -8,41 +8,11 @@ import TransactionHistory from "../../components/Trade/TransactionHistory/Transa
 import Loader from "../../components/Loader/Loader";
 import BuyABI from "./abi/BuyABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
-import CreeperPoolABI from "./abi/CreeperPoolABI.json";
+// import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import { ExportOutlined } from "@ant-design/icons";
+import handleTransaction from "../../utils/TransactionAPI";
+import { set } from "mongoose";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-
-const handleTransaction = async (userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus) => {
-  // make the prama for base URL 
-  try {
-    await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        walletAddress: userWallet.toString(),
-        tokenID: selectedTokenID.toString(),
-        addressFrom: userWallet.toString(),
-        addressTo: poolWallet.toString(),
-        amount: Number(transactionAmount),
-        fee: parseFloat(estimatedFee),
-        gas: Number(gasLimit),
-        method: transactionMethod,
-        hashCode: transactionHash.toString(),
-        status: transactionStatus
-      }),
-    });
-    console.log("Successfully created in database")
-  } catch (err) {
-    console.log("Error updating the Creaper database: ", err)
-  }
-
-  notification.info({
-    message: "Success!",
-    description: `Successfully add to the database`,
-  });
-};
 
 
 const fetchEthPriceInUSD = async () => {
@@ -68,6 +38,8 @@ const Buy = () => {
   const { setActiveOverlay, buyCurrency } = useContext(CoinContext);
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
+  const [hashCodeTrasaction, setHashCodeTransaction] = useState("");
+  const [addresswallet, setAddressWallet] = useState("");
 
   const CONTRACT_ADDRESS = "0x8Ac96B30B627F8E6FEFFD40C662c88949a5de140";
   const ABI = BuyABI;
@@ -103,6 +75,7 @@ const Buy = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const userWallet = await signer.getAddress(); // Get user's wallet address
+      setAddressWallet(userWallet);
 
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       const stablecoinContract = new ethers.Contract(
@@ -128,12 +101,25 @@ const Buy = () => {
         message: "Transaction in progress!",
         description: `Hash: ${tx.hash}`,
       });
+      setHashCodeTransaction(tx.hash);
 
       const receipt = await tx.wait();
       const gasUsed = receipt.gasUsed;
+      const transactionFee = 0.003 * stablecoinAmount
 
       // call the transaction when this is successful
-      handleTransaction(userWallet, CEPAddress, CONTRACT_ADDRESS, stablecoinAmount, 0, 3, gasUsed, "BUY", tx.hash, "Success");
+  
+      await handleTransaction(
+        userWallet,
+        LNXAddress,
+        CONTRACT_ADDRESS,
+        stablecoinAmount,
+        transactionFee,
+        gasUsed,
+        "Buy",
+        tx.hash,
+        "Success"
+       );
 
       //userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
 
@@ -147,7 +133,17 @@ const Buy = () => {
       });
 
       // call the transaction when this is successful
-      handleTransaction(userWallet, "CEP", CONTRACT_ADDRESS, stablecoinAmount, 0, 3, 0, "BUY", "", "Failed");
+      await handleTransaction(
+        addresswallet,
+        LNXAddress,
+        CONTRACT_ADDRESS,
+        stablecoinAmount,
+        0,
+        0,
+        "Buy",
+        hashCodeTrasaction,
+        "Failed"
+       );
 
     } finally {
       setIsLoading(false);

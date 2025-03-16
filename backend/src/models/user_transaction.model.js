@@ -7,9 +7,12 @@ const createTransaction = async (userID, tokenID, addressFrom, addressTo, amount
     try {
         const IdFromWallet = await getUserByWallet(addressFrom)
         const uID = IdFromWallet.UserID
-
+        
+        console.log(tokenID)
         const IdFromToken = await getTokenIdFromAddress(tokenID)
+        console.log(IdFromToken)
         const tID = IdFromToken.TokenID
+        console.log(tID)
 
         const  rows  = await CreeperDB.sql`
         INSERT INTO "Transactions" 
@@ -35,9 +38,6 @@ const getTransaction = async (hashCode) => {
         console.error('Error getting transaction:', error);
     }
 };
-
-
-
 
 
 module.exports = { createTransaction, getTransaction };
