@@ -24,11 +24,6 @@ const handleTransaction = async (
       }),
     });
 
-    notification.success({
-      message: "Transaction succeeded",
-      description: `Transaction added to database`,
-    });
-
   } catch (err) {
     console.error("Error adding transaction to database:", err);
     notification.error({
