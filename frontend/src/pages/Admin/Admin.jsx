@@ -6,10 +6,41 @@ import FeeCard from "../../components/Admin/FeeCard/FeeCard";
 import TotalTransactionCard from "../../components/Admin/TotalTransactionCard/TotalTransactionCard";
 import { Navigate, useNavigate } from "react-router-dom";
 import TransactionSuccessRateChart from "../../components/Admin/TransactionRateChart/TransactionRateChart";
+import getAllTransactions from "../../utils/getAllTransaction";
 
 const AdminPage = () => {
+  console.log(getAllTransactions());
   const navigate = useNavigate();
   const [toggled, setToggled] = useState(false);
+
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const data = await getAllTransactions();
+      if (data) setTransactions(data);
+    };
+
+    fetchTransactions();
+  }, []);
+
+  const calculateFeeData = (transactions) => {
+    const feeMap = transactions.reduce((acc, tx) => {
+      const token = tx.TokenSymbol || "Unknown"; // Default to "Unknown" if missing
+      const fee = parseFloat(tx.Fee) || 0; // Ensure numeric value
+
+      if (!acc[token]) {
+        acc[token] = { symbol: token, balance: 0 };
+      }
+      acc[token].balance += fee;
+      return acc;
+    }, {});
+
+    return Object.values(feeMap);
+  };
+
+  // Pass the calculated fee data to FeeCard
+  const feeData = calculateFeeData(transactions);
 
   const mockTransactions = [
     {
@@ -172,16 +203,16 @@ const AdminPage = () => {
 
         <div className="container-fluid px-4">
           <div className="row g-3 my-2">
-            <FeeCard feeData={mockFeeData} />
+            <FeeCard feeData={feeData} />
 
-            <TotalTransactionCard transactions={mockTransactions} />
+            <TotalTransactionCard transactions={transactions} />
 
-            <TransactionSuccessRateChart transactions={mockTransactions} />
+            <TransactionSuccessRateChart transactions={transactions} />
           </div>
 
           <div className="row my-5">
             <div className="col">
-              <TransactionTable transactions={mockTransactions} />
+              <TransactionTable transactions={transactions} />
             </div>
           </div>
         </div>
