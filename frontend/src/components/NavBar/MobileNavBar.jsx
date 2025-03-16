@@ -1,4 +1,5 @@
-import React, { useState, useContext, useCallback} from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
+
 import "./MobileNavBar.css";
 
 import searchIcon from "../../assets/Market Search Icon.svg";
@@ -27,23 +28,25 @@ const NavBar = ({ theme, setTheme }) => {
   const { coins } = useContext(CoinContext);
   const HotCoins = coins.slice(0, 5);
 
-
   const handleCloseSearch = useCallback(() => {
     setshowNavSearch(false);
   }, []);
 
   const addUserOnWalletConnection = async (userWalletAddress) => {
-    try{
-      if(isConnected){
+    try {
+      if (isConnected) {
         //Call API to register wallet
         console.log("Connected to wallet");
-        const response = await axios.post(`${API_BASE_URL}/v1/api/user/register`, {
-          walletAddress: userWalletAddress,
-        });
-      }else{
-        console.log("Wallet disconnected")
+        const response = await axios.post(
+          `${API_BASE_URL}/v1/api/user/register`,
+          {
+            walletAddress: userWalletAddress,
+          }
+        );
+      } else {
+        console.log("Wallet disconnected");
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -53,9 +56,7 @@ const NavBar = ({ theme, setTheme }) => {
   }, [isConnected]);
 
   return (
-    <div
-      className="navbar mobile"
-    >
+    <div className="navbar mobile">
       <div className="navbar-left">
         <div className="navbar-left-logo">
           <Link to="/" className="Link_Home">
@@ -74,14 +75,13 @@ const NavBar = ({ theme, setTheme }) => {
             <div className="navbar-left-menu-name">News</div>
           </Link>
           <div
-        
             onClick={() => setShowNavTrade(!showNavTrade)}
             className="navbar-left-menu-link"
           >
             <div className="navbar-left-menu-name mobile">
               Trade <i className="fa-solid fa-chevron-down"></i>
             </div>
-            {showNavTrade && <NavTrade />}      
+            {showNavTrade && <NavTrade />}
           </div>
         </div>
       </div>
@@ -91,13 +91,14 @@ const NavBar = ({ theme, setTheme }) => {
           className="navbar-Search_Bar_Conatainer"
           onClick={() => setshowNavSearch(true)}
         >
-          <div className="Search_Icon_Nav_Bar" >
+          <div className="Search_Icon_Nav_Bar">
             <img src={searchIcon} alt="Search icon"></img>
           </div>
 
-          {showNavSearch &&(
+          {showNavSearch && (
             <div className="Search_Overlay_Container">
-              <div className="Close_Icon_Nav_Bar"
+              <div
+                className="Close_Icon_Nav_Bar"
                 onClick={(e) => {
                   e.stopPropagation();
                   setshowNavSearch(false);
@@ -108,19 +109,20 @@ const NavBar = ({ theme, setTheme }) => {
               </div>
 
               {window.location.pathname !== "/explore" && (
-                <div className="navbar-Sreach_Bar"             
-                >
-                  <CoinSearchInput onEvent={handleCloseSearch}/>
+                <div className="navbar-Sreach_Bar">
+                  <CoinSearchInput onEvent={handleCloseSearch} />
                 </div>
               )}
 
-              <div className="List-HotCoin-Container"
+              <div
+                className="List-HotCoin-Container"
                 onClick={(e) => {
                   e.stopPropagation();
                   setshowNavSearch(false);
-                }}>
+                }}
+              >
                 <h2>Hot Coins</h2>
-                {HotCoins.map(coin => (
+                {HotCoins.map((coin) => (
                   <MarketCoinBrief
                     key={coin.id}
                     className="Hot-Coins-listing"
@@ -130,14 +132,12 @@ const NavBar = ({ theme, setTheme }) => {
                     current_price={coin.current_price}
                     image={coin.image}
                     change={coin.price_change_percentage_24h}
-                  >
-                  </MarketCoinBrief>
+                  ></MarketCoinBrief>
                 ))}
               </div>
             </div>
           )}
         </div>
-
 
         <Button className="navbar-connectWallet mobile" onClick={() => open()}>
           {isConnected ? `${shortenAddress(address)}` : "Connect Wallet"}
@@ -170,7 +170,6 @@ const NavBar = ({ theme, setTheme }) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

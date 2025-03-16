@@ -65,6 +65,7 @@ const TokensSelection = ({ type, tradeType }) => {
                         >
                           {shortenAddress(coin.address)}{" "}
                         </a>
+                  
                         <div
                           className="copy-btn"
                           style={{ display: "inline", marginLeft: "1rem" }}
@@ -80,7 +81,7 @@ const TokensSelection = ({ type, tradeType }) => {
                           )}
                         </div>
                       </p>
-                    )}
+                      )}
                   </div>
                 </div>
               </div>
