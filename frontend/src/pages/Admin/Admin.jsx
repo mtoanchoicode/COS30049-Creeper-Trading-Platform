@@ -5,6 +5,7 @@ import TransactionTable from "../../components/Admin/TransactionTable";
 import FeeCard from "../../components/Admin/FeeCard/FeeCard";
 import TotalTransactionCard from "../../components/Admin/TotalTransactionCard/TotalTransactionCard";
 import { Navigate, useNavigate } from "react-router-dom";
+import TransactionSuccessRateChart from "../../components/Admin/TransactionRateChart/TransactionRateChart";
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const AdminPage = () => {
       fee: 0.01,
       gas: 21000,
       method: "Send",
+      status: "Success",
       created_at: "2023-10-01",
     },
     {
@@ -35,6 +37,7 @@ const AdminPage = () => {
       fee: 0.01,
       gas: 21000,
       method: "Send",
+      status: "Success",
       created_at: "2023-10-01",
     },
     {
@@ -48,6 +51,7 @@ const AdminPage = () => {
       fee: 0.01,
       gas: 21000,
       method: "Buy",
+      status: "Fail",
       created_at: "2023-10-01",
     },
     {
@@ -61,6 +65,7 @@ const AdminPage = () => {
       fee: 0.01,
       gas: 21000,
       method: "Swap",
+      status: "Fail",
       created_at: "2023-10-01",
     },
   ];
@@ -126,18 +131,13 @@ const AdminPage = () => {
           >
             <i className="fas fa-tachometer-alt me-2"></i>Dashboard
           </a>
-          {/* <a
-            href="#"
-            className="list-group-item list-group-item-action bg-transparent second-text fw-bold"
-          >
-            <i className="fas fa-project-diagram me-2"></i>Projects
-          </a> */}
           <a
+            role="button"
             onClick={(e) => {
               e.preventDefault(); // Prevents default anchor behavior
               handleLogout();
             }}
-            className="list-group-item list-group-item-action bg-transparent text-danger fw-bold"
+            className="list-group-item list-group-item-action bg-transparent text-danger fw-bold admin-logout"
           >
             <i className="fas fa-power-off me-2"></i>Logout
           </a>
@@ -175,6 +175,8 @@ const AdminPage = () => {
             <FeeCard feeData={mockFeeData} />
 
             <TotalTransactionCard transactions={mockTransactions} />
+
+            <TransactionSuccessRateChart transactions={mockTransactions} />
           </div>
 
           <div className="row my-5">

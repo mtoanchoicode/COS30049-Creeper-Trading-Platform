@@ -27,6 +27,7 @@ const TransactionTable = ({ transactions }) => {
     "Fee",
     "Gas",
     "Method",
+    "Status",
     "Created At",
   ];
 
