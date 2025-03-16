@@ -83,7 +83,6 @@ const CoinProvider = ({ children }) => {
     {
       id: "eth",
       name: "SepoliaETH",
-      address: "0x2e5221B0f855Be4ea5Cefffb8311EED0563B6e87",
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin?.current_price ?? 1868,
@@ -110,8 +109,8 @@ const CoinProvider = ({ children }) => {
     localCoins[0]?.address || null
   );
 
-    const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
-    const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
+  const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+  const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
 
   const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
 
@@ -256,7 +255,7 @@ const CoinProvider = ({ children }) => {
     sendTokenAddress,
     setSendTokenAddress,
     buyCurrency,
-    buyCurrencyValue, 
+    buyCurrencyValue,
     swapFromCurrency,
     swapToCurrency,
     swapFromCurrencyValue,

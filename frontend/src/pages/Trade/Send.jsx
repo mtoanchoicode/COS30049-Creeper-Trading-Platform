@@ -313,6 +313,7 @@ const Send = () => {
   const [recipient, setRecipient] = useState("");
   const [tokenAddress, setTokenAddress] = useState(""); // ERC-20 Token Address
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
+  const [walletAddr, setWalletAddr] = useState("")
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
@@ -337,12 +338,13 @@ const Send = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
+      setWalletAddr(userAddress)
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const isETH =
         !sendTokenAddress ||
         sendTokenAddress === "0x0000000000000000000000000000000000000000";
-
+      
       if (isETH) {
         // Check ETH balance
         const balance = await provider.getBalance(userAddress);
@@ -375,6 +377,18 @@ const Send = () => {
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
+
+        await handleTransaction(
+          userAddress,
+          sendTokenAddress,
+          recipient,
+          sendCurrencyValue,
+          transactionFee,
+          gasUsed,
+          "Send",
+          tx.hash,
+          "Success"
+         );
 
       } else {
         const tokenContract = new ethers.Contract(
@@ -443,7 +457,6 @@ const Send = () => {
           "Success"
          );
 
-
       }
     } catch (error) {
       console.error(error);
@@ -451,6 +464,19 @@ const Send = () => {
         message: "Transaction Failed",
         description: error.message || "An unknown error occurred.",
       });
+
+      await handleTransaction(
+        walletAddr,
+        sendTokenAddress,
+        recipient,
+        sendCurrencyValue,
+        0,
+        0,
+        "Send",
+        "",
+        "Fail"
+       );
+
     } finally {
       setIsLoading(false); // Ensure loading is turned off after the transaction completes
     }
