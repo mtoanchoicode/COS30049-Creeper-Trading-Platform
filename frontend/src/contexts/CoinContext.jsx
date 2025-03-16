@@ -4,7 +4,7 @@ import lnx_icon from "../assets/LNX Icon.png";
 import cep_icon from "../assets/CEP Icon.png";
 import sepolica_icon from "../assets/Sepolia Icon.png";
 
-
+// CoinContext
 export const CoinContext = createContext();
 
 const CoinProvider = ({ children }) => {
@@ -12,7 +12,7 @@ const CoinProvider = ({ children }) => {
   const [activeOverlay, setActiveOverlay] = useState(null);
   const [ethCoin, setEthCoin] = useState("");
 
-  const api = import.meta.env.VITE_INFURA_API_KEY;;
+  const api = import.meta.env.VITE_INFURA_API_KEY;
 
   const provider = new ethers.JsonRpcProvider(
     "https://sepolia.infura.io/v3/84bd9348e9ce42f4976205ca385dd09d"
