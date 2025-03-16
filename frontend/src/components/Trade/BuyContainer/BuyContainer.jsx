@@ -6,7 +6,6 @@ import { CoinContext } from "../../../contexts/CoinContext";
 
 const BuyContainer = ({ setAmount, currency }) => {
   const [value, setValue] = useState("");
-  const [VNDamount, setVNDamount] = useState(0)
 
   const {
     buyCurrencyValue,
