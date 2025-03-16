@@ -1,8 +1,33 @@
 import React from "react";
 import { ExportOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import "./AddLiquidity.css"
 
 const addLiquidity = (props) => {
+  
+  const cepAmount = parseFloat(props.CEP);
+  const lnxAmount = parseFloat(props.LNX);
+  const total_reserve = cepAmount + lnxAmount;
+
+  const reserve_CEP = (cepAmount) / (total_reserve) * 100
+  const reserve_LNX = (lnxAmount) / (total_reserve) * 100
+
+  const handleInputChangeCEP = (e) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value)) {
+      // ✅ Allow only numbers and decimals
+      props.setAmountCEP(value);
+    }
+  };
+
+  const handleInputChangeLNX = (e) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value)) {
+      // ✅ Allow only numbers and decimals
+      props.setAmountLNX(value);
+    }
+  };
+
   return (
     <div className="addLiquidity_container">
       <div className="addLiquidity_top">
@@ -26,7 +51,7 @@ const addLiquidity = (props) => {
         </div>
 
         <div className="addLiquidity_rate">
-            <p>add 0.1% of balance</p>
+            <p>add to get the mint</p>
         </div>
       </div>
 
@@ -46,15 +71,35 @@ const addLiquidity = (props) => {
         </div>
 
         <div className="addLiquidity_line_container">
-            <div className="Liquidity_Line CEP_line">
-               
-            </div>
-
-            <div className="Liquidity_Line LNX_line">
-                
-            </div>
+            <div 
+            className="Liquidity_Line CEP_line"
+            style={{ width: `${reserve_CEP}%` }}
+            />
+          
+            <div 
+            className="Liquidity_Line LNX_line"
+            style={{ width: `${reserve_LNX}%` }}
+            />
         </div>
-        
+
+        <div className="addLiquidity_input_container">
+            <p>Enter amount of token CEP to add:</p>
+            <Input
+              className="addLiquidity_input"
+              value={props.amountCEP}
+              onChange={handleInputChangeCEP}
+              disabled={props.isLoading}
+              suffix="Tokens"
+            />
+            <p>Enter amount of token LNX to add:</p>
+            <Input
+             className="addLiquidity_input"
+              value={props.amountLNX}
+              onChange={handleInputChangeLNX}
+              disabled={props.isLoading}
+              suffix="Tokens"
+            />
+        </div>  
       </div>
     </div>
   );

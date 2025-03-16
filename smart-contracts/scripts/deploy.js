@@ -1,20 +1,16 @@
 require("dotenv").config();
-const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
+//Deploy script
 async function main() {
-  const initialFee = ethers.parseEther("0.001"); // Initial fee of 0.001 ETH
-  const TokenFactory = await ethers.getContractFactory("TokenFactory");
-  const tokenFactory = await TokenFactory.deploy(initialFee);
+  const PriceFeed = await hre.ethers.getContractFactory("PriceFeed");
+  const priceFeed = await PriceFeed.deploy();
 
-  await tokenFactory.waitForDeployment(); // Corrected variable
-
-  console.log(`tokenFactory deployed at: ${await tokenFactory.getAddress()}`); // Properly fetch contract address
+  await priceFeed.waitForDeployment(); // Updated for Ethers.js v6+
+  console.log("PriceFeed deployed to:", await priceFeed.getAddress()); // Use getAddress() instead of .address
 }
 
-// Call main() outside the function
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

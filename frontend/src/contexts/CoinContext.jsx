@@ -1,14 +1,66 @@
 import React, { createContext, useState, useEffect } from "react";
+import { ethers } from "ethers";
 import lnx_icon from "../assets/LNX Icon.png";
 import cep_icon from "../assets/CEP Icon.png";
 import sepolica_icon from "../assets/Sepolia Icon.png";
 
+// CoinContext
 export const CoinContext = createContext();
 
 const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
   const [ethCoin, setEthCoin] = useState("");
+
+  const api = import.meta.env.VITE_INFURA_API_KEY;
+
+  const provider = new ethers.JsonRpcProvider(
+    "https://sepolia.infura.io/v3/84bd9348e9ce42f4976205ca385dd09d"
+  );
+
+  const contractAddress = "0x0ddbDB06684B2763789D8462996A7F8C74035C67";
+
+  const contractABI = [
+    {
+      inputs: [],
+      name: "getLatestBtcPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getLatestEthPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getLatestLinkPrice",
+      outputs: [{ internalType: "int256", name: "", type: "int256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+  ];
+
+  async function fetchPrices() {
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      provider
+    );
+
+    const btcPrice = await contract.getLatestBtcPrice();
+    const ethPrice = await contract.getLatestEthPrice();
+    const linkPrice = await contract.getLatestLinkPrice();
+
+    console.log(`BTC Price: $${btcPrice}`);
+    console.log(`ETH Price: $${ethers.formatUnits(ethPrice, 8)}`);
+    console.log(`LINK Price: $${ethers.formatUnits(linkPrice, 8)}`);
+  }
+
+  fetchPrices();
 
   useEffect(() => {
     fetch(
@@ -58,7 +110,8 @@ const CoinProvider = ({ children }) => {
     localCoins[0]?.address || null
   );
 
-  const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+    const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+    const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
 
   const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
 
@@ -138,6 +191,23 @@ const CoinProvider = ({ children }) => {
     setSendCurrencyValue(amount);
   };
 
+  const handleBuyCurrencyValueChange = (input) => {
+    let numericValue = typeof input === "number" ? input : parseFloat(input);
+    if (isNaN(numericValue) || numericValue < 0) {
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    if (!buyCurrency || !buyCurrency.current_price) {
+      console.error("sendCurrency or its price is undefined");
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    const amount = numericValue / buyCurrency.current_price;
+    setBuyCurrencyValue(amount);
+  };
+
   const swapCurrency = () => {
     setSwapFromCurrency(swapToCurrency);
     setSwapToCurrency(swapFromCurrency);
@@ -186,6 +256,7 @@ const CoinProvider = ({ children }) => {
     sendTokenAddress,
     setSendTokenAddress,
     buyCurrency,
+    buyCurrencyValue, 
     swapFromCurrency,
     swapToCurrency,
     swapFromCurrencyValue,
@@ -197,6 +268,7 @@ const CoinProvider = ({ children }) => {
     handleCoinSelection,
     handleOverlay,
     setActiveOverlay,
+    handleBuyCurrencyValueChange,
     handleCurrencyValueChange,
     handleSendCurrencyValueChange,
     faucetCurrency,
