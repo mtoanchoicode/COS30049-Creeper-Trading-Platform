@@ -58,8 +58,8 @@ const CoinProvider = ({ children }) => {
     localCoins[0]?.address || null
   );
 
-  const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
-  const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
+    const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+    const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
 
   const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
 
@@ -204,7 +204,7 @@ const CoinProvider = ({ children }) => {
     sendTokenAddress,
     setSendTokenAddress,
     buyCurrency,
-    buyCurrencyValue,
+    buyCurrencyValue, 
     swapFromCurrency,
     swapToCurrency,
     swapFromCurrencyValue,
