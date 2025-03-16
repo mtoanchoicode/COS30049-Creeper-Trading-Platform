@@ -9,6 +9,7 @@ import TransactionHistory from "../../components/Trade/TransactionHistory/Transa
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import { ExportOutlined } from "@ant-design/icons";
+import handleTransaction from "../../utils/transactionAPI";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0x9239712E274332d3b34a7eeAD4De226376fBF370";
@@ -329,7 +330,7 @@ const Send = () => {
       });
       return;
     }
-
+ 
     setIsLoading(true); // Set loading to true when the transaction starts
 
     try {
@@ -374,6 +375,7 @@ const Send = () => {
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
+
       } else {
         const tokenContract = new ethers.Contract(
           sendTokenAddress,
@@ -419,12 +421,29 @@ const Send = () => {
           message: "Token Transaction Created",
           description: `Transaction Hash: ${tx.hash}`,
         });
-        await tx.wait();
+        const receipt = await tx.wait();
         notification.success({
           message: "Transaction Confirmed",
           description:
             "Your token transaction has been successfully confirmed!",
         });
+
+        const gasUsed = receipt.gasUsed;
+        const transactionFee = 0.003 * sendCurrencyValue
+
+        await handleTransaction(
+          userAddress,
+          sendTokenAddress,
+          recipient,
+          sendCurrencyValue,
+          transactionFee,
+          gasUsed,
+          "Send",
+          tx.hash,
+          "Success"
+         );
+
+
       }
     } catch (error) {
       console.error(error);

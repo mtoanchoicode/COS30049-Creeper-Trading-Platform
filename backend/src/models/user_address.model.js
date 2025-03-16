@@ -22,7 +22,7 @@ const getUserByWallet = async (walletAddress) => {
     walletAddress = walletAddress.trim();
     try {
         const rows  = await CreeperDB.sql`
-        SELECT * FROM "Users" WHERE "WalletAddress" = ${walletAddress} LIMIT 1;
+        SELECT * FROM "Users" WHERE "WalletAddress" = ${walletAddress.toLowerCase()} LIMIT 1;
     `;
         if (!rows || rows.length === 0) {
             return null;
