@@ -40,4 +40,19 @@ const getTransaction = async (hashCode) => {
 };
 
 
-module.exports = { createTransaction, getTransaction };
+
+const getAllTransactions = async () => {
+    try{
+        const rows = await CreeperDB.sql`
+        SELECT * FROM "Transactions"
+        WHERE "Status" = 'Success';
+        `
+        return rows;
+    }catch(error){
+        console.error("Error getting transactions:", error)
+        return []
+    }
+}
+ 
+module.exports = { createTransaction, getTransaction, getAllTransactions };
+

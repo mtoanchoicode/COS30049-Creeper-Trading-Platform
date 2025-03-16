@@ -1,5 +1,5 @@
 const express = require("express");
-const { createHandleTransaction, getHandleTransaction } = require("../controllers/user_transaction.controller");
+const { createHandleTransaction, getHandleTransaction, getHandleAllTransaction } = require("../controllers/user_transaction.controller");
 const TransactionRouter = express.Router();
 
 
@@ -11,5 +11,7 @@ TransactionRouter.get("/created", (req, res) => {
 TransactionRouter.get("/", getHandleTransaction)
 
 TransactionRouter.post("/created", createHandleTransaction); 
+
+TransactionRouter.get("/allTransaction", getHandleAllTransaction)
 
 module.exports = TransactionRouter; //export default
