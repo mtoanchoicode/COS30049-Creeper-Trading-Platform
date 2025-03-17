@@ -41,12 +41,14 @@ const TransactionTable = ({ transactions }) => {
       return (
         <div className="d-flex align-items-center">
           <span className="me-2">{shortenAddress(value)}</span>
-          <button
-            className="btn btn-link p-0"
-            onClick={() => copyToClipboard(value)}
-          >
-            <CopyOutlined />
-          </button>
+          {value && ( // Only show copy button if there is a value
+            <button
+              className="btn btn-link p-0"
+              onClick={() => copyToClipboard(value)}
+            >
+              <CopyOutlined />
+            </button>
+          )}
         </div>
       );
     } else if (columnKey === "Amount" || columnKey === "Fee") {

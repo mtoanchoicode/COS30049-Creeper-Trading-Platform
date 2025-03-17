@@ -7,18 +7,20 @@ import TotalTransactionCard from "../../components/Admin/TotalTransactionCard/To
 import { Navigate, useNavigate } from "react-router-dom";
 import TransactionSuccessRateChart from "../../components/Admin/TransactionRateChart/TransactionRateChart";
 import getAllTransactions from "../../utils/getAllTransaction";
+import Loader from "../../components/Loader/Loader";
 
 const AdminPage = () => {
-  console.log(getAllTransactions());
   const navigate = useNavigate();
   const [toggled, setToggled] = useState(false);
-
   const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchTransactions = async () => {
+      setLoading(true); // Set loading to true when fetching starts
       const data = await getAllTransactions();
-      if (data) setTransactions(data);
+      if (data) setTransactions(data.reverse());
+      setLoading(false); // Set loading to false when fetching ends
     };
 
     fetchTransactions();
@@ -26,8 +28,8 @@ const AdminPage = () => {
 
   const calculateFeeData = (transactions) => {
     const feeMap = transactions.reduce((acc, tx) => {
-      const token = tx.TokenSymbol || "Unknown"; // Default to "Unknown" if missing
-      const fee = parseFloat(tx.Fee) || 0; // Ensure numeric value
+      const token = tx.TokenSymbol || "Unknown";
+      const fee = parseFloat(tx.Fee) || 0;
 
       if (!acc[token]) {
         acc[token] = { symbol: token, balance: 0 };
@@ -39,74 +41,7 @@ const AdminPage = () => {
     return Object.values(feeMap);
   };
 
-  // Pass the calculated fee data to FeeCard
   const feeData = calculateFeeData(transactions);
-
-  const mockTransactions = [
-    {
-      id: 1,
-      user_id: 1,
-      hash: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      from: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      to: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      token_id: 1,
-      amount: 0.5,
-      fee: 0.01,
-      gas: 21000,
-      method: "Send",
-      status: "Success",
-      created_at: "2023-10-01",
-    },
-    {
-      id: 2,
-      user_id: 1,
-      hash: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      from: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      to: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      token_id: 1,
-      amount: 0.5,
-      fee: 0.01,
-      gas: 21000,
-      method: "Send",
-      status: "Success",
-      created_at: "2023-10-01",
-    },
-    {
-      id: 3,
-      user_id: 1,
-      hash: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      from: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      to: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      token_id: 1,
-      amount: 0.5,
-      fee: 0.01,
-      gas: 21000,
-      method: "Buy",
-      status: "Fail",
-      created_at: "2023-10-01",
-    },
-    {
-      id: 4,
-      user_id: 1,
-      hash: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      from: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      to: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      token_id: 1,
-      amount: 0.5,
-      fee: 0.01,
-      gas: 21000,
-      method: "Swap",
-      status: "Fail",
-      created_at: "2023-10-01",
-    },
-  ];
-
-  const mockFeeData = [
-    { tokenName: "Sepolia", symbol: "ETH", balance: 190000 },
-    { tokenName: "ChainLink Token", symbol: "LINK", balance: 250 },
-    { tokenName: "Creeper Trading Token", symbol: "CEP", balance: 1000000 },
-    { tokenName: "Ancient Forest", symbol: "LNX", balance: 390501.197 },
-  ];
 
   const handleToggle = () => {
     setToggled(!toggled);
@@ -114,32 +49,27 @@ const AdminPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
-    navigate("/admin/login"); // Redirect to login page
+    navigate("/admin/login");
   };
 
-  // Add CDN links to the document head
   useEffect(() => {
-    // Add Bootstrap CSS
     const bootstrapCSS = document.createElement("link");
     bootstrapCSS.rel = "stylesheet";
     bootstrapCSS.href =
       "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css";
     document.head.appendChild(bootstrapCSS);
 
-    // Add Font Awesome CSS
     const fontAwesomeCSS = document.createElement("link");
     fontAwesomeCSS.rel = "stylesheet";
     fontAwesomeCSS.href =
       "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
     document.head.appendChild(fontAwesomeCSS);
 
-    // Add Bootstrap JS
     const bootstrapJS = document.createElement("script");
     bootstrapJS.src =
       "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js";
     document.body.appendChild(bootstrapJS);
 
-    // Cleanup function to remove added elements when component unmounts
     return () => {
       document.head.removeChild(bootstrapCSS);
       document.head.removeChild(fontAwesomeCSS);
@@ -149,7 +79,6 @@ const AdminPage = () => {
 
   return (
     <div className={`d-flex ${toggled ? "toggled" : ""}`} id="wrapper">
-      {/* Sidebar */}
       <div className="bg-white" id="sidebar-wrapper">
         <div className="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
           <img src={logo} alt="Logo" />
@@ -165,7 +94,7 @@ const AdminPage = () => {
           <a
             role="button"
             onClick={(e) => {
-              e.preventDefault(); // Prevents default anchor behavior
+              e.preventDefault();
               handleLogout();
             }}
             className="list-group-item list-group-item-action bg-transparent text-danger fw-bold admin-logout"
@@ -174,9 +103,7 @@ const AdminPage = () => {
           </a>
         </div>
       </div>
-      {/* /#sidebar-wrapper */}
 
-      {/* Page Content */}
       <div id="page-content-wrapper">
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
           <div className="d-flex align-items-center">
@@ -202,19 +129,23 @@ const AdminPage = () => {
         </nav>
 
         <div className="container-fluid px-4">
-          <div className="row g-3 my-2">
-            <FeeCard feeData={feeData} />
+          {loading ? ( // Show loader while loading
+            <Loader />
+          ) : (
+            <>
+              <div className="row g-3 my-2">
+                <FeeCard feeData={feeData} />
+                <TotalTransactionCard transactions={transactions} />
+                <TransactionSuccessRateChart transactions={transactions} />
+              </div>
 
-            <TotalTransactionCard transactions={transactions} />
-
-            <TransactionSuccessRateChart transactions={transactions} />
-          </div>
-
-          <div className="row my-5">
-            <div className="col">
-              <TransactionTable transactions={transactions} />
-            </div>
-          </div>
+              <div className="row my-5">
+                <div className="col">
+                  <TransactionTable transactions={transactions} />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
