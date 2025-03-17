@@ -17,36 +17,44 @@ const TransactionTable = ({ transactions }) => {
   };
 
   const columns = [
-    "ID",
-    "User ID",
-    "Hash",
-    "From",
-    "To",
-    "Token ID",
-    "Amount",
-    "Fee",
-    "Gas",
-    "Method",
-    "Status",
-    "Created At",
+    { key: "TransactionID", label: "ID" },
+    { key: "HashCode", label: "Hash" },
+    { key: "AddressFrom", label: "From" },
+    { key: "AddressTo", label: "To" },
+    { key: "TokenAddress", label: "Token" },
+    { key: "Amount", label: "Amount" },
+    { key: "Fee", label: "Fee" },
+    { key: "Gas", label: "Gas" },
+    { key: "Method", label: "Method" },
+    { key: "Status", label: "Status" },
+    { key: "CreatedAt", label: "Created At" },
   ];
 
-  const renderCell = (transaction, column) => {
-    const value = transaction[column.toLowerCase().replace(" ", "_")];
-    if (["hash", "from", "to"].includes(column.toLowerCase())) {
+  const renderCell = (transaction, columnKey) => {
+    const value = transaction[columnKey];
+
+    if (
+      ["HashCode", "AddressFrom", "AddressTo", "TokenAddress"].includes(
+        columnKey
+      )
+    ) {
       return (
         <div className="d-flex align-items-center">
           <span className="me-2">{shortenAddress(value)}</span>
-          <button
-            className="btn btn-link p-0"
-            onClick={() => copyToClipboard(value)}
-          >
-            <CopyOutlined />
-          </button>
+          {value && ( // Only show copy button if there is a value
+            <button
+              className="btn btn-link p-0"
+              onClick={() => copyToClipboard(value)}
+            >
+              <CopyOutlined />
+            </button>
+          )}
         </div>
       );
-    } else if (column === "amount") {
-      return `${value} ETH`; // Adjust the token symbol as needed
+    } else if (columnKey === "Amount" || columnKey === "Fee") {
+      return `${parseFloat(value).toFixed(5)} ${
+        transaction.TokenSymbol || "ETH"
+      }`;
     } else {
       return value;
     }
@@ -58,16 +66,16 @@ const TransactionTable = ({ transactions }) => {
       <table className="table bg-white rounded shadow-sm table-hover">
         <thead>
           <tr>
-            {columns.map((column, index) => (
-              <th key={index}>{column}</th>
+            {columns.map((col) => (
+              <th key={col.key}>{col.label}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {paginatedTransactions.map((transaction, index) => (
             <tr key={index}>
-              {columns.map((column, colIndex) => (
-                <td key={colIndex}>{renderCell(transaction, column)}</td>
+              {columns.map((col) => (
+                <td key={col.key}>{renderCell(transaction, col.key)}</td>
               ))}
             </tr>
           ))}

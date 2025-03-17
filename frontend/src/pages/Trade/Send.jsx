@@ -9,6 +9,8 @@ import TransactionHistory from "../../components/Trade/TransactionHistory/Transa
 import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import { ExportOutlined } from "@ant-design/icons";
+import handleTransaction from "../../utils/transactionAPI";
+import getAllTransactions from "../../utils/getAllTransaction";
 
 const Send = () => {
   const CONTRACT_ADDRESS = "0x9239712E274332d3b34a7eeAD4De226376fBF370";
@@ -312,6 +314,7 @@ const Send = () => {
   const [recipient, setRecipient] = useState("");
   const [tokenAddress, setTokenAddress] = useState(""); // ERC-20 Token Address
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
+  const [walletAddr, setWalletAddr] = useState("");
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
@@ -336,6 +339,7 @@ const Send = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
+      setWalletAddr(userAddress);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const isETH =
@@ -368,12 +372,27 @@ const Send = () => {
           description: `Transaction Hash: ${tx.hash}`,
         });
 
-        await tx.wait();
+        const ETHreceipt = await tx.wait();
 
         notification.success({
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
+
+        const ETHgasUsed = ETHreceipt.gasUsed;
+        const ETHtransactionFee = 0.003 * sendCurrencyValue;
+
+        await handleTransaction(
+          userAddress,
+          sendTokenAddress,
+          recipient,
+          sendCurrencyValue,
+          ETHtransactionFee,
+          ETHgasUsed,
+          "Send",
+          tx.hash,
+          "Success"
+        );
       } else {
         const tokenContract = new ethers.Contract(
           sendTokenAddress,
@@ -419,12 +438,27 @@ const Send = () => {
           message: "Token Transaction Created",
           description: `Transaction Hash: ${tx.hash}`,
         });
-        await tx.wait();
+        const receipt = await tx.wait();
         notification.success({
           message: "Transaction Confirmed",
           description:
             "Your token transaction has been successfully confirmed!",
         });
+
+        const gasUsed = receipt.gasUsed;
+        const transactionFee = 0.003 * sendCurrencyValue;
+
+        await handleTransaction(
+          userAddress,
+          sendTokenAddress,
+          recipient,
+          sendCurrencyValue,
+          transactionFee,
+          gasUsed,
+          "Send",
+          tx.hash,
+          "Success"
+        );
       }
     } catch (error) {
       console.error(error);
@@ -432,6 +466,18 @@ const Send = () => {
         message: "Transaction Failed",
         description: error.message || "An unknown error occurred.",
       });
+
+      await handleTransaction(
+        walletAddr,
+        sendTokenAddress,
+        recipient,
+        sendCurrencyValue,
+        0,
+        0,
+        "Send",
+        "",
+        "Fail"
+      );
     } finally {
       setIsLoading(false); // Ensure loading is turned off after the transaction completes
     }
@@ -481,7 +527,7 @@ const Send = () => {
         </a>
       </div>
       <div className="trade-history">
-          <TransactionHistory />
+        <TransactionHistory />
       </div>
     </div>
   );

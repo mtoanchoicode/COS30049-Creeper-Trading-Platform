@@ -11,9 +11,9 @@ import {
 const TransactionSuccessRateChart = ({ transactions }) => {
   // Count the number of successful and failed transactions
   const successCount = transactions.filter(
-    (tx) => tx.status === "Success"
+    (tx) => tx.Status === "Success"
   ).length;
-  const failCount = transactions.filter((tx) => tx.status === "Fail").length;
+  const failCount = transactions.filter((tx) => tx.Status === "Fail").length;
   const total = successCount + failCount;
 
   // Chart data

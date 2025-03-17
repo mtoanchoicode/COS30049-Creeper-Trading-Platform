@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./FeeCard.css";
 import {
   BarChart,
@@ -10,13 +10,19 @@ import {
 } from "recharts";
 
 const FeeCard = ({ feeData }) => {
+  console.log("gg", feeData);
   // Check if there are tokens available
   const hasTokens = feeData.length > 0;
 
-  // Set initial selected token if available, otherwise null
-  const [selectedToken, setSelectedToken] = useState(
-    hasTokens ? feeData[0] : null
-  );
+  // State for the selected token
+  const [selectedToken, setSelectedToken] = useState(null);
+
+  // Set the first token as the default when `feeData` changes
+  useEffect(() => {
+    if (hasTokens) {
+      setSelectedToken(feeData[0]); // Set the first token when `feeData` updates
+    }
+  }, [feeData]); // Run this effect whenever `feeData` changes
 
   // Calculate total balance of all tokens
   const totalBalance = feeData.reduce(
@@ -38,8 +44,8 @@ const FeeCard = ({ feeData }) => {
         <div className="adminFee-tokenBalance">
           {/* Display "--" if no tokens exist */}
           <p className="fs-4">
-            {hasTokens
-              ? `${parseFloat(selectedToken.balance).toFixed(2)}`
+            {selectedToken
+              ? `${parseFloat(selectedToken?.balance || 0).toFixed(5)}`
               : "--"}
           </p>
 

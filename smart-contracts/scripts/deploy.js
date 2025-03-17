@@ -1,5 +1,4 @@
-require("dotenv").config();
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 //Deploy script
 async function main() {

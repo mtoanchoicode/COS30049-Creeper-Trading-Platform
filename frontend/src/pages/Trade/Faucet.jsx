@@ -9,6 +9,8 @@ import { CoinContext } from "../../contexts/CoinContext";
 import Loader from "../../components/Loader/Loader";
 import GetFaucetContainer from "../../components/Trade/GetFaucetContainer/GetFaucetContainer";
 import { ExportOutlined } from "@ant-design/icons";
+import handleTransaction from "../../utils/transactionAPI";
+import TransactionHistory from "../../components/Trade/TransactionHistory/TransactionHistory";
 
 const Faucet = () => {
   const CONTRACT_ADDRESS = "0xae16023db12926cD6505A0d86118e91DD5A0Eebc";
@@ -160,6 +162,8 @@ const Faucet = () => {
   const { open } = useAppKit();
   const [isLoading, setIsLoading] = useState(false); // Ensure initial state is false
   const [lastClaimText, setLastClaimText] = useState("");
+  const [userAddress, setuserAddress] = useState("");
+  const [txAdress, settxAdress] = useState("");
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
@@ -177,6 +181,7 @@ const Faucet = () => {
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const userAddress = await signer.getAddress();
+      setuserAddress(userAddress);
       const lastClaimTimestamp = await contract.lastClaim(userAddress);
 
       // Convert BigNumber to a JavaScript number
@@ -222,17 +227,44 @@ const Faucet = () => {
         message: "Transaction in progress!",
         description: `Hash: ${tx.hash}`,
       });
-      await tx.wait();
+
+      settxAdress(tx.hash);
+      const receipt = await tx.wait();
       notification.success({
         message: "Faucet sent!",
         description: `Hash: ${tx.hash}`,
       });
+
+      const gasUsed = receipt.gasUsed;
+
+      await handleTransaction(
+        userAddress,
+        tokenAddress,
+        userAddress,
+        100,
+        0,
+        gasUsed,
+        "Faucet",
+        tx.hash,
+        "Success"
+      );
     } catch (error) {
       console.log(error.message);
       notification.error({
         message: "Transaction failed!",
         description: "Wait for faucet cooling down",
       });
+      await handleTransaction(
+        userAddress,
+        tokenAddress,
+        userAddress,
+        100,
+        0,
+        0,
+        "Faucet",
+        txAdress,
+        "Failed"
+      );
     } finally {
       setIsLoading(false); // Ensure loading is turned off after the transaction completes
       fetchLastClaimTime();
@@ -291,6 +323,9 @@ const Faucet = () => {
           <span>Contract address</span>
           <ExportOutlined />
         </a>
+      </div>
+      <div className="trade-history">
+        <TransactionHistory />
       </div>
     </div>
   );

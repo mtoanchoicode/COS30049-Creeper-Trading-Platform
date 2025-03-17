@@ -3,6 +3,10 @@ import { ethers } from "ethers";
 import lnx_icon from "../assets/LNX Icon.png";
 import cep_icon from "../assets/CEP Icon.png";
 import sepolica_icon from "../assets/Sepolia Icon.png";
+import eth_icon from "../assets/eth.png";
+import wbtc_icon from "../assets/wbtc.png";
+import usdt_icon from "../assets/usdt.png";
+import link_icon from "../assets/link.png";
 
 // CoinContext
 export const CoinContext = createContext();
@@ -10,12 +14,15 @@ export const CoinContext = createContext();
 const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
-  const [ethCoin, setEthCoin] = useState("");
+  const [ethCoin, setEthCoin] = useState(null);
+  const [linkPrice, setLinkPrice] = useState(0);
+  const [btcPrice, setBtcPrice] = useState(0);
+  const [ethPrice, setEthPrice] = useState(0);
 
   const api = import.meta.env.VITE_INFURA_API_KEY;
 
   const provider = new ethers.JsonRpcProvider(
-    "https://sepolia.infura.io/v3/84bd9348e9ce42f4976205ca385dd09d"
+    `https://sepolia.infura.io/v3/${api}`
   );
 
   const contractAddress = "0x0ddbDB06684B2763789D8462996A7F8C74035C67";
@@ -44,23 +51,29 @@ const CoinProvider = ({ children }) => {
     },
   ];
 
+  let lastFetchTime = 0;
+  const fetchInterval = 60000; // 60 seconds
+
   async function fetchPrices() {
+    const now = Date.now();
+    if (now - lastFetchTime < fetchInterval) return; // Prevent excessive calls
+    lastFetchTime = now;
+
     const contract = new ethers.Contract(
       contractAddress,
       contractABI,
       provider
     );
-
-    const btcPrice = await contract.getLatestBtcPrice();
-    const ethPrice = await contract.getLatestEthPrice();
-    const linkPrice = await contract.getLatestLinkPrice();
-
-    console.log(`BTC Price: $${btcPrice}`);
-    console.log(`ETH Price: $${ethers.formatUnits(ethPrice, 8)}`);
-    console.log(`LINK Price: $${ethers.formatUnits(linkPrice, 8)}`);
+    try {
+      const rpcBtcPrice = await contract.getLatestBtcPrice();
+      const rpcEthPrice = await contract.getLatestEthPrice();
+      const rpcLinkPrice = await contract.getLatestLinkPrice();
+    } catch (error) {
+      console.error("Error fetching prices:", error);
+    }
   }
 
-  fetchPrices();
+  setInterval(fetchPrices, fetchInterval); // Fetch every 60 seconds
 
   useEffect(() => {
     fetch(
@@ -75,15 +88,57 @@ const CoinProvider = ({ children }) => {
         );
 
         if (ethCoin) setEthCoin(ethCoin);
+
+        const linkCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "link"
+        );
+        const wbtcCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "wbtc"
+        );
+
+        if (linkCoin) setLinkPrice(linkCoin.current_price);
+        if (wbtcCoin) setBtcPrice(wbtcCoin.current_price);
+        if (ethCoin) setEthPrice(ethCoin.current_price);
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
+
+  const RPCcoins = [
+    {
+      id: "link",
+      name: "Chainlink",
+      symbol: "LINK",
+      image: link_icon,
+      current_price: linkPrice,
+    },
+    {
+      id: "wbtc",
+      name: "Wrap Bitcoin",
+      symbol: "WBTC",
+      image: wbtc_icon,
+      current_price: btcPrice,
+    },
+    {
+      id: "eth",
+      name: "Ethereum",
+      symbol: "ETH",
+      image: eth_icon,
+      current_price: ethPrice,
+    },
+    {
+      id: "usdt",
+      name: "Tether",
+      symbol: "USDT",
+      image: usdt_icon,
+      current_price: 1,
+    },
+  ];
 
   const localCoins = [
     {
       id: "eth",
       name: "SepoliaETH",
-      address: "0x2e5221B0f855Be4ea5Cefffb8311EED0563B6e87",
+      address: "0x0000000000000000000000000000000000000000",
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin?.current_price ?? 1868,
@@ -111,14 +166,15 @@ const CoinProvider = ({ children }) => {
   );
 
   const [buyCurrency, setBuyCurrency] = useState(localCoins[1]);
+  const [buyCurrencyValue, setBuyCurrencyValue] = useState(0);
 
   const [faucetCurrency, setfaucetCurrency] = useState(localCoins[1]);
 
   const [sendCurrency, setSendCurrency] = useState(localCoins[0]);
   const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
 
-  const [swapFromCurrency, setSwapFromCurrency] = useState(localCoins[1]);
-  const [swapToCurrency, setSwapToCurrency] = useState(localCoins[2]);
+  const [swapFromCurrency, setSwapFromCurrency] = useState(RPCcoins[3]);
+  const [swapToCurrency, setSwapToCurrency] = useState(RPCcoins[0]);
 
   const [swapFromCurrencyValue, setSwapFromCurrencyValue] = useState("");
   const [swapToCurrencyValue, setSwapToCurrencyValue] = useState("");
@@ -190,6 +246,23 @@ const CoinProvider = ({ children }) => {
     setSendCurrencyValue(amount);
   };
 
+  const handleBuyCurrencyValueChange = (input) => {
+    let numericValue = typeof input === "number" ? input : parseFloat(input);
+    if (isNaN(numericValue) || numericValue < 0) {
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    if (!buyCurrency || !buyCurrency.current_price) {
+      console.error("sendCurrency or its price is undefined");
+      setBuyCurrencyValue(0);
+      return;
+    }
+
+    const amount = numericValue / buyCurrency.current_price;
+    setBuyCurrencyValue(amount);
+  };
+
   const swapCurrency = () => {
     setSwapFromCurrency(swapToCurrency);
     setSwapToCurrency(swapFromCurrency);
@@ -220,6 +293,20 @@ const CoinProvider = ({ children }) => {
     } else if (tradeType === "faucet") {
       // setSendTokenAddress(updatedCurrency.address || null);
       setfaucetCurrency(updatedCurrency);
+    } else if (tradeType === "swap") {
+      if (type === "swapTo") {
+        // If selecting swapTo and it's the same as swapFrom, swap them
+        if (swapFromCurrency?.symbol === updatedCurrency.symbol) {
+          setSwapFromCurrency(swapToCurrency);
+        }
+        setSwapToCurrency(updatedCurrency);
+      } else if (type === "swapFrom") {
+        // If selecting swapFrom and it's the same as swapTo, swap them
+        if (swapToCurrency?.symbol === updatedCurrency.symbol) {
+          setSwapToCurrency(swapFromCurrency);
+        }
+        setSwapFromCurrency(updatedCurrency);
+      }
     }
 
     setActiveOverlay(null);
@@ -238,6 +325,7 @@ const CoinProvider = ({ children }) => {
     sendTokenAddress,
     setSendTokenAddress,
     buyCurrency,
+    buyCurrencyValue,
     swapFromCurrency,
     swapToCurrency,
     swapFromCurrencyValue,
@@ -249,11 +337,13 @@ const CoinProvider = ({ children }) => {
     handleCoinSelection,
     handleOverlay,
     setActiveOverlay,
+    handleBuyCurrencyValueChange,
     handleCurrencyValueChange,
     handleSendCurrencyValueChange,
     faucetCurrency,
     setfaucetCurrency,
     resetValues,
+    RPCcoins,
   };
 
   return (

@@ -7,7 +7,7 @@ const TotalTransactionCard = ({ transactions }) => {
 
   // Count transactions per method
   const methodCounts = transactions.reduce((acc, tx) => {
-    acc[tx.method] = (acc[tx.method] || 0) + 1;
+    acc[tx.Method] = (acc[tx.Method] || 0) + 1;
     return acc;
   }, {});
 
