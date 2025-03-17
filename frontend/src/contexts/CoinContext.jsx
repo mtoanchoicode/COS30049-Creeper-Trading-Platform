@@ -22,7 +22,7 @@ const CoinProvider = ({ children }) => {
   const api = import.meta.env.VITE_INFURA_API_KEY;
 
   const provider = new ethers.JsonRpcProvider(
-    "https://sepolia.infura.io/v3/84bd9348e9ce42f4976205ca385dd09d"
+    `https://sepolia.infura.io/v3/${api}`
   );
 
   const contractAddress = "0x0ddbDB06684B2763789D8462996A7F8C74035C67";
@@ -65,11 +65,9 @@ const CoinProvider = ({ children }) => {
       provider
     );
     try {
-      btcPrice = await contract.getLatestBtcPrice();
-      ethPrice = await contract.getLatestEthPrice();
-      linkPrice = await contract.getLatestLinkPrice();
-
-      console.log(btcPrice);
+      const rpcBtcPrice = await contract.getLatestBtcPrice();
+      const rpcEthPrice = await contract.getLatestEthPrice();
+      const rpcLinkPrice = await contract.getLatestLinkPrice();
     } catch (error) {
       console.error("Error fetching prices:", error);
     }
@@ -140,6 +138,7 @@ const CoinProvider = ({ children }) => {
     {
       id: "eth",
       name: "SepoliaETH",
+      address: "0x0000000000000000000000000000000000000000",
       symbol: "ETH",
       image: sepolica_icon,
       current_price: ethCoin?.current_price ?? 1868,
