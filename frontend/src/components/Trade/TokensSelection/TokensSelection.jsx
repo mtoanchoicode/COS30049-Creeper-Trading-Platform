@@ -24,7 +24,12 @@ const TokensSelection = ({ type, tradeType }) => {
     handleCoinSelection,
   } = useContext(CoinContext);
 
-  const filteredCoins = tradeType === "swap" ? RPCcoins : tradeType === "faucet" ? localCoins.slice(1) : localCoins;
+  const filteredCoins =
+    tradeType === "swap"
+      ? RPCcoins
+      : tradeType === "faucet"
+      ? localCoins.slice(1)
+      : localCoins;
   return (
     activeOverlay === type && (
       <div className="convert-coin-selection">
@@ -56,32 +61,33 @@ const TokensSelection = ({ type, tradeType }) => {
                     <p className="selection-coin-symbol">
                       {coin.symbol.toUpperCase()}
                     </p>
-                    {tradeType === "faucet" || tradeType ==="send" && (
-                      <p>
-                        <a
-                          href={`https://sepolia.etherscan.io/address/${coin.address}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {shortenAddress(coin.address)}{" "}
-                        </a>
-                  
-                        <div
-                          className="copy-btn"
-                          style={{ display: "inline", marginLeft: "1rem" }}
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent triggering parent onClick
-                            copyToClipboard(coin.address);
-                          }}
-                        >
-                          {copied === coin.address ? (
-                            <i className="fa-solid fa-check"></i>
-                          ) : (
-                            <i className="fa-solid fa-copy"></i>
-                          )}
-                        </div>
-                      </p>
-                      )}
+                    {tradeType === "faucet" ||
+                      (tradeType === "send" && (
+                        <p>
+                          <a
+                            href={`https://sepolia.etherscan.io/address/${coin.address}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {shortenAddress(coin.address)}{" "}
+                          </a>
+
+                          <div
+                            className="copy-btn"
+                            style={{ display: "inline", marginLeft: "1rem" }}
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent triggering parent onClick
+                              copyToClipboard(coin.address);
+                            }}
+                          >
+                            {copied === coin.address ? (
+                              <i className="fa-solid fa-check"></i>
+                            ) : (
+                              <i className="fa-solid fa-copy"></i>
+                            )}
+                          </div>
+                        </p>
+                      ))}
                   </div>
                 </div>
               </div>

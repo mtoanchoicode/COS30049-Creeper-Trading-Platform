@@ -372,20 +372,23 @@ const Send = () => {
           description: `Transaction Hash: ${tx.hash}`,
         });
 
-        await tx.wait();
+        const ETHreceipt = await tx.wait();
 
         notification.success({
           message: "Transaction Confirmed",
           description: "Your ETH transaction has been successfully confirmed!",
         });
 
+        const ETHgasUsed = ETHreceipt.gasUsed;
+        const ETHtransactionFee = 0.003 * sendCurrencyValue;
+
         await handleTransaction(
           userAddress,
           sendTokenAddress,
           recipient,
           sendCurrencyValue,
-          transactionFee,
-          gasUsed,
+          ETHtransactionFee,
+          ETHgasUsed,
           "Send",
           tx.hash,
           "Success"
