@@ -9,11 +9,15 @@ interface IERC20 {
 contract TokenFaucet {
     address public owner;
     mapping(address => uint256) public lastClaim;
-    uint256 public claimInterval = 24 hours;
+    uint256 public claimInterval = 0; // Set to 0 to allow instant claims
     uint256 public amount = 100 * 10**18; // Adjust based on token decimals
 
     IERC20 public LNX;
     IERC20 public CEP;
+    IERC20 public WBTC;
+    IERC20 public LINK;
+    IERC20 public USDT;
+    IERC20 public ETH;
 
     event FaucetClaimed(address indexed user, address token, uint256 amount);
     event OwnerWithdrawal(address indexed owner, address token, uint256 amount);
@@ -23,15 +27,26 @@ contract TokenFaucet {
         _;
     }
 
-    constructor(address _lnx, address _cep) {
+    constructor(address _lnx, address _cep, address _wbtc, address _link, address _usdt, address _eth) {
         owner = msg.sender;
         LNX = IERC20(_lnx);
         CEP = IERC20(_cep);
+        WBTC = IERC20(_wbtc);
+        LINK = IERC20(_link);
+        USDT = IERC20(_usdt);
+        ETH = IERC20(_eth);
     }
 
     function claim(address token) external {
-        require(token == address(LNX) || token == address(CEP), "Invalid token");
-        require(block.timestamp >= lastClaim[msg.sender] + claimInterval, "Wait 24 hours");
+        require(
+            token == address(LNX) ||
+            token == address(CEP) ||
+            token == address(WBTC) ||
+            token == address(LINK) ||
+            token == address(USDT) ||
+            token == address(ETH),
+            "Invalid token"
+        );
 
         lastClaim[msg.sender] = block.timestamp;
 

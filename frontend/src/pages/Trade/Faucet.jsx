@@ -13,12 +13,16 @@ import handleTransaction from "../../utils/transactionAPI";
 import TransactionHistory from "../../components/Trade/TransactionHistory/TransactionHistory";
 
 const Faucet = () => {
-  const CONTRACT_ADDRESS = "0xae16023db12926cD6505A0d86118e91DD5A0Eebc";
+  const CONTRACT_ADDRESS = "0x3F9d092B3641f858D24356eB7c74393dD970C46C";
   const ABI = [
     {
       inputs: [
         { internalType: "address", name: "_lnx", type: "address" },
         { internalType: "address", name: "_cep", type: "address" },
+        { internalType: "address", name: "_wbtc", type: "address" },
+        { internalType: "address", name: "_link", type: "address" },
+        { internalType: "address", name: "_usdt", type: "address" },
+        { internalType: "address", name: "_eth", type: "address" },
       ],
       stateMutability: "nonpayable",
       type: "constructor",
@@ -82,7 +86,35 @@ const Faucet = () => {
     },
     {
       inputs: [],
+      name: "ETH",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "LINK",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "LNX",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "USDT",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "WBTC",
       outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
       stateMutability: "view",
       type: "function",
