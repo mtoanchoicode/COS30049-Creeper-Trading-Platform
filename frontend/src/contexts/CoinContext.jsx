@@ -159,6 +159,38 @@ const CoinProvider = ({ children }) => {
       image: lnx_icon,
       current_price: 1,
     },
+    {
+      id: "eth",
+      name: "Ethereum",
+      address: "0x5F29D014a869Ce3869c841790f5E1dEcfb273468",
+      symbol: "ETH",
+      image: eth_icon,
+      current_price: 1,
+    },
+    {
+      id: "link",
+      name: "Chainlink",
+      address: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62 ",
+      symbol: "LINK",
+      image: link_icon,
+      current_price: 1,
+    },
+    {
+      id: "usdt",
+      name: "Tether",
+      address: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1 ",
+      symbol: "USDT",
+      image: usdt_icon,
+      current_price: 1,
+    },
+    {
+      id: "wbtc",
+      name: "Wrapped Bitcoin",
+      address: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0 ",
+      symbol: "WBTC",
+      image: wbtc_icon,
+      current_price: 1,
+    },
   ];
 
   const [sendTokenAddress, setSendTokenAddress] = useState(

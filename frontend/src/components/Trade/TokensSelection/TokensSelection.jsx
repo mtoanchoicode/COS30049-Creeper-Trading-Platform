@@ -29,7 +29,7 @@ const TokensSelection = ({ type, tradeType }) => {
       ? RPCcoins
       : tradeType === "faucet"
       ? localCoins.slice(1)
-      : localCoins;
+      : localCoins.slice(0,3);
   return (
     activeOverlay === type && (
       <div className="convert-coin-selection">
