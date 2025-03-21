@@ -241,11 +241,11 @@ const Swap = ({ showHistory = true }) => {
           <ExportOutlined />
         </a>
       </div>
-      {/* {showHistory && (
+      {showHistory && (
         <div className="trade-history">
-          <TransactionHistory />
+          <TransactionHistory method = "Swap"/>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

@@ -356,9 +356,9 @@ const Faucet = () => {
           <ExportOutlined />
         </a>
       </div>
-      {/* <div className="trade-history">
-        <TransactionHistory />
-      </div> */}
+      <div className="trade-history">
+        <TransactionHistory method="Faucet"/>
+      </div>
     </div>
   );
 };
