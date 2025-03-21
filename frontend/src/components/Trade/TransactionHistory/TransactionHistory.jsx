@@ -4,42 +4,38 @@ import getAllTransactions from "../../../utils/getAllTransaction";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const shortenAddress = (address) => {
-  return `${address.slice(0, 17)}...${address.slice(-4)}`;
-};
-
-const copyToClipboard = (address) => {
-  navigator.clipboard.writeText(address);
-  setCopied(address);
-
-  // Reset copied state after 2 seconds
-  setTimeout(() => setCopied(null), 1000);
-};
-
-const TransactionHistory = () => {
+const TransactionHistory = ({ method }) => {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalPages = Math.ceil(transactions.length / itemsPerPage);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const itemsPerPage = 5;
+  // const totalPages = Math.ceil(transactions.length / itemsPerPage);
+  
+  // State to track the selected category
+  const [selectedMethod, setSelectedMethod] = useState(`${method}`);
  
   useEffect(() => {
     const fetchAllTransactions = async () => {
       setLoading(true); // Set loading to true when fetching starts
       const data = await getAllTransactions();
-      if (data) setTransactions(d); //reverse the array to show the latest transaction first
+      if (data) setTransactions(data); //reverse the array to show the latest transaction first
       setLoading(false); // Set loading to falata.reverse()se when fetching ends
     };
 
     fetchAllTransactions();
   }, []);
 
-  const InPageTransactions = transactions.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );  
+
+  // const InPageTransactions = transactions.slice(
+  //   (currentPage - 1) * itemsPerPage,
+  //   currentPage * itemsPerPage
+  // );
+
+  const filterTransaction = transactions.filter((transaction) => transaction.Method === selectedMethod);
+
+
 
   const columns = [
     { key: "TransactionID", label: "ID" },
@@ -54,6 +50,18 @@ const TransactionHistory = () => {
     { key: "Status", label: "Status" },
     { key: "CreatedAt", label: "Created At" },
   ];
+
+  const shortenAddress = (address) => {
+    return `${address.slice(0,9)}...${address.slice(-4)}`;
+  };
+
+  const copyToClipboard = (address) => {
+    navigator.clipboard.writeText(address);
+    setCopied(address);
+  
+    // Reset copied state after 2 seconds
+    setTimeout(() => setCopied(null), 1000);
+  };
 
   // const transactions = [
   //   {
@@ -107,12 +115,12 @@ const TransactionHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {InPageTransactions.map((txn, index) => (
+          {filterTransaction.map((txn, index) => (
             <tr key={index}>
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/tx/${txn.hashCode}`}
+                    href={`https://sepolia.etherscan.io/tx/${txn.HashCode}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -120,7 +128,7 @@ const TransactionHistory = () => {
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.hashCode)}
+                    onClick={() => copyToClipboard(txn.HashCode)}
                   >
                     {copied === txn.HashCode ? (
                       <i className="fa-solid fa-check"></i>
@@ -130,22 +138,22 @@ const TransactionHistory = () => {
                   </div>
                 </div>
               </td>
-              <td>{txn.method}</td>
+              <td>{txn.Method}</td>
               <td>{txn.age || "N/A"}</td>
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/address/${txn.addressFrom}`}
+                    href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {shortenAddress(txn.addressFrom)}
+                    {shortenAddress(txn.AddressFrom)}
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.addressFrom)}
+                    onClick={() => copyToClipboard(txn.AddressFrom)}
                   >
-                    {copied === txn.addressFrom ? (
+                    {copied === txn.AddressFrom ? (
                       <i className="fa-solid fa-check"></i>
                     ) : (
                       <i className="fa-solid fa-copy"></i>
@@ -156,17 +164,17 @@ const TransactionHistory = () => {
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/address/${txn.addressTo}`}
+                    href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {shortenAddress(txn.addressTo)}
+                    {shortenAddress(txn.AddressTo)}
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.addressTo)}
+                    onClick={() => copyToClipboard(txn.AddressTo)}
                   >
-                    {copied === txn.addressTo ? (
+                    {copied === txn.AddressTo ? (
                       <i className="fa-solid fa-check"></i>
                     ) : (
                       <i className="fa-solid fa-copy"></i>
@@ -174,9 +182,29 @@ const TransactionHistory = () => {
                   </div>
                 </div>
               </td>
-              <td>{txn.amount}</td>
-              <td>{txn.fee}</td>
-              <td>{txn.tokenID}</td>
+              <td>{parseFloat(txn.Amount).toFixed(3)}</td>
+              <td>{parseFloat(txn.Fee).toFixed(3)}</td>
+              <td>
+              <div>
+                  <a
+                    href={`https://sepolia.etherscan.io/address/${txn.TokenAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {shortenAddress(txn.TokenAddress)}
+                  </a>
+                  <div
+                    className="copy-btn"
+                    onClick={() => copyToClipboard(txn.TokenAddress)}
+                  >
+                    {copied === txn.TokenAddress ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-copy"></i>
+                    )}
+                  </div>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

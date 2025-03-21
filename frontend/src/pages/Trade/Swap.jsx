@@ -243,7 +243,7 @@ const Swap = ({ showHistory = true }) => {
       </div>
       {showHistory && (
         <div className="trade-history">
-          <TransactionHistory />
+          <TransactionHistory method = "Swap"/>
         </div>
       )}
     </div>

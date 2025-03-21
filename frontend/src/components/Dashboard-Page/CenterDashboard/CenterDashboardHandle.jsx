@@ -143,11 +143,7 @@ const Centers = ({ title, subtitle }) => {
             {newsData?.sort((a, b) => b.id - a.id).slice(0, 4).map(news => (
               <NewsComponent key={news.id} id={news.id} Title={news.Title} />
             ))}
-<<<<<<< HEAD
           </div> 
-=======
-          </div>
->>>>>>> 83f6a25ebb3ff38d072dd7c1e563c92661061c85
         </div>
       </div>
     </section>

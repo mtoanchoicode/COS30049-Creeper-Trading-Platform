@@ -527,7 +527,7 @@ const Send = () => {
         </a>
       </div>
       <div className="trade-history">
-        <TransactionHistory />
+        <TransactionHistory method="Send"/>
       </div>
     </div>
   );

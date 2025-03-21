@@ -204,7 +204,7 @@ const Buy = () => {
       </div>
 
       <div className="trade-history">
-        <TransactionHistory />
+        <TransactionHistory method="Buy"/>
       </div>
     </div>
   );
