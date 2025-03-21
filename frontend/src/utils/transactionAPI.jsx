@@ -7,7 +7,6 @@ const handleTransaction = async (
   estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
 ) => {
   try {
-    console.log("from transactionAPI", transactionAmount)
     await fetch(`${API_BASE_URL}/v1/api/transaction/created`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
