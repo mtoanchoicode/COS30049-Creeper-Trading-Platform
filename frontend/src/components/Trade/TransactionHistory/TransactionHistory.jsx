@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./TransactionHistory.css";
 import getAllTransactions from "../../../utils/getAllTransaction";
+//import Loader from "../../Loader/Loader";
+import { Alert, Flex, Spin } from 'antd';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -12,7 +14,7 @@ const TransactionHistory = ({ method }) => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const itemsPerPage = 5;
   // const totalPages = Math.ceil(transactions.length / itemsPerPage);
-  
+
   // State to track the selected category
   const [selectedMethod, setSelectedMethod] = useState(`${method}`);
  
@@ -63,6 +65,26 @@ const TransactionHistory = ({ method }) => {
     setTimeout(() => setCopied(null), 1000);
   };
 
+  const calculateAge = (timestamp) => {
+    const Timenow = new Date();
+    const createdAt = new Date(timestamp); // Convert timestamp to Date object
+    const diffMs = Timenow - createdAt; // Difference in milliseconds
+  
+    // Convert to seconds, minutes, hours, etc.
+    const seconds = Math.floor(diffMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+  
+    if (seconds < 60) return `${seconds} sec ago`;
+    if (minutes < 60) return `${minutes} min ago`;
+    if (hours < 24) return `${hours} hrs ago`;
+    return `${days} days ago`;
+  };
+
+
+
+
   // const transactions = [
   //   {
   //     txHash:
@@ -99,116 +121,126 @@ const TransactionHistory = ({ method }) => {
   //   },
   // ];
 
+
+
   return (
     <div className="transaction-history">
-      <table className="transaction-table">
-        <thead>
-          <tr>
-            <th>Transaction Hash</th>
-            <th>Method</th>
-            <th>Age</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Amount</th>
-            <th>Fee</th>
-            <th>Token</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filterTransaction.map((txn, index) => (
-            <tr key={index}>
-              <td>
-                <div>
-                  <a
-                    href={`https://sepolia.etherscan.io/tx/${txn.HashCode}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shortenAddress(txn.HashCode)}
-                  </a>
-                  <div
-                    className="copy-btn"
-                    onClick={() => copyToClipboard(txn.HashCode)}
-                  >
-                    {copied === txn.HashCode ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      <i className="fa-solid fa-copy"></i>
-                    )}
-                  </div>
-                </div>
-              </td>
-              <td>{txn.Method}</td>
-              <td>{txn.age || "N/A"}</td>
-              <td>
-                <div>
-                  <a
-                    href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shortenAddress(txn.AddressFrom)}
-                  </a>
-                  <div
-                    className="copy-btn"
-                    onClick={() => copyToClipboard(txn.AddressFrom)}
-                  >
-                    {copied === txn.AddressFrom ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      <i className="fa-solid fa-copy"></i>
-                    )}
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <a
-                    href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shortenAddress(txn.AddressTo)}
-                  </a>
-                  <div
-                    className="copy-btn"
-                    onClick={() => copyToClipboard(txn.AddressTo)}
-                  >
-                    {copied === txn.AddressTo ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      <i className="fa-solid fa-copy"></i>
-                    )}
-                  </div>
-                </div>
-              </td>
-              <td>{parseFloat(txn.Amount).toFixed(3)}</td>
-              <td>{parseFloat(txn.Fee).toFixed(3)}</td>
-              <td>
-              <div>
-                  <a
-                    href={`https://sepolia.etherscan.io/address/${txn.TokenAddress}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shortenAddress(txn.TokenAddress)}
-                  </a>
-                  <div
-                    className="copy-btn"
-                    onClick={() => copyToClipboard(txn.TokenAddress)}
-                  >
-                    {copied === txn.TokenAddress ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      <i className="fa-solid fa-copy"></i>
-                    )}
-                  </div>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {loading ? ( // Show loader while loading
+          //<Loader/>
+          <Spin tip="Loading" size="large" style={{padding: 50}}></Spin>
+        ) : (
+          <>
+            <table className="transaction-table">
+            <thead>
+              <tr>
+                <th>Transaction Hash</th>
+                <th>Method</th>
+                <th>Age</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Fee</th>
+                <th>Token</th>
+              </tr>
+            </thead>
+            <tbody>
+            {filterTransaction.map((txn, index) => (
+                  <tr key={index}>
+                  <td>
+                    <div>
+                      <a
+                        href={`https://sepolia.etherscan.io/tx/${txn.HashCode}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenAddress(txn.HashCode)}
+                      </a>
+                      <div
+                        className="copy-btn"
+                        onClick={() => copyToClipboard(txn.HashCode)}
+                      >
+                        {copied === txn.HashCode ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                  <td>{txn.Method}</td>
+                  <td>{calculateAge(txn.CreatedAt) || "N/A"}</td>
+                  <td>
+                    <div>
+                      <a
+                        href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenAddress(txn.AddressFrom)}
+                      </a>
+                      <div
+                        className="copy-btn"
+                        onClick={() => copyToClipboard(txn.AddressFrom)}
+                      >
+                        {copied === txn.AddressFrom ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <a
+                        href={`https://sepolia.etherscan.io/address/${txn.AddressTo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenAddress(txn.AddressTo)}
+                      </a>
+                      <div
+                        className="copy-btn"
+                        onClick={() => copyToClipboard(txn.AddressTo)}
+                      >
+                        {copied === txn.AddressTo ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                  <td>{parseFloat(txn.Amount).toFixed(3)}</td>
+                  <td>{parseFloat(txn.Fee).toFixed(3)}</td>
+                  <td>
+                  <div>
+                      <a
+                        href={`https://sepolia.etherscan.io/address/${txn.TokenAddress}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenAddress(txn.TokenAddress)}
+                      </a>
+                      <div
+                        className="copy-btn"
+                        onClick={() => copyToClipboard(txn.TokenAddress)}
+                      >
+                        {copied === txn.TokenAddress ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+          </>
+        )}
+     
     </div>
   );
 };

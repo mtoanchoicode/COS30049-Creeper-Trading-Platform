@@ -1,10 +1,12 @@
 .transaction-history {
   width: 100%;
+  height: fit-content;
   margin: 0 auto;
   text-align: center;
   border-radius: 1rem;
-  background: var(--trade-background-color);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .transaction-table {
