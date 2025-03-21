@@ -12,27 +12,21 @@ const TokensSelection = ({ type, tradeType }) => {
   const copyToClipboard = (address) => {
     navigator.clipboard.writeText(address);
     setCopied(address);
-
-    // Reset copied state after 2 seconds
     setTimeout(() => setCopied(null), 1000);
   };
-  const {
-    localCoins,
-    RPCcoins,
-    activeOverlay,
-    setActiveOverlay,
-    handleCoinSelection,
-  } = useContext(CoinContext);
+  
+  const { localCoins, activeOverlay, setActiveOverlay, handleCoinSelection } =
+    useContext(CoinContext);
 
   const filteredCoins =
     tradeType === "swap"
-      ? RPCcoins
+      ? localCoins.slice(3)
       : tradeType === "faucet"
       ? localCoins.slice(1)
-      : localCoins.slice(0,3);
+      : localCoins.slice(0, 3);
   return (
     activeOverlay === type && (
-      <div className="convert-coin-selection">
+      <div className={`convert-coin-selection ${tradeType} ${type}`}>
         <div className="convert-coin-selection-container">
           <div className="convert-coin-selection-container-top">
             <p>Select a token</p>
@@ -61,32 +55,30 @@ const TokensSelection = ({ type, tradeType }) => {
                     <p className="selection-coin-symbol">
                       {coin.symbol.toUpperCase()}
                     </p>
-                    {(type === "faucet" || type === "send") && (
-                      <p>
-                        <a
-                          href={`https://sepolia.etherscan.io/address/${coin.address}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {shortenAddress(coin.address)}{" "}
-                        </a>
+                    <p>
+                      <a
+                        href={`https://sepolia.etherscan.io/address/${coin.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenAddress(coin.address)}{" "}
+                      </a>
 
-                        <div
-                          className="copy-btn"
-                          style={{ display: "inline", marginLeft: "1rem" }}
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent triggering parent onClick
-                            copyToClipboard(coin.address);
-                          }}
-                        >
-                          {copied === coin.address ? (
-                            <i className="fa-solid fa-check"></i>
-                          ) : (
-                            <i className="fa-solid fa-copy"></i>
-                          )}
-                        </div>
-                      </p>
-                    )}
+                      <div
+                        className="copy-btn"
+                        style={{ display: "inline", marginLeft: "1rem" }}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering parent onClick
+                          copyToClipboard(coin.address);
+                        }}
+                      >
+                        {copied === coin.address ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-copy"></i>
+                        )}
+                      </div>
+                    </p>
                   </div>
                 </div>
               </div>

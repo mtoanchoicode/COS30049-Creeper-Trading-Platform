@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./TransactionHistory.css";
 import getAllTransactions from "../../../utils/getAllTransaction";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const shortenAddress = (address) => {
   return `${address.slice(0, 17)}...${address.slice(-4)}`;
 };
@@ -15,9 +17,10 @@ const copyToClipboard = (address) => {
 };
 
 const TransactionHistory = () => {
+  const [transactions, setTransactions] = useState([]);
+  const [error, setError] = useState(null);
   const [copied, setCopied] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
-  const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(transactions.length / itemsPerPage);
@@ -109,7 +112,7 @@ const TransactionHistory = () => {
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/tx/${txn.txHash}`}
+                    href={`https://sepolia.etherscan.io/tx/${txn.hashCode}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -117,7 +120,7 @@ const TransactionHistory = () => {
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.txHash)}
+                    onClick={() => copyToClipboard(txn.hashCode)}
                   >
                     {copied === txn.HashCode ? (
                       <i className="fa-solid fa-check"></i>
@@ -127,24 +130,22 @@ const TransactionHistory = () => {
                   </div>
                 </div>
               </td>
-              <td>
-                <span>{txn.Method}</span>
-              </td>
-              <td>{txn.age}</td>
+              <td>{txn.method}</td>
+              <td>{txn.age || "N/A"}</td>
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/address/${txn.from}`}
+                    href={`https://sepolia.etherscan.io/address/${txn.addressFrom}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {shortenAddress(txn.from)}
+                    {shortenAddress(txn.addressFrom)}
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.from)}
+                    onClick={() => copyToClipboard(txn.addressFrom)}
                   >
-                    {copied === txn.from ? (
+                    {copied === txn.addressFrom ? (
                       <i className="fa-solid fa-check"></i>
                     ) : (
                       <i className="fa-solid fa-copy"></i>
@@ -155,17 +156,17 @@ const TransactionHistory = () => {
               <td>
                 <div>
                   <a
-                    href={`https://sepolia.etherscan.io/address/${txn.to}`}
+                    href={`https://sepolia.etherscan.io/address/${txn.addressTo}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {shortenAddress(txn.to)}
+                    {shortenAddress(txn.addressTo)}
                   </a>
                   <div
                     className="copy-btn"
-                    onClick={() => copyToClipboard(txn.to)}
+                    onClick={() => copyToClipboard(txn.addressTo)}
                   >
-                    {copied === txn.to ? (
+                    {copied === txn.addressTo ? (
                       <i className="fa-solid fa-check"></i>
                     ) : (
                       <i className="fa-solid fa-copy"></i>
@@ -175,7 +176,7 @@ const TransactionHistory = () => {
               </td>
               <td>{txn.amount}</td>
               <td>{txn.fee}</td>
-              <td>{txn.token}</td>
+              <td>{txn.tokenID}</td>
             </tr>
           ))}
         </tbody>
