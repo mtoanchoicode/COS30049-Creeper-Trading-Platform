@@ -175,24 +175,20 @@ const Swap = ({ showHistory = true }) => {
       );
       await approveUsdt.wait();
 
-      const LinkCoinContract = new ethers.Contract(
-        "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62",
-        IERC20ABI,
-        signer
-      );
-
-      const approveLink = await LinkCoinContract.approve(
-        CONTRACT_ADDRESS,
-        ethers.parseUnits(swapToCurrencyValue.toString(), 18)
-      );
-      await approveLink.wait();
-
       const tx = await contract.swapUSDTForLINK(
         ethers.parseUnits(swapFromCurrencyValue.toString(), 18)
       );
+      notification.info({
+        message: "Swapping Transaction Created",
+        description: `Transaction Hash: ${tx.hash}`,
+      });
       await tx.wait();
 
-      notification.success({ message: "Swap successful!" });
+      notification.success({
+        message: " Transaction Confirmed",
+        description:
+          "Your swapping transaction has been successfully confirmed!",
+      });
     } catch (error) {
       console.error("Swap failed:", error);
       notification.error({
@@ -216,6 +212,7 @@ const Swap = ({ showHistory = true }) => {
   const getButtonText = () => {
     if (!isConnected) return "Connect wallet";
     if (!swapFromCurrencyValue) return "Enter an amount";
+    if (isLoading) return "Swapping";
     return "Swap";
   };
 
