@@ -7,7 +7,6 @@ const createTransaction = async (userID, tokenID, addressFrom, addressTo, amount
     try {
         const IdFromWallet = await getUserByWallet(addressFrom)
         const uID = IdFromWallet.UserID
-        console.log(uID)
 
         const IdFromToken = await getTokenIdFromAddress(tokenID)
         const tID = IdFromToken.TokenID

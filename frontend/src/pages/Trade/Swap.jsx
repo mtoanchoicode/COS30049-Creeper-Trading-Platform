@@ -195,7 +195,7 @@ const Swap = ({ showHistory = true }) => {
       });
 
       const gasUsed = receipt.gasUsed;
-      const transactionFee = 0.003 * sendCurrencyValue;
+      const transactionFee = 0.003 * swapFromCurrencyValue;
 
       // update this for dynamic token address
       await handleTransaction(
