@@ -8,6 +8,7 @@ const CurrencySelection = ({ onClick, currency }) => {
         <img src={currency.image} alt={currency.symbol.toUpperCase()} />
       )}
       <p>{currency.symbol.toUpperCase()}</p>
+      <i className="fa-solid fa-chevron-down"></i>
     </div>
   );
 };

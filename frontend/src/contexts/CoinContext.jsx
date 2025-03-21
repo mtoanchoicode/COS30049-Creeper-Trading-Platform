@@ -15,65 +15,9 @@ const CoinProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [activeOverlay, setActiveOverlay] = useState(null);
   const [ethCoin, setEthCoin] = useState(null);
-  const [linkPrice, setLinkPrice] = useState(0);
-  const [btcPrice, setBtcPrice] = useState(0);
-  const [ethPrice, setEthPrice] = useState(0);
-
-  const api = import.meta.env.VITE_INFURA_API_KEY;
-
-  const provider = new ethers.JsonRpcProvider(
-    `https://sepolia.infura.io/v3/${api}`
-  );
-
-  const contractAddress = "0x0ddbDB06684B2763789D8462996A7F8C74035C67";
-
-  const contractABI = [
-    {
-      inputs: [],
-      name: "getLatestBtcPrice",
-      outputs: [{ internalType: "int256", name: "", type: "int256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getLatestEthPrice",
-      outputs: [{ internalType: "int256", name: "", type: "int256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getLatestLinkPrice",
-      outputs: [{ internalType: "int256", name: "", type: "int256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-  ];
-
-  let lastFetchTime = 0;
-  const fetchInterval = 60000; // 60 seconds
-
-  async function fetchPrices() {
-    const now = Date.now();
-    if (now - lastFetchTime < fetchInterval) return; // Prevent excessive calls
-    lastFetchTime = now;
-
-    const contract = new ethers.Contract(
-      contractAddress,
-      contractABI,
-      provider
-    );
-    try {
-      const rpcBtcPrice = await contract.getLatestBtcPrice();
-      const rpcEthPrice = await contract.getLatestEthPrice();
-      const rpcLinkPrice = await contract.getLatestLinkPrice();
-    } catch (error) {
-      console.error("Error fetching prices:", error);
-    }
-  }
-
-  setInterval(fetchPrices, fetchInterval); // Fetch every 60 seconds
+  const [linkCoin, setLinkCoin] = useState(null);
+  const [wbtcCoin, setWbtCoin] = useState(null);
+  const [usdtCoin, setUsdtCoin] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -86,53 +30,23 @@ const CoinProvider = ({ children }) => {
         const ethCoin = data.find(
           (coin) => coin.symbol.toLowerCase() === "eth"
         );
-
-        if (ethCoin) setEthCoin(ethCoin);
-
         const linkCoin = data.find(
           (coin) => coin.symbol.toLowerCase() === "link"
         );
         const wbtcCoin = data.find(
           (coin) => coin.symbol.toLowerCase() === "wbtc"
         );
+        const usdtCoin = data.find(
+          (coin) => coin.symbol.toLowerCase() === "usdt"
+        );
 
-        if (linkCoin) setLinkPrice(linkCoin.current_price);
-        if (wbtcCoin) setBtcPrice(wbtcCoin.current_price);
-        if (ethCoin) setEthPrice(ethCoin.current_price);
+        if (ethCoin) setEthCoin(ethCoin);
+        if (linkCoin) setLinkCoin(linkCoin);
+        if (wbtcCoin) setWbtCoin(wbtcCoin);
+        if (usdtCoin) setUsdtCoin(usdtCoin);
       })
       .catch((error) => console.error("Error fetching coin data:", error));
   }, []);
-
-  const RPCcoins = [
-    {
-      id: "link",
-      name: "Chainlink",
-      symbol: "LINK",
-      image: link_icon,
-      current_price: linkPrice,
-    },
-    {
-      id: "wbtc",
-      name: "Wrap Bitcoin",
-      symbol: "WBTC",
-      image: wbtc_icon,
-      current_price: btcPrice,
-    },
-    {
-      id: "eth",
-      name: "Ethereum",
-      symbol: "ETH",
-      image: eth_icon,
-      current_price: ethPrice,
-    },
-    {
-      id: "usdt",
-      name: "Tether",
-      symbol: "USDT",
-      image: usdt_icon,
-      current_price: 1,
-    },
-  ];
 
   const localCoins = [
     {
@@ -165,7 +79,7 @@ const CoinProvider = ({ children }) => {
       address: "0x5F29D014a869Ce3869c841790f5E1dEcfb273468",
       symbol: "ETH",
       image: eth_icon,
-      current_price: 1,
+      current_price: ethCoin?.current_price ?? 1868,
     },
     {
       id: "link",
@@ -173,7 +87,7 @@ const CoinProvider = ({ children }) => {
       address: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62 ",
       symbol: "LINK",
       image: link_icon,
-      current_price: 1,
+      current_price: linkCoin?.current_price ?? 15,
     },
     {
       id: "usdt",
@@ -181,7 +95,7 @@ const CoinProvider = ({ children }) => {
       address: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1 ",
       symbol: "USDT",
       image: usdt_icon,
-      current_price: 1,
+      current_price: usdtCoin?.current_price ?? 1,
     },
     {
       id: "wbtc",
@@ -189,9 +103,10 @@ const CoinProvider = ({ children }) => {
       address: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0 ",
       symbol: "WBTC",
       image: wbtc_icon,
-      current_price: 1,
+      current_price: wbtcCoin?.current_price ?? 80000,
     },
   ];
+
 
   const [sendTokenAddress, setSendTokenAddress] = useState(
     localCoins[0]?.address || null
@@ -205,8 +120,8 @@ const CoinProvider = ({ children }) => {
   const [sendCurrency, setSendCurrency] = useState(localCoins[0]);
   const [sendCurrencyValue, setSendCurrencyValue] = useState(0);
 
-  const [swapFromCurrency, setSwapFromCurrency] = useState(RPCcoins[3]);
-  const [swapToCurrency, setSwapToCurrency] = useState(RPCcoins[0]);
+  const [swapFromCurrency, setSwapFromCurrency] = useState(localCoins[5]);
+  const [swapToCurrency, setSwapToCurrency] = useState(localCoins[4]);
 
   const [swapFromCurrencyValue, setSwapFromCurrencyValue] = useState("");
   const [swapToCurrencyValue, setSwapToCurrencyValue] = useState("");
@@ -222,7 +137,7 @@ const CoinProvider = ({ children }) => {
     setSendCurrencyValue("");
   };
 
-  const handleCurrencyValueChange = (e, type) => {
+  const handleCurrencyValueChange = (e, type, tradeType) => {
     const value = e.target.value;
 
     if (value === "") {
@@ -235,29 +150,31 @@ const CoinProvider = ({ children }) => {
 
     const fromCurrency = swapFromCurrency;
     const toCurrency = swapToCurrency;
+    const setFromUsdValue = tradeType === "swap" ? setSwapFromUsdValue : () => {};
+    const setToUsdValue = tradeType === "swap" ? setSwapToUsdValue : () => {};
 
     if (type === "From") {
       setSwapFromCurrencyValue(numericValue);
 
       const usdFromValue = numericValue * fromCurrency.current_price;
-      setSwapFromUsdValue(usdFromValue);
+      setFromUsdValue(usdFromValue);
 
       const toValue = usdFromValue / toCurrency.current_price;
       setSwapToCurrencyValue(toValue);
 
       const usdToValue = toValue * toCurrency.current_price;
-      setSwapToUsdValue(usdToValue);
+      setToUsdValue(usdToValue);
     } else if (type === "To") {
       setSwapToCurrencyValue(numericValue);
 
       const usdToValue = numericValue * toCurrency.current_price;
-      setSwapToUsdValue(usdToValue);
+      setToUsdValue(usdToValue);
 
       const fromValue = usdToValue / fromCurrency.current_price;
       setSwapFromCurrencyValue(fromValue);
 
       const usdFromValue = fromValue * fromCurrency.current_price;
-      setSwapFromUsdValue(usdFromValue);
+      setFromUsdValue(usdFromValue);
     }
   };
 
@@ -307,40 +224,34 @@ const CoinProvider = ({ children }) => {
   };
 
   const handleCoinSelection = (selectedCoin, type, tradeType) => {
+    const isFromType = type === "from";
+
     const updatedCurrency = {
       ...selectedCoin,
       name: selectedCoin.name,
       symbol: selectedCoin.symbol.toUpperCase(),
       image: selectedCoin.image,
       current_price: selectedCoin.current_price,
-      market_cap: selectedCoin.market_cap,
-      min_transaction_amount: selectedCoin.min_transaction_amount,
-      max_transaction_amount: selectedCoin.max_transaction_amount,
       address: selectedCoin.address || null,
     };
 
-    if (tradeType === "send") {
+    if (tradeType === "swap") {
+      let otherType = isFromType ? swapToCurrency : swapFromCurrency;
+      if (selectedCoin.id === otherType.id) {
+        swapCurrency();
+      } else {
+        if (isFromType) {
+          setSwapFromCurrency(updatedCurrency);
+        } else {
+          setSwapToCurrency(updatedCurrency);
+        }
+      }
+    } else if (tradeType === "send") {
       setSendTokenAddress(updatedCurrency.address || null);
       setSendCurrency(updatedCurrency);
     } else if (tradeType === "faucet") {
-      // setSendTokenAddress(updatedCurrency.address || null);
       setfaucetCurrency(updatedCurrency);
-    } else if (tradeType === "swap") {
-      if (type === "swapTo") {
-        // If selecting swapTo and it's the same as swapFrom, swap them
-        if (swapFromCurrency?.symbol === updatedCurrency.symbol) {
-          setSwapFromCurrency(swapToCurrency);
-        }
-        setSwapToCurrency(updatedCurrency);
-      } else if (type === "swapFrom") {
-        // If selecting swapFrom and it's the same as swapTo, swap them
-        if (swapToCurrency?.symbol === updatedCurrency.symbol) {
-          setSwapToCurrency(swapFromCurrency);
-        }
-        setSwapFromCurrency(updatedCurrency);
-      }
     }
-
     setActiveOverlay(null);
     resetValues();
   };
@@ -375,7 +286,6 @@ const CoinProvider = ({ children }) => {
     faucetCurrency,
     setfaucetCurrency,
     resetValues,
-    RPCcoins,
   };
 
   return (
