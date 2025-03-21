@@ -7,12 +7,12 @@ const createTransaction = async (userID, tokenID, addressFrom, addressTo, amount
     try {
         const IdFromWallet = await getUserByWallet(addressFrom)
         const uID = IdFromWallet.UserID
-        
-        console.log(tokenID)
+        console.log(uID)
+
         const IdFromToken = await getTokenIdFromAddress(tokenID)
-        console.log(IdFromToken)
         const tID = IdFromToken.TokenID
-        console.log(tID)
+        
+        console.log(uID, tID, addressFrom, addressTo, amount, fee, gas, method, hashCode, status)
 
         const  rows  = await CreeperDB.sql`
         INSERT INTO "Transactions" 
