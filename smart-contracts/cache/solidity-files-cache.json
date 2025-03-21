@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\Buy.sol": {
-      "lastModificationDate": 1742441754457,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\Buy.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "e01238d9d050b63f5f42c03406b0c13e",
       "sourceName": "contracts/Buy.sol",
       "solcConfig": {
@@ -41,8 +41,8 @@
         "Buy"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CreeperPool.sol": {
-      "lastModificationDate": 1742441754457,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CreeperPool.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "57847039350d9544030050d39333d97d",
       "sourceName": "contracts/CreeperPool.sol",
       "solcConfig": {
@@ -80,44 +80,8 @@
         "CreeperPool"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
-      "lastModificationDate": 1742441780728,
-      "contentHash": "8f19f64d2adadf448840908bbaf431c8",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-      "solcConfig": {
-        "version": "0.8.28",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "IERC20"
-      ]
-    },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
-      "lastModificationDate": 1742441829692,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
+      "lastModificationDate": 1742117323349,
       "contentHash": "227a6eb2225701c12d9c959b758b6333",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
@@ -157,8 +121,44 @@
         "ERC20"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1742441829709,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
+      "lastModificationDate": 1742117323879,
+      "contentHash": "8f19f64d2adadf448840908bbaf431c8",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
+      "lastModificationDate": 1742117322979,
       "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -193,8 +193,8 @@
         "Context"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC6093.sol": {
-      "lastModificationDate": 1742441829709,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC6093.sol": {
+      "lastModificationDate": 1742117323106,
       "contentHash": "267d92fe4de67b1bdb3302c08f387dbf",
       "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
       "solcConfig": {
@@ -231,8 +231,8 @@
         "IERC721Errors"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
-      "lastModificationDate": 1742441829709,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
+      "lastModificationDate": 1742117323892,
       "contentHash": "794db3115001aa372c79326fcfd44b1f",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
@@ -269,84 +269,8 @@
         "IERC20Metadata"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\TokenPool.sol": {
-      "lastModificationDate": 1742441754458,
-      "contentHash": "fcca0654807b6d0777116b1f9a9c53f1",
-      "sourceName": "contracts/TokenPool.sol",
-      "solcConfig": {
-        "version": "0.8.28",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "TokenPool"
-      ]
-    },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SendETHWithFee.sol": {
-      "lastModificationDate": 1742441754458,
-      "contentHash": "8c9324a3d4165850541b53b31cfd7aac",
-      "sourceName": "contracts/SendETHWithFee.sol",
-      "solcConfig": {
-        "version": "0.8.28",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.19"
-      ],
-      "artifacts": [
-        "SendETHWithFee"
-      ]
-    },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\LNXToken.sol": {
-      "lastModificationDate": 1742441754457,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\LNXToken.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "533ca9e220bdbc17ea889cb28c3d12f2",
       "sourceName": "contracts/LNXToken.sol",
       "solcConfig": {
@@ -383,8 +307,8 @@
         "LNXToken"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CustomToken.sol": {
-      "lastModificationDate": 1742441754457,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CustomToken.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "6f64a74da05e1b03d195ba8041da6c03",
       "sourceName": "contracts/CustomToken.sol",
       "solcConfig": {
@@ -422,8 +346,8 @@
         "TokenFactory"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CreeperToken.sol": {
-      "lastModificationDate": 1742441754457,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\CreeperToken.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "4a27a8a960fe08f9d8f6e2d40ece7c4a",
       "sourceName": "contracts/CreeperToken.sol",
       "solcConfig": {
@@ -460,8 +384,200 @@
         "CreeperToken"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\PriceFeed.sol": {
-      "lastModificationDate": 1742441827648,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\TokenPool.sol": {
+      "lastModificationDate": 1742117213156,
+      "contentHash": "fcca0654807b6d0777116b1f9a9c53f1",
+      "sourceName": "contracts/TokenPool.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "TokenPool"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SendETHWithFee.sol": {
+      "lastModificationDate": 1742117213156,
+      "contentHash": "8c9324a3d4165850541b53b31cfd7aac",
+      "sourceName": "contracts/SendETHWithFee.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "SendETHWithFee"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\LiquidityPool.sol": {
+      "lastModificationDate": 1742571906076,
+      "contentHash": "5b4404a5a0dff2584d4c21dc721ffc10",
+      "sourceName": "contracts/LiquidityPool.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "LiquidityPool"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\AggregatorV3Interface.sol": {
+      "lastModificationDate": 1742103961183,
+      "contentHash": "64a3f906dc7696aa3c9fa8454b673be7",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SwapContract.sol": {
+      "lastModificationDate": 1742573357558,
+      "contentHash": "2eb42ee2653eefaf4645df7b4f472f59",
+      "sourceName": "contracts/SwapContract.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "./LiquidityPool.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "SwapContract"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\PriceFeed.sol": {
+      "lastModificationDate": 1742469377702,
       "contentHash": "e7f4b4a754c576778ee14351ff640b64",
       "sourceName": "contracts/PriceFeed.sol",
       "solcConfig": {
@@ -492,8 +608,8 @@
       "versionPragmas": [],
       "artifacts": []
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SendETH.sol": {
-      "lastModificationDate": 1742441754458,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SendETH.sol": {
+      "lastModificationDate": 1742117213156,
       "contentHash": "028cad5d181992915b73aa98a792b873",
       "sourceName": "contracts/SendETH.sol",
       "solcConfig": {
@@ -528,40 +644,8 @@
         "SendETH"
       ]
     },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\SwapContract.sol": {
-      "lastModificationDate": 1742441834488,
-      "contentHash": "b2e27907f5d47db15ba6afa7116a6867",
-      "sourceName": "contracts/SwapContract.sol",
-      "solcConfig": {
-        "version": "0.8.28",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [],
-      "artifacts": []
-    },
-    "T:\\OneDrive - Swinburne University\\DONTOUCH\\2023\\SWINBURNE\\YEAR 2\\Inno\\DmVEO\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\TokenFaucet.sol": {
-      "lastModificationDate": 1742441197723,
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\TokenFaucet.sol": {
+      "lastModificationDate": 1742469377703,
       "contentHash": "b65824038c94e449aa6d53a87506fb45",
       "sourceName": "contracts/TokenFaucet.sol",
       "solcConfig": {
@@ -595,6 +679,192 @@
       "artifacts": [
         "IERC20",
         "TokenFaucet"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC20.sol": {
+      "lastModificationDate": 1742117323874,
+      "contentHash": "79af12d64eacc7d77b9ee2ac4b4d51ee",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": []
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC1363.sol": {
+      "lastModificationDate": 1742117323809,
+      "contentHash": "6b7c5ee7a59c981072a804c99ab0fac9",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC1363.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC1363"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC165.sol": {
+      "lastModificationDate": 1742117323832,
+      "contentHash": "f808b485ee0cdc6768ee8385ae5f9a2a",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": []
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
+      "lastModificationDate": 1742117323832,
+      "contentHash": "bf0119eb2a570f219729ff38b6cd1df8",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC165"
+      ]
+    },
+    "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\utils\\SafeERC20.sol": {
+      "lastModificationDate": 1742117324210,
+      "contentHash": "b6c6348d1c4d3e890f8d8a885b2477c0",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../../../interfaces/IERC1363.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "SafeERC20"
       ]
     }
   }
