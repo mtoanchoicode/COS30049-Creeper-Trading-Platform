@@ -101,8 +101,6 @@ const AddPool = () => {
   // Function to fetch and update the last claim time
   const getPoolReserves = async () => {
     try {
-
-
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const poolContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
@@ -116,7 +114,7 @@ const AddPool = () => {
           Number(ethers.formatUnits(reserveStablecoin, 18)).toFixed(1)
         );
       } else {
-        const [reserveCEP, reserveStablecoin] = await fetchReservesWithoutWallet();
+        //const [reserveCEP, reserveStablecoin] = await fetchReservesWithoutWallet();
       }
      
 
