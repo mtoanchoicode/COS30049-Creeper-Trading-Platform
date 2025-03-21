@@ -9,16 +9,12 @@ import { ExportOutlined } from "@ant-design/icons";
 import IERC20ABI from "./abi/IERC20ABI.json";
 
 const Swap = ({ showHistory = true }) => {
-  const CONTRACT_ADDRESS = "0x186Bac65ED4d7cfecB47A941cdff6Ef264C9fd41";
+  const CONTRACT_ADDRESS = "0x280dcb3c92dc25023e939f8D5a9D8ACcBf62590E";
   const CONTRACT_ABI = [
     {
-      inputs: [
-        { internalType: "address", name: "_usdt", type: "address" },
-        { internalType: "address", name: "_link", type: "address" },
-        { internalType: "address", name: "_priceFeed", type: "address" },
-      ],
-      stateMutability: "nonpayable",
-      type: "constructor",
+      inputs: [{ internalType: "address", name: "token", type: "address" }],
+      name: "SafeERC20FailedOperation",
+      type: "error",
     },
     {
       anonymous: false,
@@ -26,23 +22,23 @@ const Swap = ({ showHistory = true }) => {
         {
           indexed: true,
           internalType: "address",
-          name: "owner",
+          name: "tokenA",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "tokenB",
           type: "address",
         },
         {
           indexed: false,
-          internalType: "uint256",
-          name: "usdtAmount",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "linkAmount",
-          type: "uint256",
+          internalType: "address",
+          name: "pool",
+          type: "address",
         },
       ],
-      name: "LiquidityAdded",
+      name: "PoolRegistered",
       type: "event",
     },
     {
@@ -55,84 +51,61 @@ const Swap = ({ showHistory = true }) => {
           type: "address",
         },
         {
+          indexed: true,
+          internalType: "address",
+          name: "tokenIn",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "tokenOut",
+          type: "address",
+        },
+        {
           indexed: false,
           internalType: "uint256",
-          name: "usdtAmount",
+          name: "amountIn",
           type: "uint256",
         },
         {
           indexed: false,
           internalType: "uint256",
-          name: "linkAmount",
+          name: "amountOut",
           type: "uint256",
         },
       ],
-      name: "Swap",
+      name: "SwapExecuted",
       type: "event",
     },
     {
-      inputs: [],
-      name: "LINK",
-      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "USDT",
-      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
       inputs: [
-        { internalType: "uint256", name: "usdtAmount", type: "uint256" },
-        { internalType: "uint256", name: "linkAmount", type: "uint256" },
+        { internalType: "address", name: "", type: "address" },
+        { internalType: "address", name: "", type: "address" },
       ],
-      name: "addLiquidity",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "feePercent",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getLatestPrice",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "owner",
+      name: "pools",
       outputs: [{ internalType: "address", name: "", type: "address" }],
       stateMutability: "view",
       type: "function",
     },
     {
-      inputs: [],
-      name: "priceFeed",
-      outputs: [
-        {
-          internalType: "contract AggregatorV3Interface",
-          name: "",
-          type: "address",
-        },
+      inputs: [
+        { internalType: "address", name: "tokenA", type: "address" },
+        { internalType: "address", name: "tokenB", type: "address" },
+        { internalType: "address", name: "pool", type: "address" },
       ],
-      stateMutability: "view",
+      name: "registerPool",
+      outputs: [],
+      stateMutability: "nonpayable",
       type: "function",
     },
     {
       inputs: [
-        { internalType: "uint256", name: "usdtAmount", type: "uint256" },
+        { internalType: "address", name: "tokenIn", type: "address" },
+        { internalType: "address", name: "tokenOut", type: "address" },
+        { internalType: "uint256", name: "amountIn", type: "uint256" },
       ],
-      name: "swapUSDTForLINK",
+      name: "swap",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -140,7 +113,7 @@ const Swap = ({ showHistory = true }) => {
   ];
 
   const [isLoading, setIsLoading] = useState(false);
-  const { swapFromCurrencyValue, swapToCurrencyValue } =
+  const { swapFromCurrency, swapToCurrency, swapFromCurrencyValue } =
     useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
@@ -163,19 +136,26 @@ const Swap = ({ showHistory = true }) => {
         signer
       );
 
-      const UsdtCoinContract = new ethers.Contract(
-        "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1",
+      const poolAddress = await contract.pools(
+        swapFromCurrency.address,
+        swapToCurrency.address
+      );
+      console.log("Pool Address:", poolAddress);
+
+      const TokenInContract = new ethers.Contract(
+        swapFromCurrency.address,
         IERC20ABI,
         signer
       );
-
-      const approveUsdt = await UsdtCoinContract.approve(
-        CONTRACT_ADDRESS,
+      const approveTx = await TokenInContract.approve(
+        CONTRACT_ADDRESS, // ✅ Approving LiquidityPool
         ethers.parseUnits(swapFromCurrencyValue.toString(), 18)
       );
-      await approveUsdt.wait();
+      await approveTx.wait();
 
-      const tx = await contract.swapUSDTForLINK(
+      const tx = await contract.swap(
+        swapFromCurrency.address,
+        swapToCurrency.address,
         ethers.parseUnits(swapFromCurrencyValue.toString(), 18)
       );
       notification.info({
@@ -190,12 +170,15 @@ const Swap = ({ showHistory = true }) => {
           "Your swapping transaction has been successfully confirmed!",
       });
     } catch (error) {
+      console.error("Swap failed with reason:", error.reason);
       console.error("Swap failed:", error);
       notification.error({
         message: "Transaction Failed",
         description:
           error.reason || error.message || "An unknown error occurred.",
       });
+
+      console.error("Swap failed with reason:", error.reason);
     } finally {
       setIsLoading(false);
     }
