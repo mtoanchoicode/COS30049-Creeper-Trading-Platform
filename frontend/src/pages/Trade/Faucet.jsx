@@ -357,7 +357,7 @@ const Faucet = () => {
         </a>
       </div>
       <div className="trade-history">
-        <TransactionHistory />
+        <TransactionHistory method="Faucet"/>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import TransactionHistory from "../../components/Trade/TransactionHistory/Transa
 import { CoinContext } from "../../contexts/CoinContext";
 import { ExportOutlined } from "@ant-design/icons";
 import IERC20ABI from "./abi/IERC20ABI.json";
+import handleTransaction from "../../utils/transactionAPI";
 
 const Swap = ({ showHistory = true }) => {
   const CONTRACT_ADDRESS = "0x280dcb3c92dc25023e939f8D5a9D8ACcBf62590E";
@@ -117,6 +118,7 @@ const Swap = ({ showHistory = true }) => {
     useContext(CoinContext);
   const { isConnected } = useAppKitAccount();
   const { open } = useAppKit();
+  const [walletAddr, setWalletAddr] = useState("");
 
   const SwapContract = async () => {
     if (!window.ethereum) {
@@ -130,6 +132,8 @@ const Swap = ({ showHistory = true }) => {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
+      const userAddress = await signer.getAddress();
+      setWalletAddr(userAddress);
       const contract = new ethers.Contract(
         CONTRACT_ADDRESS,
         CONTRACT_ABI,
@@ -162,13 +166,29 @@ const Swap = ({ showHistory = true }) => {
         message: "Swapping Transaction Created",
         description: `Transaction Hash: ${tx.hash}`,
       });
-      await tx.wait();
+      const receipt = await tx.wait();
 
       notification.success({
         message: " Transaction Confirmed",
         description:
           "Your swapping transaction has been successfully confirmed!",
       });
+
+      const gasUsed = receipt.gasUsed;
+      const transactionFee = 0.003 * swapFromCurrencyValue;
+
+      // update this for dynamic token address
+      await handleTransaction(
+        userAddress,
+        "0x4b381c5B09482c10feab7730b21cf97d1d45ebd1",
+        userAddress,
+        swapFromCurrencyValue,
+        transactionFee,
+        gasUsed,
+        "Swap",
+        tx.hash,
+        "Success"
+      );
     } catch (error) {
       console.error("Swap failed with reason:", error.reason);
       console.error("Swap failed:", error);
@@ -178,7 +198,17 @@ const Swap = ({ showHistory = true }) => {
           error.reason || error.message || "An unknown error occurred.",
       });
 
-      console.error("Swap failed with reason:", error.reason);
+      await handleTransaction(
+        walletAddr,
+        "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1",
+        walletAddr,
+        swapFromCurrencyValue,
+        0,
+        0,
+        "Swap",
+        "",
+        "Fail"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -226,7 +256,7 @@ const Swap = ({ showHistory = true }) => {
       </div>
       {showHistory && (
         <div className="trade-history">
-          <TransactionHistory />
+          <TransactionHistory method = "Swap"/>
         </div>
       )}
     </div>

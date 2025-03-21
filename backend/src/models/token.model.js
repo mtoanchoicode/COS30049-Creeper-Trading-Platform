@@ -21,7 +21,7 @@ const getAllTokens = async () => {
         const rows = await CreeperDB.sql`SELECT * FROM "Tokens";`;
         return rows;
     } catch (err) {
-        console.log("Error getting all token: ", err)
+        console.error("Error getting all token: ", err)
     }
 
 };
@@ -35,7 +35,6 @@ const getTokenIdFromAddress = async (tokenAddress) => {
         if (!rows || rows.length === 0) {
             return null;
         }
-        console.log(rows[0]);
         return rows[0]; // First row of the result
     }
     catch (err) {

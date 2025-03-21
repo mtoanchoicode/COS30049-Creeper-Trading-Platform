@@ -12,10 +12,10 @@ import IERC20ABI from "./abi/IERC20ABI.json";
 import { ExportOutlined } from "@ant-design/icons";
 import handleTransaction from "../../utils/transactionAPI";
 
-
-
 const fetchEthPriceInUSD = async () => {
-  const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
+  const response = await fetch(
+    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+  );
   // Fetch ETH price from a reliable API
   const data = await response.json();
   return data.ethereum.usd;
@@ -29,7 +29,6 @@ const fetchEthPriceInUSD = async () => {
 //   const [, price] = await priceFeed.latestRoundData();
 //   return Number(price) / 1e8;
 // };
-
 
 const Buy = () => {
   const { isConnected } = useAppKitAccount();
@@ -90,7 +89,6 @@ const Buy = () => {
       );
       await approveStable.wait();
 
-
       // call the buyToken method
       const tx = await contract.buyToken(
         ethers.parseUnits(stablecoinAmount.toString(), 18)
@@ -104,10 +102,10 @@ const Buy = () => {
 
       const receipt = await tx.wait();
       const gasUsed = receipt.gasUsed;
-      const transactionFee = 0.003 * stablecoinAmount
+      const transactionFee = 0.003 * stablecoinAmount;
 
       // call the transaction when this is successful
-  
+
       await handleTransaction(
         userWallet,
         LNXAddress,
@@ -118,7 +116,8 @@ const Buy = () => {
         "Buy",
         tx.hash,
         "Success"
-       );
+      );
+
 
       //userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
 
@@ -142,8 +141,7 @@ const Buy = () => {
         "Buy",
         hashCodeTrasaction,
         "Failed"
-       );
-
+      );
     } finally {
       setIsLoading(false);
     }
@@ -178,8 +176,9 @@ const Buy = () => {
         <Button
           type="primary"
           block
-          className={`buy-btn trade-btn ${isConnected && (!amount || !buyCurrency) ? "disabled" : "enabled"
-            }`}
+          className={`buy-btn trade-btn ${
+            isConnected && (!amount || !buyCurrency) ? "disabled" : "enabled"
+          }`}
           onClick={handleButtonClick}
           disabled={isLoading} // Disable button while loading
         >
@@ -203,7 +202,7 @@ const Buy = () => {
       </div>
 
       <div className="trade-history">
-        <TransactionHistory />
+        <TransactionHistory method="Buy"/>
       </div>
     </div>
   );

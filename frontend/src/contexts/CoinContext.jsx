@@ -107,7 +107,6 @@ const CoinProvider = ({ children }) => {
     },
   ];
 
-
   const [sendTokenAddress, setSendTokenAddress] = useState(
     localCoins[0]?.address || null
   );
@@ -150,7 +149,8 @@ const CoinProvider = ({ children }) => {
 
     const fromCurrency = swapFromCurrency;
     const toCurrency = swapToCurrency;
-    const setFromUsdValue = tradeType === "swap" ? setSwapFromUsdValue : () => {};
+    const setFromUsdValue =
+      tradeType === "swap" ? setSwapFromUsdValue : () => {};
     const setToUsdValue = tradeType === "swap" ? setSwapToUsdValue : () => {};
 
     if (type === "From") {

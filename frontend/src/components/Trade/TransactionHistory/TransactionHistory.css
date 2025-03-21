@@ -1,10 +1,12 @@
 .transaction-history {
   width: 100%;
+  height: fit-content;
   margin: 0 auto;
   text-align: center;
   border-radius: 1rem;
-  background: var(--trade-background-color);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .transaction-table {
@@ -18,43 +20,43 @@
 
 .transaction-table th,
 .transaction-table td {
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   text-align: left;
   border-bottom: 1px var(--trade-border-color) solid;
 }
 
 .transaction-table th:nth-child(1),
 .transaction-table td:nth-child(1) {
-  width: 17.5%;
+  width: 12.5%;
   padding-left: 2rem;
 } /* Tx Hash */
 .transaction-table th:nth-child(2),
 .transaction-table td:nth-child(2) {
-  width: 7.5%;
+  width: 6%;
 } /* Method */
 .transaction-table th:nth-child(3),
 .transaction-table td:nth-child(3) {
-  width: 7.5%;
+  width: 6%;
 } /* Age */
 .transaction-table th:nth-child(4),
 .transaction-table td:nth-child(4) {
-  width: 17.5%;
+  width: 12.5%;
 } /* From */
 .transaction-table th:nth-child(5),
 .transaction-table td:nth-child(5) {
-  width: 17.5%;
+  width: 12.5%;
 } /* To */
 .transaction-table th:nth-child(6),
 .transaction-table td:nth-child(6) {
-  width: 7.5%;
+  width: 6%;
 } /* Amount */
 .transaction-table th:nth-child(7),
 .transaction-table td:nth-child(7) {
-  width: 5%;
+  width: 6%;
 } /* Fee */
 .transaction-table th:nth-child(8),
 .transaction-table td:nth-child(8) {
-  width: 5%;
+  width: 12.5%;
   padding-right: 2rem;
 } /* Token */
 
