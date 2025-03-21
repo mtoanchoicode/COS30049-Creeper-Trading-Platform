@@ -526,9 +526,9 @@ const Send = () => {
           <ExportOutlined />
         </a>
       </div>
-      {/* <div className="trade-history">
-        <TransactionHistory />
-      </div> */}
+      <div className="trade-history">
+        <TransactionHistory method="Send"/>
+      </div>
     </div>
   );
 };

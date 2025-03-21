@@ -118,6 +118,7 @@ const Buy = () => {
         "Success"
       );
 
+
       //userWallet, selectedTokenID, poolWallet, transactionAmount, estimatedFee, gasLimit, transactionMethod, transactionHash, transactionStatus
 
       notification.success({
@@ -200,9 +201,9 @@ const Buy = () => {
         </a>
       </div>
 
-      {/* <div className="trade-history">
-        <TransactionHistory />
-      </div> */}
+      <div className="trade-history">
+        <TransactionHistory method="Buy"/>
+      </div>
     </div>
   );
 };
