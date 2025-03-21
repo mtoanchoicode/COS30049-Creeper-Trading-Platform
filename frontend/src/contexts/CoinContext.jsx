@@ -84,7 +84,7 @@ const CoinProvider = ({ children }) => {
     {
       id: "link",
       name: "Chainlink",
-      address: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62 ",
+      address: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62",
       symbol: "LINK",
       image: link_icon,
       current_price: linkCoin?.current_price ?? 15,
@@ -92,7 +92,7 @@ const CoinProvider = ({ children }) => {
     {
       id: "usdt",
       name: "Tether",
-      address: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1 ",
+      address: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1",
       symbol: "USDT",
       image: usdt_icon,
       current_price: usdtCoin?.current_price ?? 1,
@@ -100,13 +100,12 @@ const CoinProvider = ({ children }) => {
     {
       id: "wbtc",
       name: "Wrapped Bitcoin",
-      address: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0 ",
+      address: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0",
       symbol: "WBTC",
       image: wbtc_icon,
       current_price: wbtcCoin?.current_price ?? 80000,
     },
   ];
-
 
   const [sendTokenAddress, setSendTokenAddress] = useState(
     localCoins[0]?.address || null
@@ -150,7 +149,8 @@ const CoinProvider = ({ children }) => {
 
     const fromCurrency = swapFromCurrency;
     const toCurrency = swapToCurrency;
-    const setFromUsdValue = tradeType === "swap" ? setSwapFromUsdValue : () => {};
+    const setFromUsdValue =
+      tradeType === "swap" ? setSwapFromUsdValue : () => {};
     const setToUsdValue = tradeType === "swap" ? setSwapToUsdValue : () => {};
 
     if (type === "From") {
