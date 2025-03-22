@@ -34,6 +34,7 @@ import AdminPage from "./pages/Admin/Admin.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 import CreateToken from "./pages/Trade/CreateToken.jsx";
+import NFT from "./pages/NFT/NFT.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const routers = createBrowserRouter([
       {
         path: "news/:id",
         element: <NewsDetailsPage />,
+      },
+      {
+        path: "nft",
+        element: <NFT />,
       },
     ],
   },

@@ -1,136 +1,76 @@
 import React, { useState, useEffect } from "react";
 import "./TransactionHistory.css";
 import getAllTransactions from "../../../utils/getAllTransaction";
-//import Loader from "../../Loader/Loader";
-import { Alert, Flex, Spin } from 'antd';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { Spin } from "antd";
 
 const TransactionHistory = ({ method }) => {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const itemsPerPage = 5;
-  // const totalPages = Math.ceil(transactions.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // State to track the selected category
   const [selectedMethod, setSelectedMethod] = useState(`${method}`);
- 
+
   useEffect(() => {
     const fetchAllTransactions = async () => {
-      setLoading(true); // Set loading to true when fetching starts
+      setLoading(true);
       const data = await getAllTransactions();
-      if (data) setTransactions(data); //reverse the array to show the latest transaction first
-      setLoading(false); // Set loading to falata.reverse()se when fetching ends
+      if (data) setTransactions(data.reverse());
+      setLoading(false);
     };
 
     fetchAllTransactions();
   }, []);
 
+  const filterTransaction = transactions.filter(
+    (transaction) => transaction.Method === selectedMethod
+  );
 
-  // const InPageTransactions = transactions.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
-
-  const filterTransaction = transactions.filter((transaction) => transaction.Method === selectedMethod);
-
-
-
-  const columns = [
-    { key: "TransactionID", label: "ID" },
-    { key: "HashCode", label: "Hash" },
-    { key: "AddressFrom", label: "From" },
-    { key: "AddressTo", label: "To" },
-    { key: "TokenAddress", label: "Token" },
-    { key: "Amount", label: "Amount" },
-    { key: "Fee", label: "Fee" },
-    { key: "Gas", label: "Gas" },
-    { key: "Method", label: "Method" },
-    { key: "Status", label: "Status" },
-    { key: "CreatedAt", label: "Created At" },
-  ];
+  const totalPages = Math.ceil(filterTransaction.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const paginatedTransactions = filterTransaction.slice(startIdx, endIdx);
 
   const shortenAddress = (address) => {
-    return `${address.slice(0,9)}...${address.slice(-4)}`;
+    return `${address.slice(0, 9)}...${address.slice(-4)}`;
   };
 
   const copyToClipboard = (address) => {
     navigator.clipboard.writeText(address);
     setCopied(address);
-  
+
     // Reset copied state after 2 seconds
-    setTimeout(() => setCopied(null), 1000);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   const calculateAge = (timestamp) => {
     const Timenow = new Date();
     const createdAt = new Date(timestamp); // Convert timestamp to Date object
     const diffMs = Timenow - createdAt; // Difference in milliseconds
-  
+
     // Convert to seconds, minutes, hours, etc.
     const seconds = Math.floor(diffMs / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-  
+
     if (seconds < 60) return `${seconds} sec ago`;
     if (minutes < 60) return `${minutes} min ago`;
     if (hours < 24) return `${hours} hrs ago`;
     return `${days} days ago`;
   };
 
-
-
-
-  // const transactions = [
-  //   {
-  //     txHash:
-  //       "0xa5325250931d698d929316bd8d33d6561b5d48e23cd297e53aab6fa0be1f9bf5",
-  //     method: "Swap",
-  //     age: "1 min ago",
-  //     from: "0x8B108C954F7bc6Df2f4B507eDcF2EF7F24c7efa2",
-  //     to: "0xc54743436C7B19777EC70d40f0A267B0C042C6a3",
-  //     amount: 50,
-  //     fee: 3,
-  //     token: "CEP",
-  //   },
-  //   {
-  //     txHash:
-  //       "0x34b3b6f7ad6a45a9b8cbde526e3b2d5923456a7b24d1a2ef5bdb8e2735f6c123",
-  //     method: "Transfer",
-  //     age: "5 mins ago",
-  //     from: "0xAbC123D456E789F012G345HI678J901KLMNO2345",
-  //     to: "0x54321KLMNO098J765H432GBA210F987E654D321C",
-  //     amount: 100,
-  //     fee: 2.5,
-  //     token: "LNX",
-  //   },
-  //   {
-  //     txHash:
-  //       "0x76a9c123d5678e9f012g345h678j901klmno2345pq6789r012s345t678u901vw",
-  //     method: "Approve",
-  //     age: "10 mins ago",
-  //     from: "0xA1B2C3D4E5F67890123456789ABCDEF012345678",
-  //     to: "0x0987FEDCBA5432109876543210FEDCBA98765432",
-  //     amount: 200,
-  //     fee: 1.8,
-  //     token: "ETH",
-  //   },
-  // ];
-
-
-
   return (
     <div className="transaction-history">
       {loading ? ( // Show loader while loading
-          //<Loader/>
-          <Spin tip="Loading" size="large" style={{padding: 50}}></Spin>
-        ) : (
-          <>
-            <table className="transaction-table">
+        //<Loader/>
+        <Spin tip="Loading" size="large" style={{ padding: 50 }}></Spin>
+      ) : (
+        <>
+          <table className="transaction-table">
             <thead>
               <tr>
                 <th>Transaction Hash</th>
@@ -144,8 +84,8 @@ const TransactionHistory = ({ method }) => {
               </tr>
             </thead>
             <tbody>
-            {filterTransaction.map((txn, index) => (
-                  <tr key={index}>
+              {paginatedTransactions.map((txn, index) => (
+                <tr key={index}>
                   <td>
                     <div>
                       <a
@@ -214,7 +154,7 @@ const TransactionHistory = ({ method }) => {
                   <td>{parseFloat(txn.Amount).toFixed(3)}</td>
                   <td>{parseFloat(txn.Fee).toFixed(3)}</td>
                   <td>
-                  <div>
+                    <div>
                       <a
                         href={`https://sepolia.etherscan.io/address/${txn.TokenAddress}`}
                         target="_blank"
@@ -235,12 +175,34 @@ const TransactionHistory = ({ method }) => {
                     </div>
                   </td>
                 </tr>
-                ))}
+              ))}
             </tbody>
-            </table>
-          </>
-        )}
-     
+          </table>
+          <div className="transaction-history-pagination">
+            <button
+              className={`transaction-history-pagination-btn ${
+                currentPage === 1 ? "disabled" : ""
+              }`}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <i className="fa-solid fa-chevron-left"></i>
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className={`transaction-history-pagination-btn ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <i className="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

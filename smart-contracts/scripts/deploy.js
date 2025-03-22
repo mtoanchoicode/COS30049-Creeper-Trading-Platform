@@ -2,22 +2,17 @@ const hre = require("hardhat");
 
 async function main() {
     const [deployer] = await hre.ethers.getSigners();
-    console.log("Deploying contracts with:", deployer.address);
+    console.log("Deploying LiquidityPools and registering with existing SwapContract...");
 
+    const swapContractAddress = "0x280dcb3c92dc25023e939f8D5a9D8ACcBf62590E"; // 🔹 Replace with your deployed address
     const SwapContract = await hre.ethers.getContractFactory("SwapContract");
-    const swapContract = await SwapContract.deploy();
-    await swapContract.waitForDeployment();
-    const swapContractAddress = await swapContract.getAddress(); // ✅ Correct way to get address in Hardhat v6+
-    console.log("SwapContract deployed at:", swapContractAddress);
+    const swapContract = await SwapContract.attach(swapContractAddress); // 🔹 Attach instead of deploying
+
+    console.log("Connected to SwapContract at:", swapContractAddress);
 
     const LiquidityPool = await hre.ethers.getContractFactory("LiquidityPool");
 
     const tokenPairs = [
-        ["LINK", "WBTC"],
-        ["LINK", "USDT"],
-        ["LINK", "ETH"],
-        ["ETH", "USDT"],
-        ["ETH", "WBTC"],
         ["WBTC", "USDT"]
     ];
 

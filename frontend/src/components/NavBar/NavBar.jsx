@@ -27,17 +27,20 @@ const NavBar = ({ theme, setTheme }) => {
   const isFixed = location.pathname === "/trade/convert";
 
   const addUserOnWalletConnection = async (userWalletAddress) => {
-    try{
-      if(isConnected){
+    try {
+      if (isConnected) {
         //Call API to register wallet
         console.log("Connected to wallet");
-        const response = await axios.post(`${API_BASE_URL}/v1/api/user/register`, {
-          walletAddress: userWalletAddress,
-        });
-      }else{
-        console.log("Wallet disconnected")
+        const response = await axios.post(
+          `${API_BASE_URL}/v1/api/user/register`,
+          {
+            walletAddress: userWalletAddress,
+          }
+        );
+      } else {
+        console.log("Wallet disconnected");
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -81,6 +84,9 @@ const NavBar = ({ theme, setTheme }) => {
             </div>
             {showNavTrade && <NavTrade />}
           </div>
+          <Link to="/nft" className="navbar-left-menu-link">
+            <div className="navbar-left-menu-name">NFT</div>
+          </Link>
         </div>
       </div>
 
