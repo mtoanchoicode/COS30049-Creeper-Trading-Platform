@@ -4,13 +4,12 @@ async function main() {
     const [deployer] = await hre.ethers.getSigners();
     console.log("Deploying contracts with:", deployer.address);
 
-    // Deploy SwapContract
     const SwapContract = await hre.ethers.getContractFactory("SwapContract");
     const swapContract = await SwapContract.deploy();
-    await swapContract.deployed();
-    console.log("SwapContract deployed at:", swapContract.address);
+    await swapContract.waitForDeployment();
+    const swapContractAddress = await swapContract.getAddress(); // ✅ Correct way to get address in Hardhat v6+
+    console.log("SwapContract deployed at:", swapContractAddress);
 
-    // Deploy Liquidity Pools
     const LiquidityPool = await hre.ethers.getContractFactory("LiquidityPool");
 
     const tokenPairs = [
@@ -23,9 +22,9 @@ async function main() {
     ];
 
     const tokenAddresses = {
-        LINK: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62 ",
-        WBTC: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0 ",
-        USDT: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1 ",
+        LINK: "0x860e57dD7c2eA7d9D4b05598B0a3A8668B8c2d62",
+        WBTC: "0x0919d20cC9DEf0d60D860030C247BD213a0A22b0",
+        USDT: "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1",
         ETH: "0x5F29D014a869Ce3869c841790f5E1dEcfb273468",
     };
 
@@ -37,25 +36,29 @@ async function main() {
     };
 
     for (const [tokenA, tokenB] of tokenPairs) {
+        console.log(`Deploying LiquidityPool for ${tokenA}/${tokenB}...`);
         const pool = await LiquidityPool.deploy(
             tokenAddresses[tokenA],
             tokenAddresses[tokenB],
             priceFeeds[tokenA],
             priceFeeds[tokenB]
         );
-        await pool.deployed();
-        console.log(`LiquidityPool ${tokenA}/${tokenB} deployed at:`, pool.address);
+        await pool.waitForDeployment();
+        const poolAddress = await pool.getAddress();
+        console.log(`LiquidityPool ${tokenA}/${tokenB} deployed at:`, poolAddress);
 
-        // Register the pool in SwapContract
-        await swapContract.registerPool(tokenAddresses[tokenA], tokenAddresses[tokenB], pool.address);
+        console.log(`Registering LiquidityPool ${tokenA}/${tokenB} with SwapContract...`);
+        const tx = await swapContract.registerPool(tokenAddresses[tokenA], tokenAddresses[tokenB], poolAddress);
+        await tx.wait();
+        console.log(`LiquidityPool ${tokenA}/${tokenB} registered!`);
     }
 
-    console.log("All pools deployed and registered!");
+    console.log("✅ All pools deployed and registered!");
 }
 
 main()
     .then(() => process.exit(0))
     .catch((error) => {
-        console.error(error);
+        console.error("❌ Error during deployment:", error);
         process.exit(1);
     });
