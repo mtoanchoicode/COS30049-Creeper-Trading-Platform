@@ -6,48 +6,20 @@ import { UploadOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 
 const CreateCollection = () => {
-    const [imageUrl, setImageUrl] = useState();
-    const [fileList, setFileList] = useState([]);
+    const [fileList, setFileList] = useState();
 
 
     // Handle File Upload Changes
     const handleChange = ({ fileList: newFileList }) => {
-        // if (file.status === "done") {
-        //     message.success(`${file.name} uploaded successfully.`);
-        // } else if (file.status === "error") {
-        //     message.error(`${file.name} upload failed.`);
-        // }
         setFileList(newFileList); // Update fileList state
     };
-
-
-    const onPreview = async (file) => {
-        let src = file.url;
-        if (!src) {
-            src = await new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file.originFileObj);
-                reader.onload = () => resolve(reader.result);
-            });
-        }
-        const image = new Image();
-        image.src = src;
-        const imgWindow = window.open(src);
-        imgWindow?.document.body.appendChild(image.outerHTML);
-    };
-
-    // Handle File Preview
-    //  const handlePreview = async (file) => {
-    //     let src = file.url || URL.createObjectURL(file.originFileObj);
-    //     const imgWindow = window.open(src);
-    //     imgWindow?.document.write(`<img src="${src}" width="100%" />`);
-    // };
 
     // Handle File Removal
     const handleRemove = (file) => {
         setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
     };
 
+    // Handle File Preview
     const handlePreview = async (file) => {
         let src = file.url;
         if (!src) {
@@ -61,15 +33,6 @@ const CreateCollection = () => {
         image.src = src;
         const imgWindow = window.open(src);
         imgWindow?.document.body.appendChild(image.outerHTML);
-    };
-
-
-
-    const handleImageUpload = (info) => {
-        if (info.file.status === "done" || info.file.originFileObj) {
-            const url = URL.createObjectURL(info.file.originFileObj);
-            setImageUrl(url);
-        }
     };
 
     return (
@@ -90,61 +53,77 @@ const CreateCollection = () => {
                             <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
                         </div>
 
-                        <Form.Item
-                            label="Collection Image"
-                            name="collectionImage"
-                            rules={[{ required: true, message: "Please upload your collection image!" }]}
-                        >
-                            <Upload
-                                accept="image/*"
-                                //listType="picture"
-                                showUploadList={true}
-                                beforeUpload={() => false} // Prevent auto-upload
-                                //onChange={handleImageUpload}
-                                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                                listType="picture-card"
-                                fileList={fileList}
-                                onChange={handleChange}
-                                onPreview={handlePreview}
-                                onRemove={handleRemove}
+                        <div  className="collection__image-conatainer">
+                            <Form.Item
+                                name="CollectionImage"
+                                rules={[{ required: true, message: "Please upload your collection image!" }]}
                             >
-                                {/* <Button icon={<UploadOutlined />}>Upload Image</Button> */}
-                                {fileList.length < 5 && '+ Upload'}
-                            </Upload>
+                                <Upload
+                                    className="collection__upload"
+                                    accept="image/*"
+                                    //showUploadList={true}
+                                    beforeUpload={() => false} // Prevent auto-upload
+                                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                    listType="picture"
+                                    fileList={fileList}
+                                    onChange={handleChange}
+                                    onPreview={handlePreview}
+                                    onRemove={handleRemove}    
+                                    maxCount={1}            
+                                >
+                                    {/* {fileList.length < 1 && '+ Upload'} */}
+                                    {'+ Upload'}
+                                </Upload>
+                            </Form.Item>
+                        </div>
 
-                            {/* {imageUrl && (
-                                <Image
-                                    width={200}
-                                    src={imageUrl}
-                                    alt="Collection Preview"
-                                />
-                            )} */}
-                        </Form.Item>
+                        <div className="collection__details-container"> 
+                            <div className="collection__details">
+                                <div className="collection__form-header">
+                                    <h4>Contract name</h4>
+                                    <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                </div>
 
-                        <Form.Item
-                            label="Collection Name"
-                            name="collectionName"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your collection name!",
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                            label="Collection Description"
-                            name="collectionDescription"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your collection description!",
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
+                                <Form.Item
+                                name="collectionName"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input collection name!",
+                                    },
+                                ]}
+                                >
+                                    <Input 
+                                     className="collection__input"
+                                     placeholder="My Collection Name"/>
+                                </Form.Item>
+                            </div>
+
+                            <div className="collection__details">
+                                <div className="collection__form-header">
+                                    <h4>Token symbol</h4>
+                                    <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                </div>
+
+                                <Form.Item
+                                name="collectionSymbol"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input collection symbol!",
+                                    },
+                                ]}
+                                >
+                                    <Input 
+                                     className="collection__input"
+                                     placeholder="MCN"/>
+                                </Form.Item>
+                            </div>  
+                        </div>
+
+                     
+                       
+                        
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Create Collection
@@ -218,5 +197,4 @@ const App = () => {
 
     );
 };
-
 

@@ -1,9 +1,9 @@
 .create-collection {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
 }
 
 .create-collection__container {
@@ -17,6 +17,7 @@
 
 .create-collection__header h2{
     font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 .create-collection__header p a{
@@ -36,4 +37,69 @@
     flex-direction: row;
     color: var(--white-color);
     gap: 0.8rem;
+}
+
+.collection__image-conatainer {
+    padding: 1rem 1.5rem;
+    border: 1.3px solid var(--grey-color);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.collection__image-conatainer *{
+  margin: 0;
+}
+
+.collection__upload *{
+   color: var(--white-color);
+   margin: 0;
+   height: 100% !important;
+   font-family: "Oxanium", serif;
+}
+
+.collection__upload a{
+    width: 7.4rem !important;  /* Adjust size as needed */
+    height: 7.4rem !important;
+ }
+
+ .collection__upload img{
+    object-fit: cover ;
+ }
+
+.collection__details-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.collection__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.collection__details .collection__input {
+    padding: 0.7rem;
+    background-color: transparent !important;
+    border: 1px solid var(--grey-color);
+    border-radius: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+}
+
+
+.collection__details .collection__input::placeholder {
+    color: var(--text-color) !important;
+}
+
+.collection__details .collection__input:hover {
+    background-color: transparent !important;
+}
+
+.collection__details .collection__input:focus { 
+    background-color: transparent !important;
+}
+
+.collection__details-container .collection__details:first-child  {
+    grid-column: span 2;
 }
