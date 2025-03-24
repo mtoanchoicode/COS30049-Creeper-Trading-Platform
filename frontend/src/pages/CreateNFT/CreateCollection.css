@@ -1,0 +1,39 @@
+.create-collection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.create-collection__container {
+    width: 48%;
+    padding: 1rem;
+}
+
+.create-collection__header {
+    margin-bottom: 2.5rem;
+}
+
+.create-collection__header h2{
+    font-size: 2rem;
+}
+
+.create-collection__header p a{
+    color: var(--primary-color);
+}
+
+.create-collection__form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.collection__form-header {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    color: var(--white-color);
+    gap: 0.8rem;
+}
