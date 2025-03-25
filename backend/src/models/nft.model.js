@@ -1,5 +1,5 @@
 const { getUserByWallet} = require("./user_address.model.js");
-const { getCollectionByAddress, getCollection } = require("./collection.model.js");
+const { getCollection } = require("./collection.model.js");
 const CreeperDB = require("../config/CreaperDB.js");
 
 const createNFT = async (
@@ -21,7 +21,7 @@ const createNFT = async (
         const creatorUser = await getUserByWallet(CreatorAddress);
         const creatorUID = creatorUser.UserID;
 
-        const collection = await getCollectionByAddress(CollectionAddress);
+        const collection = await getCollection(CollectionAddress);
         const collectionID = collection.CollectionID;
         
 
