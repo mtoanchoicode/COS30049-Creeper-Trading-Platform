@@ -12,7 +12,10 @@ const mailRouter = require("./src/routes/mail.route");
 const newsRouter = require("./src/routes/news.route");
 const transactionRouter = require("./src/routes/transaction.route");
 const userRouter = require("./src/routes/user.route");
+//Routers for NFTs
 const collectionRouter = require("./src/routes/collection.route")
+const NFTRouter = require("./src/routes/nft.route")
+const NFTTransactionRouter = require("./src/routes/nft_transaction.route")
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,7 +38,8 @@ app.use("/v1/api/news", newsRouter);
 app.use("/v1/api/transaction", transactionRouter);
 app.use("/v1/api/user", userRouter);
 app.use("/v1/api/collection", collectionRouter);
-
+app.use("/v1/api/nft", NFTRouter);
+app.use("/v1/api/nft_transaction", NFTTransactionRouter);
 
 // app.listen(port, () => {
 //   console.log(`App listening on port ${port}`);
