@@ -1,4 +1,4 @@
-const { getUserByWallet} = require("../models/user_address.model.js");
+const { getUserByWallet} = require("./user_address.model.js");
 const CreeperDB = require("../config/CreaperDB.js");
 
 const createCollection = async (
@@ -20,7 +20,7 @@ const createCollection = async (
 
         const rows = await CreeperDB.sql`
         INSERT INTO "Collections" 
-        ("ContractAddress", "OwnerAddress", "CreatorAddress", "CollectionName", "CollectionSymbol", "CollectionDescription", "CollectionImage", "TotalSupply")
+        ("ContractAddress", "OwnerID", "CreatorID", "CollectionName", "CollectionSymbol", "CollectionDescription", "CollectionImage", "TotalSupply")
         VALUES 
         (${contractAddress}::TEXT, ${ownerUID}, ${creatorUID}, ${collectionName}::TEXT, ${collectionSymbol}::TEXT, ${collectionDescription}::TEXT, ${collectionImage}::TEXT, ${totalSupply})
         RETURNING *;
@@ -43,4 +43,32 @@ const getCollection = async (contractAddress) => {
     }
 }
 
-module.exports = { createCollection, getCollection };
+const getAllCollections = async () => {
+    try{
+        const rows = await CreeperDB.sql`
+        SELECT 
+            c."CollectionID",
+            c."ContractAddress",
+            c."OwnerID",
+            o."WalletAddress" AS "OwnerAddress",  -- Fetching Owner's Wallet Address
+            c."CollectionName",
+            c."CollectionDescription",
+            c."CollectionSymbol",
+            c."TotalSupply",
+            c."CreatedAt",
+            c."TokenChain",
+            u."WalletAddress" AS "CreatorAddress", -- Fetching Creator's Wallet Address
+            c."CollectionImage"
+        FROM "Collections" c
+        LEFT JOIN "Users" o ON c."OwnerID" = o."UserID"  
+        LEFT JOIN "Users" u ON c."CreatorID" = u."UserID" 
+        ORDER BY c."CreatedAt" DESC; 
+        `
+        return rows;
+    }catch(error){
+        error.error("Error getting collections:", error);
+        return [];
+    }
+}
+
+module.exports = { createCollection, getCollection, getAllCollections };
