@@ -11,6 +11,14 @@
     padding: 1rem;
 }
 
+.collection__form-header button{
+    background-color: var(--primary-color);
+}
+
+.collection__button-submit {
+    background-color: var(--primary-color);
+}
+
 .create-collection__header {
     margin-bottom: 2.5rem;
 }
@@ -41,9 +49,21 @@
 
 .collection__image-conatainer {
     padding: 1rem 1.5rem;
-    border: 1.3px solid var(--grey-color);
+    border: 1.5px solid var(--grey-color);
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+.collection__image-conatainer:hover .create-Image__icons{
+    border: 1.5px solid var(--primary-color);
+}
+
+.collection__image-conatainer:hover{
+    border-color: var(--primary-color);
+}
+
+.collection__image-conatainer .ant-upload {
+    width: 100%;
 }
 
 .collection__image-conatainer *{
@@ -65,6 +85,44 @@
  .collection__upload img{
     object-fit: cover ;
  }
+
+ .create-Image__detials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    transition: all 0.4s ease;
+}
+
+
+ .create-Image__detials .create-Image__icons{
+    padding: 2.3rem;
+    border: 1.5px dashed var(--grey-color);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+ }
+
+.create-Image__icons .icon {
+    position: absolute;
+    transition: transform 0.4s ease-in-out, opacity 0.3s;
+}
+
+ .slide-up {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-down {
+    transform: translateY(50px); /* Moves icon out */
+    opacity: 0;
+}
+
 
 .collection__details-container {
     display: grid;

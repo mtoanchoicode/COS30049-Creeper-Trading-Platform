@@ -2,11 +2,14 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreateCollection.css";
 import { Button, Form, Input, Upload, Image, message } from "antd";
-import { UploadOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { UploadOutlined, PictureOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 
 const CreateCollection = () => {
     const [fileList, setFileList] = useState();
+    const [hovered, setHovered] = useState(false);
+    // const [isUpload, setIsUpload] = useState(false);
+    const isUpload = fileList && fileList.length > 0;
 
 
     // Handle File Upload Changes
@@ -53,7 +56,9 @@ const CreateCollection = () => {
                             <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
                         </div>
 
-                        <div  className="collection__image-conatainer">
+                        <div className="collection__image-conatainer"
+                            onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}>
                             <Form.Item
                                 name="CollectionImage"
                                 rules={[{ required: true, message: "Please upload your collection image!" }]}
@@ -68,16 +73,32 @@ const CreateCollection = () => {
                                     fileList={fileList}
                                     onChange={handleChange}
                                     onPreview={handlePreview}
-                                    onRemove={handleRemove}    
-                                    maxCount={1}            
+                                    onRemove={handleRemove}
+                                    maxCount={1}
                                 >
-                                    {/* {fileList.length < 1 && '+ Upload'} */}
-                                    {'+ Upload'}
+
+                                    {!isUpload && (
+                                        <div
+                                            className="create-Image__detials">
+                                            <div className="create-Image__icons">
+                                                <span className={`icon ${hovered ? "slide-down" : "slide-up"}`}>
+                                                    <PictureOutlined />
+                                                </span>
+                                                <span className={`icon ${hovered ? "slide-up" : "slide-down"}`}>
+                                                    <UploadOutlined />
+                                                </span>
+                                            </div>
+                                            <div className="create-Image__text">
+                                                <h4>Drag and drop or click to upload</h4>
+                                                <p>Recommended type: JPD, PNG, SVG, or GIF</p>
+                                            </div>
+                                        </div>
+                                    )}
                                 </Upload>
                             </Form.Item>
                         </div>
 
-                        <div className="collection__details-container"> 
+                        <div className="collection__details-container">
                             <div className="collection__details">
                                 <div className="collection__form-header">
                                     <h4>Contract name</h4>
@@ -85,17 +106,17 @@ const CreateCollection = () => {
                                 </div>
 
                                 <Form.Item
-                                name="collectionName"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please input collection name!",
-                                    },
-                                ]}
+                                    name="collectionName"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please input collection name!",
+                                        },
+                                    ]}
                                 >
-                                    <Input 
-                                     className="collection__input"
-                                     placeholder="My Collection Name"/>
+                                    <Input
+                                        className="collection__input"
+                                        placeholder="My Collection Name" />
                                 </Form.Item>
                             </div>
 
@@ -106,26 +127,24 @@ const CreateCollection = () => {
                                 </div>
 
                                 <Form.Item
-                                name="collectionSymbol"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please input collection symbol!",
-                                    },
-                                ]}
+                                    name="collectionSymbol"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please input collection symbol!",
+                                        },
+                                    ]}
                                 >
-                                    <Input 
-                                     className="collection__input"
-                                     placeholder="MCN"/>
+                                    <Input
+                                        className="collection__input"
+                                        placeholder="MCN" />
                                 </Form.Item>
-                            </div>  
+                            </div>
                         </div>
 
-                     
-                       
-                        
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
+
+                        <Form.Item >
+                            <Button className="collection__button-submit" type="primary" htmlType="submit">
                                 Create Collection
                             </Button>
                         </Form.Item>
@@ -137,64 +156,4 @@ const CreateCollection = () => {
 };
 
 export default CreateCollection;
-
-
-
-const App = () => {
-    const [fileList, setFileList] = useState([]);
-
-    const onChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-    };
-    const onPreview = async (file) => {
-        let src = file.url;
-        if (!src) {
-            src = await new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file.originFileObj);
-                reader.onload = () => resolve(reader.result);
-            });
-        }
-        const image = new Image();
-        image.src = src;
-        const imgWindow = window.open(src);
-        imgWindow?.document.body.appendChild(image.outerHTML);
-    };
-
-
-    const handlePreview = async (file) => {
-        let src = file.url || URL.createObjectURL(file.originFileObj);
-
-        // Open the image in a new tab properly
-        const imgWindow = window.open("", "_blank");
-        imgWindow.document.write(`
-        <html>
-            <head><title>Image Preview</title></head>
-            <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#000;">
-                <img src="${src}" style="max-width:90%;max-height:90vh;border-radius:10px;" />
-            </body>
-        </html>
-    `);
-    };
-
-    return (
-        <Form>
-            <Form.Item
-                label="Collection Image"
-                name="collectionImage"
-                rules={[{ required: true, message: "Please upload your collection image!" }]}  >
-                <Upload
-                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                    listType="picture-card"
-                    onChange={onChange}
-                    onPreview={onPreview}
-                >
-                    {fileList.length < 5 && '+ Upload'}
-                </Upload>
-            </Form.Item>
-        </Form>
-
-
-    );
-};
 
