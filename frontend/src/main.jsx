@@ -34,8 +34,12 @@ import AdminPage from "./pages/Admin/Admin.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 import CreateToken from "./pages/Trade/CreateToken.jsx";
+<<<<<<< HEAD
 import CreateCollection from "./pages/CreateNFT/CreateCollection.jsx";
 import CreateCollectionDashBoard from "./pages/CreateNFT/CreateCollectionDashboard.jsx";
+=======
+import NFT from "./pages/NFT/NFT.jsx";
+>>>>>>> b3d76bfd3e792d6d1636ecaa875a6afa53f64c93
 
 const routers = createBrowserRouter([
   {
@@ -105,6 +109,10 @@ const routers = createBrowserRouter([
       {
         path: "news/:id",
         element: <NewsDetailsPage />,
+      },
+      {
+        path: "nft",
+        element: <NFT />,
       },
     ],
   },

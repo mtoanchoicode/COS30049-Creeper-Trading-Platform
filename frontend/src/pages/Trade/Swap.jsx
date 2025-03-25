@@ -180,7 +180,7 @@ const Swap = ({ showHistory = true }) => {
       // update this for dynamic token address
       await handleTransaction(
         userAddress,
-        "0x4b381c5B09482c10feab7730b21cf97d1d45ebd1",
+        swapFromCurrency.address,
         userAddress,
         swapFromCurrencyValue,
         transactionFee,
@@ -200,7 +200,7 @@ const Swap = ({ showHistory = true }) => {
 
       await handleTransaction(
         walletAddr,
-        "0x4B381C5B09482C10feAB7730b21Cf97D1d45EBd1",
+        swapFromCurrency.address,
         walletAddr,
         swapFromCurrencyValue,
         0,
