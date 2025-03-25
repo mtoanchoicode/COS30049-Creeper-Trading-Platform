@@ -12,6 +12,7 @@ const mailRouter = require("./src/routes/mail.route");
 const newsRouter = require("./src/routes/news.route");
 const transactionRouter = require("./src/routes/transaction.route");
 const userRouter = require("./src/routes/user.route");
+const collectionRouter = require("./src/routes/collection.route")
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ app.use("/v1/api/mail", mailRouter);
 app.use("/v1/api/news", newsRouter);
 app.use("/v1/api/transaction", transactionRouter);
 app.use("/v1/api/user", userRouter);
+app.use("/v1/api/collection", collectionRouter);
 
 
 // app.listen(port, () => {
