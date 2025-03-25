@@ -1,5 +1,6 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+// ----- APIs for collections -----
 const handleCreateCollection = async (
     contractAddress, ownerAddress, creatorAddress, collectionName, collectionSymbol, collectionDescription, collectionImage, totalSupply
     ) => {
@@ -28,4 +29,125 @@ const handleCreateCollection = async (
     }
 }
 
-export default handleCreateCollection;
+const handleGetCollection = async (contractAddress) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/collection/`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contractAddress: contractAddress.toString()
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching collection", err);
+        notification.error({
+            message: "Getting collection failed",
+            description: "Failed to get collection",
+        });
+    }
+}
+
+const handleGetAllCollections = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/collection/allCollections`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching collections", err);
+        notification.error({
+            message: "Getting collections failed",
+            description: "Failed to get collections",
+        });
+    }
+}
+
+// ----- APIs for NFTs -----
+const handleCreateNFT = async (
+    TokenID, CollectionAddress, OwnerAddress, CreatorAddress, TokenName, TokenSymbol, TokenDescription, MetadataURI, ImageURI, Attributes
+    ) => {
+    try {
+            await fetch(`${API_BASE_URL}/v1/api/nft/created`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                TokenID: TokenID.toString(),
+                CollectionAddress: CollectionAddress.toString(),
+                OwnerAddress: OwnerAddress.toString(),
+                CreatorAddress: CreatorAddress.toString(),
+                TokenName: TokenName.toString(),
+                TokenSymbol: TokenSymbol.toString(),
+                TokenDescription: TokenDescription.toString(),
+                MetadataURI: MetadataURI.toString(),
+                ImageURI: ImageURI.toString(),
+                Attributes: Attributes.toString()
+            }),
+        });
+    
+    } catch (err) {
+        console.error("Error adding NFT to database:", err);
+        notification.error({
+        message: "Creating NFT failed",
+        description: "Error adding NFT to database",
+        });
+    }
+}
+
+const handleGetNFT = async (ContractAddress, TokenID) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/nft/`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ContractAddress: ContractAddress.toString(),
+                TokenID: TokenID.toString()
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching NFT", err);
+        notification.error({
+            message: "Getting NFT failed",
+            description: "Failed to get NFT",
+        });
+    }
+}
+
+const handleGetAllNFTsFromCollection = async (ContractAddress) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/nft/allNFTsFromCollection`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ContractAddress: ContractAddress.toString()
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching NFTs", err);
+        notification.error({
+            message: "Getting NFTs failed",
+            description: "Failed to get NFTs",
+        });
+    }
+}
+
+export { 
+    handleCreateCollection, //create a collection
+    handleGetCollection, //(contractAddress) -> collection
+    handleGetAllCollections, // () -> all collections
+
+    handleCreateNFT, //create an NFT
+    handleGetNFT, //(ContractAddress, TokenID) -> NFT
+    handleGetAllNFTsFromCollection //(ContractAddress) -> all NFTs
+};
