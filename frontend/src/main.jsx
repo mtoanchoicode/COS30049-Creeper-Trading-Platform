@@ -90,11 +90,11 @@ const routers = createBrowserRouter([
         ],
       },
       {
-        path: "create",
+        path: "create/collection",
         element: <CreateCollectionDashBoard/>,
         children: [
           {
-            path: "collection",
+            index: true,
             element: <CreateCollection />,
           },
         ],

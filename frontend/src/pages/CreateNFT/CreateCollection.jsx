@@ -1,15 +1,99 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreateCollection.css";
-import { Button, Form, Input, Upload, Image, message } from "antd";
+import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
+import { Button, Form, Input, Upload, Image, Radio, Alert, notification, Popover  } from "antd";
 import { UploadOutlined, PictureOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import NFTABI from "../CreateNFT/abi/nftCollection.json";   
+import { ethers } from "ethers";
 
 
 const CreateCollection = () => {
-    const [fileList, setFileList] = useState();
+
+    //cotarct state
+    const { open } = useAppKit();
+
+    //font-end states
+    const [fileList, setFileList] = useState([]);
     const [hovered, setHovered] = useState(false);
-    // const [isUpload, setIsUpload] = useState(false);
     const isUpload = fileList && fileList.length > 0;
+    const [blockchain, setBlockchain] = useState("sepolia");
+    const [visible, setVisible] = useState({
+        logo: false,
+        contract: false,
+        symbol: false,
+        blockchain: false
+    });
+
+
+    const handleSubmit = async (values) => {
+        if (!window.ethereum) {
+            notification.error({ message: "MetaMask not found", description: "Please install MetaMask to deploy your contract." });
+            return;
+        }
+
+        try {
+            // Get provider and signer
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner(); // Get the user's wallet address
+
+            const bytecode = NFTABI.bytecode;
+            
+
+            if (!bytecode) {
+                throw new Error("Contract bytecode is missing. Ensure the ABI JSON includes the bytecode.");
+            }
+    
+            //const NFTCollection = new ethers.ContractFactory("NFTCollection");
+            // Contract factory
+            const NFTCollection = new ethers.ContractFactory(NFTABI.bytecode, bytecode, signer);
+
+              // Deploy contract with user input
+            const nftCollection = await NFTCollection.deploy(values.collectionName, values.collectionSymbol);
+            await nftCollection.waitForDeployment();
+
+            console.log(`NFTCollection deployed to: ${await nftCollection.getAddress()}`);
+            notification.success({ message: "Contract Deployed!", description: `Address: ${await nftCollection.getAddress()}` });
+
+
+            //const { collectionName, collectionSymbol } = values;
+            // Call the backend API to deploy the contract
+            // const response = await fetch("http://localhost:3000/v1/api/nft/collection/deploy", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({ collectionName, collectionSymbol }),
+            // });
+    
+            // const data = await response.json();
+            // if (data.success) {
+            //     notification.success({
+            //         message: "Success",
+            //         description: `NFT Collection deployed to: ${data.contractAddress}`,
+            //     });
+            // } else {
+            //     notification.error({
+            //         message: "Deployment Failed",
+            //         description: data.error || "Something went wrong.",
+            //     });
+            // }
+        } catch (error) {
+            console.error(error);
+            notification.error({
+                message: "Error",
+                description: error.message,
+            });
+        }
+    };
+    
+
+    const hidePop = (key) => {
+        setVisible(prev => ({ ...prev, [key]: false }));
+    };
+
+
+    const handleOpenPopChange = (key, newOpen) => {
+        setVisible(prev => ({ ...prev, [key]: newOpen }));
+    };
 
 
     // Handle File Upload Changes
@@ -38,6 +122,23 @@ const CreateCollection = () => {
         imgWindow?.document.body.appendChild(image.outerHTML);
     };
 
+    // Handle Blockchain Selection
+    const handleBlockchainChange = (e) => {
+        const selectedValue = e.target.value;
+        if (selectedValue === "base sepolia") {
+            notification.warning({
+                message: "Selection Restricted",
+                description: "Base Sepolia is not supported yet. Please select another!",
+            });
+          
+            return;
+        }
+       
+        setBlockchain(selectedValue);
+    };
+
+    
+
     return (
         <section className="create-collection">
             <div className="create-collection__container">
@@ -50,10 +151,23 @@ const CreateCollection = () => {
 
                 <div className="create-collection__form-container">
                     <Form
+                        onFinish={handleSubmit}
                         className="create-collection__form">
                         <div className="collection__form-header">
-                            <h4>Logo Image</h4>
-                            <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                            <h4>Logo Image</h4>                       
+                            <Popover 
+                                content={
+                                    <>
+                                    <p>Your logo should be a representation of your items and will appear next to your collection name throughout Creaper.</p>
+                                    <a style={{color: "var(--primary-color)"}} onClick={() => hidePop("logo")}>Close</a>
+                                    </>
+                                } 
+                                title="Logo Image"
+                                trigger="click"
+                                open={visible.logo}
+                                onOpenChange={(newOpen) => handleOpenPopChange("logo", newOpen)}>
+                                <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                            </Popover>
                         </div>
 
                         <div className="collection__image-conatainer"
@@ -101,8 +215,20 @@ const CreateCollection = () => {
                         <div className="collection__details-container">
                             <div className="collection__details">
                                 <div className="collection__form-header">
-                                    <h4>Contract name</h4>
-                                    <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                    <h4>Contract Name</h4>
+                                    <Popover 
+                                        content={
+                                            <>
+                                            <p>The contract name is the name of your NFT collection, which is visible on chain. This is usually your project or collection name.</p>
+                                            <a style={{color: "var(--primary-color)"}} onClick={() => hidePop("contract")}>Close</a>
+                                            </>
+                                        } 
+                                        title="Contract Name"
+                                        trigger="click"
+                                        open={visible.contract}
+                                        onOpenChange={(newOpen) => handleOpenPopChange("contract", newOpen)}>
+                                        <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                    </Popover>
                                 </div>
 
                                 <Form.Item
@@ -123,7 +249,19 @@ const CreateCollection = () => {
                             <div className="collection__details">
                                 <div className="collection__form-header">
                                     <h4>Token symbol</h4>
-                                    <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                    <Popover 
+                                        content={
+                                            <>
+                                            <p>The token symbol is the shorthand way to identify your contract, which is visible on chain.</p>
+                                            <a style={{color: "var(--primary-color)"}} onClick={() => hidePop("symbol")}>Close</a>
+                                            </>
+                                        } 
+                                        title="Token Symbol"
+                                        trigger="click"
+                                        open={visible.symbol}
+                                        onOpenChange={(newOpen) => handleOpenPopChange("symbol", newOpen)}>
+                                        <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                                    </Popover>
                                 </div>
 
                                 <Form.Item
@@ -142,7 +280,58 @@ const CreateCollection = () => {
                             </div>
                         </div>
 
+                        <div className="collection__form-header">
+                            <h4>Block Chain</h4>
+                            <Popover 
+                                content={
+                                    <>
+                                      <p>A blockchain is a digitally distributed ledger that records transactions and information across a decentralized network.</p>
+                                      <a style={{color: "var(--primary-color)"}} onClick={() => hidePop("blockchain")}>Close</a>
+                                    </>
+                                } 
+                                title="Blockchain" 
+                                trigger="click"
+                                open={visible.blockchain}
+                                onOpenChange={(newOpen) => handleOpenPopChange("blockchain", newOpen)}>
+                                <Button type="primary" shape="circle" icon={<InfoCircleOutlined />} size={"small"} ></Button>
+                            </Popover>
+                        </div>
+         
+                        <Form.Item name="blockchain" initialValue={"sepolia"}>
+                            <Radio.Group 
+                                className="collection__blockchain-container" 
+                                value={blockchain} 
+                                defaultValue="sepolia" 
+                                onChange={handleBlockchainChange}>
+                                <Radio.Button value="sepolia" className="collection__blockchain">
+                                    <div className="collection__blockchain-content-container">
+                                        <div className="collection__blockchain-header">
+                                            <img src="https://opensea.io/static/images/logos/ethereum.svg" alt="Sepolia icon" />
+                                            <h4>Sepolia</h4>
+                                        </div>
+                                        <div className="collection__blockchain-content">
+                                            <span>Most popular</span>
+                                            <p>Estimated cost to deploy contract:</p>
+                                        </div>
+                                    </div>
+                                </Radio.Button> 
 
+
+                                <Radio.Button value="base sepolia" className="collection__blockchain">
+                                    <div className="collection__blockchain-content-container">
+                                        <div className="collection__blockchain-header">
+                                            <img src="https://opensea.io/static/images/logos/base.svg" alt=" Base Sepolia icon" />
+                                            <h4>Base Sepolia</h4>
+                                        </div>
+                                        <div className="collection__blockchain-content">
+                                            <span>Cheaper</span>
+                                            <p>Estimated cost to deploy contract:</p>
+                                        </div>
+                                    </div>
+                                </Radio.Button> 
+                            </Radio.Group>
+                        </Form.Item>
+                        
                         <Form.Item >
                             <Button className="collection__button-submit" type="primary" htmlType="submit">
                                 Create Collection
