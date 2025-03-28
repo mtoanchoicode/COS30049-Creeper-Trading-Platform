@@ -3,8 +3,10 @@ import "./ProfileTransactionHistory.css";
 import { CopyOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import WalletGraph from "../ProfileTransactionGraph/ProfileTransactionGraph";
 import shortenAddress from "../../../utils/utils";
+import ProfileNFTCard from "../ProfileNFTCard/ProfileNFTCard";
 
 const TransactionsHistory = ({ walletDetail }) => {
+  console.log("Checkkakkaaka", walletDetail.nfts);
   const transactionHistory = walletDetail.transactionHistory;
 
   const copyToClipboard = (text) => {
@@ -69,6 +71,14 @@ const TransactionsHistory = ({ walletDetail }) => {
     currentPage * itemsPerPage
   );
 
+  const [currentNFTPage, setCurrentNFTPage] = useState(1);
+  const nftPerPage = 9;
+  const totalNFTPages = Math.ceil(walletDetail.nfts.length / nftPerPage);
+  const paginatedNFTS = walletDetail.nfts.slice(
+    (currentNFTPage - 1) * nftPerPage,
+    currentNFTPage * nftPerPage
+  );
+
   const columns = [
     "Hash",
     "Timestamp",
@@ -122,14 +132,26 @@ const TransactionsHistory = ({ walletDetail }) => {
         >
           Visualize
         </button>
+        <button
+          onClick={() => setView("nfts")}
+          className={`profileTH-button ${view === "nfts" ? "active" : ""}`}
+        >
+          NFTs
+        </button>
       </div>
 
       <div className="profileTH-card">
         <div className="profileTH-header">
-          <h2 className="profileTH-heading">Transactions</h2>
+          <h2 className="profileTH-heading">
+            {view === "transactions"
+              ? "Transactions"
+              : view === "visualize"
+              ? "Visualize"
+              : "NFTs"}
+          </h2>
         </div>
 
-        {view === "transactions" ? (
+        {view === "transactions" && (
           <div>
             <table className="profileTH-table table-wrapper">
               <thead>
@@ -168,13 +190,44 @@ const TransactionsHistory = ({ walletDetail }) => {
               </button>
             </div>
           </div>
-        ) : (
+        )}
+
+        {view === "visualize" && (
           <div className="profileTH-visualizeComingSoon">
             {walletDetail?.transactionHistory?.length > 0 ? (
               <WalletGraph initialWallet={walletDetail.walletAddress} />
             ) : (
               <p>Don't have any transactions to show!</p>
             )}
+          </div>
+        )}
+
+        {view === "nfts" && (
+          <div>
+            <div className="profileTH-nfts">
+              {paginatedNFTS.map((nft, index) => (
+                <ProfileNFTCard key={index} nft={nft} />
+              ))}
+            </div>
+            <div className="watchList-pagination">
+              <button
+                onClick={() =>
+                  setCurrentNFTPage((prev) => Math.max(prev - 1, 1))
+                }
+                disabled={currentNFTPage === 1}
+              >
+                <LeftOutlined />
+              </button>
+              <span className="watchList-page">{currentNFTPage}</span>
+              <button
+                onClick={() =>
+                  setCurrentNFTPage((prev) => Math.min(prev + 1, totalNFTPages))
+                }
+                disabled={currentNFTPage === totalNFTPages}
+              >
+                <RightOutlined />
+              </button>
+            </div>
           </div>
         )}
       </div>

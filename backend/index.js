@@ -13,6 +13,11 @@ const newsRouter = require("./src/routes/news.route");
 const transactionRouter = require("./src/routes/transaction.route");
 const userRouter = require("./src/routes/user.route");
 const collectionNFT = require("./src/routes/collectionNFT.route");
+//Routers for NFTs
+const collectionRouter = require("./src/routes/collection.route");
+const NFTRouter = require("./src/routes/nft.route");
+const NFTTransactionRouter = require("./src/routes/nft_transaction.route");
+const nftSearchRouter = require("./src/routes/nftSearch.route");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -36,6 +41,10 @@ app.use("/v1/api/transaction", transactionRouter);
 app.use("/v1/api/user", userRouter);
 app.use("/v1/api/nft/collection", collectionNFT);
 
+app.use("/v1/api/collection", collectionRouter);
+app.use("/v1/api/nft", NFTRouter);
+app.use("/v1/api/nft_transaction", NFTTransactionRouter);
+app.use("/v1/api/nft-search", nftSearchRouter);
 
 // app.listen(port, () => {
 //   console.log(`App listening on port ${port}`);
@@ -48,7 +57,7 @@ app.use("/v1/api/nft/collection", collectionNFT);
 
     //using PostgreSQL database
     // await this connected
-    
+
     // await connectionPostgreSQL();
 
     app.listen(port, () => {
