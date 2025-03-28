@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
+import NFTCollectionBg from "./NFTCollectionBg/NFTCollectionBg";
 import "./NFTCollection.css";
 
 import { ExportOutlined } from "@ant-design/icons";
@@ -424,7 +425,8 @@ const NFTCollection = () => {
   return (
     <div className="nft-collection">
       <div className="nft-collection-header">
-        <div className="nft-collection-header-cover"></div>
+        {/* <div className="nft-collection-header-cover"></div> */}
+        <NFTCollectionBg />
         <div className="nft-collection-header-bottom">
           <div className="nft-collection-header-desc">
             <div className="nft-collection-header-desc-text">
