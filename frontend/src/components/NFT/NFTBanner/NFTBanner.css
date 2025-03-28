@@ -1,0 +1,37 @@
+.nft-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 3rem 2.8rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  background-size: 100% auto;
+  background-position: center;
+  padding: 2rem;
+  background-image: url("../../../assets/NFTBackground.jpg");
+}
+
+/* For larger screens */
+@media (min-width: 1024px) {
+  .nft-banner {
+    padding: 3.5rem;
+  }
+}
+
+.nft-banner-headline {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nft-banner-description {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.nft-banner-description i {
+  font-size: 0.9rem;
+}

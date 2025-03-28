@@ -32,11 +32,14 @@
   --trade-background-active-color: #2b2b2b;
   --trade-input-placeholder-color: #5e5e5e;
   --trade-btn-hover: #1f1f1f;
+  --trade-token-hover: #222222;
+  --nft-collection-card: #181818;
   --searchbar-result-background: rgba(77, 77, 77, 0.103);
   --white-color: #fdfdfd;
   --black-color: #131313;
   --grey-color: #343434;
   --text-color: var(--white-color);
+  --footer-border-color: #272727;
   background: var(--app-background);
   color: var(--white-color);
 
@@ -56,11 +59,14 @@
   --trade-background-active-color: #f6f6f6;
   --trade-input-placeholder-color: #cecece;
   --trade-btn-hover: #f0f0f0;
+  --trade-token-hover: #e7e7e7;
+  --nft-collection-card: #ffffff;
   --searchbar-result-background: rgba(255, 255, 255, 0.305);
   --white-color: #131313;
   --black-color: #fdfdfd;
   --grey-color: #e2e2e2;
   --text-color: var(--black-color);
+  --footer-border-color: #cecece;
   background: var(--app-background);
   color: var(--white-color);
 

@@ -486,7 +486,7 @@ const Send = () => {
   const handleButtonClick = () => {
     if (!isConnected) {
       open(); // Open wallet connection
-    } else {
+    } else if (recipient && sendCurrencyValue) {
       sendFunds();
     }
   };
@@ -527,7 +527,7 @@ const Send = () => {
         </a>
       </div>
       <div className="trade-history">
-        <TransactionHistory method="Send"/>
+        <TransactionHistory method="Send" />
       </div>
     </div>
   );

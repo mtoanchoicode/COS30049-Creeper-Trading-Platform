@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import "./NavBar.css";
 import axios from "axios";
 import logo from "../../assets/Logo.png";
@@ -22,9 +21,6 @@ const NavBar = ({ theme, setTheme }) => {
   const { address, isConnected } = useAppKitAccount();
   const [showNavTrade, setShowNavTrade] = useState(false);
   const [showNavProfile, setshowNavProfile] = useState(false);
-
-  const location = useLocation();
-  const isFixed = location.pathname === "/trade/convert";
 
   const addUserOnWalletConnection = async (userWalletAddress) => {
     try {
@@ -50,12 +46,7 @@ const NavBar = ({ theme, setTheme }) => {
   }, [isConnected]);
 
   return (
-    <div
-      className="navbar"
-      style={{
-        position: isFixed ? "fixed" : "",
-      }}
-    >
+    <div className="navbar">
       <div className="navbar-left">
         <div className="navbar-left-logo">
           <Link to="/">

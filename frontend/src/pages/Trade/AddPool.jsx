@@ -6,36 +6,6 @@ import Loader from "../../components/Loader/Loader";
 import AddLiquidity from "../../components/Trade/AddLiquidity/AddLiquidity";
 import CreeperPoolABI from "./abi/CreeperPoolABI.json";
 import IERC20ABI from "./abi/IERC20ABI.json";
-import { CoinContext } from "../../contexts/CoinContext";
-import handleTransaction from "../../utils/transactionAPI";
-
-
-// const handleTransaction = async (userWallet, amountCEP, amountLNX, hash, methodtransactionHash) => {
-//   // make the prama for base URL 
-//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-//   try {
-//     await fetch(`${API_BASE_URL}v1/api/transaction/created`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         walletAddress: userWallet,
-//         tokenID: selectedTokenID,
-//         addressFrom: userWallet,
-//         addressTo: poolWallet,
-//         amount: transactionAmount,
-//         fee: estimatedFee,
-//         gas: gasLimit,
-//         method: transactionMethod,
-//         hashCode: transactionHash,
-//         status: transactionStatus 
-//       }),
-//     });
-//   } catch (err) {
-//     console.log("Error updating the Creaper database: ", err)
-//   }
-// };
-
-
 
 const AddPool = () => {
   const CONTRACT_ADDRESS = "0x551d6A53CB243E3718257001065Cf8d29F8cdCb8";
@@ -62,29 +32,6 @@ const AddPool = () => {
 
   const [amountCEP_remove, setAmountCEP_remove] = useState();
   const [amountLNX_remove, setAmountLNX_remove] = useState();
-
-
-  // const fetchReservesWithoutWallet = async () => {
-  //   try {
-  //     // Create a provider (Infura, Alchemy, or public RPC)
-  //     const provider = new ethers.JsonRpcProvider(RPC_URL);
-  
-  //     // Connect to contract
-  //     const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-  
-  //     // Call getReserves()
-  //     const [reserve0, reserve1] = await contract.getReserves();
-  
-  //     console.log(`Reserve 0: ${reserve0.toString()}`);
-  //     console.log(`Reserve 1: ${reserve1.toString()}`);
-  
-  //     return { reserve0: reserve0.toString(), reserve1: reserve1.toString() };
-  //   } catch (error) {
-  //     console.error("Error fetching reserves:", error);
-  //     return { reserve0: "0", reserve1: "0" };
-  //   }
-  // };
-  
 
   const getButtonText = () => {
     if (isLoading) return "Processing...";
