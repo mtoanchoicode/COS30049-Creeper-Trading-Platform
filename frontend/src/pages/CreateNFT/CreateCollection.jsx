@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./CreateCollection.css";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import { Button, Form, Input, Upload, Image, Radio, Alert, notification, Popover  } from "antd";
-import { UploadOutlined, PictureOutlined, InfoCircleOutlined } from "@ant-design/icons";
-import NFTABI from "../CreateNFT/abi/nftCollection.json";   
+import { UploadOutlined, PictureOutlined, InfoCircleOutlined, ExportOutlined} from "@ant-design/icons";
+import NFTABI from "../../../../smart-contracts/artifacts/contracts/NFTCollection.sol/NFTCollection.json";   
 import { ethers } from "ethers";
 
 
@@ -22,8 +22,10 @@ const CreateCollection = () => {
         logo: false,
         contract: false,
         symbol: false,
-        blockchain: false
+        blockchain: false,
+        upload: false,
     });
+    const [deployedContract, setDeployedContract] = useState(null);
 
 
     const handleSubmit = async (values) => {
@@ -39,21 +41,26 @@ const CreateCollection = () => {
 
             const bytecode = NFTABI.bytecode;
             
-
             if (!bytecode) {
                 throw new Error("Contract bytecode is missing. Ensure the ABI JSON includes the bytecode.");
             }
     
             //const NFTCollection = new ethers.ContractFactory("NFTCollection");
             // Contract factory
-            const NFTCollection = new ethers.ContractFactory(NFTABI.bytecode, bytecode, signer);
+            const NFTCollection = new ethers.ContractFactory(NFTABI.abi, bytecode, signer);
 
               // Deploy contract with user input
             const nftCollection = await NFTCollection.deploy(values.collectionName, values.collectionSymbol);
             await nftCollection.waitForDeployment();
 
+            const contractAddress = await nftCollection.getAddress();
+            setDeployedContract(contractAddress); // Set the deployed contract address in state
+            setVisible(true);
+
             console.log(`NFTCollection deployed to: ${await nftCollection.getAddress()}`);
-            notification.success({ message: "Contract Deployed!", description: `Address: ${await nftCollection.getAddress()}` });
+            notification.success({ 
+                message: "Contract Deployed!", 
+                description: `Address: ${contractAddress}` });
 
 
             //const { collectionName, collectionSymbol } = values;
@@ -77,10 +84,10 @@ const CreateCollection = () => {
             //     });
             // }
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
             notification.error({
                 message: "Error",
-                description: error.message,
+                description: `Failed to deploy contract !`,
             });
         }
     };
@@ -148,6 +155,34 @@ const CreateCollection = () => {
                         <a href="https://opensea.io/learn/blockchain/what-is-a-smart-contract"> What is a contract?</a>
                     </p>
                 </div>
+
+
+                {deployedContract && (
+                    <Popover 
+                        content={
+                            <div>
+                                <p>
+                                    <a 
+                                        href={`https://sepolia.etherscan.io/address/${deployedContract}`} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                    >
+                                        View in EtherScan: <ExportOutlined/>
+                                    </a>
+                                </p>
+                                <a style={{color: "var(--primary-color)"}} onClick={() => hidePop("upload")}>Close</a>
+                            </div>
+                        }
+                        title="Deployment Details"
+                        trigger="click"
+                        open={visible.upload}
+                        onOpenChange={(newOpen) => handleOpenPopChange("upload", newOpen)}
+                    >
+                        <Button className="collection_button-deploy-info" type="primary" icon={<InfoCircleOutlined />}>
+                            View Deployment Info
+                        </Button>
+                    </Popover>
+                )}
 
                 <div className="create-collection__form-container">
                     <Form
@@ -332,7 +367,7 @@ const CreateCollection = () => {
                             </Radio.Group>
                         </Form.Item>
                         
-                        <Form.Item >
+                        <Form.Item>
                             <Button className="collection__button-submit" type="primary" htmlType="submit">
                                 Create Collection
                             </Button>

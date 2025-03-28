@@ -15,12 +15,14 @@ contract NFTCollection is ERC721, Ownable {
     mapping(uint256 => string) private _tokenURIs;
     uint256 private _nextTokenId;
 
-    constructor(string memory _collectionName, string memory _symbol)
-        ERC721(_collectionName, _symbol)
-        Ownable(msg.sender)
-    {}
+    constructor(
+        string memory _collectionName,
+        string memory _symbol
+    ) ERC721(_collectionName, _symbol) Ownable(msg.sender) {}
 
-    function mint(string memory metadataURI) public onlyOwner returns (uint256) {
+    function mint(
+        string memory metadataURI
+    ) public onlyOwner returns (uint256) {
         uint256 newTokenId = _nextTokenId++;
         _mint(msg.sender, newTokenId);
         _nfts[newTokenId] = NFT(newTokenId, false, metadataURI);
@@ -28,9 +30,15 @@ contract NFTCollection is ERC721, Ownable {
         return newTokenId;
     }
 
-    function batchMint(uint256 amount, string[] memory metadataURIs) public onlyOwner returns (uint256[] memory) {
+    function batchMint(
+        uint256 amount,
+        string[] memory metadataURIs
+    ) public onlyOwner returns (uint256[] memory) {
         require(amount > 0, "Must mint at least one NFT");
-        require(metadataURIs.length == amount, "MetadataURIs array must match amount");
+        require(
+            metadataURIs.length == amount,
+            "MetadataURIs array must match amount"
+        );
 
         uint256[] memory tokenIds = new uint256[](amount);
 
@@ -45,7 +53,9 @@ contract NFTCollection is ERC721, Ownable {
         return tokenIds;
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    function tokenURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
         return _tokenURIs[tokenId];
     }
 
