@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@coinbase/wallet-sdk": "^4.2.4",
     "@reown/appkit": "^1.6.0",
     "@reown/appkit-adapter-ethers": "^1.6.0",

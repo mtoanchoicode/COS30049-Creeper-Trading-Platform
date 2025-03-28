@@ -65,7 +65,7 @@
 }
 
 .selection-coin-item:hover {
-  background: rgb(34, 34, 34);
+  background: var(--trade-token-hover);
 }
 
 .selection-coin-item:last-child {

@@ -1519,8 +1519,8 @@
       ]
     },
     "C:\\Trung\\COS30049\\COS30049-Creeper-Trading-Platform\\smart-contracts\\contracts\\NFTCollection.sol": {
-      "lastModificationDate": 1742744087540,
-      "contentHash": "3d2e577439ac1bf291e141e242918724",
+      "lastModificationDate": 1742894636093,
+      "contentHash": "1f7ce682b1f2c194fdd959408ce8ad5e",
       "sourceName": "contracts/NFTCollection.sol",
       "solcConfig": {
         "version": "0.8.28",

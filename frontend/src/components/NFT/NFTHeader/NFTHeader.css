@@ -1,0 +1,91 @@
+.nft-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: clamp(600px, 90vh, 900px);
+  margin: 0 0 3rem;
+  padding: 0 2.8rem;
+  background: url("../../../assets/NFTHeader_Background.png");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.nft-header-left {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-top: -5rem;
+  gap: 2rem;
+}
+
+.nft-header-title {
+  font-size: 4.8rem;
+  font-weight: 700;
+}
+
+.nft-header-title span {
+  font-family: "Oxanium", sans-serif;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.nft-header-slogan {
+  font-size: 1.3rem;
+}
+
+.nft-header-left button {
+  width: 9rem;
+  height: 3.5rem;
+  font-weight: 700;
+  border-radius: 10rem;
+  background: var(--white-color);
+  color: var(--black-color);
+  border: none;
+  transition: none;
+}
+
+.nft-header-left button:hover {
+  color: var(--primary-color) !important;
+  background: var(--white-color) !important;
+}
+
+.nft-header-desc {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  color: var(--white-color);
+}
+
+.nft-header-desc .nft-header-desc-num {
+  font-size: 2.5rem;
+  font-family: "Oxanium";
+  font-weight: 700;
+}
+
+.nft-header-desc .nft-header-desc-text {
+  font-size: 1.2rem;
+}
+
+.nft-header-right {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nft-header-right .swipe {
+  background: white;
+  width: 20rem;
+  height: 30rem;
+  border-radius: 0.7rem;
+}
+
+.nft-header-right .swipe img {
+  width: 100%;
+  border-top-left-radius: 0.7rem;
+  border-top-right-radius: 0.7rem;
+}
