@@ -19,7 +19,7 @@ const ProfileSearchHeader = ({ onSearch }) => {
 
   return (
     <>
-      <h1>Wallet Search</h1>
+      <h1>Inspect Address</h1>
       <div className="profileSearch-container">
         <input
           type="text"

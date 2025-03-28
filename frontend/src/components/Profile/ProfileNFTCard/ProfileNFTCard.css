@@ -1,0 +1,46 @@
+.profileNft-card {
+  background: var(--grey-background);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 15rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.profileNft-card:hover {
+  background: var(--primary-color);
+}
+
+.profileNft-card:hover .profileNft-image {
+  transform: scale(1.05);
+}
+
+.profileNft-image-container {
+  position: relative;
+}
+
+.profileNft-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.profileNft-balance {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--text-color);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.profileNft-info {
+  padding: 10px;
+  text-align: left;
+}
+
+.profileNft-name {
+  font-weight: bold;
+}
