@@ -34,6 +34,8 @@ import AdminPage from "./pages/Admin/Admin.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 import CreateToken from "./pages/Trade/CreateToken.jsx";
+import CreateCollection from "./pages/CreateNFT/CreateCollection.jsx";
+import CreateCollectionDashBoard from "./pages/CreateNFT/CreateCollectionDashboard.jsx";
 import NFT from "./pages/NFT/NFT.jsx";
 import NFTCollection from "./pages/NFT/NFTCollection/NFTCollection.jsx";
 import NFTDetails from "./pages/NFT/NFTDetails/NFTDetails.jsx";
@@ -86,6 +88,16 @@ const routers = createBrowserRouter([
           {
             path: "transactions/:walletAddress?",
             element: <ProfileSearchPage />,
+          },
+        ],
+      },
+      {
+        path: "create/collection",
+        element: <CreateCollectionDashBoard/>,
+        children: [
+          {
+            index: true,
+            element: <CreateCollection />,
           },
         ],
       },
