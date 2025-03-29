@@ -1,10 +1,11 @@
 import {react, useState} from 'react';
 import './NFTCollectionBg.css';
-import editIcon from '../../../../assets/pen-to-square-solid.svg'
+import editIcon from '../../../../assets/pen-to-square-solid.svg';
+import defaultBg from '../../../../assets/TestBackground.jpg';
 
 
 const NFTCollectionBg = () => {
-    const [bg, setBg] = useState("/src/assets/TestBackground.jpg");
+    const [bg, setBg] = useState(defaultBg);
     const [showOverlay, setShowOverlay] = useState(false);
 
     const handleImageUpload = (e) => {
