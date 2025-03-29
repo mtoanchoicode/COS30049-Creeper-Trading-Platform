@@ -465,7 +465,7 @@ const NFTCollection = () => {
       )}
       
       <div className="nft-collection-header">
-        <NFTCollectionBg />
+        <NFTCollectionBg contractAddress={NFT_CONTRACT_ADDRESS}/>
         <div className="nft-collection-header-bottom">
           <div className="nft-collection-header-desc">
             {description.length > 70 ? (

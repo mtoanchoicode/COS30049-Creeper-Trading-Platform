@@ -18,6 +18,7 @@ const collectionRouter = require("./src/routes/collection.route");
 const NFTRouter = require("./src/routes/nft.route");
 const NFTTransactionRouter = require("./src/routes/nft_transaction.route");
 const nftSearchRouter = require("./src/routes/nftSearch.route");
+const collectionDetailsRouter = require("./src/routes/collection_details.route");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -45,6 +46,7 @@ app.use("/v1/api/collection", collectionRouter);
 app.use("/v1/api/nft", NFTRouter);
 app.use("/v1/api/nft_transaction", NFTTransactionRouter);
 app.use("/v1/api/nft-search", nftSearchRouter);
+app.use("/v1/api/collectionDetails", collectionDetailsRouter);
 
 // app.listen(port, () => {
 //   console.log(`App listening on port ${port}`);
