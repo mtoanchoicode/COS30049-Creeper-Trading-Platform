@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 import NFTCollectionBg from "./NFTCollectionBg/NFTCollectionBg";
-import editDescIcon from "../../../assets/edit-description-icon.svg";
 import "./NFTCollection.css";
 import {
   uploadDescriptionToDB,
   getDescriptionFromDB,
 } from "../../../utils/CollectionDetailsAPI";
-import { ExportOutlined } from "@ant-design/icons";
-import { use } from "react";
+import { ExportOutlined, MoreOutlined, EditOutlined } from "@ant-design/icons";
+import { Popover } from "antd";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTCollection = () => {
+  const { address } = useAppKitAccount();
+  const [authOwner, setAuthOwner] = useState(false);
   const [nfts, setNfts] = useState([]);
   const [date, setDate] = useState("");
   const [lengths, setLengths] = useState("");
@@ -26,7 +28,8 @@ const NFTCollection = () => {
     "function getNFTListingPrice(address nftContract, uint256 tokenId) public view returns (uint256)",
   ];
 
-  const NFT_CONTRACT_ADDRESS = nft.address;
+  const NFT_CONTRACT_ADDRESS = nft.ContractAddress;
+  // nft.address
   const NFT_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
@@ -177,6 +180,12 @@ const NFTCollection = () => {
   };
 
   useEffect(() => {
+    if (nft && nft.owner && address) {
+      setAuthOwner(nft.owner.toLowerCase() === address.toLowerCase());
+    } else {
+      setAuthOwner(false);
+    }
+
     const fetchMetadata = async () => {
       setIsLoading(true);
       const totalNFTs = await fetchNFTsCount();
@@ -194,7 +203,7 @@ const NFTCollection = () => {
     };
 
     fetchMetadata().then(() => fetchNFTsData()); // Ensure first fetch finishes before second
-  }, []);
+  }, [nft, address]);
 
   const [expanded, setExpanded] = useState(false);
   const text =
@@ -207,8 +216,10 @@ const NFTCollection = () => {
     setShowEditDesc(!showEditDesc);
     if (showEditDesc) {
       document.body.style.overflow = "auto";
+      setDescriptionToChange(description);
     } else {
       document.body.style.overflow = "hidden";
+      setDescriptionToChange(description);
     }
   };
   const [description, setDescription] = useState(text || "");
@@ -224,8 +235,8 @@ const NFTCollection = () => {
     const fetchDescription = async () => {
       try {
         const desc = await getDescriptionFromDB(NFT_CONTRACT_ADDRESS);
-        setDescription(desc || text);
-        setDescriptionToChange(desc || text);
+        setDescription(desc || "");
+        setDescriptionToChange(desc || "");
       } catch (error) {
         console.error("Error fetching description:", error);
       }
@@ -233,6 +244,28 @@ const NFTCollection = () => {
 
     fetchDescription();
   }, [NFT_CONTRACT_ADDRESS]);
+
+  const content = (
+    <div className="nft-popover">
+      <a
+        className="nft-popover-item"
+        href={`https://sepolia.etherscan.io/address/${nft.address}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <ExportOutlined />
+        <span>View on EtherScan </span>
+      </a>
+      <div
+        onClick={toggleEditDescOverlay}
+        style={{ display: authOwner ? "block" : "none" }}
+        className="nft-popover-item"
+      >
+        <EditOutlined />
+        <span>Edit Collection</span>
+      </div>
+    </div>
+  );
 
   return (
     <div className="nft-collection">
@@ -242,17 +275,16 @@ const NFTCollection = () => {
             <h2 className="nft-collection-set-description-header">
               Edit Description
             </h2>
-
             <textarea
               type="text"
               id="nft-collection-set-description-input"
               className="nft-collection-set-description-input"
-              value={
-                descriptionToChange ||
-                "Enter a new description for your collection"
-              }
+              placeholder="Please enter a description"
+              value={descriptionToChange}
               onChange={(e) => setDescriptionToChange(e.target.value)}
             ></textarea>
+            <div className="nft-collection-set-image-input"></div>
+
             <div className="nft-collection-set-description-btns">
               <button
                 className="nft-collection-set-description-btn-cancel"
@@ -275,19 +307,24 @@ const NFTCollection = () => {
         <NFTCollectionBg contractAddress={NFT_CONTRACT_ADDRESS} />
         <div className="nft-collection-header-bottom">
           <div className="nft-collection-header-desc">
-            {description.length > 70 ? (
-              <div className="nft-collection-header-desc-text">
-                {expanded ? description : `${description.substring(0, 70)}...`}{" "}
-                <button onClick={toggleExpanded} className="see-more-btn">
-                  {expanded ? "See Less" : "See More"}
-                </button>
-              </div>
+            {!isLoading ? (
+              description.length > 70 ? (
+                <div className="nft-collection-header-desc-text">
+                  {expanded
+                    ? description
+                    : `${description.substring(0, 70)}...`}{" "}
+                  <button onClick={toggleExpanded} className="see-more-btn">
+                    {expanded ? "See Less" : "See More"}
+                  </button>
+                </div>
+              ) : (
+                <div className="nft-collection-header-desc-text">
+                  {description}
+                </div>
+              )
             ) : (
-              <div className="nft-collection-header-desc-text">
-                {description}
-              </div>
+              <div className="nft-collection-header-desc-text nft-skeleton"></div>
             )}
-
             {isLoading ? (
               <div className="nft-collection-header-desc-stat nft-skeleton"></div>
             ) : (
@@ -308,21 +345,9 @@ const NFTCollection = () => {
             )}
           </div>
           <div className="nft-collection-header-btn">
-            <img
-              className="nft-collection-header-btn-editicon"
-              onClick={() => toggleEditDescOverlay()}
-              src={editDescIcon}
-              alt="Edit description icon"
-            />
-            <a
-              className="nft-collection-link"
-              href={`https://sepolia.etherscan.io/address/${nft.address}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>View on EtherScan </span>
-              <ExportOutlined />
-            </a>
+            <Popover content={content} trigger="click">
+              <MoreOutlined />
+            </Popover>
           </div>
         </div>
       </div>

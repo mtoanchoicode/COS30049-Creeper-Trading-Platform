@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import "./NFTDetails.css";
 
-import { Button, Input, Modal, notification } from "antd";
-import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { Button, Input, Modal, notification, Tooltip } from "antd";
 import { ethers } from "ethers";
+import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTDetails = () => {
   const location = useLocation();
@@ -88,9 +89,19 @@ const NFTDetails = () => {
   };
 
   // End marketplacce
+  const { address } = useAppKitAccount();
+  const [owner, setOwner] = useState(false);
 
-  const shortenAddress = (address) => {
-    return `${address.slice(0, 9)}...${address.slice(-4)}`;
+  useEffect(() => {
+    if (nft?.owner && address) {
+      setOwner(nft.owner.toLowerCase() === address.toLowerCase());
+    }
+  }, [nft?.owner, address]);
+
+  const shortenAddress = (ownerAddress) => {
+    return ownerAddress.length > 13
+      ? `${ownerAddress.slice(0, 6)}...${ownerAddress.slice(-4)}`
+      : ownerAddress;
   };
 
   const calculateAge = (timestamp) => {
@@ -141,14 +152,18 @@ const NFTDetails = () => {
           >
             <i className="fa-solid fa-arrow-left"></i> Back to collection
           </Button>
-          <Button
-            type="primary"
-            className="list-btn"
-            onClick={() => setIsModalVisible(true)}
-            disabled={loading}
-          >
-            {loading ? "Listing..." : "List for sale"}
-          </Button>
+          {owner ? (
+            <Button
+              type="primary"
+              className="list-btn"
+              onClick={() => setIsModalVisible(true)}
+              disabled={loading}
+            >
+              {loading ? "Listing..." : "List for sale"}
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <Modal
@@ -176,17 +191,23 @@ const NFTDetails = () => {
               <p className="collection-name">{nft.collectionName}</p>
               <h2 className="collection-item-name">{nft.name}</h2>
               <p className="collection-item-owner">
-                Owned by <span>{shortenAddress(nft.owner)}</span>
+                Owned by{" "}
+                <span>{owner ? "You" : shortenAddress(nft.owner)}</span>
               </p>
             </div>
             <div className="nft-details-icons">
-              <Link
-                to={`/nft/${nft.collectionAddress}/${nft.id}/transfer`}
-                state={{ nft }}
-              >
-                <SendOutlined />
-              </Link>
-              <ShareAltOutlined />
+              {owner ? (
+                <Tooltip title="Transfer">
+                  <Link
+                    to={`/nft/${nft.collectionAddress}/${nft.id}/transfer`}
+                    state={{ nft }}
+                  >
+                    <SendOutlined />
+                  </Link>
+                </Tooltip>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="nft-details-right-bottom">

@@ -20,6 +20,7 @@ contract NFTCollection is ERC721, Ownable {
         string memory _symbol
     ) ERC721(_collectionName, _symbol) Ownable(msg.sender) {}
 
+
     function mint(
         string memory metadataURI
     ) public onlyOwner returns (uint256) {
