@@ -124,6 +124,13 @@
   color: rgb(128, 128, 128);
 }
 
+.nft-collection-header-desc-stat.nft-skeleton {
+  height: 2.5rem;
+  border-radius: 20rem;
+  background: var(--nft-collection-shimmer-1);
+  animation: shimmer 1.5s infinite linear;
+}
+
 .nft-collection-header-desc-stat {
   display: flex;
   align-items: center;
@@ -150,7 +157,7 @@
   justify-content: flex-end;
 }
 
-.nft-collection-link span{
+.nft-collection-link span {
   font-size: 1.1rem;
   font-weight: 600;
 }
@@ -278,19 +285,47 @@
   background: #00943e;
 }
 
-.nft-skeleton {
-  background: #181818;
+.nft-skeleton .nft-item-cover {
+  background: var(--nft-collection-shimmer-1);
   animation: shimmer 1.5s infinite linear;
+}
+
+.nft-skeleton .nft-item-desc {
+  background: var(--nft-collection-card);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.1rem 1.2rem 0.8rem;
+}
+
+.nft-skeleton .nft-item-desc h3 {
+  background: var(--nft-collection-shimmer-1);
+  animation: shimmer 1.5s infinite linear;
+  height: 1.7rem;
+  width: 70%;
+  border-radius: 10rem;
+}
+
+.nft-skeleton .nft-item-desc p {
+  background: var(--nft-collection-shimmer-1);
+  animation: shimmer 1.5s infinite linear;
+  height: 1.7rem;
+  width: 50%;
+  border-radius: 10rem;
+}
+
+.nft-skeleton:hover .nft-item-buy {
+  transform: translateY(100%);
 }
 
 @keyframes shimmer {
   0% {
-    background: #181818;
+    background: var(--nft-collection-shimmer-1);
   }
   50% {
-    background: #222222;
+    background: var(--nft-collection-shimmer-2);
   }
   100% {
-    background: #181818;
+    background: var(--nft-collection-shimmer-1);
   }
 }

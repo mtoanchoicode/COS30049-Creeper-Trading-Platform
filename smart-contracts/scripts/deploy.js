@@ -1,8 +1,8 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const collectionName = "Minecraft Blocks"; // Replace with desired name
-  const symbol = "MCB"; // Replace with your NFT symbol
+  const collectionName = "Nguyen Hoang Trung"; // Replace with desired name
+  const symbol = "NHT"; // Replace with your NFT symbol
 
   const NFTCollection = await ethers.getContractFactory("NFTCollection");
   const nftCollection = await NFTCollection.deploy(collectionName, symbol);
