@@ -1,8 +1,9 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { notification } from "antd";
 
 // ----- APIs for collections -----
 const handleCreateCollection = async (
-    id, contractAddress, collectionName, collectionImage, price
+    id, contractAddress, collectionName, collectionImage, price = ""
     ) => {
     try {
             await fetch(`${API_BASE_URL}/v1/api/collection/created`, {
