@@ -1,0 +1,179 @@
+.nft-details {
+  margin: 4.5rem 0;
+  position: relative;
+}
+
+.nft-details-bar {
+  position: fixed;
+  height: 4.5rem;
+  width: 100%;
+  background: var(--app-background);
+}
+
+.nft-details-bar-btns {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 3rem;
+  border-bottom: 0.03rem solid rgb(64, 64, 64);
+}
+
+.nft-details-bar-btns button {
+  font-weight: 600;
+  border-radius: 0.4rem;
+  align-self: center;
+  transition: none;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  width: fit-content;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.back-btn {
+  background: transparent;
+  color: var(--white-color);
+  border: 0.05rem solid var(--white-color);
+}
+
+.back-btn:hover {
+  background: var(--white-color) !important;
+  color: var(--black-color) !important;
+}
+
+.list-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.list-btn:hover {
+  background: #00943e !important;
+}
+
+.nft-details-main {
+  padding-top: 5.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.nft-details-left {
+  flex: 0.9;
+}
+
+.nft-details-left .nft-detials-left-container {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+}
+
+.nft-details-left .nft-detials-left-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+}
+
+.nft-details-right {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-radius: 1rem;
+  background: var(--trade-background-color);
+  padding: 2rem 2rem;
+}
+
+.nft-details-right-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nft-details-right-top .collection-name {
+  font-size: 1.2rem;
+  margin-bottom: 1.1rem;
+}
+
+.nft-details-right-top h2 {
+  font-size: 2.7rem;
+  font-size: 500;
+}
+
+.nft-details-right-top .collection-item-owner {
+  font-size: 1.5rem;
+}
+
+.nft-details-right-top .collection-item-owner span {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.nft-details-icons {
+  align-self: flex-start;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nft-details-icons svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.nft-details-right-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nft-details-right-bottom h2 {
+  font-size: 1.7rem;
+}
+
+.nft-details-right-bottom p {
+  font-size: 1.3rem;
+}
+
+.nft-details-right-bottom .nft-details-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nft-details-right-bottom .nft-details-infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.nft-details-right-bottom .nft-details-infos .nft-details-info {
+  display: flex;
+  height: 100%;
+  padding: 1rem 0;
+  margin: 0 1.5rem;
+  border-bottom: 0.05rem solid rgb(40, 40, 40);
+}
+
+.nft-details-right-bottom .nft-details-info p {
+  flex: 1;
+}
+
+.nft-details-right-bottom .nft-details-info p:first-child {
+  font-weight: 600;
+}
+
+.nft-details-right-bottom .nft-details-info p a {
+  font-size: 1.3rem;
+  color: var(--primary-color) !important;
+  text-decoration: none !important;
+}
+
+.nft-details-right-bottom .nft-details-info p a:hover {
+  color: #00943e !important;
+}
