@@ -1,53 +1,80 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./NFTList.css";
 
 import { Button } from "antd";
-import CoverImage from "../../../assets/Cover Image.jpg";
-import CoverImage_1 from "../../../assets/CoverImage_1.png";
-import CoverImage_2 from "../../../assets/CoverImage_2.png";
-import CoverImage_3 from "../../../assets/CoverImage_3.png";
-import CoverImage_4 from "../../../assets/CoverImage_4.png";
-import CoverImage_5 from "../../../assets/CoverImage_5.png";
+
 import { Link } from "react-router-dom";
+import { handleGetAllCollections } from "../../../utils/NFTapi";
+import { Contract } from "ethers";
 
 const NFTList = ({ sectionRef }) => {
-  const [nfts, setNfts] = useState([
-    {
-      id: "minecraft-blocks",
-      name: "Minecraft Blocks",
-      price: "",
-      image: CoverImage,
-      address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
-    },
-    {
-      id: "azuki",
-      name: "Azuki",
-      price: "",
-      image: CoverImage_1,
-      address: "0xbbBe0cd20DEA38126d24ef5f8ea35381CC408441",
-    },
-    {
-      id: "gmi",
-      name: "GMI",
-      price: "",
-      image: CoverImage_2,
-      address: "0x568ce637DE90dB21409CaF9165d515F30D9D79ee",
-    },
-    {
-      id: " cheesiousdoodlez",
-      name: " CheesiousDoodlez",
-      price: "0",
-      image: CoverImage_3,
-      address: "0x085Cc73796422CBf5D9DFd05c916066D358Cc877",
-    },
-    {
-      id: "steam",
-      name: "STEAM",
-      price: "",
-      image: CoverImage_4,
-      address: "0x56c1d0608d9d85208ddb2dc70ca9cba52e22c423",
-    },
-  ]);
+  const [nfts, setNfts] = useState([]);
+
+  useEffect(() => {
+    const fetchCollections = async () => {
+      try {
+        const collections = await handleGetAllCollections();
+        setNfts(collections);
+      } catch (error) {
+        console.error("Error fetching collections:", error);
+      }
+    };
+    fetchCollections();
+    console.log(nfts)
+  }, []);
+
+  // {
+  //   ID,
+  //   CollectionName,
+  //   CollectionImage,
+  //   Price,
+  //   ContractAddress,
+  // }
+
+  // const [nfts, setNfts] = useState([
+  //   {
+  //     id: "minecraft-blocks",
+  //     name: "Minecraft Blocks",
+  //     price: "3.16",
+  //     image: CoverImage,
+  //     address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+  //   },
+  //   {
+  //     id: "fidenza-by-tyler-hobbs",
+  //     name: "Fidenza by Tyler Hobbs",
+  //     price: "3.16",
+  //     image: CoverImage_1,
+  //     address: "0xbbBe0cd20DEA38126d24ef5f8ea35381CC408441",
+  //   },
+  //   {
+  //     id: "axie",
+  //     name: "Axie",
+  //     price: "3.16",
+  //     image: CoverImage_2,
+  //     address: "0x568ce637DE90dB21409CaF9165d515F30D9D79ee",
+  //   },
+  //   {
+  //     id: "doodles",
+  //     name: "Doodles",
+  //     price: "3.16",
+  //     image: CoverImage_3,
+  //     address: "0x085Cc73796422CBf5D9DFd05c916066D358Cc877",
+  //   },
+  //   {
+  //     id: "renga",
+  //     name: "RENGA",
+  //     price: "3.16",
+  //     image: CoverImage_4,
+  //     address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+  //   },
+  //   {
+  //     id: "azuki-elementals",
+  //     name: "Azuki Elementals",
+  //     price: "3.16",
+  //     image: CoverImage_5,
+  //     address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+  //   },
+  // ]);
 
   return (
     <div className="nft-list" ref={sectionRef}>
@@ -55,25 +82,27 @@ const NFTList = ({ sectionRef }) => {
         <div className="nft-list-title">
           <h2>Explore a World of NFT Collections</h2>
         </div>
-        <div className="nft-list-creation">
-          <Button type="primary" block className="create-btn">
-            Create your collection{" "}
-            <span>
-              <i className="fa-solid fa-plus"></i>
-            </span>
-          </Button>
-        </div>
+        <Link to={`/create/collection`} >
+          <div className="nft-list-creation">
+            <Button type="primary" block className="create-btn">
+              Create your collection
+              <span>
+                <i className="fa-solid fa-plus"></i>
+              </span>
+            </Button>
+          </div>
+        </Link>
       </div>
       <div className="nft-list-bottom">
         {nfts.map((nft, index) => (
-          <Link to={`/nft/${nft.id}`} state={{ nft }}>
-            <div className="nft-collection-card" key={nft.index}>
+          <Link to={`/nft/${nft.ID}`} state={{ nft }}>
+            <div className="nft-collection-card" key={index}>
               <div className="nft-collection-cover">
-                <img src={nft.image} alt={nft.name} />
+                <img src={nft.CollectionImage} alt={nft.CollectionName} />
               </div>
               <div className="nft-collection-desc">
                 <div className="nft-collection-header">
-                  <h3>{nft.name}</h3>
+                  <h3>{nft.CollectionName}</h3>
                   <svg
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                     xmlns="http://www.w3.org/2000/svg"
@@ -98,18 +127,21 @@ const NFTList = ({ sectionRef }) => {
                 </div>
                 <div>
                   <p className="nft-collection-desc-title">Floor</p>
-                  <p className="nft-collection-price">{nft.price} ETH</p>
+                  <p className="nft-collection-price">{nft.Price} ETH</p>
                 </div>
               </div>
             </div>
           </Link>
         ))}
-        <div className="nft-collection-card create">
-          <div>
-            <i className="fa-solid fa-plus"></i>
+        <Link to={`/create/collection`} >
+          <div className="nft-collection-card create">
+            <div>
+              <i className="fa-solid fa-plus"></i>
+            </div>
+            <h4>Create New Collection</h4>
           </div>
-          <h4>Create New Collection</h4>
-        </div>
+        </Link>
+       
       </div>
     </div>
   );

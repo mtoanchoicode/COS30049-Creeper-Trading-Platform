@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const nftCollectionAddress = "0x9Fd776F3C7614D1761A03E75b9A9d90DE2E02473"; // Your deployed contract address
+  const nftCollectionAddress = "0xE271105d10d7B20E79727DA1E1B73E26d5ee2E0f"; // Your deployed contract address
   const [owner] = await hre.ethers.getSigners();
   const NFT = await hre.ethers.getContractAt("NFTCollection", nftCollectionAddress);
 

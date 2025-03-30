@@ -22,7 +22,7 @@ const NFTCollection = () => {
   const location = useLocation();
   const nft = location.state?.nft;
 
-  const NFT_CONTRACT_ADDRESS = nft.address;
+  const NFT_CONTRACT_ADDRESS = nft.ContractAddress;
   const NFT_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
