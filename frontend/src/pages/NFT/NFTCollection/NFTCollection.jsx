@@ -429,8 +429,10 @@ const NFTCollection = () => {
     setShowEditDesc(!showEditDesc);
     if (showEditDesc) {
       document.body.style.overflow = "auto";
+      setDescriptionToChange(description);
     } else {
       document.body.style.overflow = "hidden";
+      setDescriptionToChange(description);
     }
   }
   const [description, setDescription] = useState(text || "");
@@ -467,7 +469,8 @@ const NFTCollection = () => {
               type="text"
               id="nft-collection-set-description-input"
               className="nft-collection-set-description-input"
-              value={ descriptionToChange || "Enter a new description for your collection"}
+              placeholder="Please enter a description"
+              value={ descriptionToChange }
               onChange={(e) => setDescriptionToChange(e.target.value)}>
             </textarea>
             <div className="nft-collection-set-description-btns">
