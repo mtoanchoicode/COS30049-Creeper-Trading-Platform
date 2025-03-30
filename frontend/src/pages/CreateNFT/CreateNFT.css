@@ -1,0 +1,229 @@
+.create-NFT {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.create-NFT__container {
+    padding: 2.5rem 5rem;
+    width: 100%;
+}
+
+.create-NFT__header {
+    margin-bottom: 2rem;
+}
+
+.create-NFT__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.NFT__leftside {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.NFT__rightside {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+/* .NFT__image-conatainer {
+    padding: 1rem 1.5rem;
+    background-color: var(--primary-color);
+    border-radius: 20px;
+    margin-bottom: 2rem;
+} */
+
+
+.NFT__upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 35rem;
+    background-color: transparent;
+}
+
+.create-Image-NFT__detials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--white-color);
+}
+
+.create-Image__text svg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.ant-upload-list-picture-card {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.NFT__upload .ant-upload-list-item-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important; 
+}
+
+/* .NFT__upload .ant-upload-list-item img {
+    object-position: center; 
+    image-rendering: auto; 
+    position: absolute;
+    inset: 0px; 
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+} */
+
+
+.NFT_preview-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    image-rendering: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    display: block;
+}
+
+.hover-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.NFT_image-container:hover .hover-overlay {
+    opacity: 1;
+}
+
+.ant-upload-select {
+    width: 100% !important;
+    height: 100% !important;
+    border: 1.8px dashed var(--grey-color) !important;
+}
+
+.ant-upload-select:hover {
+    border-color: var(--primary-color) !important;
+}
+
+.NFT__form-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.NFT__form-header h4{
+    color: var(--white-color);
+}
+
+.NFT__details .NFT__input {
+    padding: 0.7rem;
+    background-color: transparent !important;
+    border: 1px solid var(--grey-color);
+    border-radius: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+}
+
+.NFT__details .NFT__input::placeholder {
+    color: var(--text-color) !important;
+}
+
+.NFT__details .NFT__input:hover {
+    background-color: transparent !important;
+}
+
+.NFT__details .NFT__input:focus { 
+    background-color: transparent !important;
+}
+
+
+.NFT__select-collection {
+    height: 4.3rem;
+}
+
+/* .NFT__select-collection .ant-select-selector {
+    background-color: transparent !important;
+    border: none; 
+    box-shadow: none !important; 
+    color: var(--white-color) !important; 
+}
+
+
+
+.NFT__select-collection .ant-select-dropdown {
+    background-color: transparent !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--white-color);
+}
+
+
+.NFT__select-collection .ant-select-item {
+    background-color: transparent !important;
+    color: var(--white-color) !important;
+}
+
+
+.NFT__select-collection .ant-select-item-option-active {
+    background-color: rgba(123, 236, 123, 0.1) !important;
+} */
+
+.NFT-button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 1.2rem ;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+}
+
+.NFT-button_create_collection {
+    padding: 1.2rem 0rem;
+}
+
+.NFT-button *{
+   width: 100%;
+}
+
+
+
+
+
+

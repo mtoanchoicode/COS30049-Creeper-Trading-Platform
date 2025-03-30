@@ -35,6 +35,7 @@ import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 import CreateToken from "./pages/Trade/CreateToken.jsx";
 import CreateCollection from "./pages/CreateNFT/CreateCollection.jsx";
+import CreateNFT from "./pages/CreateNFT/CreateNFT.jsx";
 import CreateCollectionDashBoard from "./pages/CreateNFT/CreateCollectionDashboard.jsx";
 import NFT from "./pages/NFT/NFT.jsx";
 import NFTCollection from "./pages/NFT/NFTCollection/NFTCollection.jsx";
@@ -99,6 +100,10 @@ const routers = createBrowserRouter([
           {
             index: true,
             element: <CreateCollection />,
+          },
+          {
+            path: "NFT",
+            element: < CreateNFT/>,
           },
         ],
       },

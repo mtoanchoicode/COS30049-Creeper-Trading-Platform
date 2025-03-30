@@ -97,11 +97,7 @@ const NFTTransfer = () => {
         `✅ NFT successfully transferred! Transaction Hash: ${tx.hash}`
       );
 
-      setIsComplete(true);
-      notification.success({
-        message: "Transfer Successful",
-        description: `${nft.name} successfully transferred to ${recipient}.`,
-      });
+      setIsComplete(true);s
     } catch (error) {
       console.error("Transfer failed:", error);
 
@@ -197,8 +193,7 @@ const NFTTransfer = () => {
             <div className="nft-complete-overlay-container-text">
               <h2>Your transferred is complete!</h2>
               <p>
-                You transfer{" "}
-                <Link to={`/nft/${nft.collectionAddress}`}>{nft.name}</Link>.
+                You transfer {nft.name}
               </p>
             </div>
             <div className="nft-complete-overlay-container-hash">
