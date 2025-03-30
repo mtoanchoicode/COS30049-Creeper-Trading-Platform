@@ -22,6 +22,7 @@
     background-color: var(--primary-color);
     border-radius: 20px;
     transition: all 0.4s ease;
+    margin-top: 1.2rem;
 }
 
 .collection_button-deploy-info:hover {
@@ -239,4 +240,16 @@
 .collection__button-submit:hover {
     transform: scale(1.05);
 }
+
+/* Responsive design css 
+------------------------------------------- */
+
+/* Mobile (767px) */
+@media (max-width: 767px) {
+    .collection__blockchain-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+    }
+  } 
 

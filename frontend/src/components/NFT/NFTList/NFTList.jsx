@@ -62,14 +62,16 @@ const NFTList = ({ sectionRef }) => {
         <div className="nft-list-title">
           <h2>Explore a World of NFT Collections</h2>
         </div>
-        <div className="nft-list-creation">
-          <Button type="primary" block className="create-btn">
-            Create your collection{" "}
-            <span>
-              <i className="fa-solid fa-plus"></i>
-            </span>
-          </Button>
-        </div>
+        <Link to={`/create/collection`} >
+          <div className="nft-list-creation">
+            <Button type="primary" block className="create-btn">
+              Create your collection
+              <span>
+                <i className="fa-solid fa-plus"></i>
+              </span>
+            </Button>
+          </div>
+        </Link>
       </div>
       <div className="nft-list-bottom">
         {nfts.map((nft) => (
@@ -111,12 +113,15 @@ const NFTList = ({ sectionRef }) => {
             </div>
           </Link>
         ))}
-        <div className="nft-collection-card create">
-          <div>
-            <i className="fa-solid fa-plus"></i>
+        <Link to={`/create/collection`} >
+          <div className="nft-collection-card create">
+            <div>
+              <i className="fa-solid fa-plus"></i>
+            </div>
+            <h4>Create New Collection</h4>
           </div>
-          <h4>Create New Collection</h4>
-        </div>
+        </Link>
+       
       </div>
     </div>
   );
