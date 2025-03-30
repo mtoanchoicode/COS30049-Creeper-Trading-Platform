@@ -4,6 +4,7 @@ import { CopyOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import WalletGraph from "../ProfileTransactionGraph/ProfileTransactionGraph";
 import shortenAddress from "../../../utils/utils";
 import ProfileNFTCard from "../ProfileNFTCard/ProfileNFTCard";
+import ApproveAndListNFT from "../../../pages/Profile/TestMarketPlace";
 
 const TransactionsHistory = ({ walletDetail }) => {
   console.log("Checkkakkaaka", walletDetail.nfts);
@@ -228,6 +229,7 @@ const TransactionsHistory = ({ walletDetail }) => {
                 <RightOutlined />
               </button>
             </div>
+            <ApproveAndListNFT />
           </div>
         )}
       </div>

@@ -1,15 +1,16 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const collectionName = "Minecraft Blocks"; // Replace with desired name
-  const symbol = "MCB"; // Replace with your NFT symbol
+  const CreeperMarketplace = await ethers.getContractFactory(
+    "CreeperMarketplace"
+  );
+  const creeperMarketplace = await CreeperMarketplace.deploy();
 
-  const NFTCollection = await ethers.getContractFactory("NFTCollection");
-  const nftCollection = await NFTCollection.deploy(collectionName, symbol);
+  await creeperMarketplace.waitForDeployment(); // Corrected method
 
-  await nftCollection.waitForDeployment(); // Corrected method
-
-  console.log(`NFTCollection deployed to: ${await nftCollection.getAddress()}`);
+  console.log(
+    `NFTCollection deployed to: ${await creeperMarketplace.getAddress()}`
+  );
 }
 
 main().catch((error) => {
