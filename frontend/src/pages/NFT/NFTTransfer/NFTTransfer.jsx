@@ -197,8 +197,7 @@ const NFTTransfer = () => {
             <div className="nft-complete-overlay-container-text">
               <h2>Your transferred is complete!</h2>
               <p>
-                You transfer{" "}
-                <Link to={`/nft/${nft.collectionAddress}`}>{nft.name}</Link>.
+                You transfer {nft.name}
               </p>
             </div>
             <div className="nft-complete-overlay-container-hash">

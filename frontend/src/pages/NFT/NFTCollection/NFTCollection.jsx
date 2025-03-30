@@ -219,7 +219,6 @@ const NFTCollection = () => {
             <h2 className="nft-collection-set-description-header">
               Edit Description
             </h2>
-
             <textarea
               type="text"
               id="nft-collection-set-description-input"
@@ -261,10 +260,8 @@ const NFTCollection = () => {
               </div>
             ) : (
               <div className="nft-collection-header-desc-text">
-                {description}
               </div>
             )}
-
             {isLoading ? (
               <div className="nft-collection-header-desc-stat nft-skeleton"></div>
             ) : (
