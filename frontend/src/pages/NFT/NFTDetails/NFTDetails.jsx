@@ -4,14 +4,24 @@ import "./NFTDetails.css";
 
 import { Button } from "antd";
 import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTDetails = () => {
   const location = useLocation();
   const nft = location.state?.nft;
   const navigate = useNavigate();
+  const { address } = useAppKitAccount();
 
-  const shortenAddress = (address) => {
-    return `${address.slice(0, 9)}...${address.slice(-4)}`;
+  const shortenAddress = (ownerAddress) => {
+    if (!ownerAddress) return "Unknown"; // Handle null/undefined cases
+
+    if (address && ownerAddress.toLowerCase() === address.toLowerCase()) {
+      return "You"; // Compare in lowercase to avoid case-sensitivity issues
+    }
+
+    return ownerAddress.length > 13
+      ? `${ownerAddress.slice(0, 6)}...${ownerAddress.slice(-4)}`
+      : ownerAddress; // Ensure short addresses don’t break
   };
 
   const calculateAge = (timestamp) => {
