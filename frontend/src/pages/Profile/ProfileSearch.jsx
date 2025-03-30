@@ -35,8 +35,34 @@ const ProfileSearchPage = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/v1/api/wallet/${address}`);
       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-      const data = await response.json();
-      setWalletData(data);
+      const walletData = await response.json();
+
+      if (!walletData || Object.keys(walletData).length === 0) {
+        throw new Error("No wallet data found.");
+      }
+
+      // Fetch NFT data
+      console.log(
+        "Fetching NFT data from:",
+        `${API_BASE_URL}/v1/api/nft-search/${address}`
+      );
+      const nftResponse = await fetch(
+        `${API_BASE_URL}/v1/api/nft-search/${address}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!nftResponse.ok) {
+        throw new Error(`Error fetching NFT data: ${nftResponse.statusText}`);
+      }
+
+      const nftData = await nftResponse.json();
+
+      // Add NFT data to wallet data
+      const updatedWalletData = { ...walletData, nfts: nftData.nfts || [] };
+
+      setWalletData(updatedWalletData);
     } catch (err) {
       setError(err.message || "Something went wrong!");
       setWalletData(null);
