@@ -1,13 +1,17 @@
+const { ethers } = require("ethers");
 const TransactionModel = require("../models/transaction.model");
 const { fetchETHBalance } = require("../utils/fetchETHBalance");
 const { fetchTokenHoldings } = require("../utils/fetchTokenHoldings");
 const { fetchTransactionHistory } = require("../utils/fetchTransactionHistory");
+
+// const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
 
 const searchWallet = async (req, res) => {
   var isTransaction = true;
   const walletAddress = req.params.walletAddress;
   walletInfo = {};
   walletInfo.walletAddress = walletAddress;
+
   if (!walletAddress) {
     return res.status(400).json({ error: "Address is required" });
   }
@@ -17,6 +21,8 @@ const searchWallet = async (req, res) => {
 
   if (isAddress) {
     isTransaction = false;
+    // const code = await provider.getCode(walletAddress);
+    // walletInfo.isSmartContract = code !== "0x";
     try {
       walletInfo.tokenHoldings = await fetchTokenHoldings(walletAddress);
     } catch (error) {

@@ -11,8 +11,7 @@ const ProfileAssetsPage = () => {
   const [walletData, setWalletData] = useState(null);
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  // Track previous connection state
-  const wasConnected = useRef(false);
+  const wasConnected = useRef(false); // Track previous connection state
 
   useEffect(() => {
     const fetchWalletData = async () => {
@@ -22,29 +21,56 @@ const ProfileAssetsPage = () => {
       setError("");
 
       try {
-        console.log("start", `${API_BASE_URL}/v1/api/wallet/${address}`);
-        const response = await fetch(
+        console.log(
+          "Fetching wallet data from:",
+          `${API_BASE_URL}/v1/api/wallet/${address}`
+        );
+        const walletResponse = await fetch(
           `${API_BASE_URL}/v1/api/wallet/${address}`,
-          { method: "GET" }
+          {
+            method: "GET",
+          }
         );
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
+        if (!walletResponse.ok) {
+          throw new Error(
+            `Error fetching wallet data: ${walletResponse.statusText}`
+          );
         }
 
-        const data = await response.json();
+        const walletData = await walletResponse.json();
 
-        if (!data || Object.keys(data).length === 0) {
+        if (!walletData || Object.keys(walletData).length === 0) {
           throw new Error("No wallet data found.");
         }
 
-        setWalletData(data);
+        // Fetch NFT data
+        console.log(
+          "Fetching NFT data from:",
+          `${API_BASE_URL}/v1/api/nft-search/${address}`
+        );
+        const nftResponse = await fetch(
+          `${API_BASE_URL}/v1/api/nft-search/${address}`,
+          {
+            method: "GET",
+          }
+        );
+
+        if (!nftResponse.ok) {
+          throw new Error(`Error fetching NFT data: ${nftResponse.statusText}`);
+        }
+
+        const nftData = await nftResponse.json();
+
+        // Add NFT data to wallet data
+        const updatedWalletData = { ...walletData, nfts: nftData.nfts || [] };
+
+        setWalletData(updatedWalletData);
       } catch (err) {
         setError(err.message || "Something went wrong!");
         setWalletData(null); // Clear previous data on error
       } finally {
         setIsLoading(false);
-        console.log("DONEEEEEEE");
       }
     };
 
@@ -60,7 +86,7 @@ const ProfileAssetsPage = () => {
 
     // Update previous connection state
     wasConnected.current = isConnected;
-  }, [isConnected, address]);
+  }, [isConnected, address, API_BASE_URL]);
 
   return (
     <Layout

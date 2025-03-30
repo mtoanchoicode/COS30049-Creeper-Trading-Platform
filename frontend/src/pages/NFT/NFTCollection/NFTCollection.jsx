@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
+import NFTCollectionBg from "./NFTCollectionBg/NFTCollectionBg";
+import editDescIcon from "../../../assets/edit-description-icon.svg"
 import "./NFTCollection.css";
-
+import {uploadDescriptionToDB, getDescriptionFromDB} from "../../../utils/CollectionDetailsAPI";
 import { ExportOutlined } from "@ant-design/icons";
 import { use } from "react";
 
@@ -173,14 +175,68 @@ const NFTCollection = () => {
     "A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories within RENGA. In its purest form, RENGA is the art of storytelling.";
   const toggleExpanded = () => setExpanded(!expanded);
 
+  const [showEditDesc, setShowEditDesc] = useState(false);
+
+  const toggleEditDescOverlay = () => {
+    setShowEditDesc(!showEditDesc);
+    if (showEditDesc) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+  }
+  const [description, setDescription] = useState(text || "");
+  const [descriptionToChange, setDescriptionToChange] = useState(description);
+
+  const handleChangeDescription = () => {
+    setDescription(descriptionToChange);
+    uploadDescriptionToDB(NFT_CONTRACT_ADDRESS, descriptionToChange);
+    toggleEditDescOverlay();
+  }
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const desc = await getDescriptionFromDB(NFT_CONTRACT_ADDRESS);
+        setDescription(desc || text);
+        setDescriptionToChange(desc || text);
+      } catch (error) {
+        console.error("Error fetching description:", error);
+      }
+    };
+
+    fetchDescription();
+  }, [NFT_CONTRACT_ADDRESS])
+
   return (
     <div className="nft-collection">
+      {showEditDesc && (
+        <div className="nft-collection-description-overlay">
+          <div className="nft-collection-set-description-container">
+            <h2 className="nft-collection-set-description-header">Edit Description</h2>
+            
+            <textarea
+              type="text"
+              id="nft-collection-set-description-input"
+              className="nft-collection-set-description-input"
+              value={ descriptionToChange || "Enter a new description for your collection"}
+              onChange={(e) => setDescriptionToChange(e.target.value)}>
+            </textarea>
+            <div className="nft-collection-set-description-btns">
+              <button className="nft-collection-set-description-btn-cancel" onClick={() => toggleEditDescOverlay()}>Cancel</button>
+              <button className="nft-collection-set-description-btn-save" onClick={() => handleChangeDescription()}>Save</button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="nft-collection-header">
-        <div className="nft-collection-header-cover"></div>
+        <NFTCollectionBg contractAddress={NFT_CONTRACT_ADDRESS}/>
         <div className="nft-collection-header-bottom">
           <div className="nft-collection-header-desc">
-            <div className="nft-collection-header-desc-text">
-              {expanded ? text : `${text.substring(0, 70)}...`}{" "}
+            {description.length > 70 ? (
+              <div className="nft-collection-header-desc-text">
+              {expanded ? description : `${description.substring(0, 70)}...`}{" "}
               <button onClick={toggleExpanded} className="see-more-btn">
                 {expanded ? "See Less" : "See More"}
               </button>
@@ -201,10 +257,12 @@ const NFTCollection = () => {
                   <p>Chain</p>
                   <p>Sepolia</p>
                 </div>
+          
               </div>
             )}
           </div>
           <div className="nft-collection-header-btn">
+          <img className="nft-collection-header-btn-editicon" onClick={() => toggleEditDescOverlay()} src={editDescIcon} alt="Edit description icon" />
             <a
               className="nft-collection-link"
               href={`https://sepolia.etherscan.io/address/${nft.address}`}
