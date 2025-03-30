@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import "./NFTDetails.css";
 
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
 import { useAppKitAccount } from "@reown/appkit/react";
 
@@ -11,17 +11,18 @@ const NFTDetails = () => {
   const nft = location.state?.nft;
   const navigate = useNavigate();
   const { address } = useAppKitAccount();
+  const [owner, setOwner] = useState(false);
+
+  useEffect(() => {
+    if (nft?.owner && address) {
+      setOwner(nft.owner.toLowerCase() === address.toLowerCase());
+    }
+  }, [nft?.owner, address]);
 
   const shortenAddress = (ownerAddress) => {
-    if (!ownerAddress) return "Unknown"; // Handle null/undefined cases
-
-    if (address && ownerAddress.toLowerCase() === address.toLowerCase()) {
-      return "You"; // Compare in lowercase to avoid case-sensitivity issues
-    }
-
     return ownerAddress.length > 13
       ? `${ownerAddress.slice(0, 6)}...${ownerAddress.slice(-4)}`
-      : ownerAddress; // Ensure short addresses don’t break
+      : ownerAddress;
   };
 
   const calculateAge = (timestamp) => {
@@ -72,9 +73,13 @@ const NFTDetails = () => {
           >
             <i className="fa-solid fa-arrow-left"></i> Back to collection
           </Button>
-          <Button type="primary" flex className="list-btn">
-            List for sale
-          </Button>
+          {owner ? (
+            <Button type="primary" flex className="list-btn">
+              List for sale
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="nft-details-main">
@@ -89,17 +94,23 @@ const NFTDetails = () => {
               <p className="collection-name">{nft.collectionName}</p>
               <h2 className="collection-item-name">{nft.name}</h2>
               <p className="collection-item-owner">
-                Owned by <span>{shortenAddress(nft.owner)}</span>
+                Owned by{" "}
+                <span>{owner ? "You" : shortenAddress(nft.owner)}</span>
               </p>
             </div>
             <div className="nft-details-icons">
-              <Link
-                to={`/nft/${nft.collectionAddress}/${nft.id}/transfer`}
-                state={{ nft }}
-              >
-                <SendOutlined />
-              </Link>
-              <ShareAltOutlined />
+              {owner ? (
+                <Tooltip title="Transfer">
+                  <Link
+                    to={`/nft/${nft.collectionAddress}/${nft.id}/transfer`}
+                    state={{ nft }}
+                  >
+                    <SendOutlined />
+                  </Link>
+                </Tooltip>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="nft-details-right-bottom">
