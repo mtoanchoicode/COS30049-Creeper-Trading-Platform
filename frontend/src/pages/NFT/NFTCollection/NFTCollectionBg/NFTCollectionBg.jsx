@@ -2,7 +2,6 @@ import {react, useEffect, useState} from 'react';
 import './NFTCollectionBg.css';
 import editIcon from '../../../../assets/pen-to-square-solid.svg';
 import defaultBg from '../../../../assets/TestBackground.jpg';
-import { notification } from "antd";
 import { uploadImageToDB, getImageURLFromDB } from "../../../../utils/CollectionDetailsAPI";
 
 const NFTCollectionBg = ({ contractAddress }) => {
