@@ -7,14 +7,14 @@ import { uploadImageToDB, getImageURLFromDB } from "../../../../utils/Collection
 
 const NFTCollectionBg = ({ contractAddress }) => {
     console.log(getImageURLFromDB(contractAddress))
-    const [bg, setBg] = useState(getImageURLFromDB(contractAddress) || defaultBg);
+    const [bg, setBg] = useState(getImageURLFromDB(defaultBg));
     const [showOverlay, setShowOverlay] = useState(false);
 
     useEffect(() => {
         const fetchBackgroundUrl = async () => {
             try {
                 const url = await getImageURLFromDB(contractAddress);
-                setBg(url);
+                setBg(url || defaultBg);
             } catch (error) {
                 console.error('Error fetching background URL:', error);
             }
