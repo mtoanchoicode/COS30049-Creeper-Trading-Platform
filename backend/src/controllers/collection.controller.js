@@ -1,9 +1,9 @@
 const {createCollection, getCollection, getAllCollections} = require('../models/collection.model.js');
 
 const createHandleCollection = async (req, res) => {
-    const { contractAddress, ownerAddress, creatorAddress, collectionName, collectionSymbol, collectionDescription, collectionImage, totalSupply } = req.body;
+    const { id, contractAddress, collectionName, collectionImage, price } = req.body;
     try{
-        const transaction = await createCollection(contractAddress, ownerAddress, creatorAddress, collectionName, collectionSymbol, collectionDescription, collectionImage, totalSupply);
+        const transaction = await createCollection(id, contractAddress, collectionName, collectionImage, price);
         res.status(201).json(transaction);
     }
     catch(error){

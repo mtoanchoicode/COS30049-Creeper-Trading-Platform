@@ -446,8 +446,8 @@ const NFTCollection = () => {
     const fetchDescription = async () => {
       try {
         const desc = await getDescriptionFromDB(NFT_CONTRACT_ADDRESS);
-        setDescription(desc || text);
-        setDescriptionToChange(desc || text);
+        setDescription(desc || "");
+        setDescriptionToChange(desc || "");
       } catch (error) {
         console.error("Error fetching description:", error);
       }
