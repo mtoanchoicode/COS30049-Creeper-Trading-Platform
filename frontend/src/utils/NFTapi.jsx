@@ -2,21 +2,18 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // ----- APIs for collections -----
 const handleCreateCollection = async (
-    contractAddress, ownerAddress, creatorAddress, collectionName, collectionSymbol, collectionDescription, collectionImage, totalSupply
+    id, contractAddress, collectionName, collectionImage, price
     ) => {
     try {
             await fetch(`${API_BASE_URL}/v1/api/collection/created`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+                id: id.toString(),
                 contractAddress: contractAddress.toString(),
-                ownerAddress: ownerAddress.toString(),
-                creatorAddress: creatorAddress.toString(),
                 collectionName: collectionName.toString(),
-                collectionSymbol: collectionSymbol.toString(),
-                collectionDescription: collectionDescription.toString(),
                 collectionImage: collectionImage.toString(),
-                totalSupply: totalSupply.toString()
+                price: price.toString()
             }),
         });
     
@@ -142,6 +139,75 @@ const handleGetAllNFTsFromCollection = async (ContractAddress) => {
     }
 }
 
+// ----- APIs for NFT Transactions -----
+const handleCreateNFTTransaction = async (
+    ContractAddress, TokenID, AddressFrom, AddressTo, Fee, Gas, Method, HashCode, Status
+    ) => {
+    try {
+            await fetch(`${API_BASE_URL}/v1/api/nft_transaction/created`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ContractAddress: ContractAddress.toString(),
+                TokenID: TokenID.toString(),
+                AddressFrom: AddressFrom.toString(),
+                AddressTo: AddressTo.toString(),
+                Fee: Fee.toString(),
+                Gas: Gas.toString(),
+                Method: Method.toString(),
+                HashCode: HashCode.toString(),
+                Status: Status.toString()
+            }),
+        });
+    
+    } catch (err) {
+        console.error("Error adding NFT Transaction to database:", err);
+        notification.error({
+        message: "Creating NFT Transaction failed",
+        description: "Error adding NFT Transaction to database",
+        });
+    }
+}
+
+const handleGetNFTTransaction = async (HashCode) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/nft_transaction/`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                HashCode: HashCode.toString()
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching NFT Transaction", err);
+        notification.error({
+            message: "Getting NFT Transaction failed",
+            description: "Failed to get NFT Transaction",
+        });
+    }
+}
+
+const handleGetAllNFTTransactions = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/v1/api/nft_transaction/allNFTTransactions`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching NFT Transactions", err);
+        notification.error({
+            message: "Getting NFT Transactions failed",
+            description: "Failed to get NFT Transactions",
+        });
+    }
+}
+
 export { 
     handleCreateCollection, //create a collection
     handleGetCollection, //(contractAddress) -> collection
@@ -149,5 +215,9 @@ export {
 
     handleCreateNFT, //create an NFT
     handleGetNFT, //(ContractAddress, TokenID) -> NFT
-    handleGetAllNFTsFromCollection //(ContractAddress) -> all NFTs
+    handleGetAllNFTsFromCollection, //(ContractAddress) -> all NFTs
+
+    handleCreateNFTTransaction, //create an NFT transaction
+    handleGetNFTTransaction, //(HashCode) -> NFT transaction
+    handleGetAllNFTTransactions //() -> all NFT transactions
 };

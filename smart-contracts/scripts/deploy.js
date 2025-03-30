@@ -4,8 +4,7 @@ async function main() {
   const collectionName = "Vell mobile"; // Replace with desired name
   const symbol = "VEO"; // Replace with your NFT symbol
 
-  const NFTCollection = await ethers.getContractFactory("NFTCollection");
-  const nftCollection = await NFTCollection.deploy(collectionName, symbol);
+  await creeperMarketplace.waitForDeployment(); // Corrected method
 
   await nftCollection.waitForDeployment(); // Corrected method
 
