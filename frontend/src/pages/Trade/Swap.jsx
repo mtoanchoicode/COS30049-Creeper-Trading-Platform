@@ -6,6 +6,7 @@ import SwapContainer from "../../components/Trade/SwapContainer/SwapContainer";
 import TransactionHistory from "../../components/Trade/TransactionHistory/TransactionHistory";
 import { CoinContext } from "../../contexts/CoinContext";
 import { ExportOutlined } from "@ant-design/icons";
+
 import IERC20ABI from "./abi/IERC20ABI.json";
 import handleTransaction from "../../utils/transactionAPI";
 
@@ -241,6 +242,7 @@ const Swap = ({ showHistory = true }) => {
             isConnected && !swapFromCurrencyValue ? "disabled" : "enabled"
           }`}
           onClick={handleButtonClick}
+          disabled={isLoading} // Disable button while loading
         >
           {getButtonText()}
         </Button>
@@ -256,7 +258,7 @@ const Swap = ({ showHistory = true }) => {
       </div>
       {showHistory && (
         <div className="trade-history">
-          <TransactionHistory method = "Swap"/>
+          <TransactionHistory method="Swap" />
         </div>
       )}
     </div>

@@ -34,7 +34,12 @@ import AdminPage from "./pages/Admin/Admin.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoginAdminPage from "./pages/Admin/LoginPage.jsx";
 import CreateToken from "./pages/Trade/CreateToken.jsx";
+import CreateCollection from "./pages/CreateNFT/CreateCollection.jsx";
+import CreateCollectionDashBoard from "./pages/CreateNFT/CreateCollectionDashboard.jsx";
 import NFT from "./pages/NFT/NFT.jsx";
+import NFTCollection from "./pages/NFT/NFTCollection/NFTCollection.jsx";
+import NFTDetails from "./pages/NFT/NFTDetails/NFTDetails.jsx";
+import NFTTransfer from "./pages/NFT/NFTTransfer/NFTTransfer.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -88,6 +93,16 @@ const routers = createBrowserRouter([
         ],
       },
       {
+        path: "create/collection",
+        element: <CreateCollectionDashBoard/>,
+        children: [
+          {
+            index: true,
+            element: <CreateCollection />,
+          },
+        ],
+      },
+      {
         path: "news",
         element: <NewsPage />,
       },
@@ -98,6 +113,18 @@ const routers = createBrowserRouter([
       {
         path: "nft",
         element: <NFT />,
+      },
+      {
+        path: "nft/:collectionId",
+        element: <NFTCollection />,
+      },
+      {
+        path: "nft/:collectionId/:nftId",
+        element: <NFTDetails />,
+      },
+      {
+        path: "nft/:collectionId/:nftId/transfer",
+        element: <NFTTransfer />,
       },
     ],
   },
