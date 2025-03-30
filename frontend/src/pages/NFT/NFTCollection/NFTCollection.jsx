@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import NFTCollectionBg from "./NFTCollectionBg/NFTCollectionBg";
 import editDescIcon from "../../../assets/edit-description-icon.svg"
 import "./NFTCollection.css";
-
+import {uploadDescriptionToDB, getDescriptionFromDB} from "../../../utils/CollectionDetailsAPI";
 import { ExportOutlined } from "@ant-design/icons";
 
 const NFTCollection = () => {
@@ -433,14 +433,28 @@ const NFTCollection = () => {
       document.body.style.overflow = "hidden";
     }
   }
-
-  const [description, setDescription] = useState(text);
-  const [descriptionToChange, setDescriptionToChange] = useState(text || "");
+  const [description, setDescription] = useState(text || "");
+  const [descriptionToChange, setDescriptionToChange] = useState(description);
 
   const handleChangeDescription = () => {
     setDescription(descriptionToChange);
+    uploadDescriptionToDB(NFT_CONTRACT_ADDRESS, descriptionToChange);
     toggleEditDescOverlay();
   }
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const desc = await getDescriptionFromDB(NFT_CONTRACT_ADDRESS);
+        setDescription(desc || text);
+        setDescriptionToChange(desc || text);
+      } catch (error) {
+        console.error("Error fetching description:", error);
+      }
+    };
+
+    fetchDescription();
+  }, [NFT_CONTRACT_ADDRESS])
 
   return (
     <div className="nft-collection">

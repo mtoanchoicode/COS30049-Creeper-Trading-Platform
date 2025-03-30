@@ -42,9 +42,9 @@ const updateHandleCollectionImageURL = async (req, res) => {
 }
 
 const updateHandleCollectionDescription = async (req, res) => {
-    const { contractAddress, collectionDescription } = req.body;
+    const { contractAddress, description } = req.body;
     try{
-        const transaction = await updateCollectionDescription(contractAddress, collectionDescription);
+        const transaction = await updateCollectionDescription(contractAddress, description);
         res.status(201).json(transaction);
     }
     catch(error){

@@ -118,5 +118,25 @@ const getDescriptionFromDB = async (contractAddress) => {
     }
 }
 
-export { uploadImageToDB, getImageURLFromDB, getDescriptionFromDB };
+const uploadDescriptionToDB = async (contractAddress, description) => {
+    try{
+        console.log("description:", description);
+        await fetch(`${API_BASE_URL}/v1/api/collectionDetails/updateDescription`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contractAddress: contractAddress.toString(),
+                description: description.toString()
+            }),
+        });
+    }catch (err) {
+        console.error("Error setting collection description:", err);
+        notification.error({
+            message: "Collection description failed",
+            description: "Error adding collection description to database",
+        });
+    }
+}
+
+export { uploadImageToDB, getImageURLFromDB, getDescriptionFromDB, uploadDescriptionToDB };
     
