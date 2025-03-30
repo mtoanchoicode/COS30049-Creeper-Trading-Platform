@@ -1,0 +1,191 @@
+.nft-transfer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4.5rem;
+  padding: 1rem 25rem;
+  gap: 1.5rem;
+}
+
+.nft-transfer .nft-transfer-title {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.nft-transfer .nft-transfer-cover {
+  width: 20rem;
+  height: 20rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.01rem solid var(--trade-border-color);
+  aspect-ratio: 1/1;
+}
+
+.nft-transfer .nft-transfer-cover img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.8rem;
+  object-fit: contain;
+}
+
+.nft-transfer .nft-transfer-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nft-transfer .nft-transfer-input p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.nft-transfer .nft-transfer-input input {
+  height: 3.5rem;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  color: var(--white-color);
+  background: var(--black-color);
+  border: 0.05rem solid var(--trade-secondary-text-color);
+  transition: none;
+}
+
+.nft-transfer .nft-transfer-input input::placeholder {
+  color: var(--trade-input-placeholder-color);
+  font-size: 1rem;
+}
+
+.nft-transfer .nft-transfer-input input:hover {
+  background: transparent;
+  border: 0.05rem solid var(--trade-secondary-text-color);
+}
+
+.nft-transfer .nft-transfer-input input:focus {
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: 0.05rem solid var(--trade-secondary-text-color);
+}
+
+.nft-transfer button {
+  height: 3.5rem;
+  width: 100%;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  background: var(--primary-color);
+  border: none;
+  color: white;
+  align-self: center;
+  transition: none;
+}
+
+.nft-transfer button:hover {
+  background: #00943e !important;
+  color: white !important;
+}
+
+.nft-overlay {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.358);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nft-overlay-container {
+  background: var(--trade-background-color);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  margin: 6rem auto;
+}
+
+.nft-signing-overlay .nft-signing-overlay-container {
+  gap: 2.5rem;
+}
+
+.nft-signing-overlay-container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nft-signing-overlay .nft-signing-overlay-container h2 {
+  font-size: 1.5rem;
+}
+
+.nft-signing-overlay .nft-signing-overlay-container svg {
+  cursor: pointer;
+}
+
+.nft-signing-overlay
+  .nft-signing-overlay-container
+  .nft-signing-overlay-container-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nft-signing-overlay .nft-signing-overlay-container div p:first-child {
+  font-weight: 600;
+}
+
+.nft-complete-overlay-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-icon {
+  align-self: flex-end;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-cover {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+  border-radius: 0.5rem;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-text h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-text p {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-text p a {
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-hash p {
+  text-align: center;
+  font-weight: 700;
+  color: var(--trade-secondary-text-color);
+  margin-top: 1.5rem;
+}
+
+.nft-complete-overlay-container .nft-complete-overlay-container-hash a {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}

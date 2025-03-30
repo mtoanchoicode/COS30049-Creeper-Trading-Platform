@@ -37,6 +37,7 @@ import CreateToken from "./pages/Trade/CreateToken.jsx";
 import NFT from "./pages/NFT/NFT.jsx";
 import NFTCollection from "./pages/NFT/NFTCollection/NFTCollection.jsx";
 import NFTDetails from "./pages/NFT/NFTDetails/NFTDetails.jsx";
+import NFTTransfer from "./pages/NFT/NFTTransfer/NFTTransfer.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const routers = createBrowserRouter([
       {
         path: "nft/:collectionId/:nftId",
         element: <NFTDetails />,
+      },
+      {
+        path: "nft/:collectionId/:nftId/transfer",
+        element: <NFTTransfer />,
       },
     ],
   },

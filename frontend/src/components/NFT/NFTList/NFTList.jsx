@@ -14,7 +14,7 @@ const NFTList = ({ sectionRef }) => {
   const [nfts, setNfts] = useState([
     {
       id: "minecraft-blocks",
-      name: "Minecraft block",
+      name: "Minecraft Blocks",
       price: "3.16",
       image: CoverImage,
       address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
@@ -24,21 +24,21 @@ const NFTList = ({ sectionRef }) => {
       name: "Fidenza by Tyler Hobbs",
       price: "3.16",
       image: CoverImage_1,
-      address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+      address: "0xbbBe0cd20DEA38126d24ef5f8ea35381CC408441",
     },
     {
       id: "axie",
       name: "Axie",
       price: "3.16",
       image: CoverImage_2,
-      address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+      address: "0x568ce637DE90dB21409CaF9165d515F30D9D79ee",
     },
     {
       id: "doodles",
       name: "Doodles",
       price: "3.16",
       image: CoverImage_3,
-      address: "0x8f580074776FB3254AEFaFb1e2ca985F4F2AE85D",
+      address: "0x085Cc73796422CBf5D9DFd05c916066D358Cc877",
     },
     {
       id: "renga",

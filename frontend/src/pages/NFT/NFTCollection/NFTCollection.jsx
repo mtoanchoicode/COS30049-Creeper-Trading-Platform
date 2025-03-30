@@ -4,9 +4,12 @@ import { ethers } from "ethers";
 import "./NFTCollection.css";
 
 import { ExportOutlined } from "@ant-design/icons";
+import { use } from "react";
 
 const NFTCollection = () => {
   const [nfts, setNfts] = useState([]);
+  const [date, setDate] = useState("");
+  const [lengths, setLengths] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
@@ -14,364 +17,15 @@ const NFTCollection = () => {
 
   const NFT_CONTRACT_ADDRESS = nft.address;
   const NFT_ABI = [
-    {
-      inputs: [
-        { internalType: "string", name: "_collectionName", type: "string" },
-        { internalType: "string", name: "_symbol", type: "string" },
-      ],
-      stateMutability: "nonpayable",
-      type: "constructor",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "sender", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-        { internalType: "address", name: "owner", type: "address" },
-      ],
-      name: "ERC721IncorrectOwner",
-      type: "error",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "operator", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-      ],
-      name: "ERC721InsufficientApproval",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "approver", type: "address" }],
-      name: "ERC721InvalidApprover",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "operator", type: "address" }],
-      name: "ERC721InvalidOperator",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "owner", type: "address" }],
-      name: "ERC721InvalidOwner",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "receiver", type: "address" }],
-      name: "ERC721InvalidReceiver",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "sender", type: "address" }],
-      name: "ERC721InvalidSender",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "ERC721NonexistentToken",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "owner", type: "address" }],
-      name: "OwnableInvalidOwner",
-      type: "error",
-    },
-    {
-      inputs: [{ internalType: "address", name: "account", type: "address" }],
-      name: "OwnableUnauthorizedAccount",
-      type: "error",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "approved",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "Approval",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "operator",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "bool",
-          name: "approved",
-          type: "bool",
-        },
-      ],
-      name: "ApprovalForAll",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "previousOwner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "newOwner",
-          type: "address",
-        },
-      ],
-      name: "OwnershipTransferred",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "from",
-          type: "address",
-        },
-        { indexed: true, internalType: "address", name: "to", type: "address" },
-        {
-          indexed: true,
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "Transfer",
-      type: "event",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "to", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-      ],
-      name: "approve",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "owner", type: "address" }],
-      name: "balanceOf",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "uint256", name: "amount", type: "uint256" },
-        { internalType: "string[]", name: "metadataURIs", type: "string[]" },
-      ],
-      name: "batchMint",
-      outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getAllMintedTokens",
-      outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "getApproved",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getListedNFTs",
-      outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "owner", type: "address" },
-        { internalType: "address", name: "operator", type: "address" },
-      ],
-      name: "isApprovedForAll",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "listNFT",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "string", name: "metadataURI", type: "string" }],
-      name: "mint",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "name",
-      outputs: [{ internalType: "string", name: "", type: "string" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "owner",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "ownerOf",
-      outputs: [{ internalType: "address", name: "", type: "address" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "from", type: "address" },
-        { internalType: "address", name: "to", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-      ],
-      name: "safeTransferFrom",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "from", type: "address" },
-        { internalType: "address", name: "to", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-        { internalType: "bytes", name: "data", type: "bytes" },
-      ],
-      name: "safeTransferFrom",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "operator", type: "address" },
-        { internalType: "bool", name: "approved", type: "bool" },
-      ],
-      name: "setApprovalForAll",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
-      name: "supportsInterface",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "symbol",
-      outputs: [{ internalType: "string", name: "", type: "string" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "tokenURI",
-      outputs: [{ internalType: "string", name: "", type: "string" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        { internalType: "address", name: "from", type: "address" },
-        { internalType: "address", name: "to", type: "address" },
-        { internalType: "uint256", name: "tokenId", type: "uint256" },
-      ],
-      name: "transferFrom",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-      name: "transferOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-      name: "unlistNFT",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function totalSupply() view returns (uint256)", // Only available if contract implements it
+    "function tokenURI(uint256 tokenId) view returns (string)",
+    "function ownerOf(uint256 tokenId) view returns (address)",
+    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
   ]; // Replace with your deployed contract
 
-  const getContractCreationDate = async () => {
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const txReceipt = await provider.getTransactionReceipt(
-        NFT_CONTRACT_ADDRESS
-      );
-
-      if (!txReceipt) {
-        console.log("Transaction receipt not found.");
-        return;
-      }
-
-      const block = await provider.getBlock(txReceipt.blockNumber);
-      console.log(
-        "Contract Creation Date (UTC):",
-        new Date(block.timestamp * 1000).toISOString()
-      );
-    } catch (error) {
-      console.error("Error fetching contract creation date:", error);
-    }
-  };
-
-  const getNFTs = async () => {
+  const fetchNFTsFromEvents = async () => {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(
@@ -380,40 +34,138 @@ const NFTCollection = () => {
         provider
       );
 
-      const tokenIds = await contract.getAllMintedTokens(); // Fetch array of minted token IDs
-      const nftData = [];
+      const collectionName = await contract.name();
+      const collectionAddress = NFT_CONTRACT_ADDRESS;
 
-      for (const tokenId of tokenIds) {
-        const tokenURI = await contract.tokenURI(tokenId); // Fetch metadata URI
-        const metadataResponse = await fetch(
-          tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-        ); // Convert IPFS URI to HTTP
-        const metadata = await metadataResponse.json();
+      // Fetch all Transfer events
+      const transferEvents = await contract.queryFilter(
+        "Transfer",
+        0,
+        "latest"
+      );
 
-        nftData.push({
-          id: tokenId,
-          name: metadata.name,
-          image: metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/"),
-          description: metadata.description,
-        });
-      }
+      // Use a Map to store only the latest transfer per token
+      const latestTransfers = new Map();
+
+      transferEvents.forEach((event) => {
+        const tokenId = event.args.tokenId.toString();
+        latestTransfers.set(tokenId, event); // Always overwrite to keep only the latest
+      });
+
+      // Process only the latest transferred tokens
+      const nftPromises = Array.from(latestTransfers.values()).map(
+        async (event) => {
+          try {
+            const tokenId = event.args.tokenId.toString();
+            const block = await provider.getBlock(event.blockNumber);
+
+            const [tokenURI, owner] = await Promise.all([
+              contract.tokenURI(tokenId),
+              contract.ownerOf(tokenId),
+            ]);
+
+            // Ensure tokenURI is valid
+            const validTokenURI = tokenURI.startsWith("ipfs://")
+              ? tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
+              : tokenURI;
+
+            // Fetch metadata
+            const metadataResponse = await fetch(validTokenURI);
+            if (!metadataResponse.ok)
+              throw new Error(`Invalid metadata for token ${tokenId}`);
+
+            const metadata = await metadataResponse.json();
+            const image = metadata.image
+              ? metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+              : "https://via.placeholder.com/200";
+
+            return {
+              id: tokenId,
+              name: metadata.name || `Token #${tokenId}`,
+              image,
+              description: metadata.description || "No description available",
+              collectionName,
+              collectionAddress,
+              lastUpdated: new Date(block.timestamp * 1000).toLocaleString(),
+              owner,
+            };
+          } catch (error) {
+            return null; // Ignore failed NFTs
+          }
+        }
+      );
+
+      // Wait for all NFT data
+      const nftData = (await Promise.all(nftPromises)).filter(Boolean);
 
       return nftData;
     } catch (error) {
-      console.error("Error fetching NFTs:", error);
       return [];
     }
   };
 
+  const getContractCreationDate = async () => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      const tx = await provider.getCode(NFT_CONTRACT_ADDRESS);
+      if (!tx) return "Unknown";
+
+      const block = await provider.getBlock(tx.blockNumber);
+
+      return new Date(block.timestamp * 1000).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      });
+    } catch (error) {
+      return "Unknown";
+    }
+  };
+
+  const fetchNFTsCount = async () => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const contract = new ethers.Contract(
+        NFT_CONTRACT_ADDRESS,
+        NFT_ABI,
+        provider
+      );
+
+      // Fetch Transfer events
+      const transferEvents = await contract.queryFilter(
+        "Transfer",
+        0,
+        "latest"
+      );
+
+      // Count unique tokenIds
+      const uniqueTokenIds = new Set(
+        transferEvents.map((event) => event.args.tokenId.toString())
+      );
+      return uniqueTokenIds.size;
+    } catch (error) {
+      return 0;
+    }
+  };
+
   useEffect(() => {
-    const fetchNFTs = async () => {
+    const fetchMetadata = async () => {
       setIsLoading(true);
-      await getContractCreationDate();
-      const data = await getNFTs();
-      setNfts(data);
+      const totalNFTs = await fetchNFTsCount();
+      setLengths(totalNFTs);
+      const contractDate = await getContractCreationDate();
+      setDate(contractDate);
       setIsLoading(false);
     };
-    fetchNFTs();
+
+    const fetchNFTsData = async () => {
+      setIsLoading(true);
+      const nftData = await fetchNFTsFromEvents();
+      setNfts(nftData);
+      setIsLoading(false);
+    };
+
+    fetchMetadata().then(() => fetchNFTsData()); // Ensure first fetch finishes before second
   }, []);
 
   const [expanded, setExpanded] = useState(false);
@@ -433,20 +185,24 @@ const NFTCollection = () => {
                 {expanded ? "See Less" : "See More"}
               </button>
             </div>
-            <div className="nft-collection-header-desc-stat">
-              <div>
-                <p>Items</p>
-                <p>9</p>
+            {isLoading ? (
+              <div className="nft-collection-header-desc-stat nft-skeleton"></div>
+            ) : (
+              <div className="nft-collection-header-desc-stat">
+                <div>
+                  <p>Items</p>
+                  <p>{lengths}</p>
+                </div>
+                <div>
+                  <p>Created</p>
+                  <p>{date}</p>
+                </div>
+                <div>
+                  <p>Chain</p>
+                  <p>Sepolia</p>
+                </div>
               </div>
-              <div>
-                <p>Created</p>
-                <p>March 2025</p>
-              </div>
-              <div>
-                <p>Chain</p>
-                <p>Sepolia</p>
-              </div>
-            </div>
+            )}
           </div>
           <div className="nft-collection-header-btn">
             <a
@@ -465,18 +221,25 @@ const NFTCollection = () => {
         <div className="nft-collection-items">
           {isLoading ? (
             Array.from({ length: 10 }).map((_, index) => (
-              <div key={index} className="nft-item nft-skeleton"></div>
+              <div key={index} className="nft-item nft-skeleton">
+                <div className="nft-item-cover"></div>
+                <div className="nft-item-desc">
+                  <h3></h3>
+                  <p></p>
+                </div>
+                <div className="nft-item-buy"></div>
+              </div>
             ))
           ) : nfts.length > 0 ? (
             nfts.map((nft) => (
-              <Link key={nft.id} to={`${nft.id}`}>
+              <Link key={nft.id} to={`${nft.id}`} state={{ nft }}>
                 <div className="nft-item">
                   <div className="nft-item-cover">
                     <img src={nft.image} alt={nft.name} />
                   </div>
                   <div className="nft-item-desc">
-                    <h3>{`${nft.name} #${nft.id}`}</h3>
-                    <p>{nft.price ? `${nft.price} ETH` : "Not listed"}</p>
+                    <h3>{`${nft.name}`}</h3>
+                    <p>{nft.price ? nft.price : "Not listed"}</p>
                   </div>
                   <div className="nft-item-buy">
                     <p>Buy</p>

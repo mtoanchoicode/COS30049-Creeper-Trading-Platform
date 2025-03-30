@@ -34,6 +34,8 @@
   --trade-btn-hover: #1f1f1f;
   --trade-token-hover: #222222;
   --nft-collection-card: #181818;
+  --nft-collection-shimmer-1: #181818;
+  --nft-collection-shimmer-2: #222222;
   --searchbar-result-background: rgba(77, 77, 77, 0.103);
   --white-color: #fdfdfd;
   --black-color: #131313;
@@ -59,6 +61,8 @@
   --trade-btn-hover: #f0f0f0;
   --trade-token-hover: #e7e7e7;
   --nft-collection-card: #ffffff;
+  --nft-collection-shimmer-1: #f4f4f4;
+  --nft-collection-shimmer-2: #e8e8e8;
   --searchbar-result-background: rgba(255, 255, 255, 0.305);
   --white-color: #131313;
   --black-color: #fdfdfd;
