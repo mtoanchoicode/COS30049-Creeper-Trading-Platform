@@ -1,5 +1,4 @@
 const { pinFileToIPFS } = require("../config/pinata");
-const Web3 = require("web3");
 
 const createNFTCollectionControll = async (req, res) => {
   try {
