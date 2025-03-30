@@ -6,11 +6,12 @@ import { Button, Form, Input, Upload, Image, Radio, Alert, notification, Popover
 import { UploadOutlined, PictureOutlined, InfoCircleOutlined, ExportOutlined} from "@ant-design/icons";
 import NFTABI from "../../../../smart-contracts/artifacts/contracts/NFTCollection.sol/NFTCollection.json";   
 import { ethers } from "ethers";
+import { handleCreateCollection } from "../../utils/NFTapi";
 
 
 const CreateCollection = () => {
 
-    //cotarct state
+    //contract state
     const { open } = useAppKit();
 
     //font-end states
@@ -58,6 +59,15 @@ const CreateCollection = () => {
             setVisible(true);
 
             console.log(`NFTCollection deployed to: ${await nftCollection.getAddress()}`);
+
+            const collectionID = values.collectionName
+            const collectionId = collectionID.toLowerCase().replace(" ", "-");
+            console.log(collectionId);
+            console.log(contractAddress);
+            console.log(values.collectionName);
+            console.log(fileList[0].thumbUrl);
+            await handleCreateCollection(collectionId, contractAddress, values.collectionName, fileList[0].thumbUrl);
+
             notification.success({ 
                 message: "Contract Deployed!", 
                 description: `Address: ${contractAddress}` });
