@@ -1,9 +1,9 @@
 const { pinFileToIPFS } = require("../config/pinata");
-const Web3 = require("web3");
+
 
 const createNFTCollectionControll = async (req, res) => {
   try {
-    const { name, symbol } = req.body;
+    const { name, description = "" } = req.body; 
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
     // Upload image to IPFS
@@ -12,16 +12,21 @@ const createNFTCollectionControll = async (req, res) => {
     
     // Create metadata JSON
     const metadata = { name, description, image: imageURI };
-    const metadataHash = await pinFileToIPFS(Buffer.from(JSON.stringify(metadata)), `${name}.json`);
+    const metadataHash = await pinFileToIPFS(Buffer.from(JSON.stringify(metadata)), `${name}`, `${description}`);
     const metadataURI = `https://gateway.pinata.cloud/ipfs/${metadataHash}`;
 
-    // // Save to DB
-    // const newNFT = new createCollection({  });
-    // await newNFT.save();
-
-    res.status(201).json({ message: "NFT Collection Created", nft: newNFT });
+  // Send back the response with all URIs
+  res.status(200).json({
+    success: true,
+    data: {
+      metadataURI,
+      imageURI,
+      metadata  
+    }
+  });
+    
   } catch (error) {
-    res.status(500).json({ message: "Error creating NFT", error });
+    res.status(500).json({error: error.message });
   }
 };
 

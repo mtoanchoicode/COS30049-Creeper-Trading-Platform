@@ -40,7 +40,7 @@ app.use("/v1/api/mail", mailRouter);
 app.use("/v1/api/news", newsRouter);
 app.use("/v1/api/transaction", transactionRouter);
 app.use("/v1/api/user", userRouter);
-app.use("/v1/api/nft/collection", collectionNFT);
+app.use("/v1/api/nft/create", collectionNFT);
 
 app.use("/v1/api/collection", collectionRouter);
 app.use("/v1/api/nft", NFTRouter);
