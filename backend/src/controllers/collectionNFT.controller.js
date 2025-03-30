@@ -1,4 +1,3 @@
-const {createCollection} = require("../models/nft.model");
 const { pinFileToIPFS } = require("../config/pinata");
 
 const createNFTCollectionControll = async (req, res) => {
