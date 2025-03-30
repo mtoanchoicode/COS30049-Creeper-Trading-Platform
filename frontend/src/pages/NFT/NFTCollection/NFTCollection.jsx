@@ -9,8 +9,11 @@ import {
 } from "../../../utils/CollectionDetailsAPI";
 import { ExportOutlined, MoreOutlined, EditOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTCollection = () => {
+  const { address } = useAppKitAccount();
+  const [authOwner, setAuthOwner] = useState(false);
   const [nfts, setNfts] = useState([]);
   const [date, setDate] = useState("");
   const [lengths, setLengths] = useState("");
@@ -153,6 +156,12 @@ const NFTCollection = () => {
   };
 
   useEffect(() => {
+    if (nft && nft.owner && address) {
+      setAuthOwner(nft.owner.toLowerCase() === address.toLowerCase());
+    } else {
+      setAuthOwner(false);
+    }
+
     const fetchMetadata = async () => {
       setIsLoading(true);
       const totalNFTs = await fetchNFTsCount();
@@ -170,7 +179,7 @@ const NFTCollection = () => {
     };
 
     fetchMetadata().then(() => fetchNFTsData()); // Ensure first fetch finishes before second
-  }, []);
+  }, [nft, address]);
 
   const [expanded, setExpanded] = useState(false);
   const text =
@@ -223,8 +232,11 @@ const NFTCollection = () => {
         <ExportOutlined />
         <span>View on EtherScan </span>
       </a>
-
-      <div onClick={() => toggleEditDescOverlay()} className="nft-popover-item">
+      <div
+        onClick={toggleEditDescOverlay}
+        style={{ display: authOwner ? "block" : "none" }}
+        className="nft-popover-item"
+      >
         <EditOutlined />
         <span>Edit Collection</span>
       </div>
@@ -247,6 +259,7 @@ const NFTCollection = () => {
               value={descriptionToChange}
               onChange={(e) => setDescriptionToChange(e.target.value)}
             ></textarea>
+            <div className="nft-collection-set-image-input"></div>
 
             <div className="nft-collection-set-description-btns">
               <button
