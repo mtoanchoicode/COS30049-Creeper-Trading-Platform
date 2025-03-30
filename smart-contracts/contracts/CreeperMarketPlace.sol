@@ -88,46 +88,55 @@ contract CreeperMarketplace is ReentrancyGuard {
         );
     }
 
-    function createMarketplaceSale(address nftContract, uint256 itemId)
-        public
-        payable
-        nonReentrant
-    {
+    event DebugLog(string message, uint256 value, address addr);
+
+    function createMarketplaceSale(address nftContract, uint256 itemId) public payable nonReentrant {
         uint256 price = idToMarketplaceItem[itemId].price;
         uint256 tokenId = idToMarketplaceItem[itemId].tokenId;
+
+        emit DebugLog("Checking if item is sold", itemId, msg.sender);
         require(idToMarketplaceItem[itemId].sold == false, "Item already sold");
+
+        emit DebugLog("Checking price match", msg.value, msg.sender);
         require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
-        idToMarketplaceItem[itemId].seller.transfer(msg.value);
-        IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
+        emit DebugLog("Checking contract ownership", tokenId, address(this));
+        require(IERC721(nftContract).ownerOf(tokenId) == address(this), "Contract does not own NFT");
+
+        emit DebugLog("Transferring funds to seller", msg.value, idToMarketplaceItem[itemId].seller);
+        (bool success, ) = idToMarketplaceItem[itemId].seller.call{value: msg.value}("");
+        require(success, "Transfer to seller failed");
+
+        emit DebugLog("Updating ownership", tokenId, msg.sender);
         idToMarketplaceItem[itemId].owner = payable(msg.sender);
         idToMarketplaceItem[itemId].sold = true;
-
         _soldItems.increment();
 
-        payable(owner).transfer(listingPrice);
-    }
-    // New function to directly buy NFT with listing price
-    function buyNFT(address nftContract, uint256 tokenId)
-        public
-        payable
-        nonReentrant
-    {
-        uint256 itemId = nftToItemId[nftContract][tokenId];
-        require(itemId > 0, "NFT not listed");
-        require(idToMarketplaceItem[itemId].sold == false, "Item already sold");
-        uint256 price = idToMarketplaceItem[itemId].price;
-        require(msg.value == price, "Please submit the exact asking price");
+        emit DebugLog("Transferring listing fee", listingPrice, owner);
+        (bool ownerSuccess, ) = payable(owner).call{value: listingPrice}("");
+        require(ownerSuccess, "Transfer to owner failed");
 
-        idToMarketplaceItem[itemId].seller.transfer(msg.value);
+        emit DebugLog("Transferring NFT", tokenId, msg.sender);
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
-        idToMarketplaceItem[itemId].owner = payable(msg.sender);
-        idToMarketplaceItem[itemId].sold = true;
 
-        _soldItems.increment();
-
-        payable(owner).transfer(listingPrice);
+        emit DebugLog("Sale completed", tokenId, msg.sender);
     }
+
+    function withdrawListing(address nftContract, uint256 itemId) public nonReentrant {
+    MarketplaceItem storage item = idToMarketplaceItem[itemId];
+
+    require(item.sold == false, "Item already sold");
+    require(item.seller == msg.sender, "You are not the seller");
+    require(IERC721(nftContract).ownerOf(item.tokenId) == address(this), "Marketplace does not own this NFT");
+
+    // Remove item from marketplace
+    delete idToMarketplaceItem[itemId];
+    delete nftToItemId[nftContract][item.tokenId];
+
+    // Transfer NFT back to the seller
+    IERC721(nftContract).transferFrom(address(this), msg.sender, item.tokenId);
+}
+
 
     // Get all unsold marketplace items
     function fetchMarketplaceItems() public view returns (MarketplaceItem[] memory) {
