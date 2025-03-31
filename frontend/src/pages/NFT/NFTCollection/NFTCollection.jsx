@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
-import NFTCollectionBg from "./NFTCollectionBg/NFTCollectionBg";
 import "./NFTCollection.css";
-import {
-  uploadDescriptionToDB,
-  getDescriptionFromDB,
-} from "../../../utils/CollectionDetailsAPI";
-import {
-  ExportOutlined,
-  MoreOutlined,
-  EditOutlined,
-  FileImageOutlined,
-} from "@ant-design/icons";
-import { Popover } from "antd";
 import { useAppKitAccount } from "@reown/appkit/react";
+import NFTCollectionHeader from "../../../components/NFT/NFTCollectionHeader/NFTCollectionHeader";
 
 const NFTCollection = () => {
   const { address } = useAppKitAccount();
@@ -23,13 +12,6 @@ const NFTCollection = () => {
   const [date, setDate] = useState("");
   const [lengths, setLengths] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false);
-  const [showEditDesc, setShowEditDesc] = useState(false);
-  const [description, setDescription] = useState("");
-  const [descriptionToChange, setDescriptionToChange] = useState(description);
-  const [bg, setBg] = useState(null);
-  const [tempBg, setTempBg] = useState(null);
-  const [imageName, setImageName] = useState("");
   const location = useLocation();
   const nft = location.state?.nft;
 
@@ -40,7 +22,7 @@ const NFTCollection = () => {
   ];
 
   const NFT_CONTRACT_ADDRESS = nft.ContractAddress;
-  // nft.address
+
   const NFT_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
@@ -66,6 +48,9 @@ const NFTCollection = () => {
       if (address && collectionOwner) {
         setAuthOwner(collectionOwner.toLowerCase() === address.toLowerCase());
       }
+      console.log(collectionOwner)
+      console.log(address)
+      console.log(authOwner)
     } catch (error) {
       console.error("Failed to get contract owner:", error);
     }
@@ -232,193 +217,17 @@ const NFTCollection = () => {
     fetchMetadata().then(() => fetchNFTsData()); // Ensure first fetch finishes before second
   }, []);
 
-  useEffect(() => {
-    const fetchDescription = async () => {
-      try {
-        const desc = await getDescriptionFromDB(NFT_CONTRACT_ADDRESS);
-        setDescription(desc || "");
-        setDescriptionToChange(desc || "");
-      } catch (error) {
-        console.error("Error fetching description:", error);
-      }
-    };
-
-    fetchDescription();
-  }, [NFT_CONTRACT_ADDRESS]);
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setTempBg(imageURL); // Store it temporarily
-      setImageName(file.name);
-    }
-  };
-
-  const handleSaveImage = () => {
-    if (tempBg) {
-      setBg(tempBg); // Confirm the image
-      uploadImageToDB(NFT_CONTRACT_ADDRESS, tempBg);
-      setTempBg(null); // Clear temporary state
-    }
-  };
-
-  const handleCancelImage = () => {
-    setTempBg(null); // Reset temp image if canceled
-  };
-
-  const toggleExpanded = () => setExpanded(!expanded);
-
-  const toggleEditDescOverlay = () => {
-    setShowEditDesc(!showEditDesc);
-    if (showEditDesc) {
-      setDescriptionToChange(description);
-    } else {
-      setDescriptionToChange(description);
-    }
-  };
-
-  const handleChangeDescription = () => {
-    setDescription(descriptionToChange);
-    uploadDescriptionToDB(NFT_CONTRACT_ADDRESS, descriptionToChange);
-    toggleEditDescOverlay();
-  };
-
-  const content = (
-    <div className="nft-popover">
-      <a
-        className="nft-popover-item"
-        href={`https://sepolia.etherscan.io/address/${nft.address}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <ExportOutlined />
-        <span>View on EtherScan </span>
-      </a>
-      <div
-        onClick={toggleEditDescOverlay}
-        style={{ display: authOwner ? "block" : "none" }}
-        className="nft-popover-item"
-      >
-        <EditOutlined />
-        <span>Edit Collection</span>
-      </div>
-    </div>
-  );
-
   return (
     <div className="nft-collection">
-      {showEditDesc && (
-        <div className="nft-collection-description-overlay">
-          <div className="nft-collection-set-description-container">
-            <h2 className="nft-collection-set-description-header">
-              Edit Collection
-            </h2>
-            <textarea
-              type="text"
-              id="nft-collection-set-description-input"
-              className="nft-collection-set-description-input"
-              placeholder="Please enter a description"
-              value={descriptionToChange}
-              onChange={(e) => setDescriptionToChange(e.target.value)}
-            ></textarea>
-            <div className="nft-collection-set-image-input">
-              {tempBg ? (
-                <div className="nft-collection-set-image-container">
-                  <div className="nft-collection-set-image-cover">
-                    <img src={tempBg} alt="Preview" className="image-preview" />
-                  </div>
-                  <p>{imageName}</p>
-                </div>
-              ) : (
-                <label htmlFor="collectionImageUpload">
-                  <FileImageOutlined />
-                  <p>Drag and drop or click to upload</p>
-                </label>
-              )}
-              <input
-                type="file"
-                id="collectionImageUpload"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleImageUpload}
-              />
-            </div>
-            <div className="nft-collection-set-description-btns">
-              <button
-                className="nft-collection-set-description-btn-cancel"
-                onClick={() => {
-                  handleCancelImage();
-                  toggleEditDescOverlay();
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                className="nft-collection-set-description-btn-save"
-                onClick={() => {
-                  handleChangeDescription();
-                  handleSaveImage();
-                }}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="nft-collection-header">
-        <NFTCollectionBg
+        <NFTCollectionHeader
+          isLoading={isLoading}
+          nft={nft}
+          authOwner={authOwner}
+          date={date}
+          lengths={lengths}
           contractAddress={NFT_CONTRACT_ADDRESS}
-          bg={bg}
-          tempBg={tempBg}
         />
-        <div className="nft-collection-header-bottom">
-          <div className="nft-collection-header-desc">
-            {!isLoading ? (
-              description.length > 70 ? (
-                <div className="nft-collection-header-desc-text">
-                  {expanded
-                    ? description
-                    : `${description.substring(0, 70)}...`}{" "}
-                  <button onClick={toggleExpanded} className="see-more-btn">
-                    {expanded ? "See Less" : "See More"}
-                  </button>
-                </div>
-              ) : (
-                <div className="nft-collection-header-desc-text">
-                  {description}
-                </div>
-              )
-            ) : (
-              <div className="nft-collection-header-desc-text nft-skeleton"></div>
-            )}
-            {isLoading ? (
-              <div className="nft-collection-header-desc-stat nft-skeleton"></div>
-            ) : (
-              <div className="nft-collection-header-desc-stat">
-                <div>
-                  <p>Items</p>
-                  <p>{lengths}</p>
-                </div>
-                <div>
-                  <p>Created</p>
-                  <p>{date}</p>
-                </div>
-                <div>
-                  <p>Chain</p>
-                  <p>Sepolia</p>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="nft-collection-header-btn">
-            <Popover content={content} trigger="click">
-              <MoreOutlined />
-            </Popover>
-          </div>
-        </div>
       </div>
       <div className="nft-collection-main">
         <div className="nft-collection-items">
@@ -449,7 +258,9 @@ const NFTCollection = () => {
                     </p>
                   </div>
                   <div className="nft-item-buy">
-                    <p>Buy</p>
+                    <p>
+                      {nft.price !== "Not listed" ? "Buy" : "View Details"}
+                    </p>
                   </div>
                 </div>
               </Link>
