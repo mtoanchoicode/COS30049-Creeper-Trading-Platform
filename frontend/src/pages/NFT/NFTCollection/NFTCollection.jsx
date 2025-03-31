@@ -48,9 +48,9 @@ const NFTCollection = () => {
       if (address && collectionOwner) {
         setAuthOwner(collectionOwner.toLowerCase() === address.toLowerCase());
       }
-      console.log(collectionOwner)
-      console.log(address)
-      console.log(authOwner)
+      console.log(collectionOwner);
+      console.log(address);
+      console.log(authOwner);
     } catch (error) {
       console.error("Failed to get contract owner:", error);
     }
@@ -258,9 +258,7 @@ const NFTCollection = () => {
                     </p>
                   </div>
                   <div className="nft-item-buy">
-                    <p>
-                      {nft.price !== "Not listed" ? "Buy" : "View Details"}
-                    </p>
+                    <p>View Details</p>
                   </div>
                 </div>
               </Link>

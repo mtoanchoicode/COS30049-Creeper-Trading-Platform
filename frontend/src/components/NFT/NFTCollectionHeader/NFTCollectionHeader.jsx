@@ -188,28 +188,41 @@ const NFTCollectionHeader = ({
       <div
         className="nft-collection-header-cover"
         style={{ backgroundImage: `url(${background})` }}
-      ></div>
+      >
+        <div className="nft-collection-header-container">
+          <div className="nft-collection-header-logo">
+            <div className="nft-collection-header-logo-container">
+              <img src={nft.CollectionImage} alt={nft.CollectionName} />
+            </div>
+
+            <p>{nft.CollectionName}</p>
+          </div>
+        </div>
+      </div>
       <div className="nft-collection-header-bottom">
-        <div className="nft-collection-header-desc">
-          {!isLoading ? (
-            description.length > 70 ? (
-              <div className="nft-collection-header-desc-text">
-                {expanded ? description : `${description.substring(0, 70)}...`}{" "}
-                <button onClick={toggleExpanded} className="see-more-btn">
-                  {expanded ? "See Less" : "See More"}
-                </button>
-              </div>
-            ) : (
-              <div className="nft-collection-header-desc-text">
-                {description}
-              </div>
-            )
-          ) : (
-            <div className="nft-collection-header-desc-text nft-skeleton"></div>
-          )}
-          {isLoading ? (
-            <div className="nft-collection-header-desc-stat nft-skeleton"></div>
-          ) : (
+        {isLoading ? (
+          <div className="nft-collection-header-desc nft-skeleton">
+            <div className="nft-collection-header-desc-text"></div>
+            <div className="nft-collection-header-desc-stat"></div>
+          </div>
+        ) : (
+          <div className="nft-collection-header-desc">
+            {description ? (
+              description.length > 70 ? (
+                <div className="nft-collection-header-desc-text">
+                  {expanded
+                    ? description
+                    : `${description.substring(0, 70)}...`}{" "}
+                  <button onClick={toggleExpanded} className="see-more-btn">
+                    {expanded ? "See Less" : "See More"}
+                  </button>
+                </div>
+              ) : (
+                <div className="nft-collection-header-desc-text">
+                  {description}
+                </div>
+              )
+            ) : null}
             <div className="nft-collection-header-desc-stat">
               <div>
                 <p>Items</p>
@@ -224,8 +237,9 @@ const NFTCollectionHeader = ({
                 <p>Sepolia</p>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
         <div className="nft-collection-header-btn">
           <Popover content={content} trigger="click">
             <MoreOutlined />
