@@ -47,7 +47,26 @@
   color: white;
 }
 
+.buy-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.list-btn:disabled {
+  background: var(--primary-color);
+  color: white;
+}
+
+.buy-btn:disabled {
+  background: var(--primary-color);
+  color: white;
+}
+
 .list-btn:hover {
+  background: #00943e !important;
+}
+
+.buy-btn:hover {
   background: #00943e !important;
 }
 
