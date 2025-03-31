@@ -1,4 +1,4 @@
-const {createCollection, getCollection, getAllCollections} = require('../models/collection.model.js');
+const {createCollection, getCollection, getAllCollections, getAllCollectionsForUser} = require('../models/collection.model.js');
 
 const createHandleCollection = async (req, res) => {
     const { id, contractAddress, collectionName, collectionImage, price } = req.body;
@@ -33,8 +33,27 @@ const getHandleAllCollections = async (req, res) => {
     }
 }
 
+const getHandleAllCollectionsForUser = async (req, res) => {
+    try{
+        const walletAddress = req.query.walletAddress
+        if (!walletAddress){
+            res.status(400).json({error: "Please connect to your wallet"});
+        }
+    
+        const collectionsForUser = await getAllCollectionsForUser(walletAddress);
+        if (!collectionsForUser){
+            res.status(404).json({error: "Please create a collection first."});
+        }
+        res.status(201).json(collectionsForUser)
+    }catch(error){
+        console.error("Error getting collections for wallet address:", error)
+        res.status(500).json({error: error.message});
+    }
+}
+
 module.exports = {
     createHandleCollection,
     getHandleCollection,
-    getHandleAllCollections
+    getHandleAllCollections,
+    getHandleAllCollectionsForUser
 };

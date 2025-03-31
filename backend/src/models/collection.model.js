@@ -47,4 +47,17 @@ const getAllCollections = async () => {
     }
 }
 
-module.exports = { createCollection, getCollection, getAllCollections };
+const getAllCollectionsForUser = async (walletAddress) => {
+    try{
+        const rows = await CreeperDB.sql`
+        SELECT * FROM "Collections"
+        ORDER BY "Collections"."CreatedAt" DESC; 
+        `
+        return rows;
+    }catch(error){
+        error.error("Error getting collections:", error);
+        return [];
+    }
+}
+
+module.exports = { createCollection, getCollection, getAllCollections, getAllCollectionsForUser };

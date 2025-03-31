@@ -229,7 +229,6 @@ const TransactionsHistory = ({ walletDetail }) => {
                 <RightOutlined />
               </button>
             </div>
-            <ApproveAndListNFT />
           </div>
         )}
       </div>

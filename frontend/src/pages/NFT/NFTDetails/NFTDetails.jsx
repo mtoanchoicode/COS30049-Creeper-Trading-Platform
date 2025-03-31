@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import "./NFTDetails.css";
 
-import { Button, Tooltip } from "antd";
+import { Button, Input, Modal, notification, Tooltip } from "antd";
+import { ethers } from "ethers";
 import { SendOutlined } from "@ant-design/icons";
 import { useAppKitAccount } from "@reown/appkit/react";
 
@@ -10,6 +11,84 @@ const NFTDetails = () => {
   const location = useLocation();
   const nft = location.state?.nft;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [priceInput, setPriceInput] = useState("");
+
+  // For marketplace contract
+  const marketplaceAddress = "0x96eBF50a52f224e80fc9CCbD2169321521316E7e";
+  const nftAddress = nft.collectionAddress;
+  const nftAbi = ["function approve(address to, uint256 tokenId) external"];
+  const marketplaceAbi = [
+    "function createMarketplaceItem(address nftContract, uint256 tokenId, uint256 price) external payable",
+  ];
+  const tokenId = nft.id;
+  const listingPrice = ethers.parseEther("0.001");
+
+  const handleListForSale = async () => {
+    if (!priceInput || isNaN(priceInput) || Number(priceInput) <= 0) {
+      notification.error({
+        message: "Invalid Price",
+        description: "Please enter a valid price.",
+      });
+      return;
+    }
+
+    if (!window.ethereum) {
+      notification.error({
+        message: "Wallet Required",
+        description: "MetaMask or a compatible wallet is required!",
+      });
+      return;
+    }
+
+    setIsModalVisible(false);
+    setLoading(true);
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      const nftContract = new ethers.Contract(nftAddress, nftAbi, signer);
+      const marketplaceContract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceAbi,
+        signer
+      );
+
+      const price = ethers.parseEther(priceInput);
+
+      // Approve NFT for the marketplace
+      const approveTx = await nftContract.approve(marketplaceAddress, tokenId);
+      await approveTx.wait();
+      notification.success({
+        message: "NFT Approved",
+        description: "Approval successful.",
+      });
+
+      // List NFT on the marketplace
+      const listTx = await marketplaceContract.createMarketplaceItem(
+        nftAddress,
+        tokenId,
+        price,
+        { value: listingPrice }
+      );
+      await listTx.wait();
+      notification.success({
+        message: "NFT Listed",
+        description: `Transaction Hash: ${listTx.hash}`,
+      });
+    } catch (error) {
+      notification.error({
+        message: "Listing Fail",
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
+      setPriceInput("");
+    }
+  };
+
+  // End marketplacce
   const { address } = useAppKitAccount();
   const [owner, setOwner] = useState(false);
 
@@ -74,14 +153,32 @@ const NFTDetails = () => {
             <i className="fa-solid fa-arrow-left"></i> Back to collection
           </Button>
           {owner ? (
-            <Button type="primary" flex className="list-btn">
-              List for sale
+            <Button
+              type="primary"
+              className="list-btn"
+              onClick={() => setIsModalVisible(true)}
+              disabled={loading}
+            >
+              {loading ? "Listing..." : "List for sale"}
             </Button>
           ) : (
             ""
           )}
         </div>
       </div>
+      <Modal
+        title="Enter Listing Price"
+        open={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        onOk={handleListForSale}
+      >
+        <Input
+          type="number"
+          placeholder="Enter price in ETH"
+          value={priceInput}
+          onChange={(e) => setPriceInput(e.target.value)}
+        />
+      </Modal>
       <div className="nft-details-main">
         <div className="nft-details-left">
           <div className="nft-detials-left-container">

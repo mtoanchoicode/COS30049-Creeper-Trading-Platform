@@ -33,17 +33,14 @@ const NFTCollection = () => {
   const location = useLocation();
   const nft = location.state?.nft;
 
-  useEffect(() => {
-    if (nft?.collectionOnwer && address) {
-      setAuthOwner(nft.collectionOnwer.toLowerCase() === address.toLowerCase());
-    }
-  }, [nft, address]);
-
-  console.log(authOwner);
-  console.log(address);
-  console.log(nft.collectionOnwer);
+  const MARKETPLACE_CONTRACT_ADDRESS =
+    "0x96eBF50a52f224e80fc9CCbD2169321521316E7e"; // Replace with your contract address
+  const MARKETPLACE_ABI = [
+    "function getNFTListingPrice(address nftContract, uint256 tokenId) public view returns (uint256)",
+  ];
 
   const NFT_CONTRACT_ADDRESS = nft.ContractAddress;
+  // nft.address
   const NFT_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
@@ -80,6 +77,11 @@ const NFTCollection = () => {
       const contract = new ethers.Contract(
         NFT_CONTRACT_ADDRESS,
         NFT_ABI,
+        provider
+      );
+      const marketplaceContract = new ethers.Contract(
+        MARKETPLACE_CONTRACT_ADDRESS,
+        MARKETPLACE_ABI,
         provider
       );
 
@@ -128,6 +130,17 @@ const NFTCollection = () => {
               ? metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/")
               : "https://via.placeholder.com/200";
 
+            let listingPrice;
+            try {
+              listingPrice = await marketplaceContract.getNFTListingPrice(
+                NFT_CONTRACT_ADDRESS,
+                tokenId
+              );
+              listingPrice = ethers.formatEther(listingPrice); // Convert from wei to ETH
+            } catch (err) {
+              listingPrice = "Not listed";
+            }
+
             return {
               id: tokenId,
               name: metadata.name || `Token #${tokenId}`,
@@ -137,6 +150,7 @@ const NFTCollection = () => {
               collectionAddress,
               lastUpdated: new Date(block.timestamp * 1000).toLocaleString(),
               owner,
+              price: listingPrice,
             };
           } catch (error) {
             return null; // Ignore failed NFTs
@@ -428,7 +442,11 @@ const NFTCollection = () => {
                   </div>
                   <div className="nft-item-desc">
                     <h3>{`${nft.name}`}</h3>
-                    <p>{nft.price ? nft.price : "Not listed"}</p>
+                    <p>
+                      {nft.price !== "Not listed"
+                        ? `${nft.price} ETH`
+                        : "Not listed"}
+                    </p>
                   </div>
                   <div className="nft-item-buy">
                     <p>Buy</p>
