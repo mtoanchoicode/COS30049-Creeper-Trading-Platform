@@ -12,8 +12,12 @@ const NFTDetails = () => {
   const nft = location.state?.nft;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [buyLoading, setBuyLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [priceInput, setPriceInput] = useState("");
+  const [isListed, setIsListed] = useState(false);
+  const [listingPrice, setListingPrice] = useState(null);
+  const [marketplaceItemId, setMarketplaceItemId] = useState(null);
 
   // For marketplace contract
   const marketplaceAddress = "0x96eBF50a52f224e80fc9CCbD2169321521316E7e";
@@ -21,9 +25,11 @@ const NFTDetails = () => {
   const nftAbi = ["function approve(address to, uint256 tokenId) external"];
   const marketplaceAbi = [
     "function createMarketplaceItem(address nftContract, uint256 tokenId, uint256 price) external payable",
+    "function createMarketplaceSale(address nftContract, uint256 itemId) external payable",
+    "function fetchMarketplaceItems() public view returns (tuple(uint256 itemId, address nftContract, uint256 tokenId, address seller, address owner, uint256 price, bool sold)[] memory)",
   ];
   const tokenId = nft.id;
-  const listingPrice = ethers.parseEther("0.001");
+  const listingFee = ethers.parseEther("0.001");
 
   const handleListForSale = async () => {
     if (!priceInput || isNaN(priceInput) || Number(priceInput) <= 0) {
@@ -70,13 +76,14 @@ const NFTDetails = () => {
         nftAddress,
         tokenId,
         price,
-        { value: listingPrice }
+        { value: listingFee }
       );
       await listTx.wait();
       notification.success({
         message: "NFT Listed",
         description: `Transaction Hash: ${listTx.hash}`,
       });
+      await checkIfListed();
     } catch (error) {
       notification.error({
         message: "Listing Fail",
@@ -88,6 +95,100 @@ const NFTDetails = () => {
     }
   };
 
+  const checkIfListed = async () => {
+    if (!window.ethereum) return;
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const marketplaceContract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceAbi,
+        provider
+      );
+
+      // Get all unsold marketplace items
+      const items = await marketplaceContract.fetchMarketplaceItems();
+
+      // Find the item for this NFT
+      const item = items.find(
+        (item) =>
+          item.nftContract.toLowerCase() === nftAddress.toLowerCase() &&
+          item.tokenId.toString() === tokenId.toString()
+      );
+
+      if (item) {
+        setIsListed(true);
+        setListingPrice(item.price);
+        setMarketplaceItemId(item.itemId);
+      } else {
+        setIsListed(false);
+        setListingPrice(null);
+        setMarketplaceItemId(null);
+      }
+    } catch (error) {
+      console.error("Error checking if NFT is listed:", error);
+      setIsListed(false);
+      setListingPrice(null);
+      setMarketplaceItemId(null);
+    }
+  };
+
+  const handleBuyNFT = async () => {
+    if (!window.ethereum) {
+      notification.error({
+        message: "Wallet Required",
+        description: "MetaMask or a compatible wallet is required!",
+      });
+      return;
+    }
+
+    if (!marketplaceItemId) {
+      notification.error({
+        message: "Not Listed",
+        description: "This NFT is not currently listed for sale.",
+      });
+      return;
+    }
+
+    setBuyLoading(true);
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      const marketplaceContract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceAbi,
+        signer
+      );
+
+      // Buy the NFT by paying the listing price
+      const buyTx = await marketplaceContract.createMarketplaceSale(
+        nftAddress,
+        marketplaceItemId,
+        { value: listingPrice }
+      );
+
+      await buyTx.wait();
+
+      notification.success({
+        message: "Purchase Successful",
+        description: `You have successfully purchased this NFT! Transaction Hash: ${buyTx.hash}`,
+      });
+
+      // Update NFT status after purchase
+      await checkIfListed();
+      // Update ownership status (you are now the owner)
+      setOwner(true);
+    } catch (error) {
+      notification.error({
+        message: "Purchase Failed",
+        description: error.message,
+      });
+    } finally {
+      setBuyLoading(false);
+    }
+  };
+
   // End marketplacce
   const { address } = useAppKitAccount();
   const [owner, setOwner] = useState(false);
@@ -96,7 +197,10 @@ const NFTDetails = () => {
     if (nft?.owner && address) {
       setOwner(nft.owner.toLowerCase() === address.toLowerCase());
     }
-  }, [nft?.owner, address]);
+
+    // Check if the NFT is listed when component mounts
+    checkIfListed();
+  }, [nft?.owner, address, nftAddress, tokenId]);
 
   const shortenAddress = (ownerAddress) => {
     return ownerAddress.length > 13
@@ -138,7 +242,17 @@ const NFTDetails = () => {
     },
     { title: "Chain", value: "Sepolia" },
     { title: "Last Updated", value: calculateAge(nft.lastUpdated) },
+    ...(isListed
+      ? [
+          {
+            title: "Listing Price",
+            value: `${ethers.formatEther(listingPrice)} ETH`,
+          },
+        ]
+      : []),
   ];
+
+  console.log(`isListed: ${isListed}`);
 
   return (
     <div className="nft-details">
@@ -164,6 +278,18 @@ const NFTDetails = () => {
           ) : (
             ""
           )}
+          {!owner && isListed ? (
+            <Button
+              type="primary"
+              className="buy-btn"
+              onClick={handleBuyNFT}
+              disabled={buyLoading}
+            >
+              {buyLoading
+                ? "Buying..."
+                : `Buy for ${ethers.formatEther(listingPrice)} ETH`}
+            </Button>
+          ) : null}
         </div>
       </div>
       <Modal
