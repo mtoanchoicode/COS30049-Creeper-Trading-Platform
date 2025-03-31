@@ -1,8 +1,9 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { notification } from "antd";
 
 // ----- APIs for collections -----
 const handleCreateCollection = async (
-    id, contractAddress, collectionName, collectionImage, price
+    id, contractAddress, collectionName, collectionImage, price = ""
     ) => {
     try {
             await fetch(`${API_BASE_URL}/v1/api/collection/created`, {
@@ -54,10 +55,27 @@ const handleGetAllCollections = async () => {
             headers: { "Content-Type": "application/json" },
         });
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (err) {
         console.error("Error fetching collections", err);
+        notification.error({
+            message: "Getting collections failed",
+            description: "Failed to get collections",
+        });
+    }
+}
+
+const handleGetAllCollectionsForUser = async (userAddress) => {
+    try{
+        const response = await fetch(`${API_BASE_URL}/v1/api/allCollections/?walletAddress=${userAddress.toString()}`,{
+            method: "GET",
+            headers: { "Content-Type": "application/json"},
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (err){
+        console.error("Error fetching collections for user", err);
         notification.error({
             message: "Getting collections failed",
             description: "Failed to get collections",
@@ -219,5 +237,7 @@ export {
 
     handleCreateNFTTransaction, //create an NFT transaction
     handleGetNFTTransaction, //(HashCode) -> NFT transaction
-    handleGetAllNFTTransactions //() -> all NFT transactions
+    handleGetAllNFTTransactions, //() -> all NFT transactions
+
+    handleGetAllCollectionsForUser //(walletAddress) => collections
 };

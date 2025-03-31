@@ -31,9 +31,20 @@ const CreateNFT = () => {
             try {
                 setIsLoading(true);
 
-                
+
                 const nftDB = await handleGetAllCollections()
                 console.log("NFTDB", nftDB);
+
+                const NFT_CONTRACT_ADDRESS = nftDB.ContractAddress;
+                // nft.address
+                const NFT_ABI = [
+                    "function name() view returns (string)",
+                    "function symbol() view returns (string)",
+                    "function totalSupply() view returns (uint256)", // Only available if contract implements it
+                    "function tokenURI(uint256 tokenId) view returns (string)",
+                    "function ownerOf(uint256 tokenId) view returns (address)",
+                    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
+                ]; // Replace with your deployed contract
 
 
 
@@ -251,7 +262,7 @@ const CreateNFT = () => {
                             type="success"
                             showIcon
                             closable
-                            style = {{ marginBottom: "1.2rem" , width: "50%"}}
+                            style={{ marginBottom: "1.2rem", width: "50%" }}
                         />
                         <Popover
                             content={
@@ -361,9 +372,13 @@ const CreateNFT = () => {
                                 </Popover>
                             </div>
 
-                            {collections.length > 0 ? (
-                                <Form.Item name="Collection"
-                                    rules={[{ required: true, message: "Please select a collection!" }]}>
+                            {isLoading ? (
+                                <Spin indicator={<LoadingOutlined spin />} size="large" />
+                            ) : collections.length > 0 ? (
+                                <Form.Item
+                                    name="Collection"
+                                    rules={[{ required: true, message: "Please select a collection!" }]}
+                                >
                                     <Select
                                         className="NFT__select-collection"
                                         fieldNames={{ label: "label", value: "value" }} // Ensure correct mapping
@@ -377,18 +392,20 @@ const CreateNFT = () => {
                                                     onMouseDown={(e) => e.preventDefault()} // Prevents closing on click
                                                 >
                                                     <PlusCircleOutlined />
-                                                    <Link style={{ marginLeft: "0.7rem", width: "100%" }} to="/create/collection">Create a Collection</Link>
+                                                    <Link style={{ marginLeft: "0.7rem", width: "100%" }} to="/create/collection">
+                                                        Create a Collection
+                                                    </Link>
                                                 </div>
                                             </>
                                         )}
                                     />
                                 </Form.Item>
-
                             ) : (
                                 <Button type="primary" className="NFT-button NFT-button_create_collection">
                                     <Link to="/create/collection">Create a Collection</Link>
                                 </Button>
                             )}
+
 
 
                             <div className="NFT__details-container">
