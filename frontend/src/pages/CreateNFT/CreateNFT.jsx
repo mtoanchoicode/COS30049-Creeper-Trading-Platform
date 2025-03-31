@@ -6,6 +6,7 @@ import { Button, Form, Input, Upload, Image, Alert, notification, Popover, Spin,
 import { UploadOutlined, PlusCircleOutlined, InfoCircleOutlined, ExportOutlined, LoadingOutlined, DeleteOutlined } from "@ant-design/icons";
 import NFTABI from "../../../../smart-contracts/artifacts/contracts/NFTCollection.sol/NFTCollection.json";
 import { ethers } from "ethers";
+import { handleGetAllCollections } from "../../utils/NFTapi";
 
 
 const CreateNFT = () => {
@@ -28,6 +29,14 @@ const CreateNFT = () => {
     useEffect(() => {
         const collecionData = async () => {
             try {
+                setIsLoading(true);
+
+                
+                const nftDB = await handleGetAllCollections()
+                console.log("NFTDB", nftDB);
+
+
+
                 const nftResponse = await fetch(
                     `${API_BASE_URL}/v1/api/nft-search/${address}`,
                     {
@@ -117,7 +126,6 @@ const CreateNFT = () => {
             const { data } = await Response.json();
 
             console.log("Metadata URI:", data.metadataURI);
-
 
             // Get provider and signer
             const provider = new ethers.BrowserProvider(window.ethereum);
@@ -243,6 +251,7 @@ const CreateNFT = () => {
                             type="success"
                             showIcon
                             closable
+                            style = {{ marginBottom: "1.2rem" , width: "50%"}}
                         />
                         <Popover
                             content={
