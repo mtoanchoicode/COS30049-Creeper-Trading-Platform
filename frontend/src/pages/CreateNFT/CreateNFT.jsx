@@ -4,8 +4,9 @@ import "./CreateNFT.css";
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import { Button, Form, Input, Upload, Image, Alert, notification, Popover, Spin, Select } from "antd";
 import { UploadOutlined, PlusCircleOutlined, InfoCircleOutlined, ExportOutlined, LoadingOutlined, DeleteOutlined } from "@ant-design/icons";
-//import NFTABI from "../../../../smart-contracts/artifacts/contracts/NFTNFT.sol/NFTNFT.json";
+import NFTABI from "../../../../smart-contracts/artifacts/contracts/NFTCollection.sol/NFTCollection.json";
 import { ethers } from "ethers";
+import { handleGetAllCollections } from "../../utils/NFTapi";
 
 
 const CreateNFT = () => {
@@ -13,6 +14,7 @@ const CreateNFT = () => {
     const [fileList, setFileList] = useState([]);
     const { address, isConnected } = useAppKitAccount();
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingbtn, setIsLoadingbtn] = useState(false);
     const [hovered, setHovered] = useState(false);
     const isUpload = fileList && fileList.length > 0;
     const [visible, setVisible] = useState({
@@ -22,12 +24,19 @@ const CreateNFT = () => {
         upload: false,
     });
     const [collections, setCollections] = useState([]);
+    const [collectionsDB, setCollectionsDB] = useState([]);
     const [deployedContract, setDeployedContract] = useState(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
         const collecionData = async () => {
             try {
+                setIsLoading(true);
+
+                const nftDB = await handleGetAllCollections()
+                console.log("NFTDB", nftDB);
+
+
                 const nftResponse = await fetch(
                     `${API_BASE_URL}/v1/api/nft-search/${address}`,
                     {
@@ -41,30 +50,76 @@ const CreateNFT = () => {
 
                 const nftData = await nftResponse.json();
 
-                // Format all collections for the Select component
-                if (nftData) {
-                    const formattedCollections = nftData.nfts.map((nft) => ({
-                        value: nft.contractAddress, // Using contractAddress as value
-                        label: nft.collection.name, // Using collection.name as label
-                        data: {
-                            name: nft.collection.name,
-                            symbol: nft.collection.symbol,
-                            tokenType: nft.collection.tokenType,
-                            contractAddress: nft.contractAddress
-                        }
-                    }));
+                // nft.address
+                const NFT_ABI = [
+                    "function name() view returns (string)",
+                    "function symbol() view returns (string)",
+                    "function owner() view returns (address)",
+                    "function totalSupply() view returns (uint256)", // Only available if contract implements it
+                    "function tokenURI(uint256 tokenId) view returns (string)",
+                    "function ownerOf(uint256 tokenId) view returns (address)",
+                    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
+                ];
+
+                // Format minted collections from the API
+
+                const formattedCollections = nftData.nfts.map((nft) => ({
+                    value: nft.contractAddress, // Using contractAddress as value
+                    label: nft.collection.name, // Using collection.name as label
+                    data: {
+                        name: nft.collection.name,
+                        symbol: nft.collection.symbol,
+                        tokenType: nft.collection.tokenType,
+                        contractAddress: nft.contractAddress
+                    }
+                }));
 
 
-                    // Remove duplicates based on contractAddress
-                    const uniqueCollections = Array.from(
-                        new Map(formattedCollections.map(item => [item.value, item])).values()
+                let unmintedCollections = [];
+                if (nftDB) {
+                    const provider = new ethers.BrowserProvider(window.ethereum);
+                    const signer = await provider.getSigner();
+
+                    unmintedCollections = await Promise.all(
+                        nftDB.map(async (nft) => {
+                            try {
+                                const contract = new ethers.Contract(nft.ContractAddress, NFT_ABI, provider);
+                                const contractOwner = await contract.owner();
+                                const collectionSymbol = await contract.symbol();
+
+                                console.log(`Checking contract ${nft.ContractAddress}, owner: ${contractOwner}, symbol : ${collectionSymbol}`);
+
+                                if (contractOwner === signer.address && collectionSymbol) {
+                                    return {
+                                        value: nft.ContractAddress,
+                                        label: nft.CollectionName,
+                                        data: {
+                                            name: nft.CollectionName,
+                                            symbol: collectionSymbol, // Placeholder for unminted
+                                            tokenType: "ERC7721",
+                                            contractAddress: nft.ContractAddress
+                                        }
+                                    };
+                                }
+                            } catch (error) {
+                                console.error(`Failed to get contract owner for ${nft.ContractAddress}:`, error);
+                            }
+                            return null;
+                        })
                     );
-
-                    setCollections(uniqueCollections);
-                    console.log(uniqueCollections);
-                } else {
-                    throw new Error("Invalid NFT data format.");
+                    // Remove `null` values from failed owner fetches
+                    unmintedCollections = unmintedCollections.filter(Boolean);
                 }
+
+                // ✅ Merge minted and unminted collections, removing duplicates
+                const combinedCollections = [...formattedCollections, ...unmintedCollections];
+                // Remove duplicates based on contractAddress
+                const uniqueCollections = Array.from(
+                    new Map(combinedCollections.map(item => [item.value, item])).values()
+                );
+
+                setCollections(uniqueCollections);
+                console.log(uniqueCollections);
 
             } catch (err) {
                 // setError(err.message || "Something went wrong!");
@@ -73,21 +128,81 @@ const CreateNFT = () => {
                     description: err.message || "Something went wrong!",
                 });
             } finally {
-                // setIsLoading(false);
+                setIsLoading(false);
             }
         };
 
         if (isConnected) {
             collecionData();
-          }
+        }
 
     }, [isConnected, address, API_BASE_URL]);
 
-   
 
 
     const handleSubmit = async (values) => {
+        if (!window.ethereum) {
+            notification.error({ message: "MetaMask not found", description: "Please install MetaMask to deploy your contract." });
+            return;
+        }
 
+        if (!fileList.length) {
+            notification.error({ message: "Error", description: "Please upload an image for the NFT!" });
+            return;
+        }
+
+        setIsLoadingbtn(true);
+        const formData = new FormData();
+        const file = fileList[0].originFileObj;
+        formData.append("file", file);
+        formData.append("name", values.NFTName);
+        formData.append("description", values.NFTDescription || "No description provided");
+
+        try {
+            const Response = await fetch(`${API_BASE_URL}/v1/api/nft/create/deploy`, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!Response.ok) {
+                throw new Error("Failed to upload NFT");
+            }
+
+            const { data } = await Response.json();
+
+            console.log("Metadata URI:", data.metadataURI);
+
+            // Get provider and signer
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner(); // Get the user's wallet address
+            const contractCollection = new ethers.Contract(values.Collection, NFTABI.abi, signer);
+
+            const tx = await contractCollection.mint(data.metadataURI);
+
+            notification.info({
+                message: "Transaction in progress!",
+                description: `Hash: ${tx.hash}`,
+            });
+            await tx.wait();
+
+            const NFTAddress = await contractCollection.getAddress();
+            setVisible(true);
+            setDeployedContract(NFTAddress);
+
+            notification.success({
+                message: "Successfully create new NFT !",
+                description: `Address: ${NFTAddress}`
+            });
+
+        } catch (error) {
+            console.error(error.message);
+            notification.error({ message: "Error", description: "Something went wrong !" });
+            return;
+        }
+
+        finally {
+            setIsLoadingbtn(false);
+        }
     };
 
 
@@ -160,6 +275,7 @@ const CreateNFT = () => {
                             type="success"
                             showIcon
                             closable
+                            style={{ marginBottom: "1.2rem", width: "50%" }}
                         />
                         <Popover
                             content={
@@ -181,7 +297,7 @@ const CreateNFT = () => {
                             open={visible.upload}
                             onOpenChange={(newOpen) => handleOpenPopChange("upload", newOpen)}
                         >
-                            <Button className="NFT_button-deploy-info" type="primary" icon={<InfoCircleOutlined />}>
+                            <Button className="NFT-button NFT_button-deploy-info" type="primary" icon={<InfoCircleOutlined />}>
                                 View Deployment Info
                             </Button>
                         </Popover>
@@ -269,30 +385,42 @@ const CreateNFT = () => {
                                 </Popover>
                             </div>
 
-                            {collections.length > 0 ? (
-                                     <Form.Item name="Collection" 
-                                        initialValue={{ 
-                                            label: (
-                                            <span>
-                                                <PlusCircleOutlined />
-                                            <strong style= {{marginLeft : "0.7rem"}}>Choose a collection</strong>
-                                            </span>
-                                        ),
-                                        value: "",}} 
-                                        rules={[{ required: true, message: "Please select a collection!" }]}>
-                                            <Select
-                                                className="NFT__select-collection"
-                                                fieldNames={{ label: "label", value: "value" }} // Ensure correct mapping
-                                                options={collections}
-                                            />
-                                     </Form.Item>
-                                ) : (
-                                    <Button type="primary" className="NFT-button NFT-button_create_collection">
-                                        <Link to="/create/collection">Create a Collection</Link>
-                                    </Button>
+                            {isLoading ? (
+                                <Spin indicator={<LoadingOutlined spin />} size="large" />
+                            ) : collections.length > 0 ? (
+                                <Form.Item
+                                    name="Collection"
+                                    rules={[{ required: true, message: "Please select a collection!" }]}
+                                >
+                                    <Select
+                                        className="NFT__select-collection"
+                                        fieldNames={{ label: "label", value: "value" }} // Ensure correct mapping
+                                        options={collections}
+                                        placeholder="Choose the collection"
+                                        dropdownRender={menu => (
+                                            <>
+                                                {menu}
+                                                <div
+                                                    style={{ display: "flex", alignItems: "center", padding: "8px", cursor: "pointer" }}
+                                                    onMouseDown={(e) => e.preventDefault()} // Prevents closing on click
+                                                >
+                                                    <PlusCircleOutlined />
+                                                    <Link style={{ marginLeft: "0.7rem", width: "100%" }} to="/create/collection">
+                                                        Create a Collection
+                                                    </Link>
+                                                </div>
+                                            </>
+                                        )}
+                                    />
+                                </Form.Item>
+                            ) : (
+                                <Button type="primary" className="NFT-button NFT-button_create_collection">
+                                    <Link to="/create/collection">Create a Collection</Link>
+                                </Button>
                             )}
 
-                        
+
+
                             <div className="NFT__details-container">
                                 <div className="NFT__details">
                                     <div className="NFT__form-header">
@@ -346,7 +474,7 @@ const CreateNFT = () => {
                                     </div>
 
                                     <Form.Item
-                                        name="NFTSymbol"
+                                        name="NFTDescription"
                                     >
                                         <Input.TextArea
                                             className="NFT__input"
@@ -361,9 +489,10 @@ const CreateNFT = () => {
 
                             <Form.Item>
                                 <Button className="NFT-button NFT__button-submit" type="primary" htmlType="submit">
-                                    {isLoading ?
+                                    {isLoadingbtn ?
                                         <span>
-                                            <Spin indicator={<LoadingOutlined spin />} size="small" /> Deploying...
+                                            <Spin indicator={<LoadingOutlined spin />} size="small" />
+                                            <p>Deploying...</p>
                                         </span>
                                         : "Create NFT"}
                                 </Button>

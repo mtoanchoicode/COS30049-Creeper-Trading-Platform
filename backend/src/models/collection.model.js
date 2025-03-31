@@ -34,6 +34,7 @@ const getCollection = async (contractAddress) => {
     }
 }
 
+
 const getAllCollections = async () => {
     try{
         const rows = await CreeperDB.sql`
