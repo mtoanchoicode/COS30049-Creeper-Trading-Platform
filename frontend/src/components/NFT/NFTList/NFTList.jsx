@@ -52,25 +52,27 @@ const NFTList = ({ sectionRef }) => {
         </Link>
       </div>
       <div className="nft-list-bottom">
-        {isLoading
-          ? // Show 5 skeleton cards when loading
-            Array(5)
-              .fill(0)
-              .map((_, index) => (
-                <div className="nft-collection-card skeleton" key={index}>
-                  <div className="nft-collection-cover">
-                    <div className="skeleton-image"></div>
-                  </div>
-                  <div className="nft-collection-desc">
-                    <div className="nft-collection-header">
-                    </div>
-                    <div>
-                      <p className="nft-collection-desc-title"></p>
-                    </div>
+        {isLoading ? (
+          // Show 10 skeleton cards when loading
+          Array(10)
+            .fill(0)
+            .map((_, index) => (
+              <div className="nft-collection-card skeleton" key={index}>
+                <div className="nft-collection-cover">
+                  <div className="skeleton-image"></div>
+                </div>
+                <div className="nft-collection-desc">
+                  <div className="nft-collection-header"></div>
+                  <div>
+                    <p className="nft-collection-desc-title"></p>
                   </div>
                 </div>
-              ))
-          : nfts.map((nft, index) => (
+              </div>
+            ))
+        ) : (
+          <>
+           
+            {nfts.map((nft, index) => (
               <Link to={`/nft/${nft.ID}`} state={{ nft }} key={index}>
                 <div className="nft-collection-card">
                   <div className="nft-collection-cover">
@@ -109,14 +111,18 @@ const NFTList = ({ sectionRef }) => {
                 </div>
               </Link>
             ))}
-        <Link to={`/create/collection`}>
-          <div className="nft-collection-card create">
-            <div>
-              <i className="fa-solid fa-plus"></i>
-            </div>
-            <h4>Create New Collection</h4>
-          </div>
-        </Link>
+
+            {/* Show "Create New Collection" only after loading */}
+            <Link to={`/create/collection`}>
+              <div className="nft-collection-card create">
+                <div>
+                  <i className="fa-solid fa-plus"></i>
+                </div>
+                <h4>Create New Collection</h4>
+              </div>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
