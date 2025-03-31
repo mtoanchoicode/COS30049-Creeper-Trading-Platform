@@ -33,16 +33,6 @@ const NFTCollection = () => {
   const location = useLocation();
   const nft = location.state?.nft;
 
-  useEffect(() => {
-    if (nft?.collectionOnwer && address) {
-      setAuthOwner(nft.collectionOnwer.toLowerCase() === address.toLowerCase());
-    }
-  }, [nft, address]);
-
-  console.log(authOwner);
-  console.log(address);
-  console.log(nft.collectionOnwer);
-
   const NFT_CONTRACT_ADDRESS = nft.ContractAddress;
   const NFT_ABI = [
     "function name() view returns (string)",
