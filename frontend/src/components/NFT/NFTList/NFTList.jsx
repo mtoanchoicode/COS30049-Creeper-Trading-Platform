@@ -103,10 +103,7 @@ const NFTList = ({ sectionRef }) => {
                         ></path>
                       </svg>
                     </div>
-                    <div>
-                      <p className="nft-collection-desc-title">Floor</p>
-                      <p className="nft-collection-price">{nft.Price} ETH</p>
-                    </div>
+
                   </div>
                 </div>
               </Link>
