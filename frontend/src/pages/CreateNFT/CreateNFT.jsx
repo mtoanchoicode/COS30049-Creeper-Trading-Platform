@@ -14,6 +14,7 @@ const CreateNFT = () => {
     const [fileList, setFileList] = useState([]);
     const { address, isConnected } = useAppKitAccount();
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingbtn, setIsLoadingbtn] = useState(false);
     const [hovered, setHovered] = useState(false);
     const isUpload = fileList && fileList.length > 0;
     const [visible, setVisible] = useState({
@@ -23,6 +24,7 @@ const CreateNFT = () => {
         upload: false,
     });
     const [collections, setCollections] = useState([]);
+    const [collectionsDB, setCollectionsDB] = useState([]);
     const [deployedContract, setDeployedContract] = useState(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -31,21 +33,8 @@ const CreateNFT = () => {
             try {
                 setIsLoading(true);
 
-
                 const nftDB = await handleGetAllCollections()
                 console.log("NFTDB", nftDB);
-
-                const NFT_CONTRACT_ADDRESS = nftDB.ContractAddress;
-                // nft.address
-                const NFT_ABI = [
-                    "function name() view returns (string)",
-                    "function symbol() view returns (string)",
-                    "function totalSupply() view returns (uint256)", // Only available if contract implements it
-                    "function tokenURI(uint256 tokenId) view returns (string)",
-                    "function ownerOf(uint256 tokenId) view returns (address)",
-                    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
-                ]; // Replace with your deployed contract
-
 
 
                 const nftResponse = await fetch(
@@ -61,30 +50,76 @@ const CreateNFT = () => {
 
                 const nftData = await nftResponse.json();
 
-                // Format all collections for the Select component
-                if (nftData) {
-                    const formattedCollections = nftData.nfts.map((nft) => ({
-                        value: nft.contractAddress, // Using contractAddress as value
-                        label: nft.collection.name, // Using collection.name as label
-                        data: {
-                            name: nft.collection.name,
-                            symbol: nft.collection.symbol,
-                            tokenType: nft.collection.tokenType,
-                            contractAddress: nft.contractAddress
-                        }
-                    }));
+                // nft.address
+                const NFT_ABI = [
+                    "function name() view returns (string)",
+                    "function symbol() view returns (string)",
+                    "function owner() view returns (address)",
+                    "function totalSupply() view returns (uint256)", // Only available if contract implements it
+                    "function tokenURI(uint256 tokenId) view returns (string)",
+                    "function ownerOf(uint256 tokenId) view returns (address)",
+                    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
+                ];
+
+                // Format minted collections from the API
+
+                const formattedCollections = nftData.nfts.map((nft) => ({
+                    value: nft.contractAddress, // Using contractAddress as value
+                    label: nft.collection.name, // Using collection.name as label
+                    data: {
+                        name: nft.collection.name,
+                        symbol: nft.collection.symbol,
+                        tokenType: nft.collection.tokenType,
+                        contractAddress: nft.contractAddress
+                    }
+                }));
 
 
-                    // Remove duplicates based on contractAddress
-                    const uniqueCollections = Array.from(
-                        new Map(formattedCollections.map(item => [item.value, item])).values()
+                let unmintedCollections = [];
+                if (nftDB) {
+                    const provider = new ethers.BrowserProvider(window.ethereum);
+                    const signer = await provider.getSigner();
+
+                    unmintedCollections = await Promise.all(
+                        nftDB.map(async (nft) => {
+                            try {
+                                const contract = new ethers.Contract(nft.ContractAddress, NFT_ABI, provider);
+                                const contractOwner = await contract.owner();
+                                const collectionSymbol = await contract.symbol();
+
+                                console.log(`Checking contract ${nft.ContractAddress}, owner: ${contractOwner}, symbol : ${collectionSymbol}`);
+
+                                if (contractOwner === signer.address && collectionSymbol) {
+                                    return {
+                                        value: nft.ContractAddress,
+                                        label: nft.CollectionName,
+                                        data: {
+                                            name: nft.CollectionName,
+                                            symbol: collectionSymbol, // Placeholder for unminted
+                                            tokenType: "ERC7721",
+                                            contractAddress: nft.ContractAddress
+                                        }
+                                    };
+                                }
+                            } catch (error) {
+                                console.error(`Failed to get contract owner for ${nft.ContractAddress}:`, error);
+                            }
+                            return null;
+                        })
                     );
-
-                    setCollections(uniqueCollections);
-                    console.log(uniqueCollections);
-                } else {
-                    throw new Error("Invalid NFT data format.");
+                    // Remove `null` values from failed owner fetches
+                    unmintedCollections = unmintedCollections.filter(Boolean);
                 }
+
+                // ✅ Merge minted and unminted collections, removing duplicates
+                const combinedCollections = [...formattedCollections, ...unmintedCollections];
+                // Remove duplicates based on contractAddress
+                const uniqueCollections = Array.from(
+                    new Map(combinedCollections.map(item => [item.value, item])).values()
+                );
+
+                setCollections(uniqueCollections);
+                console.log(uniqueCollections);
 
             } catch (err) {
                 // setError(err.message || "Something went wrong!");
@@ -93,7 +128,7 @@ const CreateNFT = () => {
                     description: err.message || "Something went wrong!",
                 });
             } finally {
-                // setIsLoading(false);
+                setIsLoading(false);
             }
         };
 
@@ -102,7 +137,6 @@ const CreateNFT = () => {
         }
 
     }, [isConnected, address, API_BASE_URL]);
-
 
 
 
@@ -117,7 +151,7 @@ const CreateNFT = () => {
             return;
         }
 
-        setIsLoading(true);
+        setIsLoadingbtn(true);
         const formData = new FormData();
         const file = fileList[0].originFileObj;
         formData.append("file", file);
@@ -166,30 +200,9 @@ const CreateNFT = () => {
             return;
         }
 
-
-        // try {
-        //     // Get provider and signer
-        //     const provider = new ethers.BrowserProvider(window.ethereum);
-        //     const signer = await provider.getSigner(); // Get the user's wallet address
-
-        //     const bytecode = NFTABI.bytecode;
-
-        //     if (!bytecode) {
-        //         throw new Error("Contract bytecode is missing. Ensure the ABI JSON includes the bytecode.");
-        //     }
-
-        //     setIsLoading(true); // Set loading state to true
-
-
-        // } catch (error) {
-        //     console.error(error.message);
-        //     notification.error({
-        //         message: "Error",
-        //         description: `Failed to deploy contract !`,
-        //     });
-        // } finally {
-        //     setIsLoading(false); // Stop loading
-        // }
+        finally {
+            setIsLoadingbtn(false);
+        }
     };
 
 
@@ -284,7 +297,7 @@ const CreateNFT = () => {
                             open={visible.upload}
                             onOpenChange={(newOpen) => handleOpenPopChange("upload", newOpen)}
                         >
-                            <Button className="NFT_button-deploy-info" type="primary" icon={<InfoCircleOutlined />}>
+                            <Button className="NFT-button NFT_button-deploy-info" type="primary" icon={<InfoCircleOutlined />}>
                                 View Deployment Info
                             </Button>
                         </Popover>
@@ -476,9 +489,10 @@ const CreateNFT = () => {
 
                             <Form.Item>
                                 <Button className="NFT-button NFT__button-submit" type="primary" htmlType="submit">
-                                    {isLoading ?
+                                    {isLoadingbtn ?
                                         <span>
-                                            <Spin indicator={<LoadingOutlined spin />} size="small" /> Deploying...
+                                            <Spin indicator={<LoadingOutlined spin />} size="small" />
+                                            <p>Deploying...</p>
                                         </span>
                                         : "Create NFT"}
                                 </Button>

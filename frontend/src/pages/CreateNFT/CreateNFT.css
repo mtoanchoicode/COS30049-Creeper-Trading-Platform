@@ -227,6 +227,14 @@
     width: 40%;
 }
 
+.NFT_button-deploy-info {
+    margin-bottom: 1rem;
+}
+
+.NFT__button-submit span {
+    display: flex;
+    flex-direction: column;
+}
 
 
 

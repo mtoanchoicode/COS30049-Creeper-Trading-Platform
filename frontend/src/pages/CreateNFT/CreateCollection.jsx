@@ -56,10 +56,7 @@ const CreateCollection = () => {
 
             const contractAddress = await nftCollection.getAddress();
 
-            // Wait for 5 confirmations (optional for extra security)
-            if (nftCollection.deploymentTransaction) {
-                await nftCollection.deploymentTransaction.wait(5);
-            }
+            await nftCollection.waitForDeployment();
 
 
             setDeployedContract(contractAddress); // Set the deployed contract address in state
@@ -75,13 +72,14 @@ const CreateCollection = () => {
             console.log(fileList[0].thumbUrl);
             await handleCreateCollection(collectionId, contractAddress, values.collectionName, fileList[0].thumbUrl);
 
-            notification.success({ 
-                message: "Contract Deployed!", 
-                description: `Address: ${contractAddress}` });
+            notification.success({
+                message: "Contract Deployed!",
+                description: `Address: ${contractAddress}`
+            });
 
-            
-            //const { collectionName, collectionSymbol } = values;
-            // Call the backend API to deploy the contract
+
+            // const { collectionName, collectionSymbol } = values;
+            // //Call the backend API to deploy the contract
             // const response = await fetch("http://localhost:3000/v1/api/nft/collection/deploy", {
             //     method: "POST",
             //     headers: { "Content-Type": "application/json" },

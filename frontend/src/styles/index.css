@@ -36,6 +36,7 @@
   --nft-collection-card: #181818;
   --nft-collection-shimmer-1: #181818;
   --nft-collection-shimmer-2: #222222;
+  --nft-collection-cover: rgb(29, 29, 29);
   --searchbar-result-background: rgba(77, 77, 77, 0.103);
   --white-color: #fdfdfd;
   --black-color: #131313;
@@ -65,6 +66,7 @@
   --nft-collection-card: #ffffff;
   --nft-collection-shimmer-1: #f4f4f4;
   --nft-collection-shimmer-2: #e8e8e8;
+  --nft-collection-cover: rgb(231, 231, 231);
   --searchbar-result-background: rgba(255, 255, 255, 0.305);
   --white-color: #131313;
   --black-color: #fdfdfd;
