@@ -4,7 +4,7 @@ import "./NFTDetails.css";
 
 import { Button, Input, Modal, notification, Tooltip } from "antd";
 import { ethers } from "ethers";
-import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { SendOutlined } from "@ant-design/icons";
 import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTDetails = () => {

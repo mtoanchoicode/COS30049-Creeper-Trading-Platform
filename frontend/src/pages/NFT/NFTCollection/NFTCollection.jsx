@@ -7,7 +7,12 @@ import {
   uploadDescriptionToDB,
   getDescriptionFromDB,
 } from "../../../utils/CollectionDetailsAPI";
-import { ExportOutlined, MoreOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  ExportOutlined,
+  MoreOutlined,
+  EditOutlined,
+  FileImageOutlined,
+} from "@ant-design/icons";
 import { Popover } from "antd";
 import { useAppKitAccount } from "@reown/appkit/react";
 
@@ -18,7 +23,13 @@ const NFTCollection = () => {
   const [date, setDate] = useState("");
   const [lengths, setLengths] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
+  const [expanded, setExpanded] = useState(false);
+  const [showEditDesc, setShowEditDesc] = useState(false);
+  const [description, setDescription] = useState("");
+  const [descriptionToChange, setDescriptionToChange] = useState(description);
+  const [bg, setBg] = useState(null);
+  const [tempBg, setTempBg] = useState(null);
+  const [imageName, setImageName] = useState("");
   const location = useLocation();
   const nft = location.state?.nft;
 
@@ -33,11 +44,32 @@ const NFTCollection = () => {
   const NFT_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
+    "function owner() view returns (address)",
     "function totalSupply() view returns (uint256)", // Only available if contract implements it
     "function tokenURI(uint256 tokenId) view returns (string)",
     "function ownerOf(uint256 tokenId) view returns (address)",
     "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
   ]; // Replace with your deployed contract
+
+  const fetchContractOwner = async () => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const contract = new ethers.Contract(
+        NFT_CONTRACT_ADDRESS,
+        NFT_ABI,
+        provider
+      );
+
+      const collectionOwner = await contract.owner();
+      console.log("Contract Owner Address:", collectionOwner);
+
+      if (address && collectionOwner) {
+        setAuthOwner(collectionOwner.toLowerCase() === address.toLowerCase());
+      }
+    } catch (error) {
+      console.error("Failed to get contract owner:", error);
+    }
+  };
 
   const fetchNFTsFromEvents = async () => {
     try {
@@ -180,13 +212,8 @@ const NFTCollection = () => {
   };
 
   useEffect(() => {
-    if (nft && nft.owner && address) {
-      setAuthOwner(nft.owner.toLowerCase() === address.toLowerCase());
-    } else {
-      setAuthOwner(false);
-    }
-
     const fetchMetadata = async () => {
+      await fetchContractOwner();
       setIsLoading(true);
       const totalNFTs = await fetchNFTsCount();
       setLengths(totalNFTs);
@@ -203,33 +230,7 @@ const NFTCollection = () => {
     };
 
     fetchMetadata().then(() => fetchNFTsData()); // Ensure first fetch finishes before second
-  }, [nft, address]);
-
-  const [expanded, setExpanded] = useState(false);
-  const text =
-    "A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories within RENGA. In its purest form, RENGA is the art of storytelling.";
-  const toggleExpanded = () => setExpanded(!expanded);
-
-  const [showEditDesc, setShowEditDesc] = useState(false);
-
-  const toggleEditDescOverlay = () => {
-    setShowEditDesc(!showEditDesc);
-    if (showEditDesc) {
-      document.body.style.overflow = "auto";
-      setDescriptionToChange(description);
-    } else {
-      document.body.style.overflow = "hidden";
-      setDescriptionToChange(description);
-    }
-  };
-  const [description, setDescription] = useState(text || "");
-  const [descriptionToChange, setDescriptionToChange] = useState(description);
-
-  const handleChangeDescription = () => {
-    setDescription(descriptionToChange);
-    uploadDescriptionToDB(NFT_CONTRACT_ADDRESS, descriptionToChange);
-    toggleEditDescOverlay();
-  };
+  }, []);
 
   useEffect(() => {
     const fetchDescription = async () => {
@@ -244,6 +245,44 @@ const NFTCollection = () => {
 
     fetchDescription();
   }, [NFT_CONTRACT_ADDRESS]);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setTempBg(imageURL); // Store it temporarily
+      setImageName(file.name);
+    }
+  };
+
+  const handleSaveImage = () => {
+    if (tempBg) {
+      setBg(tempBg); // Confirm the image
+      uploadImageToDB(NFT_CONTRACT_ADDRESS, tempBg);
+      setTempBg(null); // Clear temporary state
+    }
+  };
+
+  const handleCancelImage = () => {
+    setTempBg(null); // Reset temp image if canceled
+  };
+
+  const toggleExpanded = () => setExpanded(!expanded);
+
+  const toggleEditDescOverlay = () => {
+    setShowEditDesc(!showEditDesc);
+    if (showEditDesc) {
+      setDescriptionToChange(description);
+    } else {
+      setDescriptionToChange(description);
+    }
+  };
+
+  const handleChangeDescription = () => {
+    setDescription(descriptionToChange);
+    uploadDescriptionToDB(NFT_CONTRACT_ADDRESS, descriptionToChange);
+    toggleEditDescOverlay();
+  };
 
   const content = (
     <div className="nft-popover">
@@ -273,7 +312,7 @@ const NFTCollection = () => {
         <div className="nft-collection-description-overlay">
           <div className="nft-collection-set-description-container">
             <h2 className="nft-collection-set-description-header">
-              Edit Description
+              Edit Collection
             </h2>
             <textarea
               type="text"
@@ -283,18 +322,44 @@ const NFTCollection = () => {
               value={descriptionToChange}
               onChange={(e) => setDescriptionToChange(e.target.value)}
             ></textarea>
-            <div className="nft-collection-set-image-input"></div>
-
+            <div className="nft-collection-set-image-input">
+              {tempBg ? (
+                <div className="nft-collection-set-image-container">
+                  <div className="nft-collection-set-image-cover">
+                    <img src={tempBg} alt="Preview" className="image-preview" />
+                  </div>
+                  <p>{imageName}</p>
+                </div>
+              ) : (
+                <label htmlFor="collectionImageUpload">
+                  <FileImageOutlined />
+                  <p>Drag and drop or click to upload</p>
+                </label>
+              )}
+              <input
+                type="file"
+                id="collectionImageUpload"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+            </div>
             <div className="nft-collection-set-description-btns">
               <button
                 className="nft-collection-set-description-btn-cancel"
-                onClick={() => toggleEditDescOverlay()}
+                onClick={() => {
+                  handleCancelImage();
+                  toggleEditDescOverlay();
+                }}
               >
                 Cancel
               </button>
               <button
                 className="nft-collection-set-description-btn-save"
-                onClick={() => handleChangeDescription()}
+                onClick={() => {
+                  handleChangeDescription();
+                  handleSaveImage();
+                }}
               >
                 Save
               </button>
@@ -304,7 +369,11 @@ const NFTCollection = () => {
       )}
 
       <div className="nft-collection-header">
-        <NFTCollectionBg contractAddress={NFT_CONTRACT_ADDRESS} />
+        <NFTCollectionBg
+          contractAddress={NFT_CONTRACT_ADDRESS}
+          bg={bg}
+          tempBg={tempBg}
+        />
         <div className="nft-collection-header-bottom">
           <div className="nft-collection-header-desc">
             {!isLoading ? (

@@ -8,11 +8,11 @@
     transition: 0.3s ease;
 }
 
-.nft-collection .nft-collection-header .nft-collection-header-cover:hover{
+/* .nft-collection .nft-collection-header .nft-collection-header-cover:hover{
     transform: scale(1.1);
-}
+} */
 
-.nft-collection-header-cover-overlay{
+/* .nft-collection-header-cover-overlay{
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
     height: 100%;
     width: 100%;
@@ -22,7 +22,7 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     transition: 0.3s ease;
-}
+} */
 
 .nft-collection-header-cover-overlay-upload-label{
     position: absolute;
