@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import "./NFTDetails.css";
 
 import { Button, Tooltip } from "antd";
-import { SendOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { SendOutlined } from "@ant-design/icons";
 import { useAppKitAccount } from "@reown/appkit/react";
 
 const NFTDetails = () => {
