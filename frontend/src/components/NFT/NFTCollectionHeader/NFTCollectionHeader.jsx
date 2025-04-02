@@ -102,7 +102,7 @@ const NFTCollectionHeader = ({
     <div className="nft-popover">
       <a
         className="nft-popover-item"
-        href={`https://sepolia.etherscan.io/address/${nft.address}`}
+        href={`https://sepolia.etherscan.io/address/${contractAddress}`}
         target="_blank"
         rel="noopener noreferrer"
       >
